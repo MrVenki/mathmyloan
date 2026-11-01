@@ -89,7 +89,7 @@ async function alert(lines) {
   await fetch(`https://api.telegram.org/bot${t}/sendMessage`, {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
-    body: JSON.stringify({ chat_id: c, text: `Loan Compare rate check\n${lines.join('\n')}` }),
+    body: JSON.stringify({ chat_id: c, text: `MathMyLoan rate check\n${lines.join('\n')}` }),
   });
 }
 
@@ -105,7 +105,7 @@ async function main() {
 
   for (const s of sources) {
     try {
-      const res = await fetch(s.url, { headers: { 'user-agent': 'LoanCompareBot/0.1 (rate comparison; contact via site)' } });
+      const res = await fetch(s.url, { headers: { 'user-agent': 'MathMyLoanBot/0.1 (rate comparison; contact via site)' } });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const text = stripHtml(await res.text());
       const ex = await extract(relevantLines(text), s.bank, s.loan);

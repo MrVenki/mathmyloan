@@ -22,7 +22,7 @@ const SITES = {
   'yes-bank': ['https://www.yes.bank.in/', 'https://www.yesbank.in/'],
 };
 
-const UA = { 'user-agent': 'Mozilla/5.0 (compatible; LoanCompareLogoFetch/0.1)' };
+const UA = { 'user-agent': 'Mozilla/5.0 (compatible; MathMyLoanLogoFetch/0.1)' };
 const attr = (tag, name) => tag.match(new RegExp(`${name}\\s*=\\s*["']([^"']+)["']`, 'i'))?.[1];
 
 function candidates(html, base) {
