@@ -234,21 +234,47 @@
   });
 
   // Home page: choose a loan type, amount and tenure and see the banks ranked by cost.
+  // The ranking is already in the page from the server; this only redraws it on change.
   document.querySelectorAll('[data-quick]').forEach(function (box) {
-    var out = $('.out', box), sel = $('[name=loan]', box), data = window.QUICK || {};
+    var out = $('.out', box), data = window.QUICK || {};
     var amountEl = $('[name=amount]', box), yearsEl = $('[name=years]', box);
+    var shown = $('.amt output', box), tenure = $('.tenure', box);
+    var tabs = [].slice.call(box.querySelectorAll('[data-loan]'));
+    var active = tabs.filter(function (t) { return t.getAttribute('aria-selected') === 'true'; })[0] || tabs[0];
+    var current = active ? active.getAttribute('data-loan') : '';
+    function showAmount() {
+      var P = num(amountEl);
+      if (shown) shown.innerHTML = inr(P) + ' <small>' + words(P) + '</small>';
+    }
     function run() {
-      var d = data[sel.value], P = num(amountEl), y = num(yearsEl);
-      if (!d || !P || !y) { out.innerHTML = ''; return; }
+      var d = data[current], P = num(amountEl), y = num(yearsEl);
+      showAmount();
+      if (!d || !P || !y) return;
       out.innerHTML = rankHtml(rowsFor(d.banks, P, y), y);
     }
-    sel.addEventListener('change', function () {
-      var d = data[sel.value];
-      if (d) { amountEl.value = d.amount; yearsEl.value = d.years; hints(box); }
+    function setYears(y) {
+      yearsEl.value = y;
+      [].forEach.call(tenure.querySelectorAll('button'), function (b) { b.setAttribute('aria-pressed', String(+b.getAttribute('data-years') === +y)); });
+    }
+    tabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        var d = data[tab.getAttribute('data-loan')];
+        if (!d) return;
+        current = tab.getAttribute('data-loan');
+        tabs.forEach(function (t) { t.setAttribute('aria-selected', String(t === tab)); });
+        amountEl.min = d.min; amountEl.max = d.max; amountEl.value = d.amount;
+        tenure.innerHTML = d.tenures.map(function (t) { return '<button type="button" data-years="' + t + '" aria-pressed="false">' + t + ' yrs</button>'; }).join('');
+        setYears(d.years);
+        run();
+      });
+    });
+    tenure.addEventListener('click', function (ev) {
+      var b = ev.target.closest && ev.target.closest('[data-years]');
+      if (!b) return;
+      setYears(b.getAttribute('data-years'));
       run();
     });
-    box.addEventListener('input', run);
-    run();
+    amountEl.addEventListener('input', run);
   });
 
   // Loan hub: tick banks, set amount and tenure, compare cost at each bank's starting rate.

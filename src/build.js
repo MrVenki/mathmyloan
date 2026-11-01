@@ -23,6 +23,13 @@ const logoMap = Object.fromEntries(Object.entries(logoManifest).map(([slug, v]) 
 const monthOf = (d) => new Date(d).toLocaleString('en-IN', { month: 'long', year: 'numeric', timeZone: 'UTC' });
 const amt = (a) => String(a).replace('.', '-');
 const rate = (r) => `${Number(r.toFixed(2))}%`;
+// "₹7.47 lakh" / "₹1.2 crore" for headline figures.
+const lakhShort = (n) => {
+  const trim = (x) => x.toFixed(2).replace(/\.?0+$/, '');
+  if (n >= 1e7) return `₹${trim(n / 1e7)} crore`;
+  if (n >= 1e5) return `₹${trim(n / 1e5)} lakh`;
+  return inr(n);
+};
 // Adds the brand to a title only when it still fits in a search result (about 65 characters).
 const titled = (s) => (s.length + cfg.siteName.length + 3 <= 65 ? `${s} | ${cfg.siteName}` : s);
 const history = (() => {
@@ -44,6 +51,8 @@ const CSS = fs.readFileSync(path.join(ROOT, 'src', 'style.css'), 'utf8');
 function layout({ title, desc, url, body, crumbs = [], jsonld = [], extraScript = '', noindex = false }) {
   if (!noindex) pages.push(url);
   const trail = [{ name: 'Home', url: '/' }, ...crumbs];
+  // The call-back buttons jump to this page's form, or to the home loan page's form.
+  const callbackHref = body.includes('data-lead') ? '#callback' : href('/home-loan/#callback');
   const ld = [
     ...jsonld,
     {
@@ -64,20 +73,26 @@ ${noindex ? '<meta name="robots" content="noindex,follow">' : ''}
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(desc)}">
 <meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
 <style>${CSS}</style>
 <script type="application/ld+json">${JSON.stringify(ld).replace(/</g, '\\u003c')}</script>
 </head>
 <body>
 <header class="top"><div class="wrap"><a class="brand" href="${href('/')}"><span class="logo" aria-hidden="true">₹</span>${esc(cfg.siteName)}</a>
-<nav aria-label="Main">${loans.map((l) => `<a href="${href(`/${l.slug}/`)}">${esc(l.name)}</a>`).join('')}<a href="${href('/calculators/')}">Calculators</a><a href="${href('/loan-interest-rates/')}">All rates</a></nav></div></header>
+<nav aria-label="Main">${loans.map((l) => `<a href="${href(`/${l.slug}/`)}">${esc(l.name)}</a>`).join('')}<a href="${href('/calculators/')}">Calculators</a><a href="${href('/loan-interest-rates/')}">All rates</a></nav>
+<a class="cta-top" href="${callbackHref}">Get a free call back</a></div></header>
+${ticker()}
 <main>
-<p class="crumbs">${trail.map((c, i) => (i === trail.length - 1 ? esc(c.name) : `<a href="${href(c.url)}">${esc(c.name)}</a>`)).join(' › ')}</p>
+${url === '/' ? '' : `<p class="crumbs">${trail.map((c, i) => (i === trail.length - 1 ? esc(c.name) : `<a href="${href(c.url)}">${esc(c.name)}</a>`)).join(' › ')}</p>`}
 ${body}
 </main>
-<footer class="small">
+<footer class="site"><div class="wrap">
+<div class="cols"><b>${esc(cfg.siteName)}</b><a href="${href('/loan-interest-rates/')}">All loan rates</a><a href="${href('/calculators/')}">Calculators</a><a href="${href('/about/')}">How we check rates</a><a href="${href('/embed/')}">Free calculator for your website</a><a href="${href('/privacy/')}">Privacy</a></div>
 <p>Rates are the starting rates published on each bank's own website on the date shown, and can change without notice. Your rate depends on your credit score, income and the bank's approval. This is not financial advice or a loan offer, and we are not a bank or lender.</p>
-<p><a href="${href('/about/')}">About and how we get our data</a> · <a href="${href('/loan-interest-rates/')}">All loan rates</a> · <a href="${href('/calculators/')}">Calculators</a> · <a href="${href('/embed/')}">Free calculator for your website</a> · <a href="${href('/privacy/')}">Privacy</a></p>
-</footer>
+</div></footer>
+<div class="mbar"><a href="${href('/home-loan-eligibility-calculator/')}">Eligibility</a><a class="go" href="${callbackHref}">Free call back</a></div>
 <script>window.CALC={worker:${JSON.stringify(cfg.workerUrl)}};window.LOGOS=${JSON.stringify(logoMap)};${extraScript}</script>
 <script src="${href('/app.js')}" defer></script>
 </body>
@@ -114,7 +129,16 @@ const trustBox = (list) => `<aside class="trust-box">
 <p class="small">We only publish rates we can trace to the bank's own website, and an automated check re-reads them every week. Always confirm with the bank before you apply. <a href="${href('/about/')}">Read our method</a>.</p>
 </aside>`;
 
-const leadForm = ({ loan = '', bank = '', amount = '', heading = 'Want a call back about this loan?' } = {}) => `<form class="card" data-lead data-loan="${esc(loan)}" data-bank="${esc(bank)}">
+// Rate strip under the header: every verified home loan rate, linked to its bank page.
+function ticker() {
+  if (!homeList.length) return '';
+  const checked = new Date(homeList.map((p) => p.retrievedOn).sort().at(-1)).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
+  return `<div class="ticker"><div class="wrap"><span class="lbl">Home loan starting rates · checked ${esc(checked)}</span>${homeList
+    .map((p) => `<a href="${href(bankUrl(homeLoan, p))}">${esc(p.bankInfo.short)} <b>${p.rateFrom.toFixed(2)}%</b></a>`)
+    .join('')}</div></div>`;
+}
+
+const leadForm = ({ loan = '', bank = '', amount = '', heading = 'Want a call back about this loan?' } = {}) => `<form class="card" id="callback" data-lead data-loan="${esc(loan)}" data-bank="${esc(bank)}">
 <h2 style="margin-top:0">${esc(heading)}</h2>
 <p class="small">Share your details and a partner lender or loan advisor may call you. No fee from us.</p>
 <div class="row">
@@ -378,11 +402,86 @@ ${isHome ? toolChips() : ''}`,
   });
 }
 
+// Server-rendered ranking (same markup the browser script redraws), so search engines and
+// no-JS visitors see the comparison too.
+function rankRowsHtml(list, P, y) {
+  const rows = list
+    .map((p) => {
+      const s = summary(P, p.rateFrom, y);
+      return { p, emi: s.emi, interest: s.interest };
+    })
+    .sort((a, b) => a.interest - b.interest);
+  if (!rows.length) return '';
+  const best = rows[0];
+  const worst = rows.at(-1);
+  const max = Math.max(...rows.map((r) => r.interest)) || 1;
+  const verdict =
+    rows.length > 1
+      ? `<p class="verdict"><b>${esc(best.p.bankInfo.short)}</b> costs <b>${inr(worst.interest - best.interest)}</b> less interest than ${esc(worst.p.bankInfo.short)} over ${y} years, about <b>${inr(worst.emi - best.emi)}</b> less every month.</p>`
+      : '';
+  return (
+    verdict +
+    rows
+      .map((r, i) => {
+        const isBest = i === 0 && rows.length > 1;
+        const extra = r.interest - best.interest < 1 ? `<span class="extra">Interest ${inr(r.interest)}</span>` : `<span class="extra">+${inr(r.interest - best.interest)} more interest</span>`;
+        return `<div class="rank${isBest ? ' best' : ''}">${avatar(r.p.bankInfo.short, r.p.bank)}<span class="nm"><b><a href="${href(bankUrl(r.p.loanInfo, r.p))}">${esc(r.p.bankInfo.short)}</a>${isBest ? '<span class="badge">Lowest cost</span>' : ''}</b><span class="small">Starting rate ${rate(r.p.rateFrom)}</span></span><span class="px"><b>${inr(r.emi)}</b> / month<br>${extra}</span><span class="bar"><i style="width:${Math.max(6, Math.round((r.interest / max) * 100))}%"></i></span></div>`;
+      })
+      .join('')
+  );
+}
+
 function homePage() {
   const verified = loans.filter((l) => forLoan(l).length);
   const upcoming = loans.filter((l) => !forLoan(l).length);
-  const latest = products.map((p) => p.retrievedOn).sort().at(-1);
+  const first = verified[0];
+  const P = first ? first.defaultAmountLakh * 100000 : 5000000;
+  const Y = first ? first.defaultTenure : 20;
+  const firstList = first ? forLoan(first) : [];
+  const best = firstList[0];
+  const worst = firstList.at(-1);
+  const spread = best && worst ? summary(P, worst.rateFrom, Y).interest - summary(P, best.rateFrom, Y).interest : 0;
   const bankCount = new Set(products.map((p) => p.bank)).size;
+  const latest = products.map((p) => p.retrievedOn).sort().at(-1);
+
+  // Real worked examples for the calculator cards.
+  const r = homeLoan?.defaultRate ?? 8.5;
+  const eligibleOn1L = loanForEmi(maxEmiFor(100000, 0, 50), r, 20);
+  const base = schedule(5000000, r, 20);
+  const extra5k = schedule(5000000, r, 20, 5000);
+  const sumI = (rows) => rows.reduce((a, x) => a + x.interest, 0);
+  const saved5k = sumI(base) - sumI(extra5k);
+  const btBest = homeList[0] ? balanceTransfer(4000000, 9.5, homeList[0].rateFrom, 15, 0).monthly : 0;
+  const years = yearly(base);
+  const shares = years.map((x) => Math.round((x.interest / x.paid) * 100));
+  const bars = shares.filter((_, i) => i % 2 === 0);
+
+  const rangeOf = (l) => ({
+    min: Math.max(50000, Math.round((l.amountsLakh[0] * 100000) / 2 / 50000) * 50000),
+    max: Math.round((l.amountsLakh.at(-1) * 100000 * 1.5) / 100000) * 100000,
+  });
+  const quick = Object.fromEntries(
+    verified.map((l) => [
+      l.slug,
+      {
+        name: l.name,
+        amount: l.defaultAmountLakh * 100000,
+        years: l.defaultTenure,
+        tenures: l.tenures,
+        ...rangeOf(l),
+        banks: forLoan(l).map((p) => ({ slug: p.bank, name: p.bankInfo.short, rate: p.rateFrom, url: href(bankUrl(l, p)) })),
+      },
+    ]),
+  );
+  const fr = first ? rangeOf(first) : { min: 100000, max: 20000000 };
+
+  const qa = [
+    best && [`Which bank has the lowest home loan interest rate?`, `Among the banks we checked on ${latest}, ${best.bankInfo.name} advertises the lowest starting rate at ${rate(best.rateFrom)} a year. Your own rate depends on your credit score and income.`],
+    best && worst && [`What is the EMI on a ${lakhLabel(first.defaultAmountLakh)} home loan for ${Y} years?`, `About ${inr(emi(P, best.rateFrom, Y))} a month at ${rate(best.rateFrom)} and ${inr(emi(P, worst.rateFrom, Y))} at ${rate(worst.rateFrom)}.`],
+    [`Are these rates guaranteed?`, `No. They are the starting rates each bank publishes for its best borrowers. Most people are offered a higher rate, so use them to shortlist banks, then ask for a quote.`],
+    [`How often are the rates updated?`, `An automated check re-reads every bank's official page each week, and each rate shows the date it was checked.`],
+  ].filter(Boolean);
+
   return layout({
     title: `${cfg.siteName}: Compare Loan Interest Rates & EMI in India`,
     desc: 'Compare home, personal, car and education loan interest rates across Indian banks, with the source and check date for every rate. Free EMI, eligibility, prepayment and balance transfer calculators.',
@@ -390,63 +489,93 @@ function homePage() {
     jsonld: [
       { '@context': 'https://schema.org', '@type': 'Organization', name: cfg.siteName, url: `${cfg.siteUrl}/` },
       { '@context': 'https://schema.org', '@type': 'WebSite', name: cfg.siteName, url: `${cfg.siteUrl}/` },
+      faqLd(qa),
     ],
-    extraScript: `window.QUICK=${JSON.stringify(
-      Object.fromEntries(
-        verified.map((l) => [
-          l.slug,
-          {
-            name: l.name,
-            amount: l.defaultAmountLakh * 100000,
-            years: l.defaultTenure,
-            banks: forLoan(l).map((p) => ({ slug: p.bank, name: p.bankInfo.short, rate: p.rateFrom, url: href(bankUrl(l, p)) })),
-          },
-        ]),
-      ),
-    ).replace(/</g, '\\u003c')};`,
+    extraScript: `window.QUICK=${JSON.stringify(quick).replace(/</g, '\\u003c')};`,
     body: `<section class="hero"><div class="hero-grid">
-<div>
-<h1>Compare loan rates across <span class="grad">Indian banks</span></h1>
-<p class="lead">See which bank costs you less, in seconds. Every rate links to the bank's own page and shows the date we checked it.</p>
-<div class="pills"><span>Source on every rate</span><span>Always dated</span><span>Free, no sign-up</span></div>
+<div class="copy">
+<span class="eyebrow">Updated weekly from official bank websites</span>
+<h1>Compare home loan interest rates and see your <em>real EMI</em></h1>
+<p class="lead">Rates from ${esc(firstList.map((p) => p.bankInfo.short).join(', ').replace(/, ([^,]*)$/, ' and $1'))} side by side. Every number links to the bank's own page, so you always know it is current.</p>
+<div class="ctas"><a class="btn-lg primary" href="${href('/home-loan/')}">Compare all banks</a><a class="btn-lg ghost" href="${href('/home-loan-eligibility-calculator/')}">Check my eligibility</a></div>
+<div class="hstats">
+${best ? `<div><b>${best.rateFrom.toFixed(2)}%</b><span>Lowest home loan rate (${esc(best.bankInfo.short)})</span></div>` : ''}
+${spread ? `<div><b>${esc(lakhShort(spread))}</b><span>Cheapest vs costliest bank on ${lakhLabel(first.defaultAmountLakh)}</span></div>` : ''}
+<div><b>${bankCount} banks</b><span>Verified ${latest ? esc(monthOf(latest)) : 'this month'}</span></div>
+</div>
 </div>
 <div class="card" data-quick>
-<div class="row">
-<div><label for="qloan">Loan type</label><select id="qloan" name="loan">${verified.map((l) => `<option value="${l.slug}">${esc(l.name)}</option>`).join('')}</select></div>
-${field('Loan amount (₹)', 'amount', verified[0] ? verified[0].defaultAmountLakh * 100000 : 5000000)}
-${field('Tenure (years)', 'years', verified[0] ? verified[0].defaultTenure : 20)}
-</div>
-<div class="out" aria-live="polite"></div>
+<div class="tabs" role="tablist" aria-label="Loan type">${verified
+      .map((l, i) => `<button type="button" role="tab" data-loan="${l.slug}" aria-selected="${i === 0}">${esc(l.name.replace(/ Loan$/, ''))}</button>`)
+      .join('')}</div>
+<div class="amt"><label for="q-amount">Loan amount</label><output for="q-amount">${inr(P)} <small>${lakhLabel(P / 100000).replace('₹', '')}</small></output></div>
+<input type="range" id="q-amount" name="amount" min="${fr.min}" max="${fr.max}" step="50000" value="${P}">
+<div class="small" style="font-weight:600;margin-bottom:6px">Tenure</div>
+<div class="tenure" role="group" aria-label="Tenure in years">${(first?.tenures ?? [10, 15, 20, 25, 30])
+      .map((t) => `<button type="button" data-years="${t}" aria-pressed="${t === Y}">${t} yrs</button>`)
+      .join('')}</div>
+<input type="hidden" name="years" value="${Y}">
+<div class="out" aria-live="polite">${rankRowsHtml(firstList, P, Y)}</div>
+<a class="more" href="${href('/home-loan/')}">See all banks, fees and prepayment rules</a>
 </div>
 </div></section>
-<div class="stats">
-<div><b>${bankCount}</b><span>banks verified</span></div>
-<div><b>${verified.length}</b><span>${verified.length === 1 ? 'loan type' : 'loan types'} with rates</span></div>
-<div><b>${products.length}</b><span>rates with sources</span></div>
-<div><b>${latest ? esc(monthOf(latest)) : '-'}</b><span>last checked</span></div>
-</div>
-<h2>Compare by loan type</h2>
+
+<section class="block">
+<h2>Lowest starting rates this month</h2>
+<p class="sub">From each bank's official website${latest ? `, checked ${esc(new Date(latest).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }))}` : ''}.</p>
 <div class="grid">
-${verified.map((l) => {
-  const list = forLoan(l);
-  return `<a class="lcard" href="${href(`/${l.slug}/`)}"><span class="ico">${icon(l.slug)}</span><span><b>${esc(l.name)} rates</b><span>${list.length} bank${list.length > 1 ? 's' : ''} compared, from ${rate(list[0].rateFrom)}</span></span></a>`;
-}).join('\n')}
-${upcoming.map((l) => `<a class="lcard" href="${href(`/${l.slug}-emi-calculator/`)}"><span class="ico">${icon(l.slug)}</span><span><b>${esc(l.name)} EMI calculator</b><span>Bank rates coming soon</span></span></a>`).join('\n')}
+${verified
+  .map((l) => {
+    const list = forLoan(l);
+    return `<a class="rcard" href="${href(`/${l.slug}/`)}"><span class="k">${esc(l.name)}</span><span class="v">${list[0].rateFrom.toFixed(2)}%</span><span class="s">${esc(list[0].bankInfo.short)} · ${list.length} bank${list.length > 1 ? 's' : ''} compared</span><span class="go">Compare ${esc(l.name.toLowerCase())}s</span></a>`;
+  })
+  .join('\n')}
+${upcoming.map((l) => `<a class="rcard" href="${href(`/${l.slug}-emi-calculator/`)}"><span class="k">${esc(l.name)}</span><span class="v" style="font-size:1.4rem;padding:8px 0">Rates coming soon</span><span class="s">Use the EMI calculator meanwhile</span><span class="go">${esc(l.name)} EMI calculator</span></a>`).join('\n')}
 </div>
-<h2>Home loan calculators</h2>
-<div class="grid">${TOOLS.map((t) => `<a class="lcard" href="${href(t.url)}"><span class="ico">${icon(t.icon)}</span><span><b>${esc(t.name)}</b><span>${esc(t.desc)}</span></span></a>`).join('\n')}</div>
-<p><a href="${href('/loan-interest-rates/')}">See every bank loan interest rate we track →</a></p>
-<h2>How it works</h2>
+</section>
+
+<section class="block">
+<h2>Calculators that answer real questions</h2>
+<p class="sub">Free, instant, no sign-up.</p>
+<div class="grid">
+<a class="tcard" href="${href('/home-loan-eligibility-calculator/')}"><span class="ico">${icon('personal-loan')}</span><b>How much loan can I get?</b><span class="d">A ₹1 lakh net salary supports about <strong>${lakhShort(eligibleOn1L)}</strong> at ${rate(r)} over 20 years.</span><span class="go">Eligibility calculator</span></a>
+<a class="tcard" href="${href('/home-loan-prepayment-calculator/')}"><span class="ico g"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg></span><b>What if I pay extra?</b><span class="d">₹5,000 more a month on ₹50 lakh saves <strong>${lakhShort(saved5k)}</strong> in interest.</span><span class="go">Prepayment calculator</span></a>
+${homeList[0] ? `<a class="tcard" href="${href('/home-loan-balance-transfer-calculator/')}"><span class="ico a"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h13l-4-4"/><path d="M17 17H4l4 4"/></svg></span><b>Should I switch banks?</b><span class="d">Moving ₹40 lakh from 9.5% to ${rate(homeList[0].rateFrom)} saves about <strong>${inr(btBest)} a month</strong>.</span><span class="go">Balance transfer calculator</span></a>` : ''}
+<a class="tcard" href="${href('/home-loan-amortization-schedule/')}"><span class="ico p"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg></span><b>Where does my EMI go?</b><span class="d">See every payment split into principal and interest, month by month.</span><span class="go">Amortization schedule</span></a>
+</div>
+</section>
+
+<section class="insight">
+<div class="copy">
+<span class="k">WHY PREPAYING EARLY MATTERS</span>
+<h2>${shares[0]}% of your first year's EMIs is interest</h2>
+<p>On ₹50 lakh at ${rate(r)} over 20 years. The interest share falls every year, so extra payments in the early years save the most.</p>
+<a class="btn-lg" href="${href('/home-loan-prepayment-calculator/')}">Try the prepayment calculator</a>
+</div>
+<div class="viz">
+<div class="ibars" role="img" aria-label="Share of each year's payments that is interest, falling from ${shares[0]}% in year 1 to ${shares.at(-1)}% in year ${shares.length}">${bars
+      .map((s) => `<div><i class="i" style="flex:${s}"></i><i class="p" style="flex:${100 - s}"></i></div>`)
+      .join('')}</div>
+<div class="ilbl"><span>Year 1</span><span>Year ${Math.round(shares.length / 2)}</span><span>Year ${shares.length - 1}</span></div>
+<div class="ilegend"><span><i style="background:var(--amber)"></i>Interest</span><span><i style="background:#3b82f6"></i>Principal</span></div>
+</div>
+</section>
+
+<section class="block">
+<h2>How we check every rate</h2>
 <div class="steps">
-<div class="step"><em>1</em><b>Pick your loan</b><span>Choose the loan type, amount and tenure you need.</span></div>
-<div class="step"><em>2</em><b>See banks ranked</b><span>We rank banks by the interest you would pay, with each rate's source.</span></div>
-<div class="step"><em>3</em><b>Ask for a call back</b><span>Optional: share your number and a lender or advisor may call you. No fee from us.</span></div>
+<div class="step"><em>1</em><b>Straight from the bank</b><span>We read each bank's official loan page. No third-party figures.</span></div>
+<div class="step"><em>2</em><b>Source and date on every number</b><span>Each rate links to the page it came from and shows when we checked it.</span></div>
+<div class="step"><em>3</em><b>Re-checked every week</b><span>Unclear or conflicting rates are held back until they are confirmed.</span></div>
 </div>
-${verified.flatMap((l) => (forLoan(l).length > 1 ? [`<h2>Popular ${esc(l.name.toLowerCase())} comparisons</h2><p class="chips">${pairs(forLoan(l)).map(([a, b]) => `<a href="${href(vsUrl(l, a, b))}">${esc(a.bankInfo.short)} vs ${esc(b.bankInfo.short)}</a>`).join('')}</p>`] : [])).join('\n')}
-<h2>Free EMI calculators</h2>
-<p class="chips">${loans.map((l) => `<a href="${href(`/${l.slug}-emi-calculator/`)}">${esc(l.name)} EMI</a>`).join('')}</p>
-<h2>How we get our data</h2>
-<p>We read each bank's official loan page, record the starting rate and charges it states, and show the date. See the <a href="${href('/about/')}">about page</a> for details and limits.</p>`,
+</section>
+
+${verified.flatMap((l) => (forLoan(l).length > 1 ? [`<section class="block"><h2>Popular ${esc(l.name.toLowerCase())} comparisons</h2><p class="chips">${pairs(forLoan(l)).map(([a, b]) => `<a href="${href(vsUrl(l, a, b))}">${esc(a.bankInfo.short)} vs ${esc(b.bankInfo.short)}</a>`).join('')}</p></section>`] : [])).join('\n')}
+
+<section class="block faq">
+<h2>Common questions</h2>
+${qa.map(([q, a], i) => `<details${i === 0 ? ' open' : ''}><summary>${esc(q)}</summary><p>${esc(a)}</p></details>`).join('\n')}
+</section>`,
   });
 }
 
