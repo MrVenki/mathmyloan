@@ -405,7 +405,17 @@ ${isHome ? toolChips() : ''}`,
 
 // Server-rendered ranking (same markup the browser script redraws), so search engines and
 // no-JS visitors see the comparison too.
-function rankRowsHtml(list, P, y) {
+// "Rates from SBI, HDFC Bank and ICICI Bank" for a few banks; "Rates from 12 banks, including …" for many.
+function leadBanks(list) {
+  const join = (names) => names.join(', ').replace(/, ([^,]*)$/, ' and $1');
+  if (list.length <= 5) return `Rates from ${join(list.map((p) => p.bankInfo.short))}`;
+  const famous = ['sbi', 'hdfc-bank', 'icici-bank', 'axis-bank', 'punjab-national-bank', 'kotak-mahindra-bank'];
+  const picks = famous.map((slug) => list.find((p) => p.bank === slug)).filter(Boolean).slice(0, 5);
+  return `Rates from ${list.length} banks, including ${join(picks.map((p) => p.bankInfo.short))},`;
+}
+
+// limit caps how many rows are drawn; the verdict still compares the cheapest and costliest of all.
+function rankRowsHtml(list, P, y, limit = Infinity) {
   const rows = list
     .map((p) => {
       const s = summary(P, p.rateFrom, y);
@@ -423,6 +433,7 @@ function rankRowsHtml(list, P, y) {
   return (
     verdict +
     rows
+      .slice(0, limit)
       .map((r, i) => {
         const isBest = i === 0 && rows.length > 1;
         const extra = r.interest - best.interest < 1 ? `<span class="extra">Interest ${inr(r.interest)}</span>` : `<span class="extra">+${inr(r.interest - best.interest)} more interest</span>`;
@@ -469,6 +480,7 @@ function homePage() {
         amount: l.defaultAmountLakh * 100000,
         years: l.defaultTenure,
         tenures: l.tenures,
+        hub: href(`/${l.slug}/`),
         ...rangeOf(l),
         banks: forLoan(l).map((p) => ({ slug: p.bank, name: p.bankInfo.short, rate: p.rateFrom, url: href(bankUrl(l, p)) })),
       },
@@ -496,7 +508,7 @@ function homePage() {
     body: `<section class="hero"><div class="hero-grid">
 <div class="copy">
 <h1>Compare home loan interest rates and see your <em>real EMI</em></h1>
-<p class="lead">Rates from ${esc(firstList.map((p) => p.bankInfo.short).join(', ').replace(/, ([^,]*)$/, ' and $1'))} side by side. Every number links to the bank's own page, so you always know it is current.</p>
+<p class="lead">${esc(leadBanks(firstList))} side by side. Every number links to the bank's own page, so you always know it is current.</p>
 <div class="ctas"><a class="btn-lg primary" href="${href('/home-loan/')}">Compare all banks</a><a class="btn-lg ghost" href="${href('/home-loan-eligibility-calculator/')}">Check my eligibility</a></div>
 <div class="hstats">
 ${best ? `<div><b>${best.rateFrom.toFixed(2)}%</b><span>Lowest home loan rate (${esc(best.bankInfo.short)})</span></div>` : ''}
@@ -515,8 +527,8 @@ ${spread ? `<div><b>${esc(lakhShort(spread))}</b><span>Cheapest vs costliest ban
       .map((t) => `<button type="button" data-years="${t}" aria-pressed="${t === Y}">${t} yrs</button>`)
       .join('')}</div>
 <input type="hidden" name="years" value="${Y}">
-<div class="out" aria-live="polite">${rankRowsHtml(firstList, P, Y)}</div>
-<a class="more" href="${href('/home-loan/')}">See all banks, fees and prepayment rules</a>
+<div class="out" aria-live="polite">${rankRowsHtml(firstList, P, Y, 5)}</div>
+<a class="more" href="${href('/home-loan/')}">See all ${firstList.length} banks, fees and prepayment rules</a>
 </div>
 </div></section>
 

@@ -10,5 +10,9 @@
   { "slug": "union-bank-of-india", "name": "Union Bank of India", "short": "Union Bank" },
   { "slug": "idfc-first-bank", "name": "IDFC FIRST Bank", "short": "IDFC FIRST" },
   { "slug": "bank-of-india", "name": "Bank of India", "short": "Bank of India" },
-  { "slug": "yes-bank", "name": "YES Bank", "short": "YES Bank" }
+  { "slug": "yes-bank", "name": "YES Bank", "short": "YES Bank" },
+  { "slug": "federal-bank", "name": "Federal Bank", "short": "Federal Bank" },
+  { "slug": "indian-bank", "name": "Indian Bank", "short": "Indian Bank" },
+  { "slug": "central-bank-of-india", "name": "Central Bank of India", "short": "Central Bank" },
+  { "slug": "bank-of-maharashtra", "name": "Bank of Maharashtra", "short": "Bank of Maharashtra" }
 ]

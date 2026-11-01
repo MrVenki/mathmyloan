@@ -86,5 +86,37 @@
     "height": 96,
     "fetchedOn": "2026-11-01",
     "note": "Bank trademark, shown only to identify the bank."
+  },
+  "federal-bank": {
+    "file": "federal-bank.png",
+    "source": "https://commons.wikimedia.org/wiki/File:Federal-Bank-Logo_SVG.svg",
+    "width": 256,
+    "height": 79,
+    "fetchedOn": "2026-11-01",
+    "note": "Bank trademark, shown only to identify the bank."
+  },
+  "indian-bank": {
+    "file": "indian-bank.png",
+    "source": "https://en.wikipedia.org/wiki/File:Indian_Bank_logo_2023.png",
+    "width": 256,
+    "height": 83,
+    "fetchedOn": "2026-11-01",
+    "note": "Bank trademark, shown only to identify the bank."
+  },
+  "central-bank-of-india": {
+    "file": "central-bank-of-india.png",
+    "source": "https://en.wikipedia.org/wiki/File:Central_Bank_of_India.svg",
+    "width": 256,
+    "height": 73,
+    "fetchedOn": "2026-11-01",
+    "note": "Bank trademark, shown only to identify the bank."
+  },
+  "bank-of-maharashtra": {
+    "file": "bank-of-maharashtra.png",
+    "source": "https://commons.wikimedia.org/wiki/File:Bank_of_Maharashtra_logo.svg",
+    "width": 256,
+    "height": 77,
+    "fetchedOn": "2026-11-01",
+    "note": "Bank trademark, shown only to identify the bank."
   }
 }

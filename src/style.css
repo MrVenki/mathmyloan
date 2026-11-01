@@ -19,7 +19,7 @@ h3{font-size:1.08rem;margin:1.2rem 0 .3rem}
 /* ---- frame ---- */
 .wrap{max-width:1200px;margin:0 auto;padding:0 24px}
 @media (max-width:640px){.wrap{padding:0 16px}}
-header.top{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.96);backdrop-filter:saturate(1.4) blur(8px);border-bottom:1px solid var(--line)}
+header.top{position:relative;z-index:20;background:#fff;border-bottom:1px solid var(--line)}
 header.top .wrap{display:flex;gap:6px 20px;align-items:center;padding-top:12px;padding-bottom:12px}
 a.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.25rem;letter-spacing:-.02em;color:var(--ink);text-decoration:none;white-space:nowrap}
 .logo{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:10px;background:var(--accent);color:#fff;font-weight:800}

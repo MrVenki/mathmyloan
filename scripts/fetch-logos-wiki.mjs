@@ -22,6 +22,10 @@ const LOGOS = {
   'union-bank-of-india': ['commons.wikimedia.org', 'Union Bank of India Logo.svg'],
   'idfc-first-bank': ['commons.wikimedia.org', 'Logo of IDFC First Bank.svg'],
   'yes-bank': ['commons.wikimedia.org', 'Yes Bank SVG Logo.svg'],
+  'federal-bank': ['commons.wikimedia.org', 'Federal-Bank-Logo SVG.svg'],
+  'indian-bank': ['en.wikipedia.org', 'Indian Bank logo 2023.png'],
+  'central-bank-of-india': ['en.wikipedia.org', 'Central Bank of India.svg'],
+  'bank-of-maharashtra': ['commons.wikimedia.org', 'Bank of Maharashtra logo.svg'],
 };
 
 const manifest = fs.existsSync(MANIFEST) ? JSON.parse(fs.readFileSync(MANIFEST, 'utf8')) : {};

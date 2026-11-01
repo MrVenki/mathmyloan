@@ -72,7 +72,7 @@
   hints(document);
 
   // ---- ranked bank list with cost bars and a one-line verdict ----
-  function rankHtml(rows, years) {
+  function rankHtml(rows, years, limit) {
     var max = Math.max.apply(null, rows.map(function (r) { return r.interest; })) || 1, best = rows[0];
     var verdict = '';
     if (rows.length > 1) {
@@ -80,7 +80,7 @@
       verdict = '<p class="verdict"><b>' + best.name + '</b> costs <b>' + inr(worst.interest - best.interest) + '</b> less interest than ' + worst.name +
         ' over ' + years + ' years, about <b>' + inr(worst.emi - best.emi) + '</b> less every month.</p>';
     }
-    return verdict + rows.map(function (r, i) {
+    return verdict + rows.slice(0, limit || rows.length).map(function (r, i) {
       var isBest = i === 0 && rows.length > 1;
       var extra = r.interest - best.interest < 1 ? '' : '<span class="extra">+' + inr(r.interest - best.interest) + ' more interest</span>';
       return '<div class="rank' + (isBest ? ' best' : '') + '">' + avatar(r.name, r.slug) +
@@ -260,7 +260,12 @@
       var d = data[current], P = num(amountEl), y = num(yearsEl);
       showAmount();
       if (!d || !P || !y) return;
-      out.innerHTML = rankHtml(rowsFor(d.banks, P, y), y);
+      out.innerHTML = rankHtml(rowsFor(d.banks, P, y), y, 5);
+      var more = $('.more', box);
+      if (more) {
+        more.textContent = 'See all ' + d.banks.length + ' bank' + (d.banks.length > 1 ? 's' : '') + ', fees and prepayment rules';
+        if (d.hub) more.href = d.hub;
+      }
     }
     function setYears(y) {
       yearsEl.value = y;
