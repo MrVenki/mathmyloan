@@ -454,6 +454,7 @@ for (const v of Object.values(logoManifest)) {
   fs.copyFileSync(path.join(ROOT, 'assets', 'logos', v.file), path.join(OUT, 'logos', v.file));
 }
 write('app.js', fs.readFileSync(path.join(ROOT, 'src', 'client.js'), 'utf8'));
+if (cfg.domain) write('CNAME', cfg.domain);
 write('robots.txt', `User-agent: *\nAllow: /\nSitemap: ${cfg.siteUrl}/sitemap.xml\n`);
 write(
   'sitemap.xml',

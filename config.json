@@ -1,7 +1,8 @@
 {
-  "siteName": "Loan Compare India",
-  "siteUrl": "https://mrvenki.github.io/loan-compare",
-  "basePath": "/loan-compare",
+  "siteName": "MathMyLoan",
+  "domain": "mathmyloan.com",
+  "siteUrl": "https://mathmyloan.com",
+  "basePath": "",
   "workerUrl": "https://deal-redirect.helloagents.workers.dev",
   "indexNowKey": "5d2b8f0c7e1a49b3a6c4d9e8f1b27a30",
   "contactEmail": "",
