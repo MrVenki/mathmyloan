@@ -1,4 +1,4 @@
-# Loan Compare India
+# MathMyLoan
 
 SEO-first static site comparing loan rates, fees and EMI across Indian banks, for home, personal, car, education and property loans. Generated from `data/products.json`; zero dependencies.
 
