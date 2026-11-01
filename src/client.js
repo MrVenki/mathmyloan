@@ -187,7 +187,7 @@
           return '<div class="rank' + (i === 0 && banks.length > 1 ? ' best' : '') + '">' + avatar(b.name, b.slug) +
             '<span class="nm"><b><a href="' + b.url + '">' + b.name + '</a>' + (i === 0 && banks.length > 1 ? '<span class="badge">Highest amount</span>' : '') + '</b><span class="small">Starting rate ' + b.rate + '%</span></span>' +
             '<span class="px"><b>' + inr(b.loan) + '</b><br><span class="extra">eligible loan</span></span></div>';
-        }).join('') + '<p class="small">Best case at advertised starting rates; your offered rate may be higher.</p>' : '');
+        }).join('') + '<p class="small">Best case at advertised starting rates; your offered rate may vary.</p>' : '');
     }
     box.addEventListener('input', run);
     run();
@@ -218,7 +218,7 @@
         return '<div class="rank' + (i === 0 && banks.length > 1 ? ' best' : '') + '">' + avatar(c.b.name, c.b.slug) +
           '<span class="nm"><b><a href="' + c.b.url + '">' + c.b.name + '</a>' + (i === 0 && banks.length > 1 ? '<span class="badge">Biggest saving</span>' : '') + '</b><span class="small">Starting rate ' + c.b.rate + '%</span></span>' +
           '<span class="px"><b>' + inr(c.monthly) + '</b> / month<br><span class="extra">Net ' + inr(c.net) + '</span></span></div>';
-      }).join('') + '<p class="small">Best case at advertised starting rates; your offered rate may be higher.</p>' : '');
+      }).join('') + '<p class="small">Best case at advertised starting rates; your offered rate may vary.</p>' : '');
     }
     box.addEventListener('input', run);
     run();
