@@ -25,6 +25,36 @@
     run();
   });
 
+  // Home page: choose a loan type, amount and tenure and see the banks ranked by cost.
+  document.querySelectorAll('[data-quick]').forEach(function (box) {
+    var out = $('.out', box), sel = $('[name=loan]', box);
+    var data = window.QUICK || {};
+    var amountEl = $('[name=amount]', box), yearsEl = $('[name=years]', box);
+    function run() {
+      var d = data[sel.value];
+      if (!d) { out.innerHTML = ''; return; }
+      var P = num(amountEl), y = num(yearsEl);
+      if (!P || !y) { out.innerHTML = ''; return; }
+      var rows = d.banks.map(function (b) {
+        var e = emi(P, b.rate, y);
+        return { b: b, emi: e, interest: e * y * 12 - P };
+      }).sort(function (a, c) { return a.interest - c.interest; });
+      out.innerHTML = rows.map(function (r, i) {
+        return '<div class="rank"><span><b><a href="' + r.b.url + '">' + r.b.name + '</a></b>' +
+          (i === 0 && rows.length > 1 ? '<span class="badge">Lowest cost</span>' : '') +
+          '<br><span class="small">Starting rate ' + r.b.rate + '%</span></span>' +
+          '<span style="text-align:right"><b>' + inr(r.emi) + '</b> / month<br><span class="small">Interest ' + inr(r.interest) + '</span></span></div>';
+      }).join('') + '<p class="small">At each bank\'s advertised starting rate. Your own rate may be higher.</p>';
+    }
+    sel.addEventListener('change', function () {
+      var d = data[sel.value];
+      if (d) { amountEl.value = d.amount; yearsEl.value = d.years; }
+      run();
+    });
+    box.addEventListener('input', run);
+    run();
+  });
+
   // Pick banks, set amount and tenure, see EMI and extra interest at each bank's starting rate.
   document.querySelectorAll('[data-compare]').forEach(function (box) {
     var out = $('.out', box);

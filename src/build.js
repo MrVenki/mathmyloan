@@ -21,36 +21,10 @@ function write(rel, content) {
   fs.writeFileSync(file, content);
 }
 
-const CSS = `
-:root{--bg:#fff;--fg:#1b1f23;--muted:#5b6670;--card:#f4f6f8;--accent:#0b5cad;--on:#fff;--line:#dfe3e8;--warn:#8a5a00}
-@media (prefers-color-scheme:dark){:root{--bg:#14171a;--fg:#e8eaed;--muted:#9aa4ad;--card:#1e2328;--accent:#6cb2ff;--on:#0b1622;--line:#2d343b;--warn:#e0b060}}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,sans-serif}
-header,main,footer{max-width:820px;margin:0 auto;padding:12px 16px}
-header{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between}
-header a.brand{font-weight:700;color:var(--fg);text-decoration:none}
-nav a{margin-right:12px;color:var(--accent)}
-h1{font-size:1.6rem;line-height:1.25} h2{font-size:1.2rem;margin-top:1.8rem} h3{font-size:1rem;margin:1rem 0 .2rem}
-a{color:var(--accent)}
-.crumbs{font-size:.85rem;color:var(--muted)}
-.card{background:var(--card);border-radius:12px;padding:14px 16px;margin:14px 0}
-label{display:block;font-size:.9rem;margin:8px 0 2px;color:var(--muted)}
-input[type=number],input[type=text],input[type=tel]{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--fg);font-size:1rem}
-.row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
-@media (max-width:560px){.row{grid-template-columns:1fr}}
-.big{font-size:1.8rem;font-weight:700} .big span{font-size:.95rem;font-weight:400;color:var(--muted)}
-button{background:var(--accent);color:var(--on);border:0;border-radius:8px;padding:10px 16px;font-size:1rem;font-weight:600;cursor:pointer;margin-top:10px}
-table{width:100%;border-collapse:collapse;font-size:.92rem} th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:right;vertical-align:top} th:first-child,td:first-child{text-align:left}
-.scroll{overflow-x:auto}
-.muted,.small{color:var(--muted);font-size:.85rem}
-.note{border-left:4px solid var(--warn);padding:6px 12px;margin:12px 0;font-size:.9rem}
-.chips a{display:inline-block;margin:3px 6px 3px 0;padding:4px 10px;border:1px solid var(--line);border-radius:999px;text-decoration:none;font-size:.9rem}
-.picks{display:flex;flex-wrap:wrap;gap:6px 14px;margin:6px 0} .picks label{display:flex;gap:6px;align-items:center;color:var(--fg);margin:0}
-.hp{position:absolute;left:-9999px}
-`;
+const CSS = fs.readFileSync(path.join(ROOT, 'src', 'style.css'), 'utf8');
 
-function layout({ title, desc, url, body, crumbs = [], jsonld = [], extraScript = '' }) {
-  pages.push(url);
+function layout({ title, desc, url, body, crumbs = [], jsonld = [], extraScript = '', noindex = false }) {
+  if (!noindex) pages.push(url);
   const trail = [{ name: 'Home', url: '/' }, ...crumbs];
   const ld = [
     ...jsonld,
@@ -68,6 +42,7 @@ function layout({ title, desc, url, body, crumbs = [], jsonld = [], extraScript 
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(desc)}">
 <link rel="canonical" href="${esc(cfg.siteUrl + url)}">
+${noindex ? '<meta name="robots" content="noindex,follow">' : ''}
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(desc)}">
 <meta property="og:type" content="website">
@@ -75,8 +50,8 @@ function layout({ title, desc, url, body, crumbs = [], jsonld = [], extraScript 
 <script type="application/ld+json">${JSON.stringify(ld).replace(/</g, '\\u003c')}</script>
 </head>
 <body>
-<header><a class="brand" href="${href('/')}">${esc(cfg.siteName)}</a>
-<nav>${loans.map((l) => `<a href="${href(`/${l.slug}/`)}">${esc(l.name)}</a>`).join('')}</nav></header>
+<header class="top"><div class="wrap"><a class="brand" href="${href('/')}"><span class="logo" aria-hidden="true">₹</span>${esc(cfg.siteName)}</a>
+<nav aria-label="Loan types">${loans.map((l) => `<a href="${href(`/${l.slug}/`)}">${esc(l.name)}</a>`).join('')}</nav></div></header>
 <main>
 <p class="crumbs">${trail.map((c, i) => (i === trail.length - 1 ? esc(c.name) : `<a href="${href(c.url)}">${esc(c.name)}</a>`)).join(' › ')}</p>
 ${body}
@@ -135,7 +110,7 @@ function loanHub(loan) {
   const list = forLoan(loan);
   const rows = list
     .map(
-      (p) => `<tr><td><a href="${href(bankUrl(loan, p))}">${esc(p.bankInfo.name)}</a></td><td>${rate(p.rateFrom)}</td><td>${esc(p.fee ?? 'Not stated on page')}</td><td>${esc(p.prepayment ?? 'Not stated on page')}</td><td>${p.maxTenureYears ? `${p.maxTenureYears} yrs` : '-'}</td></tr>`,
+      (p, i) => `<tr><td><a href="${href(bankUrl(loan, p))}">${esc(p.bankInfo.name)}</a>${i === 0 && list.length > 1 ? '<span class="badge">Lowest rate</span>' : ''}</td><td>${rate(p.rateFrom)}</td><td>${esc(p.fee ?? 'Not stated on page')}</td><td>${esc(p.prepayment ?? 'Not stated on page')}</td><td>${p.maxTenureYears ? `${p.maxTenureYears} yrs` : '-'}</td></tr>`,
     )
     .join('');
   const P = loan.defaultAmountLakh * 100000;
@@ -163,9 +138,16 @@ function loanHub(loan) {
     url: `/${loan.slug}/`,
     crumbs: [{ name: loan.name, url: `/${loan.slug}/` }],
     jsonld: qa.length ? [faqLd(qa)] : [],
+    noindex: !best,
     extraScript: `window.PRODUCTS=${JSON.stringify(list.map((p) => ({ slug: p.bank, name: p.bankInfo.short, rate: p.rateFrom }))).replace(/</g, '\\u003c')};`,
     body: `<h1>${esc(loan.name)} Interest Rates Compared</h1>
-<p>${esc(loan.blurb)}</p>
+<p class="lead">${esc(loan.blurb)}</p>
+${best ? `<div class="tiles">
+<div class="tile"><span>Lowest starting rate</span><b>${rate(best.rateFrom)}</b><span>${esc(best.bankInfo.short)}</span></div>
+<div class="tile"><span>EMI at that rate</span><b>${inr(emi(P, best.rateFrom, loan.defaultTenure))}</b><span>${lakhLabel(loan.defaultAmountLakh)}, ${loan.defaultTenure} years</span></div>
+<div class="tile"><span>Banks compared</span><b>${list.length}</b><span>each with its source</span></div>
+<div class="tile"><span>Last checked</span><b>${esc(monthOf(list.map((p) => p.retrievedOn).sort().at(-1)))}</b><span>from bank websites</span></div>
+</div>` : ''}
 ${compare}
 ${stdNote}
 ${calcWidget(P, loan.defaultRate, loan.defaultTenure)}
@@ -208,6 +190,12 @@ function bankPage(loan, p) {
     jsonld: [faqLd(qa)],
     body: `<h1>${esc(name)} ${esc(loan.name)}: Interest Rate, Fees and EMI</h1>
 <p>${esc(name)} advertises ${esc(loan.name.toLowerCase())} rates starting from <b>${rate(p.rateFrom)}</b> per annum. For ${lakhLabel(loan.defaultAmountLakh)} over ${loan.defaultTenure} years that is an EMI of about <b>${inr(s.emi)}</b> a month.</p>
+<div class="tiles">
+<div class="tile"><span>Starting rate</span><b>${rate(p.rateFrom)}</b><span>per annum</span></div>
+<div class="tile"><span>EMI</span><b>${inr(s.emi)}</b><span>${lakhLabel(loan.defaultAmountLakh)}, ${loan.defaultTenure} years</span></div>
+<div class="tile"><span>Total interest</span><b>${inr(s.interest)}</b><span>over the full term</span></div>
+<div class="tile"><span>Max tenure</span><b>${p.maxTenureYears ? `${p.maxTenureYears} yrs` : 'n/a'}</b><span>as stated by the bank</span></div>
+</div>
 <p class="small">${sourceLine(p)}</p>
 <div class="scroll"><table><tbody>${specs.map(([k, v]) => `<tr><td>${esc(k)}</td><td style="text-align:left">${esc(v)}</td></tr>`).join('')}</tbody></table></div>
 ${stdNote}
@@ -314,16 +302,53 @@ ${leadForm({ loan: loan.slug, amount: P })}`,
 }
 
 function homePage() {
+  const verified = loans.filter((l) => forLoan(l).length);
+  const upcoming = loans.filter((l) => !forLoan(l).length);
   return layout({
     title: `${cfg.siteName}: Compare Loan Interest Rates, Fees and EMI`,
     desc: 'Compare home, personal, car, education and property loan rates across Indian banks, with the source and check date for every rate, plus free EMI calculators.',
     url: '/',
-    body: `<h1>Compare loan rates across Indian banks</h1>
-<p>Every rate on this site comes from the bank's own website, with a link to the source and the date we checked it. Rates we cannot verify are not shown.</p>
-${loans.map((l) => {
+    extraScript: `window.QUICK=${JSON.stringify(
+      Object.fromEntries(
+        loans.filter((l) => forLoan(l).length).map((l) => [
+          l.slug,
+          {
+            name: l.name,
+            amount: l.defaultAmountLakh * 100000,
+            years: l.defaultTenure,
+            banks: forLoan(l).map((p) => ({ name: p.bankInfo.short, rate: p.rateFrom, url: href(bankUrl(l, p)) })),
+          },
+        ]),
+      ),
+    ).replace(/</g, '\\u003c')};`,
+    body: `<section class="hero">
+<h1>Compare loan rates across Indian banks</h1>
+<p class="lead">See which bank charges less for your loan. Every rate links to the bank's own page and shows the date we checked it.</p>
+<div class="card" data-quick>
+<div class="row">
+<div><label for="qloan">Loan type</label><select id="qloan" name="loan">${verified.map((l) => `<option value="${l.slug}">${esc(l.name)}</option>`).join('')}</select></div>
+${field('Loan amount (₹)', 'amount', verified[0] ? verified[0].defaultAmountLakh * 100000 : 5000000)}
+${field('Tenure (years)', 'years', verified[0] ? verified[0].defaultTenure : 20)}
+</div>
+<div class="out" aria-live="polite"></div>
+</div>
+</section>
+<div class="trust">
+<div><b>Every rate has a source</b>Linked to the bank's own page.</div>
+<div><b>Always dated</b>We show when each rate was checked.</div>
+<div><b>No guesswork</b>Rates we cannot verify are not shown.</div>
+</div>
+<h2>Loan rates by type</h2>
+<div class="grid">
+${verified.map((l) => {
   const list = forLoan(l);
-  return `<div class="card"><p style="margin:0"><a href="${href(`/${l.slug}/`)}"><b>${esc(l.name)} rates</b></a>${list.length ? ` <span class="muted">· ${list.length} bank${list.length > 1 ? 's' : ''} compared, from ${rate(list[0].rateFrom)}</span>` : ' <span class="muted">· rates being verified</span>'}<br><a href="${href(`/${l.slug}-emi-calculator/`)}">${esc(l.name)} EMI calculator</a></p></div>`;
+  return `<a class="lcard" href="${href(`/${l.slug}/`)}"><b>${esc(l.name)} rates</b><span>${list.length} bank${list.length > 1 ? 's' : ''} compared, from ${rate(list[0].rateFrom)}</span></a>`;
 }).join('\n')}
+</div>
+${upcoming.length ? `<p class="small">More coming as we verify them: ${upcoming.map((l) => `<a href="${href(`/${l.slug}-emi-calculator/`)}">${esc(l.name)} EMI calculator</a>`).join(' · ')}</p>` : ''}
+${verified.flatMap((l) => (forLoan(l).length > 1 ? [`<h2>Popular ${esc(l.name.toLowerCase())} comparisons</h2><p class="chips">${pairs(forLoan(l)).map(([a, b]) => `<a href="${href(vsUrl(l, a, b))}">${esc(a.bankInfo.short)} vs ${esc(b.bankInfo.short)}</a>`).join('')}</p>`] : [])).join('\n')}
+<h2>Free EMI calculators</h2>
+<p class="chips">${loans.map((l) => `<a href="${href(`/${l.slug}-emi-calculator/`)}">${esc(l.name)} EMI</a>`).join('')}</p>
 <h2>How we get our data</h2>
 <p>We read each bank's official loan page, record the starting rate and charges it states, and show the date. See the <a href="${href('/about/')}">about page</a> for details and limits.</p>`,
   });
