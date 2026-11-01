@@ -1,42 +1,90 @@
 {
   "sbi": {
-    "file": "sbi.ico",
-    "source": "https://sbi.bank.in/o/SBI-Theme/images/favicon.ico",
-    "fetchedOn": "2026-11-01"
+    "file": "sbi.png",
+    "source": "https://commons.wikimedia.org/wiki/File:SBI-logo.svg",
+    "width": 256,
+    "height": 256,
+    "fetchedOn": "2026-11-01",
+    "note": "Bank trademark, shown only to identify the bank."
   },
   "hdfc-bank": {
-    "file": "hdfc-bank.ico",
-    "source": "https://www.hdfc.bank.in/favicon.ico",
-    "fetchedOn": "2026-11-01"
+    "file": "hdfc-bank.png",
+    "source": "https://commons.wikimedia.org/wiki/File:HDFC_Bank_Logo.svg",
+    "width": 256,
+    "height": 44,
+    "fetchedOn": "2026-11-01",
+    "note": "Bank trademark, shown only to identify the bank."
   },
   "icici-bank": {
-    "file": "icici-bank.ico",
-    "source": "https://www.icici.bank.in/favicon.ico",
-    "fetchedOn": "2026-11-01"
+    "file": "icici-bank.png",
+    "source": "https://commons.wikimedia.org/wiki/File:ICICI_Bank_Logo.svg",
+    "width": 256,
+    "height": 51,
+    "fetchedOn": "2026-11-01",
+    "note": "Bank trademark, shown only to identify the bank."
   },
   "axis-bank": {
-    "file": "axis-bank.ico",
-    "source": "https://www.axis.bank.in/assets/images/favicon.ico",
-    "fetchedOn": "2026-11-01"
+    "file": "axis-bank.png",
+    "source": "https://commons.wikimedia.org/wiki/File:Axis_Bank_logo.svg",
+    "width": 256,
+    "height": 67,
+    "fetchedOn": "2026-11-01",
+    "note": "Bank trademark, shown only to identify the bank."
   },
   "kotak-mahindra-bank": {
-    "file": "kotak-mahindra-bank.ico",
-    "source": "https://www.kotak.bank.in/etc/designs/kotak/clientlib-site/images/favicon.ico",
-    "fetchedOn": "2026-11-01"
+    "file": "kotak-mahindra-bank.png",
+    "source": "https://en.wikipedia.org/wiki/File:Kotak_Mahindra_Bank_logo.svg",
+    "width": 256,
+    "height": 70,
+    "fetchedOn": "2026-11-01",
+    "note": "Bank trademark, shown only to identify the bank."
   },
   "punjab-national-bank": {
-    "file": "punjab-national-bank.ico",
-    "source": "https://pnb.bank.in/images/favicon.ico",
-    "fetchedOn": "2026-11-01"
+    "file": "punjab-national-bank.png",
+    "source": "https://commons.wikimedia.org/wiki/File:Punjab_National_Bank_new_logo.svg",
+    "width": 256,
+    "height": 104,
+    "fetchedOn": "2026-11-01",
+    "note": "Bank trademark, shown only to identify the bank."
   },
   "canara-bank": {
     "file": "canara-bank.png",
-    "source": "https://www.canarabank.bank.in/documents/20126/33915/fevicon.png/666e26af-cafc-b26d-eb4b-a33d3417c5ba",
-    "fetchedOn": "2026-11-01"
+    "source": "https://commons.wikimedia.org/wiki/File:Canara_Bank_Logo.svg",
+    "width": 256,
+    "height": 51,
+    "fetchedOn": "2026-11-01",
+    "note": "Bank trademark, shown only to identify the bank."
   },
   "idfc-first-bank": {
-    "file": "idfc-first-bank.ico",
-    "source": "https://www.idfcfirst.bank.in/content/dam/idfcfirstbank/images/common/favicon.ico",
-    "fetchedOn": "2026-11-01"
+    "file": "idfc-first-bank.png",
+    "source": "https://commons.wikimedia.org/wiki/File:Logo_of_IDFC_First_Bank.svg",
+    "width": 256,
+    "height": 91,
+    "fetchedOn": "2026-11-01",
+    "note": "Bank trademark, shown only to identify the bank."
+  },
+  "bank-of-baroda": {
+    "file": "bank-of-baroda.png",
+    "source": "https://en.wikipedia.org/wiki/File:BankOfBarodaLogo.svg",
+    "width": 256,
+    "height": 90,
+    "fetchedOn": "2026-11-01",
+    "note": "Bank trademark, shown only to identify the bank."
+  },
+  "union-bank-of-india": {
+    "file": "union-bank-of-india.png",
+    "source": "https://commons.wikimedia.org/wiki/File:Union_Bank_of_India_Logo.svg",
+    "width": 256,
+    "height": 54,
+    "fetchedOn": "2026-11-01",
+    "note": "Bank trademark, shown only to identify the bank."
+  },
+  "yes-bank": {
+    "file": "yes-bank.png",
+    "source": "https://commons.wikimedia.org/wiki/File:Yes_Bank_SVG_Logo.svg",
+    "width": 256,
+    "height": 96,
+    "fetchedOn": "2026-11-01",
+    "note": "Bank trademark, shown only to identify the bank."
   }
 }
