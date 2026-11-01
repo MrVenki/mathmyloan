@@ -81,8 +81,10 @@ ${noindex ? '<meta name="robots" content="noindex,follow">' : ''}
 </head>
 <body>
 <header class="top"><div class="wrap"><a class="brand" href="${href('/')}"><span class="logo" aria-hidden="true">₹</span>${esc(cfg.siteName)}</a>
-<nav aria-label="Main">${loans.map((l) => `<a href="${href(`/${l.slug}/`)}">${esc(l.name)}</a>`).join('')}<a href="${href('/calculators/')}">Calculators</a><a href="${href('/loan-interest-rates/')}">All rates</a></nav>
-<a class="cta-top" href="${callbackHref}">Get a free call back</a></div></header>
+<nav id="main-nav" aria-label="Main">${loans.map((l) => `<a href="${href(`/${l.slug}/`)}">${esc(l.name)}</a>`).join('')}<a href="${href('/calculators/')}">Calculators</a><a href="${href('/loan-interest-rates/')}">All rates</a></nav>
+<a class="cta-top" href="${callbackHref}">Free call back</a>
+<button type="button" class="menu-btn" aria-expanded="false" aria-controls="main-nav" aria-label="Open menu"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg></button></div></header>
+<noscript><style>#main-nav{display:flex!important}.menu-btn{display:none!important}</style></noscript>
 ${ticker()}
 <main>
 ${url === '/' ? '' : `<p class="crumbs">${trail.map((c, i) => (i === trail.length - 1 ? esc(c.name) : `<a href="${href(c.url)}">${esc(c.name)}</a>`)).join(' › ')}</p>`}
@@ -132,8 +134,7 @@ const trustBox = (list) => `<aside class="trust-box">
 // Rate strip under the header: every verified home loan rate, linked to its bank page.
 function ticker() {
   if (!homeList.length) return '';
-  const checked = new Date(homeList.map((p) => p.retrievedOn).sort().at(-1)).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
-  return `<div class="ticker"><div class="wrap"><span class="lbl">Home loan starting rates · checked ${esc(checked)}</span>${homeList
+  return `<div class="ticker"><div class="wrap"><span class="lbl">Home loan starting rates</span>${homeList
     .map((p) => `<a href="${href(bankUrl(homeLoan, p))}">${esc(p.bankInfo.short)} <b>${p.rateFrom.toFixed(2)}%</b></a>`)
     .join('')}</div></div>`;
 }
@@ -494,7 +495,6 @@ function homePage() {
     extraScript: `window.QUICK=${JSON.stringify(quick).replace(/</g, '\\u003c')};`,
     body: `<section class="hero"><div class="hero-grid">
 <div class="copy">
-<span class="eyebrow">Updated weekly from official bank websites</span>
 <h1>Compare home loan interest rates and see your <em>real EMI</em></h1>
 <p class="lead">Rates from ${esc(firstList.map((p) => p.bankInfo.short).join(', ').replace(/, ([^,]*)$/, ' and $1'))} side by side. Every number links to the bank's own page, so you always know it is current.</p>
 <div class="ctas"><a class="btn-lg primary" href="${href('/home-loan/')}">Compare all banks</a><a class="btn-lg ghost" href="${href('/home-loan-eligibility-calculator/')}">Check my eligibility</a></div>

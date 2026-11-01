@@ -224,6 +224,16 @@
     run();
   });
 
+  // Header menu button (narrow screens). The links are always in the HTML; this only shows them.
+  var menuBtn = $('.menu-btn'), mainNav = document.getElementById('main-nav');
+  if (menuBtn && mainNav) {
+    menuBtn.addEventListener('click', function () {
+      var open = mainNav.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', String(open));
+      menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    });
+  }
+
   // Copy-to-clipboard buttons (embed code).
   document.querySelectorAll('[data-copy]').forEach(function (btn) {
     btn.addEventListener('click', function () {
