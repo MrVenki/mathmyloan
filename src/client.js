@@ -31,11 +31,18 @@
   }
 
   // Same maths as src/math.js: month-by-month schedule with optional extra payments.
-  function schedule(P, rate, years, extraM, extraY) {
+  function loanForEmi(e, rate, years) {
+    var n = years * 12, r = rate / 1200;
+    if (!r) return e * n;
+    var f = Math.pow(1 + r, n);
+    return (e * (f - 1)) / (r * f);
+  }
+
+  function schedule(P, rate, years, extraM, extraY, lump, lumpAt) {
     var r = rate / 1200, e = emi(P, rate, years), rows = [], bal = P;
     for (var m = 1; bal > 0.5 && m <= years * 12 + 1; m++) {
       var interest = bal * r;
-      var extra = (extraM || 0) + (m % 12 === 0 ? (extraY || 0) : 0);
+      var extra = (extraM || 0) + (m % 12 === 0 ? (extraY || 0) : 0) + (m === lumpAt ? (lump || 0) : 0);
       var principal = Math.min(bal, Math.max(0, e - interest) + extra);
       bal -= principal;
       rows.push({ m: m, interest: interest, principal: principal, paid: interest + principal, balance: Math.max(0, bal) });
@@ -131,12 +138,14 @@
   var uid = 0;
   document.querySelectorAll('[data-calc]').forEach(function (box) {
     box._id = ++uid;
+    box._view = box.getAttribute('data-view-default') || 'yearly';
     var out = $('.out', box);
     function run() {
       var P = num($('[name=amount]', box)), rate = num($('[name=rate]', box)), y = num($('[name=years]', box));
       var xm = num($('[name=extraM]', box)), xy = num($('[name=extraY]', box));
+      var lump = num($('[name=lump]', box)), lumpAt = Math.round(num($('[name=lumpAt]', box))) || 1;
       if (!P || !y) { out.innerHTML = ''; return; }
-      var base = schedule(P, rate, y, 0, 0), rows = xm || xy ? schedule(P, rate, y, xm, xy) : base;
+      var base = schedule(P, rate, y, 0, 0, 0, 0), rows = xm || xy || lump ? schedule(P, rate, y, xm, xy, lump, lumpAt) : base;
       var e = emi(P, rate, y), interest = sum(rows, 'interest'), paid = P + interest;
       var saved = sum(base, 'interest') - interest;
       out.innerHTML = '<div class="calcout"><div><div class="big">' + inr(e) + '<span> per month</span></div>' +
@@ -156,6 +165,72 @@
       run();
     });
     run();
+  });
+
+  // Eligibility: income and existing EMIs -> maximum EMI -> loan, home budget, and loan per bank.
+  var LTV = function (loan) { return loan <= 3e6 ? 0.9 : loan <= 7.5e6 ? 0.8 : 0.75; };
+  document.querySelectorAll('[data-elig]').forEach(function (box) {
+    var out = $('.out', box), products = window.PRODUCTS || [];
+    function run() {
+      var inc = num($('[name=income]', box)), ex = num($('[name=existing]', box));
+      var rate = num($('[name=rate]', box)), y = num($('[name=years]', box)), foir = num($('[name=foir]', box)) || 50;
+      var maxE = Math.max(0, (inc * foir) / 100 - ex);
+      if (!inc || !y) { out.innerHTML = '<p>Enter your income to see an estimate.</p>'; return; }
+      if (!maxE) { out.innerHTML = '<p class="verdict">Your existing EMIs already use your ' + foir + '% limit, so lenders are unlikely to offer a new loan until they come down.</p>'; return; }
+      var loan = loanForEmi(maxE, rate, y), home = loan / LTV(loan);
+      var banks = products.map(function (b) { return { name: b.name, slug: b.slug, url: b.url, rate: b.rate, loan: loanForEmi(maxE, b.rate, y) }; })
+        .sort(function (a, c) { return c.loan - a.loan; });
+      out.innerHTML = '<div class="big">' + inr(loan) + '<span> estimated home loan</span></div>' +
+        '<p>Your EMI can be up to <b>' + inr(maxE) + '</b> a month (' + foir + '% of income minus existing EMIs).</p>' +
+        '<p class="saving">That could buy a home worth about <b>' + inr(home) + '</b>, with about <b>' + inr(home - loan) + '</b> as your own down payment (RBI loan-to-value limits), plus stamp duty and registration.</p>' +
+        (banks.length ? '<h3>At each bank\'s starting rate</h3>' + banks.map(function (b, i) {
+          return '<div class="rank' + (i === 0 && banks.length > 1 ? ' best' : '') + '">' + avatar(b.name, b.slug) +
+            '<span class="nm"><b><a href="' + b.url + '">' + b.name + '</a>' + (i === 0 && banks.length > 1 ? '<span class="badge">Highest amount</span>' : '') + '</b><span class="small">Starting rate ' + b.rate + '%</span></span>' +
+            '<span class="px"><b>' + inr(b.loan) + '</b><br><span class="extra">eligible loan</span></span></div>';
+        }).join('') + '<p class="small">Best case at advertised starting rates; your offered rate may be higher.</p>' : '');
+    }
+    box.addEventListener('input', run);
+    run();
+  });
+
+  // Balance transfer: same remaining tenure at a new rate, minus one-off fees.
+  document.querySelectorAll('[data-bt]').forEach(function (box) {
+    var out = $('.out', box), products = window.PRODUCTS || [];
+    function calc(O, oldR, newR, y, fees) {
+      var a = emi(O, oldR, y), b = emi(O, newR, y), m = a - b;
+      return { oldEmi: a, newEmi: b, monthly: m, net: m * y * 12 - fees, be: m > 0 ? Math.ceil(fees / m) : null };
+    }
+    function run() {
+      var O = num($('[name=outstanding]', box)), oldR = num($('[name=oldRate]', box)), y = num($('[name=years]', box));
+      var newR = num($('[name=newRate]', box)), fees = num($('[name=fees]', box));
+      if (!O || !y) { out.innerHTML = ''; return; }
+      var r = calc(O, oldR, newR, y, fees);
+      var head = r.monthly <= 0
+        ? '<p class="verdict">The new rate is not lower than your current rate, so a transfer would not save money.</p>'
+        : '<div class="big">' + inr(r.monthly) + '<span> saved per month</span></div>' +
+          '<p>EMI drops from <b>' + inr(r.oldEmi) + '</b> to <b>' + inr(r.newEmi) + '</b>.</p>' +
+          (r.net > 0
+            ? '<p class="saving">After ' + inr(fees) + ' in fees you save about <b>' + inr(r.net) + '</b> over ' + y + ' years. The fees are earned back in about <b>' + r.be + ' months</b>.</p>'
+            : '<p class="verdict">The fees are larger than the savings, so this transfer would cost you money.</p>');
+      var banks = products.map(function (b) { var c = calc(O, oldR, b.rate, y, fees); c.b = b; return c; })
+        .filter(function (c) { return c.monthly > 0; }).sort(function (a, c) { return c.net - a.net; });
+      out.innerHTML = head + (banks.length ? '<h3>If you moved to each bank at its starting rate</h3>' + banks.map(function (c, i) {
+        return '<div class="rank' + (i === 0 && banks.length > 1 ? ' best' : '') + '">' + avatar(c.b.name, c.b.slug) +
+          '<span class="nm"><b><a href="' + c.b.url + '">' + c.b.name + '</a>' + (i === 0 && banks.length > 1 ? '<span class="badge">Biggest saving</span>' : '') + '</b><span class="small">Starting rate ' + c.b.rate + '%</span></span>' +
+          '<span class="px"><b>' + inr(c.monthly) + '</b> / month<br><span class="extra">Net ' + inr(c.net) + '</span></span></div>';
+      }).join('') + '<p class="small">Best case at advertised starting rates; your offered rate may be higher.</p>' : '');
+    }
+    box.addEventListener('input', run);
+    run();
+  });
+
+  // Copy-to-clipboard buttons (embed code).
+  document.querySelectorAll('[data-copy]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = btn.getAttribute('data-copy');
+      var done = function () { var t = btn.textContent; btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = t; }, 1500); };
+      if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, function () {});
+    });
   });
 
   // Home page: choose a loan type, amount and tenure and see the banks ranked by cost.

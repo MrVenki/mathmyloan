@@ -100,6 +100,8 @@ async function main() {
   const products = readJson('data/products.json');
   const today = new Date().toISOString().slice(0, 10);
   const notes = [];
+  const historyFile = path.join(ROOT, 'data/history.json');
+  const history = fs.existsSync(historyFile) ? readJson('data/history.json') : [];
 
   for (const s of sources) {
     try {
@@ -113,13 +115,17 @@ async function main() {
         notes.push(`${s.bank} ${s.loan}: skipped (${v.reasons.join(', ')})`);
         continue;
       }
-      const next = { bank: s.bank, loan: s.loan, ...v.rec, sourceUrl: s.url, retrievedOn: today };
+      // Keep hand-entered details (conditions, notes, effective dates) and any value the
+      // agent could not evidence this time; only overwrite with newly verified values.
+      const verified = Object.fromEntries(Object.entries(v.rec).filter(([, val]) => val != null));
+      const next = { ...(existing ?? {}), bank: s.bank, loan: s.loan, ...verified, sourceUrl: s.url, retrievedOn: today };
       if (v.review) {
         next.review = true;
         next.note = v.reasons.join('; ');
         notes.push(`${s.bank} ${s.loan}: HELD FOR REVIEW (${v.reasons.join(', ')})`);
       } else if (existing && existing.rateFrom !== next.rateFrom) {
         notes.push(`${s.bank} ${s.loan}: ${existing.rateFrom}% -> ${next.rateFrom}%`);
+        history.push({ date: today, bank: s.bank, loan: s.loan, from: existing.rateFrom, to: next.rateFrom, sourceUrl: s.url });
       }
       const i = products.findIndex((p) => p.bank === s.bank && p.loan === s.loan);
       if (i >= 0) products[i] = next;
@@ -129,6 +135,7 @@ async function main() {
     }
   }
   fs.writeFileSync(file, JSON.stringify(products, null, 2) + '\n');
+  fs.writeFileSync(historyFile, JSON.stringify(history, null, 2) + '\n');
   console.log(notes.join('\n') || '[collect] no changes');
   await alert(notes);
 }

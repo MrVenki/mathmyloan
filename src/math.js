@@ -32,15 +32,16 @@ export function loanForEmi(maxEmi, rate, years) {
 }
 
 // Month-by-month repayment schedule. Optional extra payments shorten the loan:
-// extraMonthly is added to every EMI, extraYearly is paid with every 12th instalment.
-export function schedule(P, rate, years, extraMonthly = 0, extraYearly = 0) {
+// extraMonthly is added to every EMI, extraYearly is paid with every 12th instalment,
+// and lumpSum is a one-time prepayment made with instalment number lumpMonth.
+export function schedule(P, rate, years, extraMonthly = 0, extraYearly = 0, lumpSum = 0, lumpMonth = 0) {
   const r = rate / 1200;
   const e = emi(P, rate, years);
   const rows = [];
   let bal = P;
   for (let m = 1; bal > 0.5 && m <= years * 12 + 1; m++) {
     const interest = bal * r;
-    const extra = extraMonthly + (m % 12 === 0 ? extraYearly : 0);
+    const extra = extraMonthly + (m % 12 === 0 ? extraYearly : 0) + (m === lumpMonth ? lumpSum : 0);
     const principal = Math.min(bal, Math.max(0, e - interest) + extra);
     bal -= principal;
     rows.push({ m, interest, principal, paid: interest + principal, balance: Math.max(0, bal) });
@@ -62,7 +63,27 @@ export function yearly(rows) {
   return out;
 }
 
-export const inr = (n) =>'₹' + Math.round(n).toLocaleString('en-IN');
+// Maximum EMI a lender is likely to allow: a share (foir, percent) of net monthly income,
+// minus EMIs already being paid.
+export const maxEmiFor = (income, existingEmi, foir = 50) => Math.max(0, (income * foir) / 100 - existingEmi);
+
+// Home loan balance transfer: keep the remaining tenure, move to a new rate, pay one-off fees.
+export function balanceTransfer(outstanding, oldRate, newRate, years, fees = 0) {
+  const oldEmi = emi(outstanding, oldRate, years);
+  const newEmi = emi(outstanding, newRate, years);
+  const monthly = oldEmi - newEmi;
+  const gross = monthly * years * 12;
+  return {
+    oldEmi,
+    newEmi,
+    monthly,
+    gross,
+    net: gross - fees,
+    breakEvenMonths: monthly > 0 ? Math.ceil(fees / monthly) : null,
+  };
+}
+
+export const inr = (n) => '₹' + Math.round(n).toLocaleString('en-IN');
 
 export function lakhLabel(lakh) {
   return lakh >= 100 ? `₹${lakh / 100} crore` : `₹${lakh} lakh`;
