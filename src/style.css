@@ -105,13 +105,15 @@ h2::after{content:"";display:block;width:36px;height:3px;border-radius:3px;backg
 .lcard:hover{transform:translateY(-2px)}
 .ico{display:grid;place-items:center;width:46px;height:46px;border-radius:14px;background:color-mix(in srgb,var(--accent) 14%,var(--bg));color:var(--accent);flex:none}
 .ico svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+/* The card text rule (.lcard span) must not reach the icon badge, which is also a span. */
+.lcard .ico{display:grid;place-items:center;color:var(--accent);font-size:inherit}
 .title-row{display:flex;gap:12px;align-items:center}
 .tile{border:1px solid var(--line);background:var(--bg);box-shadow:var(--shadow)}
 .tile b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 .trust div{background:var(--bg)}
 /* ---- logos, schedules, hints ---- */
-.av.has-logo{background:#fff;border:1px solid var(--line)}
-.av img{width:22px;height:22px;object-fit:contain}
+.av.has-logo{display:inline-flex;align-items:center;justify-content:center;width:92px;height:40px;border-radius:10px;background:#fff;border:1px solid var(--line);padding:5px 8px}
+.av.has-logo img{display:block;width:auto;height:auto;max-width:100%;max-height:100%;object-fit:contain}
 abbr[title]{text-decoration:underline dotted;cursor:help}
 .hint{display:block;margin-top:3px;color:var(--accent);font-size:.8rem;font-weight:600;min-height:1.1em}
 .verdict{background:var(--goodbg);color:var(--fg);border-radius:12px;padding:10px 14px;margin:6px 0 4px;font-size:.95rem}

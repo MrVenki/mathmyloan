@@ -56,8 +56,14 @@ async function download(url) {
   return { buf, ext };
 }
 
-const manifest = {};
+// Fallback only: sharp Wikimedia logos (scripts/fetch-logos-wiki.mjs) are never replaced by favicons.
+const MANIFEST = path.join(OUT, 'manifest.json');
+const manifest = fs.existsSync(MANIFEST) ? JSON.parse(fs.readFileSync(MANIFEST, 'utf8')) : {};
 for (const [slug, bases] of Object.entries(SITES)) {
+  if (/wiki(media|pedia)/.test(manifest[slug]?.source ?? '')) {
+    console.log(`keep ${slug}: Wikimedia logo already present`);
+    continue;
+  }
   let done = false;
   for (const base of bases) {
     try {

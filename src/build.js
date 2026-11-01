@@ -151,7 +151,7 @@ const hueOf = (s) => [...s].reduce((a, c) => (a * 31 + c.charCodeAt(0)) % 360, 7
 const initialsOf = (s) => s.split(/\s+/).slice(0, 2).map((w) => w[0]).join('').toUpperCase();
 const avatar = (name, slug) =>
   logoMap[slug]
-    ? `<span class="av has-logo"><img src="${esc(logoMap[slug])}" alt="" width="22" height="22" loading="lazy" decoding="async"></span>`
+    ? `<span class="av has-logo"><img src="${esc(logoMap[slug])}" alt="${esc(name)} logo" width="64" height="28" loading="lazy" decoding="async"></span>`
     : `<span class="av" style="--h:${hueOf(name)}">${esc(initialsOf(name))}</span>`;
 
 const forLoan = (loan) => products.filter((p) => p.loan === loan.slug).sort((a, b) => a.rateFrom - b.rateFrom);

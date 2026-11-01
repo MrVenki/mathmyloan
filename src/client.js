@@ -8,7 +8,7 @@
   var initials = function (s) { return s.split(/\s+/).slice(0, 2).map(function (w) { return w[0]; }).join('').toUpperCase(); };
   var LOGOS = window.LOGOS || {};
   var avatar = function (name, slug) {
-    if (slug && LOGOS[slug]) return '<span class="av has-logo"><img src="' + LOGOS[slug] + '" alt="" width="22" height="22" loading="lazy" decoding="async"></span>';
+    if (slug && LOGOS[slug]) return '<span class="av has-logo"><img src="' + LOGOS[slug] + '" alt="' + name + ' logo" width="64" height="28" loading="lazy" decoding="async"></span>';
     return '<span class="av" style="--h:' + hue(name) + '">' + initials(name) + '</span>';
   };
   var words = function (n) {
