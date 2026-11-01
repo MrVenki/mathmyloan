@@ -1,0 +1,5 @@
+[
+  { "bank": "icici-bank", "loan": "home-loan", "url": "https://www.icici.bank.in/personal-banking/loans/home-loan" },
+  { "bank": "kotak-mahindra-bank", "loan": "home-loan", "url": "https://www.kotak.bank.in/en/personal-banking/loans/home-loan.html" },
+  { "bank": "bank-of-baroda", "loan": "home-loan", "url": "https://www.bankofbaroda.bank.in/personal-banking/loans/home-loan" }
+]

@@ -1,0 +1,14 @@
+[
+  { "slug": "sbi", "name": "State Bank of India", "short": "SBI" },
+  { "slug": "hdfc-bank", "name": "HDFC Bank", "short": "HDFC Bank" },
+  { "slug": "icici-bank", "name": "ICICI Bank", "short": "ICICI Bank" },
+  { "slug": "axis-bank", "name": "Axis Bank", "short": "Axis Bank" },
+  { "slug": "kotak-mahindra-bank", "name": "Kotak Mahindra Bank", "short": "Kotak" },
+  { "slug": "bank-of-baroda", "name": "Bank of Baroda", "short": "Bank of Baroda" },
+  { "slug": "punjab-national-bank", "name": "Punjab National Bank", "short": "PNB" },
+  { "slug": "canara-bank", "name": "Canara Bank", "short": "Canara Bank" },
+  { "slug": "union-bank-of-india", "name": "Union Bank of India", "short": "Union Bank" },
+  { "slug": "idfc-first-bank", "name": "IDFC FIRST Bank", "short": "IDFC FIRST" },
+  { "slug": "bank-of-india", "name": "Bank of India", "short": "Bank of India" },
+  { "slug": "yes-bank", "name": "YES Bank", "short": "YES Bank" }
+]

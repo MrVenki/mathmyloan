@@ -1,0 +1,32 @@
+[
+  {
+    "slug": "home-loan", "name": "Home Loan", "defaultRate": 8.5, "defaultTenure": 20, "defaultAmountLakh": 50,
+    "amountsLakh": [10, 20, 30, 50, 75, 100], "tenures": [10, 15, 20, 25, 30],
+    "pageAmountsLakh": [20, 30, 50, 75, 100], "pageTenures": [15, 20, 25],
+    "blurb": "A home loan finances buying or building a house. Lenders charge interest on the reducing balance and the loan is secured on the property."
+  },
+  {
+    "slug": "personal-loan", "name": "Personal Loan", "defaultRate": 12, "defaultTenure": 3, "defaultAmountLakh": 5,
+    "amountsLakh": [1, 2, 3, 5, 10, 15], "tenures": [1, 2, 3, 4, 5],
+    "pageAmountsLakh": [2, 5, 10], "pageTenures": [2, 3, 5],
+    "blurb": "A personal loan is an unsecured loan for any purpose, so rates are usually higher than for secured loans and depend heavily on your credit score and income."
+  },
+  {
+    "slug": "car-loan", "name": "Car Loan", "defaultRate": 9.5, "defaultTenure": 5, "defaultAmountLakh": 8,
+    "amountsLakh": [3, 5, 8, 10, 15, 20], "tenures": [3, 4, 5, 6, 7],
+    "pageAmountsLakh": [5, 8, 10, 15], "pageTenures": [3, 5, 7],
+    "blurb": "A car loan finances a vehicle purchase, and the car is the security. Banks usually fund a share of the on-road price."
+  },
+  {
+    "slug": "education-loan", "name": "Education Loan", "defaultRate": 10, "defaultTenure": 10, "defaultAmountLakh": 20,
+    "amountsLakh": [5, 10, 20, 30, 50], "tenures": [5, 7, 10, 12, 15],
+    "pageAmountsLakh": [10, 20, 30], "pageTenures": [7, 10, 15],
+    "blurb": "An education loan pays for courses in India or abroad. Repayment commonly starts after the course ends plus a moratorium period."
+  },
+  {
+    "slug": "loan-against-property", "name": "Loan Against Property", "defaultRate": 10, "defaultTenure": 15, "defaultAmountLakh": 50,
+    "amountsLakh": [10, 25, 50, 100, 200], "tenures": [5, 10, 15, 20],
+    "pageAmountsLakh": [25, 50, 100], "pageTenures": [10, 15, 20],
+    "blurb": "A loan against property lets you borrow against a house or commercial property you already own, usually at a lower rate than a personal loan."
+  }
+]
