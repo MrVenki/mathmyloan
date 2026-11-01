@@ -133,4 +133,7 @@ details.opts summary{cursor:pointer;font-weight:600;font-size:.92rem;color:var(-
 .chart .col span{font-size:.62rem;color:var(--muted);line-height:1.6}
 .legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:middle}
 select{appearance:auto}
+.trust-box{margin:24px 0;padding:14px 16px;border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:0 12px 12px 0;background:var(--bg);font-size:.9rem}
+.trust-box ul{margin:8px 0;padding-left:18px} .trust-box li{margin:4px 0}
+pre.code{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;overflow-x:auto;font-size:.82rem;white-space:pre-wrap;word-break:break-all}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}

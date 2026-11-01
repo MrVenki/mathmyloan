@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { publishable } from '../src/data.js';
 import { validate, relevantLines, stripHtml } from '../src/collect.js';
-import { emi, schedule, yearly } from '../src/math.js';
+import { emi, schedule, yearly, maxEmiFor, balanceTransfer } from '../src/math.js';
 
 const NOW = Date.parse('2026-11-10');
 const good = { rateFrom: 8.5, sourceUrl: 'https://bank.example/x', retrievedOn: '2026-11-01' };
@@ -65,6 +65,24 @@ test('extra payments finish the loan sooner and cost less interest', () => {
   const sum = (rows) => rows.reduce((a, r) => a + r.interest, 0);
   assert.ok(sum(extra) < sum(base));
   assert.ok(Math.abs(extra.reduce((a, r) => a + r.principal, 0) - 5_000_000) < 1);
+});
+
+test('a one-time lump sum shortens the loan and is applied in its month', () => {
+  const base = schedule(5_000_000, 8.5, 20);
+  const lump = schedule(5_000_000, 8.5, 20, 0, 0, 500_000, 24);
+  assert.ok(lump.length < base.length);
+  assert.ok(lump[23].principal > 500_000);
+  assert.ok(Math.abs(lump[22].principal - base[22].principal) < 1e-6);
+});
+
+test('eligibility and balance transfer helpers', () => {
+  assert.equal(maxEmiFor(100_000, 10_000, 50), 40_000);
+  assert.equal(maxEmiFor(20_000, 15_000, 50), 0);
+  const bt = balanceTransfer(4_000_000, 9.5, 8.5, 15, 10_000);
+  assert.ok(bt.monthly > 0 && bt.net > 0);
+  assert.equal(bt.breakEvenMonths, Math.ceil(10_000 / bt.monthly));
+  assert.ok(Math.abs(bt.net - (bt.monthly * 180 - 10_000)) < 1e-6);
+  assert.equal(balanceTransfer(4_000_000, 8.5, 9, 15, 0).breakEvenMonths, null);
 });
 
 test('zero-rate loans split evenly', () => {

@@ -47,7 +47,7 @@ jobs:
         run: |
           git config user.name "loan-compare"
           git config user.email "loan-compare@users.noreply.github.com"
-          git add data/products.json
+          git add data/products.json data/history.json
           git diff --cached --quiet || (git commit -m "data: weekly rate check" && git push)
       - name: Ping search engines
         run: node src/indexnow.js
