@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { publishable } from '../src/data.js';
 import { validate, relevantLines, stripHtml } from '../src/collect.js';
-import { emi } from '../src/math.js';
+import { emi, schedule, yearly } from '../src/math.js';
 
 const NOW = Date.parse('2026-11-10');
 const good = { rateFrom: 8.5, sourceUrl: 'https://bank.example/x', retrievedOn: '2026-11-01' };
@@ -44,6 +44,33 @@ test('a rate move over 0.5 points is held for review', () => {
 test('page text is reduced to rate-related lines', () => {
   const t = stripHtml('<div>Nav menu</div><p>Interest rate starts from 8.50%</p><script>x=1</script><p>Contact us today</p>');
   assert.equal(relevantLines(t), 'Interest rate starts from 8.50%');
+});
+
+test('schedule repays the principal and its interest matches EMI x months', () => {
+  const rows = schedule(5_000_000, 8.5, 20);
+  assert.equal(rows.length, 240);
+  assert.ok(Math.abs(rows.reduce((a, r) => a + r.principal, 0) - 5_000_000) < 1);
+  const interest = rows.reduce((a, r) => a + r.interest, 0);
+  assert.ok(Math.abs(interest - (emi(5_000_000, 8.5, 20) * 240 - 5_000_000)) < 5);
+  assert.ok(rows.at(-1).balance < 1);
+  const years = yearly(rows);
+  assert.equal(years.length, 20);
+  assert.ok(Math.abs(years[0].interest + years[0].principal - years[0].paid) < 1e-6);
+});
+
+test('extra payments finish the loan sooner and cost less interest', () => {
+  const base = schedule(5_000_000, 8.5, 20);
+  const extra = schedule(5_000_000, 8.5, 20, 5000, 100000);
+  assert.ok(extra.length < base.length);
+  const sum = (rows) => rows.reduce((a, r) => a + r.interest, 0);
+  assert.ok(sum(extra) < sum(base));
+  assert.ok(Math.abs(extra.reduce((a, r) => a + r.principal, 0) - 5_000_000) < 1);
+});
+
+test('zero-rate loans split evenly', () => {
+  const rows = schedule(1_200_000, 0, 10);
+  assert.equal(rows.length, 120);
+  assert.ok(Math.abs(rows[0].principal - 10000) < 1e-9);
 });
 
 test('EMI helper is correct', () => {

@@ -73,7 +73,7 @@ tbody tr:nth-child(even){background:color-mix(in srgb,var(--card) 55%,transparen
 .grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 .pills{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0}
 .pills span{background:color-mix(in srgb,var(--bg) 70%,transparent);border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:.82rem;font-weight:600;backdrop-filter:blur(6px)}
-.hero .row{grid-template-columns:1.5fr 1.1fr .8fr}
+.hero .row{grid-template-columns:1.2fr 1.3fr 1fr}
 @media (max-width:600px){.hero .row{grid-template-columns:1fr}}
 .hero .card{border:1px solid var(--line);border-radius:18px;box-shadow:0 10px 30px rgba(11,60,117,.12)}
 button,.btn{background:var(--grad);box-shadow:0 4px 14px rgba(11,92,173,.28);transition:transform .15s,box-shadow .15s}
@@ -109,4 +109,28 @@ h2::after{content:"";display:block;width:36px;height:3px;border-radius:3px;backg
 .tile{border:1px solid var(--line);background:var(--bg);box-shadow:var(--shadow)}
 .tile b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 .trust div{background:var(--bg)}
+/* ---- logos, schedules, hints ---- */
+.av.has-logo{background:#fff;border:1px solid var(--line)}
+.av img{width:22px;height:22px;object-fit:contain}
+abbr[title]{text-decoration:underline dotted;cursor:help}
+.hint{display:block;margin-top:3px;color:var(--accent);font-size:.8rem;font-weight:600;min-height:1.1em}
+.verdict{background:var(--goodbg);color:var(--fg);border-radius:12px;padding:10px 14px;margin:6px 0 4px;font-size:.95rem}
+.saving{background:var(--goodbg);border-radius:10px;padding:8px 12px;font-size:.92rem}
+details.opts{margin:10px 0 0;border:1px dashed var(--line);border-radius:12px;padding:8px 12px;background:var(--bg)}
+details.opts summary{cursor:pointer;font-weight:600;font-size:.92rem;color:var(--accent)}
+.sched{margin-top:18px;border-top:1px solid var(--line);padding-top:6px}
+.sched-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.sched-head h3{margin:.4rem 0}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--bg)}
+.seg button{margin:0;border-radius:0;background:transparent;color:var(--fg);box-shadow:none;padding:7px 14px;font-size:.88rem;font-weight:600}
+.seg button:hover{background:var(--card);transform:none;box-shadow:none}
+.seg button.on{background:var(--grad);color:#fff}
+.chart{display:flex;align-items:flex-end;gap:3px;height:150px;margin:10px 0 4px;padding:6px 4px 0;border-bottom:1px solid var(--line)}
+.chart .col{flex:1;min-width:0;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:stretch;text-align:center}
+.chart .stack{display:flex;flex-direction:column;border-radius:4px 4px 0 0;overflow:hidden}
+.chart .stack i{display:block;width:100%}
+.chart .stack .i{background:var(--accent3)} .chart .stack .p{background:var(--accent)}
+.chart .col span{font-size:.62rem;color:var(--muted);line-height:1.6}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:middle}
+select{appearance:auto}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}

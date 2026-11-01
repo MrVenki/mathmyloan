@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { emi, summary, inr, lakhLabel } from './math.js';
+import { emi, summary, schedule, yearly, inr, lakhLabel } from './math.js';
 import { ROOT, readJson, loadData } from './data.js';
 
 const OUT = path.join(ROOT, 'dist');
@@ -11,6 +11,15 @@ const pages = [];
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const href = (p) => cfg.basePath + p;
+// Bank logos are the banks' own site icons, saved by scripts/fetch-logos.mjs and self-hosted.
+const logoManifest = (() => {
+  try {
+    return JSON.parse(fs.readFileSync(path.join(ROOT, 'assets', 'logos', 'manifest.json'), 'utf8'));
+  } catch {
+    return {};
+  }
+})();
+const logoMap = Object.fromEntries(Object.entries(logoManifest).map(([slug, v]) => [slug, `${cfg.basePath}/logos/${v.file}`]));
 const monthOf = (d) => new Date(d).toLocaleString('en-IN', { month: 'long', year: 'numeric', timeZone: 'UTC' });
 const amt = (a) => String(a).replace('.', '-');
 const rate = (r) => `${Number(r.toFixed(2))}%`;
@@ -60,18 +69,24 @@ ${body}
 <p>Rates are the starting rates published on each bank's own website on the date shown, and can change without notice. Your rate depends on your credit score, income and the bank's approval. This is not financial advice or a loan offer, and we are not a bank or lender.</p>
 <p><a href="${href('/about/')}">About and how we get our data</a> · <a href="${href('/privacy/')}">Privacy</a></p>
 </footer>
-<script>window.CALC={worker:${JSON.stringify(cfg.workerUrl)}};${extraScript}</script>
+<script>window.CALC={worker:${JSON.stringify(cfg.workerUrl)}};window.LOGOS=${JSON.stringify(logoMap)};${extraScript}</script>
 <script src="${href('/app.js')}" defer></script>
 </body>
 </html>
 `;
 }
 
-const field = (label, name, value, step = 'any') =>
-  `<div><label for="${name}">${label}</label><input type="number" inputmode="decimal" id="${name}" name="${name}" value="${value}" step="${step}" min="0"></div>`;
+let fieldId = 0;
+const MONEY = new Set(['amount', 'extraM', 'extraY']);
+const field = (label, name, value, step = 'any') => {
+  const id = `${name}-${++fieldId}`;
+  return `<div><label for="${id}">${label}</label><input type="number" inputmode="decimal" id="${id}" name="${name}" value="${value}" step="${step}" min="0"${MONEY.has(name) ? ' data-words' : ''}></div>`;
+};
 
 const calcWidget = (P, r, y) => `<div class="card" data-calc="emi">
 <div class="row">${field('Loan amount (₹)', 'amount', P)}${field('Interest rate (% p.a.)', 'rate', r, '0.05')}${field('Tenure (years)', 'years', y)}</div>
+<details class="opts"><summary>Prepayment options (optional): pay extra to finish sooner</summary>
+<div class="row">${field('Extra payment every month (₹)', 'extraM', 0)}${field('Extra lump sum every year (₹)', 'extraY', 0)}</div></details>
 <div class="out" aria-live="polite"></div></div>`;
 
 const leadForm = ({ loan = '', bank = '', amount = '', heading = 'Want a call back about this loan?' } = {}) => `<form class="card" data-lead data-loan="${esc(loan)}" data-bank="${esc(bank)}">
@@ -109,7 +124,10 @@ const ICONS = {
 const icon = (slug) => `<svg viewBox="0 0 24 24" aria-hidden="true">${ICONS[slug] ?? ''}</svg>`;
 const hueOf = (s) => [...s].reduce((a, c) => (a * 31 + c.charCodeAt(0)) % 360, 7);
 const initialsOf = (s) => s.split(/\s+/).slice(0, 2).map((w) => w[0]).join('').toUpperCase();
-const avatar = (name) => `<span class="av" style="--h:${hueOf(name)}">${esc(initialsOf(name))}</span>`;
+const avatar = (name, slug) =>
+  logoMap[slug]
+    ? `<span class="av has-logo"><img src="${esc(logoMap[slug])}" alt="" width="22" height="22" loading="lazy" decoding="async"></span>`
+    : `<span class="av" style="--h:${hueOf(name)}">${esc(initialsOf(name))}</span>`;
 
 const forLoan = (loan) => products.filter((p) => p.loan === loan.slug).sort((a, b) => a.rateFrom - b.rateFrom);
 const bankUrl = (loan, p) => `/${loan.slug}/${p.bank}/`;
@@ -122,7 +140,7 @@ function loanHub(loan) {
   const list = forLoan(loan);
   const rows = list
     .map(
-      (p, i) => `<tr><td><span class="title-row" style="gap:8px">${avatar(p.bankInfo.short)}<a href="${href(bankUrl(loan, p))}">${esc(p.bankInfo.name)}</a></span>${i === 0 && list.length > 1 ? '<span class="badge">Lowest rate</span>' : ''}</td><td>${rate(p.rateFrom)}</td><td>${esc(p.fee ?? 'Not stated on page')}</td><td>${esc(p.prepayment ?? 'Not stated on page')}</td><td>${p.maxTenureYears ? `${p.maxTenureYears} yrs` : '-'}</td></tr>`,
+      (p, i) => `<tr><td><span class="title-row" style="gap:8px">${avatar(p.bankInfo.short, p.bank)}<a href="${href(bankUrl(loan, p))}">${esc(p.bankInfo.name)}</a></span>${i === 0 && list.length > 1 ? '<span class="badge">Lowest rate</span>' : ''}</td><td>${rate(p.rateFrom)}</td><td>${esc(p.fee ?? 'Not stated on page')}</td><td>${esc(p.prepayment ?? 'Not stated on page')}</td><td>${p.maxTenureYears ? `${p.maxTenureYears} yrs` : '-'}</td></tr>`,
     )
     .join('');
   const P = loan.defaultAmountLakh * 100000;
@@ -151,12 +169,12 @@ function loanHub(loan) {
     crumbs: [{ name: loan.name, url: `/${loan.slug}/` }],
     jsonld: qa.length ? [faqLd(qa)] : [],
     noindex: !best,
-    extraScript: `window.PRODUCTS=${JSON.stringify(list.map((p) => ({ slug: p.bank, name: p.bankInfo.short, rate: p.rateFrom }))).replace(/</g, '\\u003c')};`,
+    extraScript: `window.PRODUCTS=${JSON.stringify(list.map((p) => ({ slug: p.bank, name: p.bankInfo.short, rate: p.rateFrom, url: href(bankUrl(loan, p)) }))).replace(/</g, '\\u003c')};`,
     body: `<div class="title-row"><span class="ico">${icon(loan.slug)}</span><h1 style="margin:0">${esc(loan.name)} Interest Rates Compared</h1></div>
 <p class="lead">${esc(loan.blurb)}</p>
 ${best ? `<div class="tiles">
 <div class="tile"><span>Lowest starting rate</span><b>${rate(best.rateFrom)}</b><span>${esc(best.bankInfo.short)}</span></div>
-<div class="tile"><span>EMI at that rate</span><b>${inr(emi(P, best.rateFrom, loan.defaultTenure))}</b><span>${lakhLabel(loan.defaultAmountLakh)}, ${loan.defaultTenure} years</span></div>
+<div class="tile"><span><abbr title="Equated Monthly Instalment: the fixed amount you pay the bank every month">EMI</abbr> at that rate</span><b>${inr(emi(P, best.rateFrom, loan.defaultTenure))}</b><span>${lakhLabel(loan.defaultAmountLakh)}, ${loan.defaultTenure} years</span></div>
 <div class="tile"><span>Banks compared</span><b>${list.length}</b><span>each with its source</span></div>
 <div class="tile"><span>Last checked</span><b>${esc(monthOf(list.map((p) => p.retrievedOn).sort().at(-1)))}</b><span>from bank websites</span></div>
 </div>` : ''}
@@ -200,11 +218,11 @@ function bankPage(loan, p) {
     url: bankUrl(loan, p),
     crumbs: [{ name: loan.name, url: `/${loan.slug}/` }, { name: name, url: bankUrl(loan, p) }],
     jsonld: [faqLd(qa)],
-    body: `<div class="title-row">${avatar(p.bankInfo.short)}<h1 style="margin:0">${esc(name)} ${esc(loan.name)}: Interest Rate, Fees and EMI</h1></div>
+    body: `<div class="title-row">${avatar(p.bankInfo.short, p.bank)}<h1 style="margin:0">${esc(name)} ${esc(loan.name)}: Interest Rate, Fees and EMI</h1></div>
 <p>${esc(name)} advertises ${esc(loan.name.toLowerCase())} rates starting from <b>${rate(p.rateFrom)}</b> per annum. For ${lakhLabel(loan.defaultAmountLakh)} over ${loan.defaultTenure} years that is an EMI of about <b>${inr(s.emi)}</b> a month.</p>
 <div class="tiles">
 <div class="tile"><span>Starting rate</span><b>${rate(p.rateFrom)}</b><span>per annum</span></div>
-<div class="tile"><span>EMI</span><b>${inr(s.emi)}</b><span>${lakhLabel(loan.defaultAmountLakh)}, ${loan.defaultTenure} years</span></div>
+<div class="tile"><span><abbr title="Equated Monthly Instalment: the fixed amount you pay the bank every month">EMI</abbr> per month</span><b>${inr(s.emi)}</b><span>${lakhLabel(loan.defaultAmountLakh)}, ${loan.defaultTenure} years</span></div>
 <div class="tile"><span>Total interest</span><b>${inr(s.interest)}</b><span>over the full term</span></div>
 <div class="tile"><span>Max tenure</span><b>${p.maxTenureYears ? `${p.maxTenureYears} yrs` : 'n/a'}</b><span>as stated by the bank</span></div>
 </div>
@@ -229,6 +247,9 @@ function emiPage(loan, p, lakh, years) {
     const x = summary(P, r, years);
     return `<tr><td>${rate(r)}${d === 0 ? ' (starting)' : ''}</td><td>${inr(x.emi)}</td><td>${inr(x.interest)}</td><td>${inr(x.total)}</td></tr>`;
   }).join('');
+  const yearRows = yearly(schedule(P, p.rateFrom, years))
+    .map((y) => `<tr><td>Year ${y.year}</td><td>${inr(y.principal)}</td><td>${inr(y.interest)}</td><td>${inr(y.paid)}</td><td>${inr(y.balance)}</td></tr>`)
+    .join('');
   const qa = [
     [`What is the EMI for a ${lakhLabel(lakh)} ${name} ${loan.name.toLowerCase()} for ${years} years?`, `At ${name}'s starting rate of ${rate(p.rateFrom)} the EMI is about ${inr(s.emi)} a month. If your offered rate is ${rate(p.rateFrom + 1)} it would be about ${inr(emi(P, p.rateFrom + 1, years))}.`],
     [`How much total interest will I pay?`, `At ${rate(p.rateFrom)} the total interest over ${years} years is about ${inr(s.interest)}, so you repay about ${inr(s.total)} in all.`],
@@ -246,6 +267,9 @@ ${stdNote}
 ${calcWidget(P, p.rateFrom, years)}
 <h2>EMI at higher rates</h2>
 <div class="scroll"><table><thead><tr><th>Rate</th><th>EMI</th><th>Total interest</th><th>Total payment</th></tr></thead><tbody>${steps}</tbody></table></div>
+<h2>Year-by-year repayment schedule at ${rate(p.rateFrom)}</h2>
+<p class="small">How much of each year's payments goes to principal and to interest, and what you still owe at the end of the year. Use the calculator above for a month-by-month view and prepayment options.</p>
+<div class="scroll"><table><thead><tr><th>Year</th><th>Principal</th><th>Interest</th><th>Paid</th><th>Balance left</th></tr></thead><tbody>${yearRows}</tbody></table></div>
 ${leadForm({ loan: loan.slug, bank: p.bank, amount: P })}
 <h2>Frequently asked questions</h2>${faqHtml(qa)}
 <p><a href="${href(bankUrl(loan, p))}">All ${esc(name)} ${esc(loan.name.toLowerCase())} details</a></p>`,
@@ -330,7 +354,7 @@ function homePage() {
             name: l.name,
             amount: l.defaultAmountLakh * 100000,
             years: l.defaultTenure,
-            banks: forLoan(l).map((p) => ({ name: p.bankInfo.short, rate: p.rateFrom, url: href(bankUrl(l, p)) })),
+            banks: forLoan(l).map((p) => ({ slug: p.bank, name: p.bankInfo.short, rate: p.rateFrom, url: href(bankUrl(l, p)) })),
           },
         ]),
       ),
@@ -425,6 +449,10 @@ for (const loan of loans) {
   for (const [a, b] of pairs(list)) write(`${vsUrl(loan, a, b).slice(1)}index.html`, vsPage(loan, a, b));
 }
 write('404.html', `<!doctype html><meta charset="utf-8"><title>Not found</title><p>Page not found. <a href="${href('/')}">Home</a></p>`);
+for (const v of Object.values(logoManifest)) {
+  fs.mkdirSync(path.join(OUT, 'logos'), { recursive: true });
+  fs.copyFileSync(path.join(ROOT, 'assets', 'logos', v.file), path.join(OUT, 'logos', v.file));
+}
 write('app.js', fs.readFileSync(path.join(ROOT, 'src', 'client.js'), 'utf8'));
 write('robots.txt', `User-agent: *\nAllow: /\nSitemap: ${cfg.siteUrl}/sitemap.xml\n`);
 write(

@@ -1,0 +1,42 @@
+{
+  "sbi": {
+    "file": "sbi.ico",
+    "source": "https://sbi.bank.in/o/SBI-Theme/images/favicon.ico",
+    "fetchedOn": "2026-11-01"
+  },
+  "hdfc-bank": {
+    "file": "hdfc-bank.ico",
+    "source": "https://www.hdfc.bank.in/favicon.ico",
+    "fetchedOn": "2026-11-01"
+  },
+  "icici-bank": {
+    "file": "icici-bank.ico",
+    "source": "https://www.icici.bank.in/favicon.ico",
+    "fetchedOn": "2026-11-01"
+  },
+  "axis-bank": {
+    "file": "axis-bank.ico",
+    "source": "https://www.axis.bank.in/assets/images/favicon.ico",
+    "fetchedOn": "2026-11-01"
+  },
+  "kotak-mahindra-bank": {
+    "file": "kotak-mahindra-bank.ico",
+    "source": "https://www.kotak.bank.in/etc/designs/kotak/clientlib-site/images/favicon.ico",
+    "fetchedOn": "2026-11-01"
+  },
+  "punjab-national-bank": {
+    "file": "punjab-national-bank.ico",
+    "source": "https://pnb.bank.in/images/favicon.ico",
+    "fetchedOn": "2026-11-01"
+  },
+  "canara-bank": {
+    "file": "canara-bank.png",
+    "source": "https://www.canarabank.bank.in/documents/20126/33915/fevicon.png/666e26af-cafc-b26d-eb4b-a33d3417c5ba",
+    "fetchedOn": "2026-11-01"
+  },
+  "idfc-first-bank": {
+    "file": "idfc-first-bank.ico",
+    "source": "https://www.idfcfirst.bank.in/content/dam/idfcfirstbank/images/common/favicon.ico",
+    "fetchedOn": "2026-11-01"
+  }
+}
