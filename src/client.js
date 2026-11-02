@@ -85,8 +85,8 @@
       var extra = r.interest - best.interest < 1 ? '' : '<span class="extra">+' + inr(r.interest - best.interest) + ' more interest</span>';
       return '<div class="rank' + (isBest ? ' best' : '') + '">' + avatar(r.name, r.slug) +
         '<span class="nm"><b>' + (r.url ? '<a href="' + r.url + '">' + r.name + '</a>' : r.name) + (isBest ? '<span class="badge">Lowest cost</span>' : '') + '</b>' +
-        '<span class="small">Starting rate ' + r.rate + '%</span></span>' +
-        '<span class="px"><b>' + inr(r.emi) + '</b> / month<br>' + (extra || '<span class="extra">Interest ' + inr(r.interest) + '</span>') + '</span>' +
+        '<span class="small">EMI ' + inr(r.emi) + ' / month</span></span>' +
+        '<span class="px"><b class="rt">' + Number(r.rate).toFixed(2) + '%<small> p.a.</small></b>' + (extra || '<span class="extra">Interest ' + inr(r.interest) + '</span>') + '</span>' +
         '<span class="bar"><i style="width:' + Math.max(6, Math.round((r.interest / max) * 100)) + '%"></i></span></div>';
     }).join('') + '<p class="small">Based on each bank\'s advertised starting rate. Your own rate depends on your credit score and profile and may be higher.</p>';
   }

@@ -437,7 +437,7 @@ function rankRowsHtml(list, P, y, limit = Infinity) {
       .map((r, i) => {
         const isBest = i === 0 && rows.length > 1;
         const extra = r.interest - best.interest < 1 ? `<span class="extra">Interest ${inr(r.interest)}</span>` : `<span class="extra">+${inr(r.interest - best.interest)} more interest</span>`;
-        return `<div class="rank${isBest ? ' best' : ''}">${avatar(r.p.bankInfo.short, r.p.bank)}<span class="nm"><b><a href="${href(bankUrl(r.p.loanInfo, r.p))}">${esc(r.p.bankInfo.short)}</a>${isBest ? '<span class="badge">Lowest cost</span>' : ''}</b><span class="small">Starting rate ${rate(r.p.rateFrom)}</span></span><span class="px"><b>${inr(r.emi)}</b> / month<br>${extra}</span><span class="bar"><i style="width:${Math.max(6, Math.round((r.interest / max) * 100))}%"></i></span></div>`;
+        return `<div class="rank${isBest ? ' best' : ''}">${avatar(r.p.bankInfo.short, r.p.bank)}<span class="nm"><b><a href="${href(bankUrl(r.p.loanInfo, r.p))}">${esc(r.p.bankInfo.short)}</a>${isBest ? '<span class="badge">Lowest cost</span>' : ''}</b><span class="small">EMI ${inr(r.emi)} / month</span></span><span class="px"><b class="rt">${r.p.rateFrom.toFixed(2)}%<small> p.a.</small></b>${extra}</span><span class="bar"><i style="width:${Math.max(6, Math.round((r.interest / max) * 100))}%"></i></span></div>`;
       })
       .join('')
   );

@@ -127,6 +127,12 @@ details.opts summary{cursor:pointer;font-weight:700;font-size:.92rem;color:var(-
 .rank .nm{min-width:0} .rank .nm b{display:block;font-size:1rem}
 .rank .nm a{color:var(--ink);text-decoration:none} .rank .nm a:hover{color:var(--accent2);text-decoration:underline}
 .rank .px{text-align:right} .rank .px b{font-size:1.06rem}
+/* The rate is the headline number in every ranked row; EMI sits under the bank name. */
+.rank .px .rt{display:block;font-size:1.55rem;font-weight:800;letter-spacing:-.02em;line-height:1.15;color:var(--ink)}
+.rank .px .rt small{font-size:.8rem;font-weight:600;color:var(--muted);margin-left:2px}
+.rank.best .px .rt{color:var(--good)}
+.rank .px .extra{display:block}
+@media (max-width:640px){.rank .px .rt{font-size:1.3rem}}
 .bar{grid-column:2 / 4;height:6px;border-radius:99px;background:var(--line2);overflow:hidden}
 .bar i{display:block;height:100%;border-radius:99px;background:var(--accent);transition:width .4s ease}
 .rank.best .bar i{background:var(--good)}
