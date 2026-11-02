@@ -1,0 +1,94 @@
+{
+  "_about": "Stamp duty and registration fee on the sale (conveyance) of a residential property. Only states whose every component was read on an official government page are listed. pct = percent of the property value. womanPct = rate when the buyer is a woman (absent = no concession). Registration: pct of value, roundUpTo = value rounded up to this step first, add = fixed amount added, min/max = limits. A state is published only while retrievedOn is within maxAgeDays.",
+  "states": [
+    {
+      "slug": "delhi",
+      "name": "Delhi",
+      "valueBasis": "the sale price or the circle rate value, whichever is higher",
+      "areas": [
+        {
+          "id": "all",
+          "label": "Anywhere in Delhi",
+          "duty": [{ "label": "Stamp duty (including transfer duty)", "pct": 6, "womanPct": 4 }],
+          "registration": { "pct": 1, "add": 100 }
+        }
+      ],
+      "notes": [
+        "Rates for a man buying alone (6%) and a woman buying alone (4%) are from the Delhi Revenue Department. It does not state a single rate for joint buyers, so ask the sub-registrar if you are buying jointly.",
+        "The registration fee is 1% of the value plus ₹100 pasting fee."
+      ],
+      "sources": [
+        { "label": "Delhi Revenue Department: property registration", "url": "https://revenue.delhi.gov.in/revenue/property-registration" }
+      ],
+      "retrievedOn": "2026-11-02"
+    },
+    {
+      "slug": "maharashtra",
+      "name": "Maharashtra",
+      "valueBasis": "the market value (ready reckoner rate) or the agreement value, whichever is higher",
+      "areas": [
+        {
+          "id": "corporation",
+          "label": "Municipal corporation or cantonment area",
+          "duty": [{ "label": "Stamp duty", "pct": 5, "womanPct": 4 }],
+          "registration": { "pct": 1, "roundUpTo": 1000, "min": 100, "max": 30000 }
+        },
+        {
+          "id": "council",
+          "label": "Municipal council or nagar panchayat",
+          "duty": [{ "label": "Stamp duty", "pct": 5, "womanPct": 4 }],
+          "registration": { "pct": 1, "roundUpTo": 1000, "min": 100, "max": 30000 }
+        },
+        {
+          "id": "gram-panchayat",
+          "label": "Gram panchayat area",
+          "duty": [{ "label": "Stamp duty", "pct": 4, "womanPct": 3 }],
+          "registration": { "pct": 1, "roundUpTo": 1000, "min": 100, "max": 30000 }
+        }
+      ],
+      "notes": [
+        "Stamp duty is set by Article 25 of the Maharashtra Stamp Act. Women buyers get a 1 percentage point reduction (in force since April 2021); conditions apply, so confirm eligibility with the sub-registrar.",
+        "The registration fee is ₹100 plus ₹10 for every ₹1,000 above ₹10,000, which works out to about 1%, capped at ₹30,000.",
+        "Some municipal corporations add a metro cess on top of stamp duty (see the IGR Maharashtra circulars). It is not included here."
+      ],
+      "sources": [
+        { "label": "IGR Maharashtra: Maharashtra Stamp Act, article-wise (22.07.2026)", "url": "https://igrmaharashtra.gov.in/pdf/documents/MAHARASHTRA%20STAMP%20ACT%20ARTICLE%20WISE%20dt%2022.07.2026.pdf" },
+        { "label": "IGR Maharashtra: registration fee table", "url": "https://igrmaharashtra.gov.in/pdf/eodb/3.1Registration%20fee%20table.pdf" }
+      ],
+      "retrievedOn": "2026-11-02"
+    },
+    {
+      "slug": "telangana",
+      "name": "Telangana",
+      "valueBasis": "the market value or the sale price, whichever is higher",
+      "areas": [
+        {
+          "id": "urban",
+          "label": "Municipal or other non-gram panchayat area",
+          "duty": [
+            { "label": "Stamp duty", "pct": 5.5 },
+            { "label": "Transfer duty", "pct": 1.5 }
+          ],
+          "registration": { "pct": 0.5 }
+        },
+        {
+          "id": "gram-panchayat",
+          "label": "Gram panchayat area",
+          "duty": [
+            { "label": "Stamp duty", "pct": 5.5 },
+            { "label": "Transfer duty", "pct": 0 }
+          ],
+          "registration": { "pct": 2 }
+        }
+      ],
+      "notes": [
+        "Rates are from the Telangana Registration Department's ready reckoner for a sale deed. Telangana does not give women buyers a lower rate.",
+        "In both kinds of area the total comes to 7.5% of the value; only the split between transfer duty and registration fee differs."
+      ],
+      "sources": [
+        { "label": "Telangana Registration Department: ready reckoner", "url": "https://registration.telangana.gov.in/readyReckoner.htm" }
+      ],
+      "retrievedOn": "2026-11-02"
+    }
+  ]
+}

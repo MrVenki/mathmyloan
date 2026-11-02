@@ -103,6 +103,26 @@ export function flatToReducing(flatRate, years) {
 // Indian loan-to-value limits for home loans: 90% up to ₹30 lakh, 80% up to ₹75 lakh, 75% above.
 export const ltvFor = (loan) => (loan <= 3e6 ? 0.9 : loan <= 7.5e6 ? 0.8 : 0.75);
 
+// Largest home loan the LTV slabs allow on a property worth `value`.
+export const maxLoanForValue = (value) => Math.max(Math.min(3e6, 0.9 * value), Math.min(7.5e6, 0.8 * value), 0.75 * value);
+
+// Stamp duty and registration fee for one area of a state (see data/stampduty.json).
+// buyer is 'man' or 'woman'; a woman's rate applies only where the state sets one.
+export function stampDuty(area, value, buyer = 'man') {
+  const lines = area.duty.map((d) => {
+    const pct = buyer === 'woman' && d.womanPct != null ? d.womanPct : d.pct;
+    return { label: d.label, pct, amount: (value * pct) / 100 };
+  });
+  const duty = lines.reduce((a, l) => a + l.amount, 0);
+  const reg = area.registration;
+  const base = reg.roundUpTo ? Math.ceil(value / reg.roundUpTo) * reg.roundUpTo : value;
+  let registration = (base * reg.pct) / 100 + (reg.add ?? 0);
+  if (reg.min != null) registration = Math.max(reg.min, registration);
+  if (reg.max != null) registration = Math.min(reg.max, registration);
+  const total = duty + registration;
+  return { lines, duty, registration, total, pctOfValue: value ? (total / value) * 100 : 0 };
+}
+
 export const inr = (n) => '₹' + Math.round(n).toLocaleString('en-IN');
 
 export function lakhLabel(lakh) {

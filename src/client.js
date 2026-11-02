@@ -247,6 +247,51 @@
     run();
   });
 
+  // Stamp duty: same rules as stampDuty() and maxLoanForValue() in src/math.js.
+  function stampDuty(area, value, buyer) {
+    var lines = area.duty.map(function (d) {
+      var pct = buyer === 'woman' && d.womanPct != null ? d.womanPct : d.pct;
+      return { label: d.label, pct: pct, amount: value * pct / 100 };
+    });
+    var duty = lines.reduce(function (a, l) { return a + l.amount; }, 0);
+    var reg = area.registration;
+    var base = reg.roundUpTo ? Math.ceil(value / reg.roundUpTo) * reg.roundUpTo : value;
+    var registration = base * reg.pct / 100 + (reg.add || 0);
+    if (reg.min != null) registration = Math.max(reg.min, registration);
+    if (reg.max != null) registration = Math.min(reg.max, registration);
+    return { lines: lines, duty: duty, registration: registration, total: duty + registration };
+  }
+  var maxLoanForValue = function (v) { return Math.max(Math.min(3e6, 0.9 * v), Math.min(7.5e6, 0.8 * v), 0.75 * v); };
+  document.querySelectorAll('[data-stamp]').forEach(function (box) {
+    var out = $('.out', box), states = window.STAMP || [];
+    var stateEl = $('[name=state]', box), areaEl = $('[name=area]', box), buyerEl = $('[name=buyer]', box);
+    var current = function () { return states.filter(function (s) { return s.slug === stateEl.value; })[0] || states[0]; };
+    function fillAreas() {
+      var s = current();
+      areaEl.innerHTML = s.areas.map(function (a) { return '<option value="' + a.id + '">' + a.label + '</option>'; }).join('');
+    }
+    function run() {
+      var s = current(), V = num($('[name=amount]', box));
+      if (!s || !V) { out.innerHTML = ''; return; }
+      var area = s.areas.filter(function (a) { return a.id === areaEl.value; })[0] || s.areas[0];
+      var womanRate = area.duty.some(function (d) { return d.womanPct != null; });
+      var r = stampDuty(area, V, buyerEl.value), loan = maxLoanForValue(V), down = V - loan;
+      var pct = Math.round(r.total / V * 10000) / 100;
+      out.innerHTML = '<div class="calcout"><div><div class="big">' + inr(r.total) + '<span> stamp duty and registration</span></div>' +
+        '<p>' + r.lines.filter(function (l) { return l.pct > 0; }).map(function (l) { return l.label + ' at ' + l.pct + '%: <b>' + inr(l.amount) + '</b>'; }).join(' · ') +
+        ' · registration fee <b>' + inr(r.registration) + '</b> · ' + pct + '% of the property value</p></div></div>' +
+        (!womanRate ? '<p class="small">' + s.name + ' charges the same rate for men and women buyers.</p>' :
+          buyerEl.value === 'man' ? '<p class="small">A woman buyer would pay <b>' + inr(stampDuty(area, V, 'woman').total) + '</b>.</p>' : '') +
+        '<p class="verdict">With a home loan, a bank can lend up to <b>' + inr(loan) + '</b>. You pay the <b>' + inr(down) + '</b> down payment plus ' + inr(r.total) +
+        ' in charges: about <b>' + inr(down + r.total) + '</b> from your own savings.</p>' +
+        (location.pathname !== s.url ? '<p class="small"><a href="' + s.url + '">Stamp duty rates in ' + s.name + '</a></p>' : '');
+    }
+    stateEl.addEventListener('change', fillAreas);
+    box.addEventListener('input', run);
+    box.addEventListener('change', run);
+    run();
+  });
+
   // Header menu button (narrow screens). The links are always in the HTML; this only shows them.
   var menuBtn = $('.menu-btn'), mainNav = document.getElementById('main-nav');
   if (menuBtn && mainNav) {

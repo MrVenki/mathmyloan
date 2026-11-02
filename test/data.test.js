@@ -2,7 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { publishable } from '../src/data.js';
 import { validate, relevantLines, stripHtml } from '../src/collect.js';
-import { emi, schedule, yearly, maxEmiFor, balanceTransfer, flatEmi, flatToReducing, ltvFor } from '../src/math.js';
+import { emi, schedule, yearly, maxEmiFor, balanceTransfer, flatEmi, flatToReducing, ltvFor, maxLoanForValue, stampDuty } from '../src/math.js';
+import fs from 'node:fs';
 
 const NOW = Date.parse('2026-11-10');
 const good = { rateFrom: 8.5, sourceUrl: 'https://bank.example/x', retrievedOn: '2026-11-01' };
@@ -108,4 +109,38 @@ test('zero-rate loans split evenly', () => {
 
 test('EMI helper is correct', () => {
   assert.ok(Math.abs(emi(5_000_000, 8.5, 20) - 43391) < 1);
+});
+
+test('stamp duty: official rates give the expected totals', () => {
+  const sd = JSON.parse(fs.readFileSync(new URL('../data/stampduty.json', import.meta.url), 'utf8')).states;
+  const st = (slug) => sd.find((s) => s.slug === slug);
+  // Delhi, ₹50 lakh: man 6% + 1% + ₹100; woman 4% + 1% + ₹100
+  const dl = st('delhi').areas[0];
+  assert.equal(stampDuty(dl, 5e6, 'man').total, 300000 + 50000 + 100);
+  assert.equal(stampDuty(dl, 5e6, 'woman').total, 200000 + 50000 + 100);
+  // Maharashtra corporation, ₹50 lakh: 5% duty, registration capped at ₹30,000; women 4%
+  const mh = st('maharashtra').areas.find((a) => a.id === 'corporation');
+  assert.equal(stampDuty(mh, 5e6).duty, 250000);
+  assert.equal(stampDuty(mh, 5e6).registration, 30000);
+  assert.equal(stampDuty(mh, 5e6, 'woman').duty, 200000);
+  // Registration below the cap: ₹100 + ₹10 per ₹1,000 above ₹10,000, part-thousands rounded up
+  assert.equal(stampDuty(mh, 1500500).registration, 15010);
+  assert.equal(stampDuty(mh, 5000).registration, 100);
+  // Telangana: 7.5% in both kinds of area, no women's concession
+  for (const a of st('telangana').areas) {
+    assert.equal(stampDuty(a, 4e6).total, 300000);
+    assert.equal(stampDuty(a, 4e6, 'woman').total, 300000);
+  }
+  for (const s of sd) {
+    assert.ok(s.sources.length && s.sources.every((x) => x.url.startsWith('https://')), `${s.slug} needs https sources`);
+    assert.ok(/^\d{4}-\d{2}-\d{2}$/.test(s.retrievedOn), `${s.slug} needs a check date`);
+  }
+});
+
+test('LTV slabs cap the loan on a property value', () => {
+  assert.equal(maxLoanForValue(3e6), 2.7e6);
+  assert.equal(maxLoanForValue(3.5e6), 3e6);
+  assert.equal(maxLoanForValue(5e6), 4e6);
+  assert.equal(maxLoanForValue(1e7), 7.5e6);
+  assert.equal(maxLoanForValue(2e7), 1.5e7);
 });

@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { emi, summary, schedule, yearly, loanForEmi, maxEmiFor, balanceTransfer, flatEmi, flatToReducing, ltvFor, inr, lakhLabel } from './math.js';
+import { emi, summary, schedule, yearly, loanForEmi, maxEmiFor, balanceTransfer, flatEmi, flatToReducing, ltvFor, maxLoanForValue, stampDuty, inr, lakhLabel } from './math.js';
 import { ROOT, readJson, loadData } from './data.js';
 
 const OUT = path.join(ROOT, 'dist');
@@ -709,6 +709,7 @@ const TOOLS = [
   { url: '/home-loan-amortization-schedule/', name: 'Home loan amortization schedule', desc: 'Month-by-month and year-by-year repayment schedule.', icon: 'home-loan' },
   { url: '/how-much-home-loan-can-i-get/', name: 'How much home loan can I get', desc: 'Salary-wise table from ₹15,000 to ₹2 lakh, bank by bank.', icon: 'personal-loan' },
   { url: '/flat-vs-reducing-interest-rate-calculator/', name: 'Flat vs reducing rate calculator', desc: 'The real rate behind a flat-rate car or personal loan quote.', icon: 'car-loan', home: false },
+  { url: '/stamp-duty-calculator/', name: 'Stamp duty calculator', desc: 'State-wise stamp duty, registration fee and the cash you need upfront.', icon: 'loan-against-property' },
   { url: '/emi-calculator-excel/', name: 'EMI calculator for Excel', desc: 'Free spreadsheet with a full amortization schedule.', icon: 'education-loan', home: false },
 ];
 const toolChips = () =>
@@ -1178,6 +1179,154 @@ function excelPage() {
   });
 }
 
+// ---------- stamp duty (official state rates, data/stampduty.json) ----------
+
+const stampStates = (() => {
+  let list = [];
+  try {
+    list = readJson('data/stampduty.json').states;
+  } catch {
+    return [];
+  }
+  // Same rule as bank rates: https official sources, checked within maxAgeDays.
+  const fresh = (s) => s.sources?.length && s.sources.every((x) => /^https:\/\//.test(x.url)) && (Date.parse(today) - Date.parse(s.retrievedOn)) / 864e5 <= cfg.maxAgeDays;
+  return list.filter(fresh).sort((a, b) => a.name.localeCompare(b.name));
+})();
+const STAMP_HUB = '/stamp-duty-calculator/';
+const stampUrl = (s) => `/stamp-duty-in-${s.slug}/`;
+const stampYear = new Date(today).getUTCFullYear();
+const hasWomanRate = (s) => s.areas.some((a) => a.duty.some((d) => d.womanPct != null));
+const pctLabel = (n) => `${Number(n.toFixed(2))}%`;
+const dutyPct = (a, buyer = 'man') => a.duty.reduce((x, d) => x + (buyer === 'woman' && d.womanPct != null ? d.womanPct : d.pct), 0);
+const regLabel = (r) => `${pctLabel(r.pct)}${r.add ? ` + ${inr(r.add)}` : ''}${r.max != null ? ` (max ${inr(r.max)})` : ''}`;
+const sourcesHtml = (s) =>
+  `<p class="small">Source: ${s.sources.map((x) => `<a rel="nofollow noopener" href="${esc(x.url)}">${esc(x.label)}</a>`).join('; ')}. Checked ${esc(fmtDate(s.retrievedOn))}.</p>`;
+const stampScript = () =>
+  `window.STAMP=${JSON.stringify(stampStates.map((s) => ({ slug: s.slug, name: s.name, url: href(stampUrl(s)), areas: s.areas }))).replace(/</g, '\\u003c')};`;
+
+const stampWidget = (s, value = 5000000) => {
+  const id = ++fieldId;
+  return `<div class="card" data-stamp>
+<div class="row"><div><label for="sd-state-${id}">State</label><select id="sd-state-${id}" name="state">${stampStates.map((x) => `<option value="${x.slug}"${x.slug === s.slug ? ' selected' : ''}>${esc(x.name)}</option>`).join('')}</select></div>
+<div><label for="sd-area-${id}">Where is the property?</label><select id="sd-area-${id}" name="area">${s.areas.map((a) => `<option value="${a.id}">${esc(a.label)}</option>`).join('')}</select></div></div>
+<div class="row">${field('Property value (₹)', 'amount', value)}<div><label for="sd-buyer-${id}">Buyer</label><select id="sd-buyer-${id}" name="buyer"><option value="man">Man</option><option value="woman">Woman</option></select></div></div>
+<div class="out" aria-live="polite"></div></div>`;
+};
+
+// Down payment the LTV slabs leave you to pay, plus stamp duty and registration.
+const upfront = (area, value, buyer = 'man') => {
+  const loan = maxLoanForValue(value);
+  const sd = stampDuty(area, value, buyer);
+  return { loan, down: value - loan, sd, cash: value - loan + sd.total };
+};
+
+const STAMP_VALUES = [2500000, 5000000, 7500000, 10000000, 20000000];
+
+function stampStatePage(s) {
+  const main = s.areas[0];
+  const woman = hasWomanRate(s);
+  const multi = s.areas.length > 1;
+  const ex = stampDuty(main, 5000000);
+  const rateRows = s.areas
+    .map((a) => `<tr><td>${esc(a.label)}</td>${a.duty.map((d) => `<td>${pctLabel(d.pct)}${d.womanPct != null ? ` <span class="small">(women ${pctLabel(d.womanPct)})</span>` : ''}</td>`).join('')}<td>${regLabel(a.registration)}</td></tr>`)
+    .join('');
+  const valueRows = STAMP_VALUES.map((v) => {
+    const m = stampDuty(main, v);
+    return `<tr><td>${lakhShort(v)}</td><td>${inr(m.duty)}</td><td>${inr(m.registration)}</td><td><b>${inr(m.total)}</b></td>${woman ? `<td>${inr(stampDuty(main, v, 'woman').total)}</td>` : ''}</tr>`;
+  }).join('');
+  const cashRows = STAMP_VALUES.map((v) => {
+    const u = upfront(main, v);
+    return `<tr><td>${lakhShort(v)}</td><td>${inr(u.loan)}</td><td>${inr(u.down)}</td><td>${inr(u.sd.total)}</td><td><b>${inr(u.cash)}</b></td></tr>`;
+  }).join('');
+  const u50 = upfront(main, 5000000);
+  const inArea = (a) => `in a ${a.label.charAt(0).toLowerCase()}${a.label.slice(1)}`;
+  const sameReg = s.areas.every((a) => regLabel(a.registration) === regLabel(main.registration));
+  const intro = `${multi ? `${inArea(main).replace(/^i/, 'I')}, ` : ''}${s.name} charges ${main.duty.filter((d) => d.pct > 0).map((d) => `${pctLabel(d.pct)} ${d.label.toLowerCase()}`).join(' and ')}${woman ? ` (${pctLabel(dutyPct(main, 'woman'))} when the buyer is a woman)` : ''}, plus a registration fee of ${regLabel(main.registration)}. On a ₹50 lakh home that comes to <b>${inr(ex.total)}</b>.`;
+  const qa = [
+    [`What is the stamp duty in ${s.name} in ${stampYear}?`, `${intro.replace(/<[^>]+>/g, '')} Duty is charged on ${s.valueBasis}.`],
+    [`What is the registration fee in ${s.name}?`, sameReg ? `${regLabel(main.registration)} of the property value${multi ? ', in every kind of area' : ''}.` : s.areas.map((a) => `${regLabel(a.registration)} of the property value ${inArea(a)}.`).join(' ')],
+    woman
+      ? [`Do women pay less stamp duty in ${s.name}?`, `Yes. ${s.areas.map((a) => `${multi ? `${inArea(a).replace(/^i/, 'I')}, a` : 'A'} woman buyer pays ${pctLabel(dutyPct(a, 'woman'))} instead of ${pctLabel(dutyPct(a))}.`).join(' ')} On a ₹50 lakh home that saves ${inr(ex.total - stampDuty(main, 5000000, 'woman').total)}.`]
+      : [`Do women pay less stamp duty in ${s.name}?`, `No. ${s.name}'s official rates are the same for men and women buyers.`],
+    ['Can I add stamp duty to my home loan?', 'Banks usually lend only against the property price, so plan to pay stamp duty and the registration fee from your own savings, along with the down payment.'],
+    [`How much cash do I need to buy a ₹50 lakh home in ${s.name}?`, `A bank can lend up to ${inr(u50.loan)} (80%) on a ₹50 lakh home, leaving a ${inr(u50.down)} down payment. Add ${inr(u50.sd.total)} for stamp duty and registration and you need about ${inr(u50.cash)} of your own money.`],
+  ];
+  const others = stampStates.filter((x) => x.slug !== s.slug);
+  return layout({
+    title: `Stamp Duty in ${s.name} ${stampYear}: Rates, Registration Fee, Calculator`,
+    desc: `${s.name} stamp duty and registration fee for ${stampYear} from the official state website${woman ? ', including the lower rate for women' : ''}. Calculate the amount on your property and the total cash you need.`,
+    url: stampUrl(s),
+    toc: true,
+    updated: s.retrievedOn,
+    crumbs: [{ name: 'Calculators', url: '/calculators/' }, { name: 'Stamp duty calculator', url: STAMP_HUB }, { name: s.name, url: stampUrl(s) }],
+    jsonld: [faqLd(qa)],
+    extraScript: stampScript(),
+    body: `<h1>Stamp Duty in ${esc(s.name)} ${stampYear}</h1>
+<p class="lead">${intro}</p>
+<p class="meta-line"><span>Updated ${esc(fmtDate(s.retrievedOn))}</span><span>Rates from the official ${esc(s.name)} government website</span></p>
+${stampWidget(s)}
+<h2>Stamp duty and registration fee rates in ${esc(s.name)}</h2>
+<div class="scroll"><table><thead><tr><th>Area</th>${main.duty.map((d) => `<th>${esc(d.label)}</th>`).join('')}<th>Registration fee</th></tr></thead><tbody>${rateRows}</tbody></table></div>
+<p class="small">Charged on ${esc(s.valueBasis)}.</p>
+${sourcesHtml(s)}
+<h2>Stamp duty on common property values</h2>
+<p class="small">${multi ? `${esc(main.label)}. ` : ''}${woman ? 'Total for a man buying alone, and for a woman.' : 'Same for men and women buyers.'}</p>
+<div class="scroll"><table><thead><tr><th>Property value</th><th>Stamp duty</th><th>Registration</th><th>Total${woman ? ' (man)' : ''}</th>${woman ? '<th>Total (woman)</th>' : ''}</tr></thead><tbody>${valueRows}</tbody></table></div>
+<h2>Total cash you need to buy a home in ${esc(s.name)}</h2>
+<p>Banks lend up to 90% of the property value for loans up to ₹30 lakh, 80% up to ₹75 lakh and 75% above that. The rest, plus stamp duty and registration, comes from your own savings.</p>
+<div class="scroll"><table><thead><tr><th>Property value</th><th>Most a bank can lend</th><th>Down payment</th><th>Stamp duty and registration</th><th>Cash you need</th></tr></thead><tbody>${cashRows}</tbody></table></div>
+<p>Check what your salary supports with the <a href="${href('/home-loan-eligibility-calculator/')}">home loan eligibility calculator</a>, then <a href="${href('/home-loan/')}">compare home loan rates</a>.</p>
+<h2>Things to know</h2>
+<ul class="clean">${s.notes.map((n) => `<li>${esc(n)}</li>`).join('')}</ul>
+${leadForm({ loan: 'home-loan', heading: `Buying in ${s.name}? Get a call back about a home loan` })}
+${toolChips()}
+<h2>Frequently asked questions</h2>${faqHtml(qa)}
+${others.length ? `<p>Stamp duty in other states: ${others.map((x) => `<a href="${href(stampUrl(x))}">${esc(x.name)}</a>`).join(' · ')}</p>` : ''}`,
+  });
+}
+
+function stampHubPage() {
+  const def = stampStates.find((s) => s.slug === 'maharashtra') ?? stampStates[0];
+  const updated = stampStates.map((s) => s.retrievedOn).sort().at(-1);
+  const rows = stampStates
+    .flatMap((s) =>
+      s.areas.map((a, i) => {
+        const w = a.duty.some((d) => d.womanPct != null);
+        return `<tr><td>${i === 0 ? `<a href="${href(stampUrl(s))}">${esc(s.name)}</a>` : ''}</td><td>${esc(a.label)}</td><td>${pctLabel(dutyPct(a))}${w ? ` <span class="small">(women ${pctLabel(dutyPct(a, 'woman'))})</span>` : ''}</td><td>${regLabel(a.registration)}</td><td><b>${inr(stampDuty(a, 5000000).total)}</b></td></tr>`;
+      }),
+    )
+    .join('');
+  const withW = stampStates.filter(hasWomanRate).map((s) => s.name);
+  const withoutW = stampStates.filter((s) => !hasWomanRate(s)).map((s) => s.name);
+  const qa = [
+    ['What is stamp duty?', 'A tax the state government charges when a property changes hands. The buyer pays it when the sale deed is registered, along with a separate registration fee.'],
+    ['On what value is stamp duty charged?', 'On the sale price or the government value of the property (circle rate or ready reckoner rate), whichever is higher.'],
+    ...(withW.length && withoutW.length ? [['Do women pay less stamp duty?', `In some states. ${withW.join(' and ')} charge${withW.length === 1 ? 's' : ''} women buyers a lower rate; ${withoutW.join(' and ')} ${withoutW.length === 1 ? 'does' : 'do'} not.`]] : []),
+    ['Can I add stamp duty to my home loan?', 'Banks usually lend only against the property price, so plan to pay stamp duty and the registration fee from your own savings, along with the down payment.'],
+  ];
+  return layout({
+    title: `Stamp Duty Calculator ${stampYear}: State-wise Rates and Registration Fee`,
+    desc: `Calculate stamp duty and registration charges on a property in ${stampStates.map((s) => s.name).join(', ')}. Official ${stampYear} rates, women's concessions and the total cash you need to buy a home.`,
+    url: STAMP_HUB,
+    toc: true,
+    updated,
+    crumbs: [{ name: 'Calculators', url: '/calculators/' }, { name: 'Stamp duty calculator', url: STAMP_HUB }],
+    jsonld: [faqLd(qa)],
+    extraScript: stampScript(),
+    body: `<h1>Stamp Duty Calculator</h1>
+<p class="lead">Work out the stamp duty and registration fee on your home, and the total cash you need on top of your home loan. Rates are taken from each state's official registration website.</p>
+${stampWidget(def)}
+<h2>Stamp duty and registration fee by state</h2>
+<div class="scroll"><table><thead><tr><th>State</th><th>Area</th><th>Stamp duty</th><th>Registration fee</th><th>On a ₹50 lakh home</th></tr></thead><tbody>${rows}</tbody></table></div>
+<p class="small">We add a state only after checking every charge on its official government website. More states are on the way.</p>
+<h2>How stamp duty is calculated</h2>
+<p>Multiply the property value by the state's stamp duty rate, then add the registration fee. For example, a ₹50 lakh home in ${esc(def.name)} (${esc(def.areas[0].label.charAt(0).toLowerCase() + def.areas[0].label.slice(1))}) pays ${pctLabel(dutyPct(def.areas[0]))} stamp duty (${inr(stampDuty(def.areas[0], 5000000).duty)}) plus a registration fee of ${inr(stampDuty(def.areas[0], 5000000).registration)}, a total of ${inr(stampDuty(def.areas[0], 5000000).total)}.</p>
+${leadForm({ loan: 'home-loan', heading: 'Buying a home? Get a call back about a home loan' })}
+${toolChips()}
+<h2>Frequently asked questions</h2>${faqHtml(qa)}`,
+  });
+}
+
 // ---------- build ----------
 
 fs.rmSync(OUT, { recursive: true, force: true });
@@ -1198,6 +1347,10 @@ if (homeLoan) {
 }
 write('flat-vs-reducing-interest-rate-calculator/index.html', flatPage());
 write('emi-calculator-excel/index.html', excelPage());
+if (stampStates.length) {
+  write('stamp-duty-calculator/index.html', stampHubPage());
+  for (const st of stampStates) write(`${stampUrl(st).slice(1)}index.html`, stampStatePage(st));
+}
 fs.mkdirSync(path.join(OUT, 'downloads'), { recursive: true });
 fs.copyFileSync(path.join(ROOT, 'assets', 'downloads', 'mathmyloan-emi-calculator.xlsx'), path.join(OUT, EXCEL_FILE.slice(1)));
 for (const loan of loans) {
