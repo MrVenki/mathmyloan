@@ -83,6 +83,26 @@ export function balanceTransfer(outstanding, oldRate, newRate, years, fees = 0) 
   };
 }
 
+// Flat-rate loans charge interest on the full original amount for the whole tenure.
+export const flatEmi = (P, flatRate, years) => (P + (P * flatRate * years) / 100) / (years * 12);
+
+// The reducing-balance rate that gives the same EMI as a flat-rate quote (found by bisection).
+export function flatToReducing(flatRate, years) {
+  if (flatRate <= 0) return 0;
+  const target = flatEmi(100000, flatRate, years);
+  let lo = 0;
+  let hi = 100;
+  for (let i = 0; i < 80; i++) {
+    const mid = (lo + hi) / 2;
+    if (emi(100000, mid, years) < target) lo = mid;
+    else hi = mid;
+  }
+  return (lo + hi) / 2;
+}
+
+// Indian loan-to-value limits for home loans: 90% up to ₹30 lakh, 80% up to ₹75 lakh, 75% above.
+export const ltvFor = (loan) => (loan <= 3e6 ? 0.9 : loan <= 7.5e6 ? 0.8 : 0.75);
+
 export const inr = (n) => '₹' + Math.round(n).toLocaleString('en-IN');
 
 export function lakhLabel(lakh) {

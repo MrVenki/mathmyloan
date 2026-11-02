@@ -83,6 +83,7 @@ footer.site .fine{border-top:1px solid #1e293b;margin:32px 0 0;padding-top:18px;
 .toc a:hover{border-color:var(--accent);color:var(--accent2)}
 h2[id]{scroll-margin-top:16px}
 main > p,main section > p,.lead{max-width:75ch}
+ul.clean{padding-left:20px;max-width:75ch} ul.clean li{margin:8px 0;line-height:1.6}
 .secure{display:flex;align-items:center;gap:8px;margin:12px 0 0;font-size:.82rem;color:var(--muted)}
 .secure svg{color:var(--good);flex:none}
 .eyebrow{display:inline-block;background:var(--accent100);color:#1e40af;font-size:.8rem;font-weight:700;padding:6px 12px;border-radius:999px}

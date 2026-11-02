@@ -224,6 +224,29 @@
     run();
   });
 
+  // Flat vs reducing: the reducing-balance rate with the same EMI as a flat-rate quote.
+  function flatToReducing(flat, years) {
+    if (flat <= 0) return 0;
+    var target = (100000 + 100000 * flat * years / 100) / (years * 12), lo = 0, hi = 100;
+    for (var i = 0; i < 80; i++) { var mid = (lo + hi) / 2; if (emi(100000, mid, years) < target) lo = mid; else hi = mid; }
+    return (lo + hi) / 2;
+  }
+  document.querySelectorAll('[data-flat]').forEach(function (box) {
+    var out = $('.out', box);
+    function run() {
+      var P = num($('[name=amount]', box)), f = num($('[name=flat]', box)), y = num($('[name=years]', box));
+      if (!P || !y) { out.innerHTML = ''; return; }
+      var fe = (P + P * f * y / 100) / (y * 12), fi = P * f * y / 100;
+      var r = flatToReducing(f, y), re = emi(P, f, y), ri = re * y * 12 - P;
+      out.innerHTML = '<div class="calcout"><div><div class="big">' + r.toFixed(2) + '%<span> real (reducing) rate</span></div>' +
+        '<p>EMI <b>' + inr(fe) + '</b> a month · total interest <b>' + inr(fi) + '</b></p></div></div>' +
+        (f > 0 ? '<p class="verdict">This ' + f + '% flat quote is really <b>' + r.toFixed(2) + '%</b>. At a genuine ' + f + '% reducing rate the EMI would be ' + inr(re) +
+          ', saving <b>' + inr(fi - ri) + '</b> in interest.</p>' : '');
+    }
+    box.addEventListener('input', run);
+    run();
+  });
+
   // Header menu button (narrow screens). The links are always in the HTML; this only shows them.
   var menuBtn = $('.menu-btn'), mainNav = document.getElementById('main-nav');
   if (menuBtn && mainNav) {

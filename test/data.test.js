@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { publishable } from '../src/data.js';
 import { validate, relevantLines, stripHtml } from '../src/collect.js';
-import { emi, schedule, yearly, maxEmiFor, balanceTransfer } from '../src/math.js';
+import { emi, schedule, yearly, maxEmiFor, balanceTransfer, flatEmi, flatToReducing, ltvFor } from '../src/math.js';
 
 const NOW = Date.parse('2026-11-10');
 const good = { rateFrom: 8.5, sourceUrl: 'https://bank.example/x', retrievedOn: '2026-11-01' };
@@ -83,6 +83,21 @@ test('eligibility and balance transfer helpers', () => {
   assert.equal(bt.breakEvenMonths, Math.ceil(10_000 / bt.monthly));
   assert.ok(Math.abs(bt.net - (bt.monthly * 180 - 10_000)) < 1e-6);
   assert.equal(balanceTransfer(4_000_000, 8.5, 9, 15, 0).breakEvenMonths, null);
+});
+
+test('flat rate converts to a higher reducing rate with the same EMI', () => {
+  // ₹1 lakh at 10% flat for 1 year: EMI 9,166.67, equivalent to about 17.97% reducing.
+  assert.ok(Math.abs(flatEmi(100000, 10, 1) - 9166.67) < 0.01);
+  const r = flatToReducing(10, 1);
+  assert.ok(Math.abs(emi(100000, r, 1) - flatEmi(100000, 10, 1)) < 0.01);
+  assert.ok(r > 17.8 && r < 18.1);
+  assert.equal(flatToReducing(0, 3), 0);
+});
+
+test('loan-to-value slabs', () => {
+  assert.equal(ltvFor(2_500_000), 0.9);
+  assert.equal(ltvFor(5_000_000), 0.8);
+  assert.equal(ltvFor(9_000_000), 0.75);
 });
 
 test('zero-rate loans split evenly', () => {

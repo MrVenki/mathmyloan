@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { emi, summary, schedule, yearly, loanForEmi, maxEmiFor, balanceTransfer, inr, lakhLabel } from './math.js';
+import { emi, summary, schedule, yearly, loanForEmi, maxEmiFor, balanceTransfer, flatEmi, flatToReducing, ltvFor, inr, lakhLabel } from './math.js';
 import { ROOT, readJson, loadData } from './data.js';
 
 const OUT = path.join(ROOT, 'dist');
@@ -707,9 +707,12 @@ const TOOLS = [
   { url: '/home-loan-prepayment-calculator/', name: 'Home loan prepayment calculator', desc: 'How much interest and time extra payments save.', icon: 'education-loan' },
   { url: '/home-loan-balance-transfer-calculator/', name: 'Home loan balance transfer calculator', desc: 'Whether moving your loan to another bank pays off after fees.', icon: 'loan-against-property' },
   { url: '/home-loan-amortization-schedule/', name: 'Home loan amortization schedule', desc: 'Month-by-month and year-by-year repayment schedule.', icon: 'home-loan' },
+  { url: '/how-much-home-loan-can-i-get/', name: 'How much home loan can I get', desc: 'Salary-wise table from ₹15,000 to ₹2 lakh, bank by bank.', icon: 'personal-loan' },
+  { url: '/flat-vs-reducing-interest-rate-calculator/', name: 'Flat vs reducing rate calculator', desc: 'The real rate behind a flat-rate car or personal loan quote.', icon: 'car-loan', home: false },
+  { url: '/emi-calculator-excel/', name: 'EMI calculator for Excel', desc: 'Free spreadsheet with a full amortization schedule.', icon: 'education-loan', home: false },
 ];
 const toolChips = () =>
-  `<h2>Home loan calculators</h2><p class="chips">${TOOLS.map((t) => `<a href="${href(t.url)}">${esc(t.name)}</a>`).join('')}</p>`;
+  `<h2>Home loan calculators</h2><p class="chips">${TOOLS.filter((t) => t.home !== false).map((t) => `<a href="${href(t.url)}">${esc(t.name)}</a>`).join('')}</p>`;
 
 function eligibilityPage() {
   const L = homeLoan;
@@ -717,7 +720,7 @@ function eligibilityPage() {
   const y = L.defaultTenure;
   const forIncome = (inc) => loanForEmi(maxEmiFor(inc, 0, 50), r, y);
   const rows = [25000, 40000, 50000, 75000, 100000, 150000, 200000]
-    .map((inc) => `<tr><td>${inr(inc)}</td><td>${inr(maxEmiFor(inc, 0, 50))}</td><td>${inr(forIncome(inc))}</td></tr>`)
+    .map((inc) => `<tr><td><a href="${href(`/home-loan-for-${inc}-salary/`)}">${inr(inc)}</a></td><td>${inr(maxEmiFor(inc, 0, 50))}</td><td>${inr(forIncome(inc))}</td></tr>`)
     .join('');
   const qa = [
     [`How much home loan can I get on a ₹50,000 salary?`, `With no other EMIs, lenders often allow total EMIs of up to about half your net monthly income, so about ${inr(maxEmiFor(50000, 0, 50))} a month. At ${rate(r)} for ${y} years that supports a home loan of about ${inr(forIncome(50000))}. Lenders' limits vary, commonly between 40% and 60% of income.`],
@@ -965,6 +968,216 @@ ${calcWidget(5000000, 8.5, 20)}
 `;
 }
 
+// ---------- quick-win pages from the keyword gap research ----------
+
+const SALARIES = [15000, 20000, 25000, 30000, 35000, 40000, 50000, 60000, 75000, 100000, 150000, 200000];
+const salaryLabel = (s) => (s >= 100000 ? `₹${s / 100000} lakh` : inr(s));
+const salaryUrl = (s) => `/home-loan-for-${s}-salary/`;
+const homeUpdated = () => homeList.map((p) => p.retrievedOn).sort().at(-1);
+
+const eligWidget = (income) => `<div class="card" data-elig>
+<div class="row">${field('Net monthly income (₹)', 'income', income)}${field('Existing EMIs per month (₹)', 'existing', 0)}${field('Interest rate (% p.a.)', 'rate', homeLoan.defaultRate, '0.05')}</div>
+<div class="row">${field('Tenure (years)', 'years', 20)}${field('EMI limit (% of income)', 'foir', 50, '5')}</div>
+<div class="out" aria-live="polite"></div></div>`;
+
+function salaryPage(sal) {
+  const r = homeLoan.defaultRate;
+  const y = 20;
+  const maxE = maxEmiFor(sal, 0, 50);
+  const loan = loanForEmi(maxE, r, y);
+  const home = loan / ltvFor(loan);
+  const label = salaryLabel(sal);
+  const banksRanked = homeList.map((p) => ({ p, amt: loanForEmi(maxE, p.rateFrom, y) })).sort((a, b) => b.amt - a.amt);
+  const bankRows = banksRanked
+    .map(({ p, amt }, i) => `<tr><td><span class="title-row" style="gap:8px">${avatar(p.bankInfo.short, p.bank)}<a href="${href(bankUrl(homeLoan, p))}">${esc(p.bankInfo.name)}</a></span>${i === 0 ? '<span class="badge">Highest amount</span>' : ''}</td><td>${p.rateFrom.toFixed(2)}%</td><td><b>${inr(amt)}</b></td></tr>`)
+    .join('');
+  const tenureRows = [15, 20, 25, 30].map((t) => `<tr><td>${t} years</td><td>${inr(loanForEmi(maxE, r, t))}</td><td>${inr(maxE)}</td></tr>`).join('');
+  const existingRows = [0, 2000, 5000, 10000, 20000]
+    .filter((e) => e < maxE)
+    .map((e) => `<tr><td>${e ? `${inr(e)} a month` : 'None'}</td><td>${inr(maxEmiFor(sal, e, 50))}</td><td>${inr(loanForEmi(maxEmiFor(sal, e, 50), r, y))}</td></tr>`)
+    .join('');
+  const joint = loanForEmi(maxEmiFor(sal * 2, 0, 50), r, y);
+  const top = banksRanked[0];
+  const qa = [
+    [`How much home loan can I get on a ${label} salary?`, `With a ${label} net monthly salary and no other EMIs, banks typically allow an EMI of up to about ${inr(maxE)}. At ${rate(r)} over ${y} years that supports a home loan of about ${inr(loan)}.`],
+    [`What price of home can I buy on a ${label} salary?`, `About ${inr(home)}. Banks lend up to ${Math.round(ltvFor(loan) * 100)}% of the property value at this loan size, so you would pay about ${inr(home - loan)} yourself, plus stamp duty and registration.`],
+    [`Which bank gives the highest home loan on a ${label} salary?`, `At advertised starting rates, ${top.p.bankInfo.name} supports the most, about ${inr(top.amt)}, because a lower rate means more loan for the same EMI. Your actual rate depends on your credit score.`],
+    [`How can I get a bigger loan on a ${label} salary?`, `Choose a longer tenure (30 years supports about ${inr(loanForEmi(maxE, r, 30))}), add a co-applicant (with a partner earning the same, about ${inr(joint)}), close small loans first, and keep your credit score above 750.`],
+  ];
+  const others = SALARIES.filter((s) => s !== sal);
+  return layout({
+    title: `Home Loan for ${label} Salary: Up to ${lakhShort(loan)} (${monthOf(homeUpdated())})`,
+    desc: `How much home loan you can get on a ${label} monthly salary: about ${lakhShort(loan)} at ${rate(r)} over 20 years, the amount at each of ${homeList.length} banks, and how tenure and existing EMIs change it.`,
+    url: salaryUrl(sal),
+    crumbs: [{ name: 'Home Loan', url: '/home-loan/' }, { name: 'How much can I get', url: '/how-much-home-loan-can-i-get/' }, { name: `${label} salary`, url: salaryUrl(sal) }],
+    jsonld: [faqLd(qa)],
+    updated: homeUpdated(),
+    toc: true,
+    extraScript: productsScript(homeList, homeLoan),
+    body: `<h1>Home Loan for ${esc(label)} Salary</h1>
+${metaLine(homeUpdated())}
+<p class="lead">With a <b>${esc(label)}</b> net monthly salary and no other EMIs, you can typically get a home loan of about <b>${inr(loan)}</b> at ${rate(r)} over ${y} years, with an EMI of up to ${inr(maxE)} a month.</p>
+<div class="tiles">
+<div class="tile"><span>Eligible loan</span><b>${lakhShort(loan)}</b><span>at ${rate(r)}, ${y} years</span></div>
+<div class="tile"><span>Maximum EMI</span><b>${inr(maxE)}</b><span>half of take-home pay</span></div>
+<div class="tile"><span>Home you could buy</span><b>${lakhShort(home)}</b><span>with ${lakhShort(home - loan)} down payment</span></div>
+<div class="tile"><span>With a co-applicant</span><b>${lakhShort(joint)}</b><span>if they earn the same</span></div>
+</div>
+<h2>Eligible loan at each bank</h2>
+<p class="sub">EMI up to ${inr(maxE)} over ${y} years, at each bank's advertised starting rate (a best case).</p>
+<div class="scroll"><table><thead><tr><th>Bank</th><th>Starting rate</th><th>Eligible loan</th></tr></thead><tbody>${bankRows}</tbody></table></div>
+<h2>Check your own numbers</h2>
+${eligWidget(sal)}
+<h2>How tenure changes your loan</h2>
+<div class="scroll"><table><thead><tr><th>Tenure</th><th>Eligible loan at ${rate(r)}</th><th>EMI</th></tr></thead><tbody>${tenureRows}</tbody></table></div>
+<h2>If you already pay EMIs</h2>
+<div class="scroll"><table><thead><tr><th>Existing EMIs</th><th>EMI left for a home loan</th><th>Eligible loan</th></tr></thead><tbody>${existingRows}</tbody></table></div>
+${leadForm({ loan: 'home-loan', amount: Math.round(loan / 100000) * 100000, heading: 'Want a lender to confirm your eligibility?' })}
+<h2>Frequently asked questions</h2>${faqHtml(qa)}
+<h2>Home loan on other salaries</h2>
+<p class="chips">${others.map((s) => `<a href="${href(salaryUrl(s))}">${esc(salaryLabel(s))} salary</a>`).join('')}</p>
+${trustBox(homeList)}`,
+  });
+}
+
+function howMuchPage() {
+  const r = homeLoan.defaultRate;
+  const per10k = loanForEmi(5000, r, 20);
+  const rows = SALARIES.map((s) => {
+    const l = loanForEmi(maxEmiFor(s, 0, 50), r, 20);
+    return `<tr><td><a href="${href(salaryUrl(s))}">${esc(salaryLabel(s))}</a></td><td>${inr(maxEmiFor(s, 0, 50))}</td><td><b>${inr(l)}</b></td><td>${inr(l / ltvFor(l))}</td></tr>`;
+  }).join('');
+  const qa = [
+    ['How much home loan can I get?', `Banks usually let all your EMIs together reach about 40% to 60% of your take-home pay. At 50%, ${rate(r)} and 20 years, every ₹10,000 of monthly salary supports about ${inr(per10k)} of home loan.`],
+    ['How much home loan can I get on ₹50,000 salary?', `About ${inr(loanForEmi(maxEmiFor(50000, 0, 50), r, 20))} at ${rate(r)} over 20 years, if you have no other EMIs.`],
+    ['Does age affect how much I can borrow?', 'Yes. Banks usually want the loan repaid by about 60 to 75 years of age, so older borrowers get shorter tenures and smaller loans for the same income.'],
+    ['Does my credit score matter?', 'A score of 750 or more usually gets a lower rate, and a lower rate supports a bigger loan for the same EMI. Some banks offer their best rate only above 800.'],
+  ];
+  return layout({
+    title: `How Much Home Loan Can I Get? Salary-Wise Table (${monthOf(homeUpdated())})`,
+    desc: `How much home loan you can get on your salary: a salary-wise table from ₹15,000 to ₹2 lakh, a calculator using ${homeList.length} banks' rates, and what decides your eligibility.`,
+    url: '/how-much-home-loan-can-i-get/',
+    crumbs: [{ name: 'Home Loan', url: '/home-loan/' }, { name: 'How much can I get', url: '/how-much-home-loan-can-i-get/' }],
+    jsonld: [faqLd(qa)],
+    updated: homeUpdated(),
+    toc: true,
+    extraScript: productsScript(homeList, homeLoan),
+    body: `<h1>How Much Home Loan Can I Get?</h1>
+${metaLine(homeUpdated())}
+<p class="lead">Banks usually let all your EMIs together reach about half of your take-home pay. At ${rate(r)} over 20 years, every <b>₹10,000</b> of monthly salary supports about <b>${inr(per10k)}</b> of home loan. Enter your numbers below, or find your salary in the table.</p>
+${eligWidget(50000)}
+<h2>Home loan by salary</h2>
+<p class="sub">At ${rate(r)} for 20 years, no other EMIs, EMIs capped at 50% of take-home pay.</p>
+<div class="scroll"><table><thead><tr><th>Monthly salary</th><th>Maximum EMI</th><th>Eligible loan</th><th>Home you could buy</th></tr></thead><tbody>${rows}</tbody></table></div>
+<h2>What decides how much you can borrow</h2>
+<ul class="clean">
+<li><b>Take-home pay.</b> The bigger your net monthly income, the bigger the EMI a bank will allow.</li>
+<li><b>EMIs you already pay.</b> Car, personal loan and credit card EMIs come out of the same limit.</li>
+<li><b>Tenure and age.</b> A longer tenure lowers the EMI, so you can borrow more, but banks cap it by your age at the end of the loan.</li>
+<li><b>Interest rate and credit score.</b> A lower rate means more loan for the same EMI. See <a href="${href('/home-loan/')}">home loan rates at ${homeList.length} banks</a>.</li>
+<li><b>Property value.</b> Banks lend up to 90% of the property value for loans up to ₹30 lakh, 80% up to ₹75 lakh, and 75% above that.</li>
+</ul>
+<h2>How to get a bigger home loan</h2>
+<ul class="clean">
+<li>Add a co-applicant, such as a spouse or parent, to combine incomes.</li>
+<li>Choose a longer tenure, then prepay when you can. See the <a href="${href('/home-loan-prepayment-calculator/')}">prepayment calculator</a>.</li>
+<li>Close small loans and credit card balances before you apply.</li>
+<li>Keep your credit score above 750 to qualify for the lowest rates.</li>
+</ul>
+${leadForm({ loan: 'home-loan', heading: 'Want a lender to confirm your eligibility?' })}
+${toolChips()}
+<h2>Frequently asked questions</h2>${faqHtml(qa)}`,
+  });
+}
+
+function flatPage() {
+  const tenures = [1, 2, 3, 5, 7];
+  const rows = [6, 7, 8, 9, 10, 11, 12, 14]
+    .map((f) => `<tr><td>${f}% flat</td>${tenures.map((t) => `<td>${flatToReducing(f, t).toFixed(2)}%</td>`).join('')}</tr>`)
+    .join('');
+  const P = 500000;
+  const f = 10;
+  const t = 3;
+  const fe = flatEmi(P, f, t);
+  const fi = (P * f * t) / 100;
+  const re = emi(P, f, t);
+  const ri = re * t * 12 - P;
+  const eq = flatToReducing(f, t);
+  const qa = [
+    ['Is 10% flat the same as 10% reducing?', `No. On ₹5 lakh over 3 years, 10% flat costs ${inr(fi)} in interest, while 10% on a reducing balance costs ${inr(ri)}. A 10% flat rate is really about ${eq.toFixed(2)}% reducing.`],
+    ['How do I convert a flat rate to a reducing rate?', 'Find the reducing rate that gives the same EMI. For tenures of 1 to 5 years the reducing rate is roughly 1.7 to 1.9 times the flat rate. The calculator above works it out exactly.'],
+    ['Which is better, flat or reducing?', 'At the same headline number, a reducing rate is always cheaper, because interest is charged only on what you still owe. Always ask for the reducing-balance rate, or the APR, before you sign.'],
+    ['Where are flat rates used?', 'Mostly car, two-wheeler and consumer durable loans arranged through dealers, and some personal loans from finance companies. Banks quote home loans on a reducing balance.'],
+  ];
+  return layout({
+    title: 'Flat vs Reducing Interest Rate Calculator: Find the Real Rate',
+    desc: 'Convert a flat interest rate into the real reducing-balance rate. See the true cost of car, two-wheeler and personal loans quoted at flat rates, with a conversion table.',
+    url: '/flat-vs-reducing-interest-rate-calculator/',
+    crumbs: [{ name: 'Calculators', url: '/calculators/' }, { name: 'Flat vs reducing rate', url: '/flat-vs-reducing-interest-rate-calculator/' }],
+    jsonld: [faqLd(qa)],
+    toc: true,
+    body: `<h1>Flat vs Reducing Interest Rate Calculator</h1>
+<p class="lead">A flat rate charges interest on the full loan for the whole term, even as you repay it, so it looks cheaper than it is. A <b>10% flat</b> rate over 3 years is really about <b>${eq.toFixed(2)}%</b> on a reducing balance. Enter the quote you were given to see the real rate.</p>
+<div class="card" data-flat>
+<div class="row">${field('Loan amount (₹)', 'amount', P)}${field('Flat interest rate (% p.a.)', 'flat', f, '0.05')}${field('Tenure (years)', 'years', t)}</div>
+<div class="out" aria-live="polite"></div></div>
+<h2>Flat rate converted to reducing rate</h2>
+<p class="sub">The reducing-balance rate that gives the same EMI as each flat rate.</p>
+<div class="scroll"><table><thead><tr><th>Flat rate</th>${tenures.map((x) => `<th>${x} yr${x > 1 ? 's' : ''}</th>`).join('')}</tr></thead><tbody>${rows}</tbody></table></div>
+<h2>Flat vs reducing: a worked example</h2>
+<div class="scroll"><table><thead><tr><th>₹5 lakh, 3 years</th><th>10% flat</th><th>10% reducing</th></tr></thead><tbody>
+<tr><td>Monthly EMI</td><td>${inr(fe)}</td><td>${inr(re)}</td></tr>
+<tr><td>Total interest</td><td>${inr(fi)}</td><td>${inr(ri)}</td></tr>
+<tr><td>Real (reducing) rate</td><td>${eq.toFixed(2)}%</td><td>10.00%</td></tr>
+</tbody></table></div>
+<p>The flat quote costs <b>${inr(fi - ri)}</b> more in interest, even though both say "10%".</p>
+<h2>Frequently asked questions</h2>${faqHtml(qa)}
+<p><a href="${href('/car-loan/')}">Compare car loan rates</a> · <a href="${href('/personal-loan/')}">Compare personal loan rates</a> · <a href="${href('/calculators/')}">All calculators</a></p>`,
+  });
+}
+
+const EXCEL_FILE = '/downloads/mathmyloan-emi-calculator.xlsx';
+
+function excelPage() {
+  const P = 5000000;
+  const r = 8.5;
+  const y = 20;
+  const e = emi(P, r, y);
+  const first = schedule(P, r, y).slice(0, 6).map((x) => `<tr><td>${x.m}</td><td>${inr(x.paid)}</td><td>${inr(x.interest)}</td><td>${inr(x.principal)}</td><td>${inr(x.balance)}</td></tr>`).join('');
+  const qa = [
+    ['What is the Excel formula for EMI?', 'Use =PMT(rate/12, years*12, -loan). For ₹50 lakh at 8.5% for 20 years that is =PMT(8.5%/12, 240, -5000000), which gives about ' + inr(e) + '.'],
+    ['Does the sheet work in Google Sheets?', 'Yes. In Google Sheets choose File, then Import, then Upload, and select the downloaded file. All formulas keep working.'],
+    ['Is the download free?', 'Yes. No sign-up and no email needed. You can share it and use it for your own planning.'],
+  ];
+  return layout({
+    title: 'Free EMI Calculator in Excel: Download with Amortization Schedule',
+    desc: 'Download a free EMI calculator for Excel and Google Sheets: enter amount, rate and tenure to get your EMI and a full month-by-month amortization schedule with prepayments. No sign-up.',
+    url: '/emi-calculator-excel/',
+    crumbs: [{ name: 'Calculators', url: '/calculators/' }, { name: 'EMI calculator for Excel', url: '/emi-calculator-excel/' }],
+    jsonld: [faqLd(qa)],
+    toc: true,
+    body: `<h1>Free EMI Calculator for Excel and Google Sheets</h1>
+<p class="lead">Download a ready-made spreadsheet: type your loan amount, interest rate and tenure, and it works out your EMI, total interest and a full month-by-month repayment schedule. It also handles extra monthly prepayments. Free, no sign-up.</p>
+<p><a class="btn-lg primary" href="${href(EXCEL_FILE)}" download>Download the EMI calculator (.xlsx)</a></p>
+<h2>What is inside</h2>
+<ul class="clean">
+<li><b>EMI, total interest and total payment</b>, calculated as soon as you type.</li>
+<li><b>Full amortization schedule</b> for up to 30 years, showing interest, principal and balance for every month.</li>
+<li><b>Optional extra payment</b> each month, to see how much sooner you finish.</li>
+<li>Works in Microsoft Excel, Google Sheets and LibreOffice.</li>
+</ul>
+<h2>The EMI formula in Excel</h2>
+<p>Excel's PMT function gives your EMI. For a ₹50 lakh loan at 8.5% for 20 years:</p>
+<pre class="code"><code>=PMT(8.5%/12, 20*12, -5000000)</code></pre>
+<p>That returns about <b>${inr(e)}</b> a month. The rate is divided by 12 because EMIs are monthly, and the loan amount is negative because it is money you receive.</p>
+<h2>First months of the schedule</h2>
+<div class="scroll"><table><thead><tr><th>Month</th><th>EMI</th><th>Interest</th><th>Principal</th><th>Balance left</th></tr></thead><tbody>${first}</tbody></table></div>
+<p class="small">₹50 lakh at 8.5% for 20 years. The download contains all ${y * 12} months.</p>
+<h2>Frequently asked questions</h2>${faqHtml(qa)}
+<p>Prefer not to download? Use the <a href="${href('/home-loan-emi-calculator/')}">online EMI calculator</a>, or <a href="${href('/embed/')}">add our calculator to your website</a>.</p>`,
+  });
+}
+
 // ---------- build ----------
 
 fs.rmSync(OUT, { recursive: true, force: true });
@@ -980,7 +1193,13 @@ if (homeLoan) {
   write('home-loan-prepayment-calculator/index.html', prepaymentPage());
   write('home-loan-balance-transfer-calculator/index.html', balanceTransferPage());
   write('home-loan-amortization-schedule/index.html', amortizationPage());
+  write('how-much-home-loan-can-i-get/index.html', howMuchPage());
+  for (const s of SALARIES) write(`${salaryUrl(s).slice(1)}index.html`, salaryPage(s));
 }
+write('flat-vs-reducing-interest-rate-calculator/index.html', flatPage());
+write('emi-calculator-excel/index.html', excelPage());
+fs.mkdirSync(path.join(OUT, 'downloads'), { recursive: true });
+fs.copyFileSync(path.join(ROOT, 'assets', 'downloads', 'mathmyloan-emi-calculator.xlsx'), path.join(OUT, EXCEL_FILE.slice(1)));
 for (const loan of loans) {
   write(`${loan.slug}/index.html`, loanHub(loan));
   write(`${loan.slug}-emi-calculator/index.html`, calcPage(loan));
