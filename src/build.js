@@ -47,6 +47,13 @@ function write(rel, content) {
 }
 
 const CSS = fs.readFileSync(path.join(ROOT, 'src', 'style.css'), 'utf8');
+// Browser tab, bookmark, home-screen and search-result icons (Google wants 48px or larger).
+const ICON_LINKS = `<link rel="icon" href="${href('/favicon.ico')}" sizes="32x32 48x48">
+<link rel="icon" href="${href('/favicon.svg')}" type="image/svg+xml">
+<link rel="icon" href="${href('/icon-192.png')}" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="${href('/apple-touch-icon.png')}">
+<link rel="manifest" href="${href('/site.webmanifest')}">
+<meta name="theme-color" content="#2563eb">`;
 
 function layout({ title, desc, url, body, crumbs = [], jsonld = [], extraScript = '', noindex = false }) {
   if (!noindex) pages.push(url);
@@ -73,6 +80,8 @@ ${noindex ? '<meta name="robots" content="noindex,follow">' : ''}
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(desc)}">
 <meta property="og:type" content="website">
+<meta property="og:image" content="${esc(cfg.siteUrl)}/icon-512.png">
+${ICON_LINKS}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
@@ -500,7 +509,7 @@ function homePage() {
     desc: 'Compare home, personal, car and education loan interest rates across Indian banks, with the source and check date for every rate. Free EMI, eligibility, prepayment and balance transfer calculators.',
     url: '/',
     jsonld: [
-      { '@context': 'https://schema.org', '@type': 'Organization', name: cfg.siteName, url: `${cfg.siteUrl}/` },
+      { '@context': 'https://schema.org', '@type': 'Organization', name: cfg.siteName, url: `${cfg.siteUrl}/`, logo: `${cfg.siteUrl}/icon-512.png` },
       { '@context': 'https://schema.org', '@type': 'WebSite', name: cfg.siteName, url: `${cfg.siteUrl}/` },
       faqLd(qa),
     ],
@@ -873,6 +882,7 @@ function embedEmiPage() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Home Loan EMI Calculator</title>
 <meta name="robots" content="noindex,follow">
+${ICON_LINKS}
 <link rel="canonical" href="${esc(cfg.siteUrl)}/home-loan-emi-calculator/">
 <style>${CSS} main{padding:4px 8px} body{background:var(--bg)}</style>
 </head>
@@ -918,6 +928,29 @@ for (const v of Object.values(logoManifest)) {
   fs.copyFileSync(path.join(ROOT, 'assets', 'logos', v.file), path.join(OUT, 'logos', v.file));
 }
 write('app.js', fs.readFileSync(path.join(ROOT, 'src', 'client.js'), 'utf8'));
+// Site icon: made by scripts/make-icons.ps1 and scripts/make-ico.mjs, served from the site root.
+for (const f of ['favicon.ico', 'favicon.svg', 'icon-48.png', 'icon-192.png', 'icon-512.png', 'apple-touch-icon.png']) {
+  fs.copyFileSync(path.join(ROOT, 'assets', 'brand', f), path.join(OUT, f));
+}
+write(
+  'site.webmanifest',
+  JSON.stringify(
+    {
+      name: cfg.siteName,
+      short_name: cfg.siteName,
+      start_url: href('/'),
+      display: 'browser',
+      theme_color: '#2563eb',
+      background_color: '#ffffff',
+      icons: [
+        { src: href('/icon-192.png'), sizes: '192x192', type: 'image/png' },
+        { src: href('/icon-512.png'), sizes: '512x512', type: 'image/png' },
+      ],
+    },
+    null,
+    2,
+  ),
+);
 if (cfg.domain) write('CNAME', cfg.domain);
 write('robots.txt', `User-agent: *\nAllow: /\nSitemap: ${cfg.siteUrl}/sitemap.xml\n`);
 write(
