@@ -144,3 +144,12 @@ test('LTV slabs cap the loan on a property value', () => {
   assert.equal(maxLoanForValue(1e7), 7.5e6);
   assert.equal(maxLoanForValue(2e7), 1.5e7);
 });
+
+test('every loan type compares at least 10 banks', () => {
+  const products = JSON.parse(fs.readFileSync(new URL('../data/products.json', import.meta.url), 'utf8'));
+  const loans = JSON.parse(fs.readFileSync(new URL('../data/loans.json', import.meta.url), 'utf8'));
+  for (const loan of loans) {
+    const banks = new Set(products.filter((p) => p.loan === loan.slug && !p.review).map((p) => p.bank));
+    assert.ok(banks.size >= 10, `${loan.slug} has only ${banks.size} banks`);
+  }
+});

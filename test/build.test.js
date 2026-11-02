@@ -37,6 +37,11 @@ test('build produces the keyword-target pages with no broken values', () => {
   const sitemap = fs.readFileSync(dist('sitemap.xml'), 'utf8');
   assert.ok(sitemap.includes('/home-loan-eligibility-calculator/'));
   assert.ok(!sitemap.includes('/embed/emi/'), 'embed frame must not be in the sitemap');
-  assert.ok(!sitemap.includes('/loan-against-property/<'), 'empty hubs must not be in the sitemap');
+  // A loan hub is in the sitemap only when it has at least one bank rate to show.
+  const products = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'products.json'), 'utf8'));
+  for (const loan of JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'loans.json'), 'utf8'))) {
+    const listed = sitemap.includes(`/${loan.slug}/<`);
+    assert.equal(listed, products.some((p) => p.loan === loan.slug && !p.review), `${loan.slug} hub sitemap entry`);
+  }
   assert.ok(fs.readFileSync(dist('embed/emi/index.html'), 'utf8').includes('noindex'));
 });
