@@ -55,8 +55,51 @@ const ICON_LINKS = `<link rel="icon" href="${href('/favicon.ico')}" sizes="32x32
 <link rel="manifest" href="${href('/site.webmanifest')}">
 <meta name="theme-color" content="#2563eb">`;
 
-function layout({ title, desc, url, body, crumbs = [], jsonld = [], extraScript = '', noindex = false }) {
-  if (!noindex) pages.push(url);
+const FONT_CSS = 'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap';
+const fmtDate = (d) => new Date(d).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+const slugify = (s) => s.toLowerCase().replace(/<[^>]+>/g, '').replace(/&[a-z]+;/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 60);
+
+// "On this page": gives each plain <h2> an id and puts jump links before the first one.
+function withToc(body) {
+  const items = [];
+  const out = body.replace(/<h2>([\s\S]*?)<\/h2>/g, (_, text) => {
+    let id = slugify(text) || `section-${items.length + 1}`;
+    while (items.some((i) => i.id === id)) id += '-2';
+    items.push({ id, text: text.replace(/<[^>]+>/g, '') });
+    return `<h2 id="${id}">${text}</h2>`;
+  });
+  if (items.length < 3) return out;
+  const toc = `<nav class="toc" aria-label="On this page"><span>On this page</span>${items.map((i) => `<a href="#${i.id}">${i.text}</a>`).join('')}</nav>`;
+  // Right after the intro paragraph when there is one, so it is seen before scrolling.
+  const lead = out.indexOf('<p class="lead">');
+  if (lead >= 0) {
+    const end = out.indexOf('</p>', lead) + 4;
+    return `${out.slice(0, end)}\n${toc}${out.slice(end)}`;
+  }
+  return out.replace(/<h2 id=/, `${toc}\n<h2 id=`);
+}
+
+// Trust line under a rate page's heading; the date is when the rates on the page were checked.
+const metaLine = (updated) =>
+  `<p class="meta-line"><span>Updated ${esc(fmtDate(updated))}</span><span>Rates from official bank websites</span><a href="${href('/about/')}">How we check rates</a></p>`;
+
+function footer() {
+  const col = (title, links) => `<div><p class="fh">${esc(title)}</p><ul>${links.map(([u, t]) => `<li><a href="${href(u)}">${esc(t)}</a></li>`).join('')}</ul></div>`;
+  return `<footer class="site"><div class="wrap">
+<div class="fgrid">
+<div class="fbrand"><a class="brand" href="${href('/')}"><span class="logo" aria-hidden="true">₹</span>${esc(cfg.siteName)}</a>
+<p>Compare loan interest rates from Indian banks, each checked on the bank's own website and dated.</p></div>
+${col('Loan rates', [...loans.map((l) => [`/${l.slug}/`, `${l.name} rates`]), ['/loan-interest-rates/', 'All bank loan rates']])}
+${col('Calculators', [...TOOLS.map((t) => [t.url, t.name.replace(/^Home loan /, '').replace(/^./, (c) => c.toUpperCase())]), ['/calculators/', 'All calculators']])}
+${col('Company', [['/about/', 'About and how we check rates'], ['/embed/', 'Free calculator for your website'], ['/privacy/', 'Privacy policy']])}
+</div>
+<p class="fine">© ${new Date().getUTCFullYear()} ${esc(cfg.siteName)}. Rates are the starting rates published on each bank's own website on the date shown, and can change without notice. Your rate depends on your credit score, income and the bank's approval. This is not financial advice or a loan offer, and we are not a bank or lender.</p>
+</div></footer>`;
+}
+
+function layout({ title, desc, url, body, crumbs = [], jsonld = [], extraScript = '', noindex = false, updated = null, toc = false }) {
+  if (!noindex) pages.push({ url, lastmod: updated ?? today });
+  if (toc) body = withToc(body);
   const trail = [{ name: 'Home', url: '/' }, ...crumbs];
   // The call-back buttons jump to this page's form, or to the home loan page's form.
   const callbackHref = body.includes('data-lead') ? '#callback' : href('/home-loan/#callback');
@@ -67,6 +110,9 @@ function layout({ title, desc, url, body, crumbs = [], jsonld = [], extraScript 
       '@type': 'BreadcrumbList',
       itemListElement: trail.map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: c.name, item: cfg.siteUrl + c.url })),
     },
+    ...(updated
+      ? [{ '@context': 'https://schema.org', '@type': 'WebPage', name: title, url: cfg.siteUrl + url, dateModified: updated, inLanguage: 'en-IN', isPartOf: { '@type': 'WebSite', name: cfg.siteName, url: `${cfg.siteUrl}/` } }]
+      : []),
   ];
   return `<!doctype html>
 <html lang="en-IN">
@@ -80,11 +126,17 @@ ${noindex ? '<meta name="robots" content="noindex,follow">' : ''}
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(desc)}">
 <meta property="og:type" content="website">
+<meta property="og:url" content="${esc(cfg.siteUrl + url)}">
+<meta property="og:site_name" content="${esc(cfg.siteName)}">
+<meta property="og:locale" content="en_IN">
 <meta property="og:image" content="${esc(cfg.siteUrl)}/icon-512.png">
+<meta name="twitter:card" content="summary">
+${updated ? `<meta property="article:modified_time" content="${updated}">` : ''}
 ${ICON_LINKS}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+<link rel="preload" as="style" href="${FONT_CSS}" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="${FONT_CSS}"></noscript>
 <style>${CSS}</style>
 <script type="application/ld+json">${JSON.stringify(ld).replace(/</g, '\\u003c')}</script>
 </head>
@@ -99,10 +151,7 @@ ${ticker()}
 ${url === '/' ? '' : `<p class="crumbs">${trail.map((c, i) => (i === trail.length - 1 ? esc(c.name) : `<a href="${href(c.url)}">${esc(c.name)}</a>`)).join(' › ')}</p>`}
 ${body}
 </main>
-<footer class="site"><div class="wrap">
-<div class="cols"><b>${esc(cfg.siteName)}</b><a href="${href('/loan-interest-rates/')}">All loan rates</a><a href="${href('/calculators/')}">Calculators</a><a href="${href('/about/')}">How we check rates</a><a href="${href('/embed/')}">Free calculator for your website</a><a href="${href('/privacy/')}">Privacy</a></div>
-<p>Rates are the starting rates published on each bank's own website on the date shown, and can change without notice. Your rate depends on your credit score, income and the bank's approval. This is not financial advice or a loan offer, and we are not a bank or lender.</p>
-</div></footer>
+${footer()}
 <div class="mbar"><a href="${href('/home-loan-eligibility-calculator/')}">Eligibility</a><a class="go" href="${callbackHref}">Free call back</a></div>
 <script>window.CALC={worker:${JSON.stringify(cfg.workerUrl)}};window.LOGOS=${JSON.stringify(logoMap)};${extraScript}</script>
 <script src="${href('/app.js')}" defer></script>
@@ -126,7 +175,7 @@ const calcWidget = (P, r, y, { open = false, extraM = 0, extraY = 0, lump = 0, l
 <div class="out" aria-live="polite"></div></div>`;
 
 const verifiedNote = (p) =>
-  `${p.effectiveFrom ? `Effective from ${esc(p.effectiveFrom)}. ` : ''}${p.conditions ? `${esc(p.conditions)}. ` : ''}${p.note ? esc(p.note) : ''}`;
+  `${p.effectiveFrom ? `Effective from ${esc(fmtDate(p.effectiveFrom))}. ` : ''}${p.conditions ? `${esc(p.conditions)}. ` : ''}${p.note ? esc(p.note) : ''}`;
 
 // "How we checked" panel: the evidence behind every number on the page.
 const trustBox = (list) => `<aside class="trust-box">
@@ -134,7 +183,7 @@ const trustBox = (list) => `<aside class="trust-box">
 <ul>${list
   .map(
     (p) =>
-      `<li>${esc(p.bankInfo.name)}: <a rel="nofollow noopener" href="${esc(p.sourceUrl)}">bank's official page</a>, checked ${esc(p.retrievedOn)}. ${verifiedNote(p)}</li>`,
+      `<li>${esc(p.bankInfo.name)}: <a rel="nofollow noopener" href="${esc(p.sourceUrl)}">bank's official page</a>, checked ${esc(fmtDate(p.retrievedOn))}. ${verifiedNote(p)}</li>`,
   )
   .join('')}</ul>
 <p class="small">We only publish rates we can trace to the bank's own website, and an automated check re-reads them every week. Always confirm with the bank before you apply. <a href="${href('/about/')}">Read our method</a>.</p>
@@ -161,6 +210,7 @@ const leadForm = ({ loan = '', bank = '', amount = '', heading = 'Want a call ba
 <label style="display:flex;gap:8px;align-items:flex-start;color:var(--fg)"><input type="checkbox" name="consent" style="margin-top:4px">
 <span class="small">I agree to be contacted by phone, SMS or WhatsApp by partner lenders or loan advisors about loans, and to my details being shared with them. See the <a href="${href('/privacy/')}">privacy policy</a>.</span></label>
 <button type="submit">Request a call back</button>
+<p class="secure"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2"/></svg>Shared only with partner lenders or loan advisors, and only with your consent.</p>
 <p class="msg small" aria-live="polite"></p>
 </form>`;
 
@@ -170,7 +220,7 @@ const faqLd = (qa) => ({
   mainEntity: qa.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
 });
 const faqHtml = (qa) => qa.map(([q, a]) => `<h3>${esc(q)}</h3><p>${esc(a)}</p>`).join('\n');
-const sourceLine = (p) => `Source: <a rel="nofollow noopener" href="${esc(p.sourceUrl)}">${esc(p.bankInfo.name)} official page</a>, checked on ${esc(monthOf(p.retrievedOn))} (${esc(p.retrievedOn)}).`;
+const sourceLine = (p) => `Source: <a rel="nofollow noopener" href="${esc(p.sourceUrl)}">${esc(p.bankInfo.name)} official page</a>, checked ${esc(fmtDate(p.retrievedOn))}.`;
 const stdNote = '<p class="note">These figures use the bank\'s advertised <b>starting</b> rate. Most borrowers are offered a higher rate depending on credit score, income and loan size, so treat the result as a best case.</p>';
 
 const ICONS = {
@@ -233,8 +283,11 @@ function loanHub(loan) {
     crumbs: [{ name: loan.name, url: `/${loan.slug}/` }],
     jsonld: qa.length ? [faqLd(qa)] : [],
     noindex: !best,
+    updated: best ? list.map((p) => p.retrievedOn).sort().at(-1) : null,
+    toc: true,
     extraScript: `window.PRODUCTS=${JSON.stringify(list.map((p) => ({ slug: p.bank, name: p.bankInfo.short, rate: p.rateFrom, url: href(bankUrl(loan, p)) }))).replace(/</g, '\\u003c')};`,
     body: `<div class="title-row"><span class="ico">${icon(loan.slug)}</span><h1 style="margin:0">${esc(loan.name)} Interest Rates${best ? ` ${esc(month)}` : ''}</h1></div>
+${best ? metaLine(list.map((p) => p.retrievedOn).sort().at(-1)) : ''}
 <p class="lead">${best ? `The lowest ${esc(loan.name.toLowerCase())} interest rate we found this month is <b>${rate(best.rateFrom)}</b> from ${esc(best.bankInfo.name)}. Compare the best ${esc(loan.name.toLowerCase())} rates from ${list.length} bank${list.length > 1 ? 's' : ''} below, each linked to the bank's own page. ` : ''}${esc(loan.blurb)}</p>
 ${best ? `<div class="tiles">
 <div class="tile"><span>Lowest starting rate</span><b>${rate(best.rateFrom)}</b><span>${esc(best.bankInfo.short)}</span></div>
@@ -273,7 +326,7 @@ function bankPage(loan, p) {
   const specs = [
     ['Starting interest rate', `${rate(p.rateFrom)} per annum`],
     ...(p.conditions ? [['Applies to', p.conditions]] : []),
-    ...(p.effectiveFrom ? [['Effective from', p.effectiveFrom]] : []),
+    ...(p.effectiveFrom ? [['Effective from', fmtDate(p.effectiveFrom)]] : []),
     ['Processing fee', p.fee ?? 'Not stated on the page we checked'],
     ['Prepayment', p.prepayment ?? 'Not stated on the page we checked'],
     ['Maximum tenure', p.maxTenureYears ? `${p.maxTenureYears} years` : 'Not stated on the page we checked'],
@@ -286,17 +339,22 @@ function bankPage(loan, p) {
     url: bankUrl(loan, p),
     crumbs: [{ name: loan.name, url: `/${loan.slug}/` }, { name: name, url: bankUrl(loan, p) }],
     jsonld: [faqLd(qa)],
+    updated: p.retrievedOn,
+    toc: true,
     body: `<div class="title-row">${avatar(p.bankInfo.short, p.bank)}<h1 style="margin:0">${esc(name)} ${esc(loan.name)} Interest Rate ${esc(monthOf(p.retrievedOn))}</h1></div>
-<p>${esc(name)} advertises ${esc(loan.name.toLowerCase())} rates starting from <b>${rate(p.rateFrom)}</b> per annum. For ${lakhLabel(loan.defaultAmountLakh)} over ${loan.defaultTenure} years that is an EMI of about <b>${inr(s.emi)}</b> a month.</p>
+${metaLine(p.retrievedOn)}
+<p class="lead">${esc(name)} advertises ${esc(loan.name.toLowerCase())} rates starting from <b>${rate(p.rateFrom)}</b> per annum. For ${lakhLabel(loan.defaultAmountLakh)} over ${loan.defaultTenure} years that is an EMI of about <b>${inr(s.emi)}</b> a month.</p>
 <div class="tiles">
 <div class="tile"><span>Starting rate</span><b>${rate(p.rateFrom)}</b><span>per annum</span></div>
 <div class="tile"><span><abbr title="Equated Monthly Instalment: the fixed amount you pay the bank every month">EMI</abbr> per month</span><b>${inr(s.emi)}</b><span>${lakhLabel(loan.defaultAmountLakh)}, ${loan.defaultTenure} years</span></div>
 <div class="tile"><span>Total interest</span><b>${inr(s.interest)}</b><span>over the full term</span></div>
 <div class="tile"><span>Max tenure</span><b>${p.maxTenureYears ? `${p.maxTenureYears} yrs` : 'n/a'}</b><span>as stated by the bank</span></div>
 </div>
-<p class="small">${sourceLine(p)}</p>
+<h2>${esc(p.bankInfo.short)} ${esc(loan.name.toLowerCase())} rates and charges</h2>
 <div class="scroll"><table><tbody>${specs.map(([k, v]) => `<tr><td>${esc(k)}</td><td style="text-align:left">${esc(v)}</td></tr>`).join('')}</tbody></table></div>
+<p class="small">${sourceLine(p)}</p>
 ${stdNote}
+<h2>${esc(p.bankInfo.short)} ${esc(loan.name.toLowerCase())} EMI calculator</h2>
 ${calcWidget(P, p.rateFrom, loan.defaultTenure)}
 ${leadForm({ loan: loan.slug, bank: p.bank, amount: P, heading: `Apply or get a call back for a ${name} ${loan.name.toLowerCase()}` })}
 <h2>EMI for popular amounts</h2><p class="chips">${emiLinks}</p>
@@ -330,8 +388,10 @@ function emiPage(loan, p, lakh, years) {
     url: emiUrl(loan, p, lakh, years),
     crumbs: [{ name: loan.name, url: `/${loan.slug}/` }, { name, url: bankUrl(loan, p) }, { name: `${lakhLabel(lakh)} for ${years} years`, url: emiUrl(loan, p, lakh, years) }],
     jsonld: [faqLd(qa)],
+    updated: p.retrievedOn,
     body: `<h1>${esc(name)} ${esc(lakhLabel(lakh))} ${esc(loan.name)} EMI for ${years} Years</h1>
-<p>At the advertised starting rate of <b>${rate(p.rateFrom)}</b>, the EMI is about <b>${inr(s.emi)}</b> a month, with total interest of about ${inr(s.interest)}.</p>
+${metaLine(p.retrievedOn)}
+<p class="lead">At the advertised starting rate of <b>${rate(p.rateFrom)}</b>, the EMI is about <b>${inr(s.emi)}</b> a month, with total interest of about ${inr(s.interest)}.</p>
 <p class="small">${sourceLine(p)}</p>
 ${stdNote}
 ${calcWidget(P, p.rateFrom, years)}
@@ -374,8 +434,10 @@ function vsPage(loan, a, b) {
     url: vsUrl(loan, a, b),
     crumbs: [{ name: loan.name, url: `/${loan.slug}/` }, { name: `${a.bankInfo.short} vs ${b.bankInfo.short}`, url: vsUrl(loan, a, b) }],
     jsonld: [faqLd(qa)],
+    updated: [a.retrievedOn, b.retrievedOn].sort().at(-1),
     body: `<h1>${esc(a.bankInfo.name)} vs ${esc(b.bankInfo.name)} ${esc(loan.name)}</h1>
-<p>${esc(verdict)}</p>
+${metaLine([a.retrievedOn, b.retrievedOn].sort().at(-1))}
+<p class="lead">${esc(verdict)}</p>
 <div class="scroll"><table><thead><tr><th></th><th>${esc(a.bankInfo.short)}</th><th>${esc(b.bankInfo.short)}</th></tr></thead><tbody>
 ${rowsData.map(([k, x, z]) => `<tr><td>${esc(k)}</td><td>${esc(x)}</td><td>${esc(z)}</td></tr>`).join('\n')}
 </tbody></table></div>
@@ -667,6 +729,7 @@ function eligibilityPage() {
     title: 'Home Loan Eligibility Calculator: How Much Loan Can I Get?',
     desc: 'Check how much home loan you can get on your salary. Enter income and existing EMIs to see your eligible loan amount, home budget and the amount at each bank\'s starting rate.',
     url: '/home-loan-eligibility-calculator/',
+    toc: true,
     crumbs: [{ name: 'Calculators', url: '/calculators/' }, { name: 'Eligibility calculator', url: '/home-loan-eligibility-calculator/' }],
     jsonld: [faqLd(qa)],
     extraScript: productsScript(homeList, L),
@@ -719,6 +782,7 @@ function prepaymentPage() {
     title: 'Home Loan Prepayment Calculator: Interest and Time Saved',
     desc: 'See how much interest and how many years you save by paying extra on your home loan, monthly, yearly or as a one-time lump sum. Includes a full repayment schedule.',
     url: '/home-loan-prepayment-calculator/',
+    toc: true,
     crumbs: [{ name: 'Calculators', url: '/calculators/' }, { name: 'Prepayment calculator', url: '/home-loan-prepayment-calculator/' }],
     jsonld: [faqLd(qa)],
     body: `<h1>Home Loan Prepayment Calculator</h1>
@@ -755,6 +819,7 @@ function balanceTransferPage() {
     title: 'Home Loan Balance Transfer Calculator: Savings After Fees',
     desc: 'Check if moving your home loan to another bank saves money. Enter your outstanding loan, current rate and fees to see monthly savings, total savings and the break-even point.',
     url: '/home-loan-balance-transfer-calculator/',
+    toc: true,
     crumbs: [{ name: 'Calculators', url: '/calculators/' }, { name: 'Balance transfer calculator', url: '/home-loan-balance-transfer-calculator/' }],
     jsonld: [faqLd(qa)],
     extraScript: productsScript(homeList, homeLoan),
@@ -792,6 +857,7 @@ function amortizationPage() {
     title: 'Home Loan Amortization Schedule: Month-by-Month Repayment',
     desc: 'Free home loan amortization schedule. See how each EMI splits into principal and interest, month by month and year by year, and what you still owe.',
     url: '/home-loan-amortization-schedule/',
+    toc: true,
     crumbs: [{ name: 'Calculators', url: '/calculators/' }, { name: 'Amortization schedule', url: '/home-loan-amortization-schedule/' }],
     jsonld: [faqLd(qa)],
     body: `<h1>Home Loan Amortization Schedule</h1>
@@ -842,7 +908,10 @@ function ratesPage() {
     desc: `All bank loan interest rates we track for ${month}: home, personal, car and education loans, with each bank's starting rate, conditions, check date and recent rate changes.`,
     url: '/loan-interest-rates/',
     crumbs: [{ name: 'All loan rates', url: '/loan-interest-rates/' }],
+    updated: latest ?? null,
+    toc: true,
     body: `<h1>Bank loan interest rates ${esc(month)}</h1>
+${latest ? metaLine(latest) : ''}
 <p class="lead">Every rate we track, in one place. Each is the starting rate published on the bank's own website on the date shown.</p>
 ${sections}
 <h2>Recent rate changes</h2>
@@ -956,9 +1025,9 @@ write('robots.txt', `User-agent: *\nAllow: /\nSitemap: ${cfg.siteUrl}/sitemap.xm
 write(
   'sitemap.xml',
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pages
-    .map((p) => `<url><loc>${cfg.siteUrl}${p}</loc><lastmod>${today}</lastmod></url>`)
+    .map((p) => `<url><loc>${cfg.siteUrl}${p.url}</loc><lastmod>${p.lastmod}</lastmod></url>`)
     .join('\n')}\n</urlset>\n`,
 );
 write(`${cfg.indexNowKey}.txt`, cfg.indexNowKey);
-write('urls.json', JSON.stringify(pages.map((p) => `${cfg.siteUrl}${p}`), null, 1));
+write('urls.json', JSON.stringify(pages.map((p) => `${cfg.siteUrl}${p.url}`), null, 1));
 console.log(`Built ${pages.length} pages into dist/ (${products.length} verified products, ${banks.length} banks known)`);
