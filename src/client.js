@@ -184,8 +184,13 @@
         '<p>Total interest: <b>' + inr(interest) + '</b> · Total payment: <b>' + inr(paid) + '</b></p>' +
         (saved > 1 ? '<p class="saving">With your extra payments you finish <b>' + span(base.length - rows.length) + ' earlier</b> and save <b>' + inr(saved) + '</b> in interest.</p>' : '') +
         '</div><div class="calcout">' + donut(P, interest) + '</div></div>' +
-        '<div class="sched">' + scheduleHtml(box, rows) + '</div>';
+        (folded
+          ? '<details class="sched-fold"' + (box._schedOpen ? ' open' : '') + '><summary>Show payment schedule <span class="small">year by year and month by month</span></summary><div class="sched">' + scheduleHtml(box, rows) + '</div></details>'
+          : '<div class="sched">' + scheduleHtml(box, rows) + '</div>');
     }
+    // On rate pages the schedule starts folded; remember if it was opened, since each input redraws it.
+    var folded = box.getAttribute('data-sched') === 'closed';
+    box.addEventListener('toggle', function (ev) { if (ev.target.classList.contains('sched-fold')) box._schedOpen = ev.target.open; }, true);
     box.addEventListener('input', function (ev) {
       if (ev.target.name === 'yr') box._yr = parseInt(ev.target.value, 10) || SY;
       run();
@@ -469,17 +474,22 @@
   });
 
   // Loan hub: tick banks, set amount and tenure, compare cost at each bank's starting rate.
-  document.querySelectorAll('[data-compare]').forEach(function (box) {
-    var out = $('.out', box), products = window.PRODUCTS || [];
+  // Rate pages: the bank list is in the HTML; typing an amount or tenure updates each bank's EMI in place.
+  document.querySelectorAll('[data-rates]').forEach(function (box) {
+    var rows = [].slice.call(box.querySelectorAll('.rank[data-rate]')), verdict = $('.verdict', box);
     function run() {
       var P = num($('[name=amount]', box)), y = num($('[name=years]', box));
-      var picked = [].slice.call(box.querySelectorAll('input[type=checkbox]:checked')).map(function (c) { return c.value; });
-      var banks = products.filter(function (p) { return picked.indexOf(p.slug) > -1; });
-      if (!P || !y || !banks.length) { out.innerHTML = '<p>Choose at least one bank.</p>'; return; }
-      out.innerHTML = rankHtml(rowsFor(banks, P, y), y);
+      if (!P || !y || !rows.length) return;
+      var c = rows.map(function (r) { var e = emi(P, +r.getAttribute('data-rate'), y); return { r: r, e: e, i: e * y * 12 - P, name: r.getAttribute('data-name') }; });
+      var best = c[0], worst = c[c.length - 1], max = Math.max.apply(null, c.map(function (x) { return x.i; })) || 1;
+      c.forEach(function (x) {
+        $('[data-emi]', x.r).textContent = 'EMI ' + inr(x.e) + ' / month';
+        $('[data-extra]', x.r).textContent = x === best ? 'Interest ' + inr(x.i) : '+' + inr(x.i - best.i) + ' more interest';
+        $('.bar i', x.r).style.width = Math.max(6, Math.round((x.i / max) * 100)) + '%';
+      });
+      if (verdict && c.length > 1) verdict.innerHTML = '<b>' + best.name + '</b> costs <b>' + inr(worst.i - best.i) + '</b> less interest than ' + worst.name + ' over ' + y + ' years, about <b>' + inr(worst.e - best.e) + '</b> less every month.';
     }
     box.addEventListener('input', run);
-    run();
   });
 
   document.querySelectorAll('form[data-lead]').forEach(function (form) {
