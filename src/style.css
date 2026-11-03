@@ -264,6 +264,12 @@ pre.code{background:var(--card);border:1px solid var(--line);border-radius:12px;
 section.block{margin:8px 0}
 .sub{color:var(--muted);margin:-.3rem 0 1.1rem}
 .out:not(:empty){margin-top:14px}
+/* "Download PDF report" row at the bottom of every calculator. */
+.pdfbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin-top:14px}
+.btn-pdf{gap:8px;margin:0;background:#fff;color:var(--accent2);border:1px solid var(--accent);min-height:44px;padding:0 16px;font-size:.95rem}
+.btn-pdf:hover{background:var(--accent50);color:var(--accent2)}
+.btn-pdf[disabled]{opacity:.6;cursor:progress}
+.pdfbar .small{margin:0}
 
 /* ---- phones ---- */
 @media (max-width:640px){

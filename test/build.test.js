@@ -24,6 +24,7 @@ test('build produces the keyword-target pages with no broken values', () => {
     'embed/emi/index.html',
     'stamp-duty-calculator/index.html',
     'stamp-duty-in-maharashtra/index.html',
+    'pdf.js',
   ];
   for (const f of required) assert.ok(fs.existsSync(dist(f)), `missing ${f}`);
 

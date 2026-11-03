@@ -30,6 +30,12 @@
     return (P * r * f) / (f - 1);
   }
 
+  // The page heading, used as context at the top of PDF reports.
+  function pageName() {
+    var h = document.querySelector('h1');
+    return h ? h.textContent.replace(/\s+/g, ' ').trim() : document.title;
+  }
+
   // Same maths as src/math.js: month-by-month schedule with optional extra payments.
   function loanForEmi(e, rate, years) {
     var n = years * 12, r = rate / 1200;
@@ -152,10 +158,28 @@
       var P = num($('[name=amount]', box)), rate = num($('[name=rate]', box)), y = num($('[name=years]', box));
       var xm = num($('[name=extraM]', box)), xy = num($('[name=extraY]', box));
       var lump = num($('[name=lump]', box)), lumpAt = Math.round(num($('[name=lumpAt]', box))) || 1;
-      if (!P || !y) { out.innerHTML = ''; return; }
+      if (!P || !y) { out.innerHTML = ''; box._report = null; return; }
       var base = schedule(P, rate, y, 0, 0, 0, 0), rows = xm || xy || lump ? schedule(P, rate, y, xm, xy, lump, lumpAt) : base;
       var e = emi(P, rate, y), interest = sum(rows, 'interest'), paid = P + interest;
       var saved = sum(base, 'interest') - interest;
+      box._report = {
+        title: 'Loan EMI and repayment schedule', file: 'emi-schedule',
+        subtitle: pageName() + '. First EMI in ' + monthLabel(1) + '; years in the schedule are calendar years.',
+        inputs: [['Loan amount', inr(P)], ['Interest rate', rate + '% a year'], ['Tenure', y + ' years (' + Math.round(y * 12) + ' EMIs)'], ['First EMI', monthLabel(1)]]
+          .concat(xm ? [['Extra payment every month', inr(xm)]] : [], xy ? [['Extra payment every year', inr(xy) + ' with every 12th EMI']] : [],
+            lump ? [['One-time lump sum', inr(lump) + ' with EMI ' + lumpAt + ' (' + monthLabel(lumpAt) + ')']] : []),
+        results: [['Monthly EMI', inr(e), true], ['Total interest', inr(interest)], ['Total payment', inr(paid)],
+          ['Last EMI', monthLabel(rows.length) + ' (after ' + span(rows.length) + ')'], ['Interest as a share of what you pay', Math.round((interest / paid) * 100) + '%']]
+          .concat(saved > 1 ? [['Interest saved by extra payments', inr(saved), true], ['Loan ends earlier by', span(base.length - rows.length)]] : []),
+        sections: [
+          { title: 'Year-by-year schedule', note: 'Totals for each calendar year. The first and last years may be part-years.', head: ['Year', 'Principal', 'Interest', 'Total paid', 'Balance left'],
+            rows: yearly(rows).map(function (x) { return [x.year + (x.months < 12 ? ' (' + x.months + ' mo)' : ''), inr(x.principal), inr(x.interest), inr(x.paid), inr(x.balance)]; }) },
+          { title: 'Month-by-month schedule', head: ['Month', 'EMI no.', 'Paid', 'Principal', 'Interest', 'Balance left'], widths: [1.1, 0.7, 1, 1, 1, 1.2],
+            rows: rows.map(function (r) { return [monthLabel(r.m), String(r.m), inr(r.paid), inr(r.principal), inr(r.interest), inr(r.balance)]; }) },
+        ],
+        notes: ['EMI = P x r x (1 + r)^n / ((1 + r)^n - 1), where P is the loan amount, r the monthly interest rate and n the number of EMIs.',
+          'Interest each month is charged on the balance still owed, so early EMIs are mostly interest. Amounts are rounded to the nearest rupee.'],
+      };
       out.innerHTML = '<div class="calcout"><div><div class="big">' + inr(e) + '<span> per month</span></div>' +
         '<p>Total interest: <b>' + inr(interest) + '</b> · Total payment: <b>' + inr(paid) + '</b></p>' +
         (saved > 1 ? '<p class="saving">With your extra payments you finish <b>' + span(base.length - rows.length) + ' earlier</b> and save <b>' + inr(saved) + '</b> in interest.</p>' : '') +
@@ -183,11 +207,21 @@
       var inc = num($('[name=income]', box)), ex = num($('[name=existing]', box));
       var rate = num($('[name=rate]', box)), y = num($('[name=years]', box)), foir = num($('[name=foir]', box)) || 50;
       var maxE = Math.max(0, (inc * foir) / 100 - ex);
+      box._report = null;
       if (!inc || !y) { out.innerHTML = '<p>Enter your income to see an estimate.</p>'; return; }
       if (!maxE) { out.innerHTML = '<p class="verdict">Your existing EMIs already use your ' + foir + '% limit, so lenders are unlikely to offer a new loan until they come down.</p>'; return; }
       var loan = loanForEmi(maxE, rate, y), home = loan / LTV(loan);
       var banks = products.map(function (b) { return { name: b.name, slug: b.slug, url: b.url, rate: b.rate, loan: loanForEmi(maxE, b.rate, y) }; })
         .sort(function (a, c) { return c.loan - a.loan; });
+      box._report = {
+        title: 'Home loan eligibility estimate', file: 'loan-eligibility', subtitle: pageName() + '.',
+        inputs: [['Net monthly income', inr(inc)], ['Existing EMIs per month', inr(ex)], ['Interest rate', rate + '% a year'], ['Tenure', y + ' years'], ['EMI limit', foir + '% of income']],
+        results: [['Estimated home loan', inr(loan), true], ['Maximum EMI', inr(maxE) + ' a month'], ['Home you could buy', inr(home)], ['Your down payment', inr(home - loan)]],
+        sections: banks.length ? [{ title: 'Eligible loan at each bank\'s starting rate', note: 'Same EMI limit and tenure, at each bank\'s advertised starting rate (a best case).',
+          head: ['Bank', 'Starting rate', 'Eligible loan'], widths: [1.6, 1, 1.2], rows: banks.map(function (b) { return [b.name, b.rate + '%', inr(b.loan)]; }) }] : [],
+        notes: ['Lenders usually cap all EMIs at 40% to 60% of net income. They also look at age, job, credit score and the property, so this is an estimate, not an approval.',
+          'Down payment uses RBI loan-to-value limits: up to 90% for loans to Rs. 30 lakh, 80% to Rs. 75 lakh, 75% above. Stamp duty and registration are extra.'],
+      };
       out.innerHTML = '<div class="big">' + inr(loan) + '<span> estimated home loan</span></div>' +
         '<p>Your EMI can be up to <b>' + inr(maxE) + '</b> a month (' + foir + '% of income minus existing EMIs).</p>' +
         '<p class="saving">That could buy a home worth about <b>' + inr(home) + '</b>, with about <b>' + inr(home - loan) + '</b> as your own down payment (RBI loan-to-value limits), plus stamp duty and registration.</p>' +
@@ -211,8 +245,20 @@
     function run() {
       var O = num($('[name=outstanding]', box)), oldR = num($('[name=oldRate]', box)), y = num($('[name=years]', box));
       var newR = num($('[name=newRate]', box)), fees = num($('[name=fees]', box));
-      if (!O || !y) { out.innerHTML = ''; return; }
+      if (!O || !y) { out.innerHTML = ''; box._report = null; return; }
       var r = calc(O, oldR, newR, y, fees);
+      var rivals = products.map(function (b) { var c = calc(O, oldR, b.rate, y, fees); c.b = b; return c; })
+        .filter(function (c) { return c.monthly > 0; }).sort(function (a, c) { return c.net - a.net; });
+      box._report = {
+        title: 'Home loan balance transfer comparison', file: 'balance-transfer', subtitle: pageName() + '.',
+        inputs: [['Outstanding loan', inr(O)], ['Current rate', oldR + '% a year'], ['Years left', y + ' years'], ['New rate', newR + '% a year'], ['Total switching fees', inr(fees)]],
+        results: [['Saving per month', inr(Math.max(0, r.monthly)), true], ['Current EMI', inr(r.oldEmi)], ['New EMI', inr(r.newEmi)], ['Net saving after fees', inr(r.net)],
+          ['Fees earned back in', r.be ? r.be + ' months' : 'Not applicable']],
+        sections: rivals.length ? [{ title: 'If you moved to each bank at its starting rate', note: 'Same outstanding loan, years left and fees, at each bank\'s advertised starting rate (a best case).',
+          head: ['Bank', 'Starting rate', 'Saving a month', 'Net saving', 'Fees back in'], widths: [1.5, 0.9, 1, 1.1, 0.9],
+          rows: rivals.map(function (c) { return [c.b.name, c.b.rate + '%', inr(c.monthly), inr(c.net), c.be + ' mo']; }) }] : [],
+        notes: ['Count every fee when switching: processing, legal, valuation and stamp duty on the new agreement. Ask your current bank to reprice first; it is often cheaper.'],
+      };
       var head = r.monthly <= 0
         ? '<p class="verdict">The new rate is not lower than your current rate, so a transfer would not save money.</p>'
         : '<div class="big">' + inr(r.monthly) + '<span> saved per month</span></div>' +
@@ -243,9 +289,16 @@
     var out = $('.out', box);
     function run() {
       var P = num($('[name=amount]', box)), f = num($('[name=flat]', box)), y = num($('[name=years]', box));
-      if (!P || !y) { out.innerHTML = ''; return; }
+      if (!P || !y) { out.innerHTML = ''; box._report = null; return; }
       var fe = (P + P * f * y / 100) / (y * 12), fi = P * f * y / 100;
       var r = flatToReducing(f, y), re = emi(P, f, y), ri = re * y * 12 - P;
+      box._report = {
+        title: 'Flat vs reducing interest rate', file: 'flat-vs-reducing', subtitle: pageName() + '.',
+        inputs: [['Loan amount', inr(P)], ['Flat interest rate', f + '% a year'], ['Tenure', y + ' years']],
+        results: [['Real (reducing-balance) rate', r.toFixed(2) + '% a year', true], ['EMI on the flat quote', inr(fe)], ['Total interest on the flat quote', inr(fi)],
+          ['EMI at a genuine ' + f + '% reducing rate', inr(re)], ['Interest at ' + f + '% reducing', inr(ri)], ['Extra cost of the flat quote', inr(fi - ri)]],
+        notes: ['A flat rate charges interest on the full loan for the whole term, even as you repay it. The real rate is the reducing-balance rate that gives the same EMI.'],
+      };
       out.innerHTML = '<div class="calcout"><div><div class="big">' + r.toFixed(2) + '%<span> real (reducing) rate</span></div>' +
         '<p>EMI <b>' + inr(fe) + '</b> a month · total interest <b>' + inr(fi) + '</b></p></div></div>' +
         (f > 0 ? '<p class="verdict">This ' + f + '% flat quote is really <b>' + r.toFixed(2) + '%</b>. At a genuine ' + f + '% reducing rate the EMI would be ' + inr(re) +
@@ -280,11 +333,20 @@
     }
     function run() {
       var s = current(), V = num($('[name=amount]', box));
-      if (!s || !V) { out.innerHTML = ''; return; }
+      if (!s || !V) { out.innerHTML = ''; box._report = null; return; }
       var area = s.areas.filter(function (a) { return a.id === areaEl.value; })[0] || s.areas[0];
       var womanRate = area.duty.some(function (d) { return d.womanPct != null; });
       var r = stampDuty(area, V, buyerEl.value), loan = maxLoanForValue(V), down = V - loan;
       var pct = Math.round(r.total / V * 10000) / 100;
+      box._report = {
+        title: 'Stamp duty and registration in ' + s.name, file: 'stamp-duty-' + s.slug, subtitle: pageName() + '.',
+        inputs: [['State', s.name], ['Where is the property', area.label], ['Buyer', buyerEl.value === 'woman' ? 'Woman' : 'Man'], ['Property value', inr(V)]],
+        results: [['Stamp duty and registration', inr(r.total), true], ['Share of the property value', pct + '%']]
+          .concat(r.lines.filter(function (l) { return l.pct > 0; }).map(function (l) { return [l.label + ' at ' + l.pct + '%', inr(l.amount)]; }),
+            [['Registration fee', inr(r.registration)], ['Most a bank can lend', inr(loan)], ['Down payment', inr(down)], ['Cash you need in total', inr(down + r.total), true]]),
+        notes: ['Rates are from the official ' + s.name + ' government website. Full rates, conditions and sources: ' + location.origin + s.url,
+          'Duty is charged on the sale price or the government value of the property, whichever is higher. Banks usually do not fund stamp duty or registration.'],
+      };
       out.innerHTML = '<div class="calcout"><div><div class="big">' + inr(r.total) + '<span> stamp duty and registration</span></div>' +
         '<p>' + r.lines.filter(function (l) { return l.pct > 0; }).map(function (l) { return l.label + ' at ' + l.pct + '%: <b>' + inr(l.amount) + '</b>'; }).join(' · ') +
         ' · registration fee <b>' + inr(r.registration) + '</b> · ' + pct + '% of the property value</p></div></div>' +
@@ -298,6 +360,44 @@
     box.addEventListener('input', run);
     box.addEventListener('change', run);
     run();
+  });
+
+  // ---- "Download PDF report" under every calculator ----
+  // Each calculator keeps box._report up to date; pdf.js (loaded on first click) turns it into a PDF file.
+  var PDF_BOXES = '[data-calc],[data-elig],[data-bt],[data-flat],[data-stamp]';
+  function loadPdf(done, fail) {
+    if (window.MMLPdf) return done();
+    var app = document.querySelector('script[src*="app.js"]'), s = document.createElement('script');
+    s.src = app ? app.src.replace(/app\.js.*$/, 'pdf.js') : '/pdf.js';
+    s.onload = done; s.onerror = fail;
+    document.head.appendChild(s);
+  }
+  document.querySelectorAll(PDF_BOXES).forEach(function (box) {
+    var bar = document.createElement('div');
+    bar.className = 'pdfbar';
+    bar.innerHTML = '<button type="button" class="btn-pdf" data-pdf><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 19h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Download PDF report</button>' +
+      '<span class="small">' + (box.hasAttribute('data-calc') ? 'Your inputs, results and full payment schedule' : 'Your inputs and results') + ' in one document.</span>';
+    // Right under the inputs, so it is seen before the long results and schedules.
+    box.insertBefore(bar, $('.out', box));
+  });
+  document.addEventListener('click', function (ev) {
+    var btn = ev.target.closest && ev.target.closest('[data-pdf]');
+    if (!btn) return;
+    var box = btn.closest(PDF_BOXES), note = btn.nextElementSibling;
+    if (!box || !box._report) { note.textContent = 'Enter your loan details above first.'; return; }
+    btn.disabled = true;
+    loadPdf(function () {
+      try {
+        window.MMLPdf.download(box._report);
+        note.textContent = 'Report downloaded. Check your downloads folder.';
+      } catch (e) {
+        note.textContent = 'Could not create the PDF. Please try again.';
+      }
+      btn.disabled = false;
+    }, function () {
+      note.textContent = 'Could not load the PDF tool. Check your connection and try again.';
+      btn.disabled = false;
+    });
   });
 
   // Header menu button (narrow screens). The links are always in the HTML; this only shows them.

@@ -1381,6 +1381,8 @@ for (const v of Object.values(logoManifest)) {
   fs.copyFileSync(path.join(ROOT, 'assets', 'logos', v.file), path.join(OUT, 'logos', v.file));
 }
 write('app.js', fs.readFileSync(path.join(ROOT, 'src', 'client.js'), 'utf8'));
+// PDF report builder, loaded only when someone downloads a report.
+write('pdf.js', fs.readFileSync(path.join(ROOT, 'src', 'pdf.js'), 'utf8'));
 // Site icon: made by scripts/make-icons.ps1 and scripts/make-ico.mjs, served from the site root.
 for (const f of ['favicon.ico', 'favicon.svg', 'icon-48.png', 'icon-192.png', 'icon-512.png', 'apple-touch-icon.png']) {
   fs.copyFileSync(path.join(ROOT, 'assets', 'brand', f), path.join(OUT, f));
