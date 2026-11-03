@@ -49,14 +49,21 @@
     }
     return rows;
   }
+  // The first EMI falls in the current month, so schedules use real dates: "2026-Nov", calendar years.
+  var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  var NOW = new Date(), SY = NOW.getFullYear(), SM = NOW.getMonth();
+  var yearOf = function (m) { return SY + Math.floor((SM + m - 1) / 12); };
+  var monthLabel = function (m) { return yearOf(m) + '-' + MONTHS[(SM + m - 1) % 12]; };
   function yearly(rows) {
     var out = [];
     rows.forEach(function (r) {
-      var y = Math.ceil(r.m / 12), c = out[y - 1] || (out[y - 1] = { year: y, principal: 0, interest: 0, paid: 0, balance: 0 });
-      c.principal += r.principal; c.interest += r.interest; c.paid += r.paid; c.balance = r.balance;
+      var y = yearOf(r.m), c = out[out.length - 1];
+      if (!c || c.year !== y) out.push(c = { year: y, months: 0, principal: 0, interest: 0, paid: 0, balance: 0 });
+      c.months++; c.principal += r.principal; c.interest += r.interest; c.paid += r.paid; c.balance = r.balance;
     });
     return out;
   }
+  var yearCell = function (y) { return y.year + (y.months < 12 ? ' <span class="small">(' + y.months + ' mo)</span>' : ''); };
   var sum = function (rows, k) { return rows.reduce(function (a, r) { return a + r[k]; }, 0); };
 
   // ---- plain-language hints under money fields ("₹50,00,000 = 50 lakh") ----
@@ -115,23 +122,24 @@
       var max = Math.max.apply(null, ys.map(function (y) { return y.paid; })) || 1;
       var bars = ys.map(function (y) {
         var h = Math.max(4, Math.round((y.paid / max) * 100)), ip = Math.round((y.interest / y.paid) * 100);
-        return '<div class="col" title="Year ' + y.year + ': principal ' + inr(y.principal) + ', interest ' + inr(y.interest) + '"><div class="stack" style="height:' + h + '%">' +
-          '<i class="i" style="height:' + ip + '%"></i><i class="p" style="height:' + (100 - ip) + '%"></i></div><span>' + y.year + '</span></div>';
+        return '<div class="col" title="' + y.year + ': principal ' + inr(y.principal) + ', interest ' + inr(y.interest) + '"><div class="stack" style="height:' + h + '%">' +
+          '<i class="i" style="height:' + ip + '%"></i><i class="p" style="height:' + (100 - ip) + '%"></i></div><span>' + (ys.length > 12 ? String(y.year).slice(2) : y.year) + '</span></div>';
       }).join('');
       var body = ys.map(function (y) {
-        return '<tr><td>Year ' + y.year + '</td><td>' + inr(y.principal) + '</td><td>' + inr(y.interest) + '</td><td>' + inr(y.paid) + '</td><td>' + inr(y.balance) + '</td></tr>';
+        return '<tr><td>' + yearCell(y) + '</td><td>' + inr(y.principal) + '</td><td>' + inr(y.interest) + '</td><td class="opt">' + inr(y.paid) + '</td><td>' + inr(y.balance) + '</td></tr>';
       }).join('');
       return head + '<div class="chart" aria-hidden="true">' + bars + '</div>' +
-        '<p class="legend"><i style="background:var(--accent)"></i>Principal <i style="background:var(--accent3);margin-left:12px"></i>Interest, each bar is one year of payments. Early years are mostly interest.</p>' +
-        '<div class="scroll"><table><thead><tr><th>Year</th><th>Principal</th><th>Interest</th><th>Paid</th><th>Balance left</th></tr></thead><tbody>' + body + '</tbody></table></div>';
+        '<p class="legend"><i style="background:var(--accent)"></i>Principal <i style="background:var(--accent3);margin-left:12px"></i>Interest. Each bar is one calendar year, starting with your first EMI in ' + monthLabel(1) + '. Early years are mostly interest.</p>' +
+        '<div class="scroll"><table><thead><tr><th>Year</th><th>Principal</th><th>Interest</th><th class="opt">Paid</th><th>Balance left</th></tr></thead><tbody>' + body + '</tbody></table></div>';
     }
-    var yr = Math.min(box._yr || 1, ys.length || 1);
-    var opts = ys.map(function (y) { return '<option value="' + y.year + '"' + (y.year === yr ? ' selected' : '') + '>Year ' + y.year + '</option>'; }).join('');
-    var mrows = rows.filter(function (r) { return Math.ceil(r.m / 12) === yr; }).map(function (r) {
-      return '<tr><td>Month ' + r.m + '</td><td>' + inr(r.paid) + '</td><td>' + inr(r.principal) + '</td><td>' + inr(r.interest) + '</td><td>' + inr(r.balance) + '</td></tr>';
+    var last = ys.length ? ys[ys.length - 1].year : SY;
+    var yr = Math.min(Math.max(box._yr || SY, SY), last);
+    var opts = ys.map(function (y) { return '<option value="' + y.year + '"' + (y.year === yr ? ' selected' : '') + '>' + y.year + '</option>'; }).join('');
+    var mrows = rows.filter(function (r) { return yearOf(r.m) === yr; }).map(function (r) {
+      return '<tr><td>' + monthLabel(r.m) + '</td><td class="opt">' + inr(r.paid) + '</td><td>' + inr(r.principal) + '</td><td>' + inr(r.interest) + '</td><td>' + inr(r.balance) + '</td></tr>';
     }).join('');
     return head + '<label for="yr-' + box._id + '">Show payments for</label><select id="yr-' + box._id + '" name="yr">' + opts + '</select>' +
-      '<div class="scroll" style="margin-top:10px"><table><thead><tr><th>Month</th><th>Paid</th><th>Principal</th><th>Interest</th><th>Balance left</th></tr></thead><tbody>' + mrows + '</tbody></table></div>' +
+      '<div class="scroll" style="margin-top:10px"><table><thead><tr><th>Month</th><th class="opt">Paid</th><th>Principal</th><th>Interest</th><th>Balance left</th></tr></thead><tbody>' + mrows + '</tbody></table></div>' +
       '<p class="small">Each payment is split between interest on what you still owe and repayment of principal.</p>';
   }
 
@@ -155,7 +163,7 @@
         '<div class="sched">' + scheduleHtml(box, rows) + '</div>';
     }
     box.addEventListener('input', function (ev) {
-      if (ev.target.name === 'yr') box._yr = parseInt(ev.target.value, 10) || 1;
+      if (ev.target.name === 'yr') box._yr = parseInt(ev.target.value, 10) || SY;
       run();
     });
     box.addEventListener('click', function (ev) {

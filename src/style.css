@@ -2,7 +2,7 @@
 :root{
   --bg:#fff;--soft:#f5f8ff;--card:#f8fafc;--fg:#0f172a;--ink:#0f172a;--muted:#475569;--line:#e2e8f0;--line2:#eef2f7;
   --accent:#2563eb;--accent2:#1d4ed8;--accent50:#eff6ff;--accent100:#dbeafe;--on:#fff;
-  --good:#16a34a;--goodbg:#ecfdf3;--goodink:#14532d;--amber:#f59e0b;--navy:#0f172a;--warn:#92400e;
+  --good:#16a34a;--goodbg:#ecfdf3;--goodink:#14532d;--amber:#f59e0b;--accent3:#f59e0b;--navy:#0f172a;--warn:#92400e;
   --shadow:0 1px 3px rgba(15,23,42,.06),0 8px 24px rgba(15,23,42,.06);--lift:0 20px 50px rgba(15,23,42,.10);
   --radius:16px;color-scheme:light
 }
@@ -46,7 +46,7 @@ a.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.25r
 .ticker b{color:#fff} .ticker .lbl{color:#93c5fd;font-weight:700}
 .ticker a{color:#e2e8f0;text-decoration:none} .ticker a:hover{color:#fff;text-decoration:underline}
 main{max-width:1200px;margin:0 auto;padding:8px 24px 40px}
-@media (max-width:640px){main{padding:8px 16px 96px}}
+@media (max-width:640px){main{padding:8px 16px 8px}}
 footer.site{background:var(--navy);color:#cbd5e1;margin-top:48px}
 footer.site .wrap{padding-top:44px;padding-bottom:28px;font-size:.9rem}
 .fgrid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:28px 32px}
@@ -129,8 +129,9 @@ details.opts{margin:12px 0 0;border:1px dashed #cbd5e1;border-radius:12px;paddin
 details.opts summary{cursor:pointer;font-weight:700;font-size:.92rem;color:var(--accent2)}
 
 /* ---- compare card (home) ---- */
-.tabs{display:flex;gap:4px;background:#f1f5f9;padding:5px;border-radius:12px;margin-bottom:16px}
-.tabs button{flex:1;margin:0;min-height:44px;background:transparent;color:var(--muted);font-weight:600;font-size:.9rem;border-radius:9px;padding:0 6px}
+/* Loan-type tabs wrap to a second row rather than squeezing long names onto three lines. */
+.tabs{display:flex;flex-wrap:wrap;gap:4px;background:#f1f5f9;padding:5px;border-radius:12px;margin-bottom:16px}
+.tabs button{flex:1 1 auto;white-space:nowrap;margin:0;min-height:44px;background:transparent;color:var(--muted);font-weight:600;font-size:.9rem;border-radius:9px;padding:0 12px}
 .tabs button:hover{background:#e2e8f0;color:var(--ink)}
 .tabs button[aria-selected=true]{background:#fff;color:var(--ink);font-weight:700;box-shadow:0 1px 3px rgba(15,23,42,.12)}
 .amt{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
@@ -161,7 +162,7 @@ details.opts summary{cursor:pointer;font-weight:700;font-size:.92rem;color:var(-
 .bar i{display:block;height:100%;border-radius:99px;background:var(--accent);transition:width .4s ease}
 .rank.best .bar i{background:var(--good)}
 .extra{font-size:.8rem;color:var(--muted)}
-.badge{display:inline-block;background:#dcfce7;color:#166534;border-radius:999px;padding:2px 9px;font-size:.7rem;font-weight:800;letter-spacing:.02em;vertical-align:middle;margin-left:6px;text-transform:uppercase}
+.badge{display:inline-block;background:#dcfce7;color:#166534;border-radius:999px;padding:2px 9px;font-size:.7rem;font-weight:800;letter-spacing:.02em;vertical-align:middle;margin-left:6px;text-transform:uppercase;white-space:nowrap}
 .av{display:inline-grid;place-items:center;width:40px;height:40px;border-radius:50%;background:hsl(var(--h) 58% 40%);color:#fff;font-weight:800;font-size:.8rem;flex:none}
 .av.has-logo{display:inline-flex;align-items:center;justify-content:center;width:96px;height:40px;border-radius:10px;background:#fff;border:1px solid var(--line);padding:5px 8px}
 .av.has-logo img{display:block;width:auto;height:auto;max-width:100%;max-height:100%;object-fit:contain}
@@ -262,4 +263,58 @@ tbody tr:hover{background:#fafcff}
 pre.code{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;overflow-x:auto;font-size:.82rem;white-space:pre-wrap;word-break:break-all}
 section.block{margin:8px 0}
 .sub{color:var(--muted);margin:-.3rem 0 1.1rem}
+.out:not(:empty){margin-top:14px}
+
+/* ---- phones ---- */
+@media (max-width:640px){
+  /* Trust line: one item per line, no dangling separators. */
+  .meta-line{flex-direction:column;gap:3px}
+  .meta-line > *:not(:last-child)::after{content:none}
+  /* "On this page": a single row that scrolls sideways, edge to edge. */
+  .toc{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:18px -16px 4px;padding:10px 16px;border-radius:0;border-left:0;border-right:0}
+  .toc::-webkit-scrollbar{display:none}
+  .toc span,.toc a{flex:none;white-space:nowrap}
+  /* Ranked bank rows: logo | name and EMI | rate, with the extra-cost line and bar underneath. */
+  .rank{gap:2px 12px}
+  .av.has-logo{width:64px;height:34px;padding:4px 6px}
+  .rank .badge{display:table;margin:4px 0 2px}
+  .rank .nm .small{white-space:nowrap}
+  .rank:has(.rt){align-items:start}
+  .rank:has(.rt) > .av{grid-row:1 / span 3}
+  .rank:has(.rt) .nm{grid-column:2;grid-row:1}
+  .rank:has(.rt) .px{display:contents}
+  .rank .px .rt{grid-column:3;grid-row:1;text-align:right;white-space:nowrap;font-size:1.25rem}
+  .rank .px .rt small{display:none}
+  .rank:has(.rt) .px .extra{grid-column:2 / 4;grid-row:2;text-align:left}
+  .rank:has(.rt) .bar{grid-column:2 / 4;grid-row:3;margin-top:6px}
+  /* Calculator headline: the label sits under the number instead of wrapping beside it. */
+  .big{line-height:1.15}
+  .big span{display:block;margin-top:4px;font-size:.9rem;letter-spacing:0;line-height:1.4}
+  /* Tighter tables so four or five number columns fit a phone. */
+  table{font-size:.82rem;font-variant-numeric:tabular-nums}
+  th,td{padding:9px 5px}
+  .card{padding:16px 14px}
+  /* Tables inside a calculator card use the card's full width. */
+  .card .scroll{margin-left:-14px;margin-right:-14px;border-radius:0;border-left:0;border-right:0}
+  th:first-child,td:first-child{padding-left:10px}
+  th:last-child,td:last-child{padding-right:10px}
+  th{font-size:.68rem}
+  /* The few grids still wider than a phone show an edge shadow, so it is clear they swipe. */
+  .scroll{background:linear-gradient(to right,#fff 30%,rgba(255,255,255,0)) left/28px 100% no-repeat local,linear-gradient(to left,#fff 30%,rgba(255,255,255,0)) right/28px 100% no-repeat local,radial-gradient(farthest-side at 0 50%,rgba(15,23,42,.18),transparent) left/10px 100% no-repeat scroll,radial-gradient(farthest-side at 100% 50%,rgba(15,23,42,.18),transparent) right/10px 100% no-repeat scroll,#fff}
+  .sched td:first-child{white-space:nowrap}
+  /* Secondary columns (shown elsewhere on the page) give way so the totals stay on screen. */
+  .opt{display:none}
+  /* Wide rate tables become one card per bank. */
+  table.stack thead{display:none}
+  table.stack,table.stack tbody,table.stack tr,table.stack td{display:block;width:100%}
+  table.stack tr{padding:14px 16px;border-bottom:1px solid var(--line)}
+  table.stack tr:last-child{border-bottom:0}
+  table.stack td{position:relative;border:0;padding:5px 0 5px 106px;text-align:left}
+  table.stack td::before{content:attr(data-label);position:absolute;left:0;top:5px;width:96px;font-size:.72rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);padding-top:2px;line-height:1.35}
+  table.stack td:first-child{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:0 0 8px}
+  table.stack td:first-child::before{content:none}
+  table.stack td:first-child:empty{display:none}
+  table.stack td:first-child .badge{margin-left:0}
+}
+
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}

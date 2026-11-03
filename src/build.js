@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { emi, summary, schedule, yearly, loanForEmi, maxEmiFor, balanceTransfer, flatEmi, flatToReducing, ltvFor, maxLoanForValue, stampDuty, inr, lakhLabel } from './math.js';
+import { emi, summary, schedule, yearly, loanForEmi, maxEmiFor, balanceTransfer, flatEmi, flatToReducing, ltvFor, maxLoanForValue, stampDuty, calendarYearly, monthLabel, inr, lakhLabel } from './math.js';
 import { ROOT, readJson, loadData } from './data.js';
 
 const OUT = path.join(ROOT, 'dist');
@@ -243,13 +243,17 @@ const bankUrl = (loan, p) => `/${loan.slug}/${p.bank}/`;
 const vsUrl = (loan, a, b) => `/${loan.slug}/${a.bank}-vs-${b.bank}/`;
 const emiUrl = (loan, p, a, y) => `/${loan.slug}/${p.bank}/emi-${amt(a)}-lakh-${y}-years/`;
 
+// Schedules start with this month's EMI, so years and months are real calendar dates.
+const yearCell = (y) => (y.months < 12 ? `${y.year} <span class="small">(${y.months} mo)</span>` : String(y.year));
+const scheduleStartNote = `First EMI in ${monthLabel(1, today)}. Years are calendar years, so the first and last may be part-years.`;
+
 // ---------- pages ----------
 
 function loanHub(loan) {
   const list = forLoan(loan);
   const rows = list
     .map(
-      (p, i) => `<tr><td><span class="title-row" style="gap:8px">${avatar(p.bankInfo.short, p.bank)}<a href="${href(bankUrl(loan, p))}">${esc(p.bankInfo.name)}</a></span>${i === 0 && list.length > 1 ? '<span class="badge">Lowest rate</span>' : ''}</td><td>${rate(p.rateFrom)}${p.conditions ? `<br><span class="small">${esc(p.conditions)}</span>` : ''}</td><td>${esc(p.fee ?? 'Not stated on page')}</td><td>${esc(p.prepayment ?? 'Not stated on page')}</td><td>${p.maxTenureYears ? `${p.maxTenureYears} yrs` : '-'}</td></tr>`,
+      (p, i) => `<tr><td><span class="title-row" style="gap:8px">${avatar(p.bankInfo.short, p.bank)}<a href="${href(bankUrl(loan, p))}">${esc(p.bankInfo.name)}</a></span>${i === 0 && list.length > 1 ? '<span class="badge">Lowest rate</span>' : ''}</td><td data-label="Starting rate"><b>${rate(p.rateFrom)}</b>${p.conditions ? `<br><span class="small">${esc(p.conditions)}</span>` : ''}</td><td data-label="Fee">${esc(p.fee ?? 'Not stated on page')}</td><td data-label="Prepayment">${esc(p.prepayment ?? 'Not stated on page')}</td><td data-label="Max tenure">${p.maxTenureYears ? `${p.maxTenureYears} yrs` : '-'}</td></tr>`,
     )
     .join('');
   const P = loan.defaultAmountLakh * 100000;
@@ -267,10 +271,10 @@ function loanHub(loan) {
 <div class="picks">${list.map((p) => `<label><input type="checkbox" value="${esc(p.bank)}" checked> ${esc(p.bankInfo.short)}</label>`).join('')}</div>
 <div class="out" aria-live="polite"></div></div>
 <h2>${esc(loan.name)} rates by bank</h2>
-<div class="scroll"><table><thead><tr><th>Bank</th><th>Starting rate</th><th>Processing fee</th><th>Prepayment</th><th>Max tenure</th></tr></thead><tbody>${rows}</tbody></table></div>
+<div class="scroll"><table class="stack"><thead><tr><th>Bank</th><th>Starting rate</th><th>Processing fee</th><th>Prepayment</th><th>Max tenure</th></tr></thead><tbody>${rows}</tbody></table></div>
 <p class="small">Sorted from lowest to highest starting rate. Each bank page links to its official source and check date.</p>`
     : '<p class="note">We are still verifying bank rates for this loan type, so none are listed yet. The calculator below works for any rate.</p>';
-  const vs = list.length > 1 ? `<h2>Head-to-head comparisons</h2><p class="chips">${pairs(list).map(([a, b]) => `<a href="${href(vsUrl(loan, a, b))}">${esc(a.bankInfo.short)} vs ${esc(b.bankInfo.short)}</a>`).join('')}</p>` : '';
+  const vs = list.length > 1 ? `<h2>Head-to-head comparisons</h2><p class="chips">${popularPairs(list, 12).map(([a, b]) => `<a href="${href(vsUrl(loan, a, b))}">${esc(a.bankInfo.short)} vs ${esc(b.bankInfo.short)}</a>`).join('')}</p>${list.length > 5 ? '<p class="small">Each bank\'s page links to its comparison with every other bank.</p>' : ''}` : '';
   const month = best ? monthOf(list.map((p) => p.retrievedOn).sort().at(-1)) : '';
   return layout({
     title: best
@@ -312,6 +316,11 @@ function pairs(list) {
   for (let i = 0; i < sorted.length; i++) for (let j = i + 1; j < sorted.length; j++) out.push([sorted[i], sorted[j]]);
   return out;
 }
+
+// The pairs people search for most: large, well-known lenders first. Bank pages link every pair.
+const BIG_BANKS = ['sbi', 'hdfc-bank', 'icici-bank', 'axis-bank', 'kotak-mahindra-bank', 'punjab-national-bank', 'bank-of-baroda', 'canara-bank', 'union-bank-of-india'];
+const bigRank = (p) => (BIG_BANKS.includes(p.bank) ? BIG_BANKS.indexOf(p.bank) : 99);
+const popularPairs = (list, n) => pairs(list).sort((x, y) => bigRank(x[0]) + bigRank(x[1]) - (bigRank(y[0]) + bigRank(y[1]))).slice(0, n);
 
 function bankPage(loan, p) {
   const P = loan.defaultAmountLakh * 100000;
@@ -375,8 +384,8 @@ function emiPage(loan, p, lakh, years) {
     const x = summary(P, r, years);
     return `<tr><td>${rate(r)}${d === 0 ? ' (starting)' : ''}</td><td>${inr(x.emi)}</td><td>${inr(x.interest)}</td><td>${inr(x.total)}</td></tr>`;
   }).join('');
-  const yearRows = yearly(schedule(P, p.rateFrom, years))
-    .map((y) => `<tr><td>Year ${y.year}</td><td>${inr(y.principal)}</td><td>${inr(y.interest)}</td><td>${inr(y.paid)}</td><td>${inr(y.balance)}</td></tr>`)
+  const yearRows = calendarYearly(schedule(P, p.rateFrom, years), today)
+    .map((y) => `<tr><td>${yearCell(y)}</td><td>${inr(y.principal)}</td><td>${inr(y.interest)}</td><td class="opt">${inr(y.paid)}</td><td>${inr(y.balance)}</td></tr>`)
     .join('');
   const qa = [
     [`What is the EMI for a ${lakhLabel(lakh)} ${name} ${loan.name.toLowerCase()} for ${years} years?`, `At ${name}'s starting rate of ${rate(p.rateFrom)} the EMI is about ${inr(s.emi)} a month. If your offered rate is ${rate(p.rateFrom + 1)} it would be about ${inr(emi(P, p.rateFrom + 1, years))}.`],
@@ -398,8 +407,8 @@ ${calcWidget(P, p.rateFrom, years)}
 <h2>EMI at higher rates</h2>
 <div class="scroll"><table><thead><tr><th>Rate</th><th>EMI</th><th>Total interest</th><th>Total payment</th></tr></thead><tbody>${steps}</tbody></table></div>
 <h2>Year-by-year repayment schedule at ${rate(p.rateFrom)}</h2>
-<p class="small">How much of each year's payments goes to principal and to interest, and what you still owe at the end of the year. Use the calculator above for a month-by-month view and prepayment options.</p>
-<div class="scroll"><table><thead><tr><th>Year</th><th>Principal</th><th>Interest</th><th>Paid</th><th>Balance left</th></tr></thead><tbody>${yearRows}</tbody></table></div>
+<p class="small">How much of each year's payments goes to principal and to interest, and what you still owe at the end of the year. Use the calculator above for a month-by-month view and prepayment options. ${scheduleStartNote}</p>
+<div class="scroll"><table><thead><tr><th>Year</th><th>Principal</th><th>Interest</th><th class="opt">Paid</th><th>Balance left</th></tr></thead><tbody>${yearRows}</tbody></table></div>
 ${leadForm({ loan: loan.slug, bank: p.bank, amount: P })}
 <h2>Frequently asked questions</h2>${faqHtml(qa)}
 <p><a href="${href(bankUrl(loan, p))}">All ${esc(name)} ${esc(loan.name.toLowerCase())} details</a></p>`,
@@ -610,7 +619,7 @@ ${spread ? `<div><b>${esc(lakhShort(spread))}</b><span>Cheapest vs costliest ban
 ${verified
   .map((l) => {
     const list = forLoan(l);
-    return `<a class="rcard" href="${href(`/${l.slug}/`)}"><span class="k">${esc(l.name)}</span><span class="v">${list[0].rateFrom.toFixed(2)}%</span><span class="s">${esc(list[0].bankInfo.short)} · ${list.length} bank${list.length > 1 ? 's' : ''} compared</span><span class="go">Compare ${esc(l.name.toLowerCase())}s</span></a>`;
+    return `<a class="rcard" href="${href(`/${l.slug}/`)}"><span class="k">${esc(l.name)}</span><span class="v">${list[0].rateFrom.toFixed(2)}%</span><span class="s">${esc(list[0].bankInfo.short)} · ${list.length} bank${list.length > 1 ? 's' : ''} compared</span><span class="go">Compare ${esc(l.name.toLowerCase())} rates</span></a>`;
   })
   .join('\n')}
 ${upcoming.map((l) => `<a class="rcard" href="${href(`/${l.slug}-emi-calculator/`)}"><span class="k">${esc(l.name)}</span><span class="v" style="font-size:1.4rem;padding:8px 0">Rates coming soon</span><span class="s">Use the EMI calculator meanwhile</span><span class="go">${esc(l.name)} EMI calculator</span></a>`).join('\n')}
@@ -653,7 +662,7 @@ ${homeList[0] ? `<a class="tcard" href="${href('/home-loan-balance-transfer-calc
 </div>
 </section>
 
-${verified.flatMap((l) => (forLoan(l).length > 1 ? [`<section class="block"><h2>Popular ${esc(l.name.toLowerCase())} comparisons</h2><p class="chips">${pairs(forLoan(l)).map(([a, b]) => `<a href="${href(vsUrl(l, a, b))}">${esc(a.bankInfo.short)} vs ${esc(b.bankInfo.short)}</a>`).join('')}</p></section>`] : [])).join('\n')}
+${verified.flatMap((l) => (forLoan(l).length > 1 ? [`<section class="block"><h2>Popular ${esc(l.name.toLowerCase())} comparisons</h2><p class="chips">${popularPairs(forLoan(l), l.slug === 'home-loan' ? 8 : 4).map(([a, b]) => `<a href="${href(vsUrl(l, a, b))}">${esc(a.bankInfo.short)} vs ${esc(b.bankInfo.short)}</a>`).join('')}</p></section>`] : [])).join('\n')}
 
 <section class="block faq">
 <h2>Common questions</h2>
@@ -810,7 +819,7 @@ function balanceTransferPage() {
     .map((p) => ({ p, bt: balanceTransfer(O, oldRate, p.rateFrom, y, fees) }))
     .filter((x) => x.bt.monthly > 0)
     .sort((a, b) => b.bt.net - a.bt.net)
-    .map(({ p, bt }) => `<tr><td><span class="title-row" style="gap:8px">${avatar(p.bankInfo.short, p.bank)}<a href="${href(bankUrl(homeLoan, p))}">${esc(p.bankInfo.name)}</a></span></td><td>${rate(p.rateFrom)}</td><td>${inr(bt.monthly)}</td><td>${inr(bt.net)}</td><td>${bt.breakEvenMonths} mo</td></tr>`)
+    .map(({ p, bt }) => `<tr><td><span class="title-row" style="gap:8px">${avatar(p.bankInfo.short, p.bank)}<a href="${href(bankUrl(homeLoan, p))}">${esc(p.bankInfo.name)}</a></span></td><td class="opt">${rate(p.rateFrom)}</td><td>${inr(bt.monthly)}</td><td>${inr(bt.net)}</td><td>${bt.breakEvenMonths} mo</td></tr>`)
     .join('');
   const best = homeList[0];
   const qa = [
@@ -835,7 +844,7 @@ function balanceTransferPage() {
 <div class="out" aria-live="polite"></div></div>
 ${rows ? `<h2>Savings at each bank's starting rate</h2>
 <p class="small">Example: ₹40 lakh outstanding at ${rate(oldRate)} with ${y} years left and ₹10,000 in fees. Uses each bank's advertised starting rate, which is a best case.</p>
-<div class="scroll"><table><thead><tr><th>Bank</th><th>Starting rate</th><th>Saving per month</th><th>Net saving</th><th>Fees earned back in</th></tr></thead><tbody>${rows}</tbody></table></div>` : ''}
+<div class="scroll"><table><thead><tr><th>Bank</th><th class="opt">Starting rate</th><th>Saving per month</th><th>Net saving</th><th>Fees earned back in</th></tr></thead><tbody>${rows}</tbody></table></div>` : ''}
 ${leadForm({ loan: 'home-loan', amount: O, heading: 'Want help switching your home loan?' })}
 ${toolChips()}
 <h2>Frequently asked questions</h2>${faqHtml(qa)}
@@ -850,8 +859,8 @@ function amortizationPage() {
   const rowsAll = schedule(P, r, y);
   const ys = yearly(rowsAll);
   const share = (yr) => Math.round((ys[yr - 1].interest / ys[yr - 1].paid) * 100);
-  const yearRows = ys.map((x) => `<tr><td>Year ${x.year}</td><td>${inr(x.principal)}</td><td>${inr(x.interest)}</td><td>${inr(x.paid)}</td><td>${inr(x.balance)}</td></tr>`).join('');
-  const monthRows = rowsAll.slice(0, 12).map((x) => `<tr><td>Month ${x.m}</td><td>${inr(x.paid)}</td><td>${inr(x.principal)}</td><td>${inr(x.interest)}</td><td>${inr(x.balance)}</td></tr>`).join('');
+  const yearRows = calendarYearly(rowsAll, today).map((x) => `<tr><td>${yearCell(x)}</td><td>${inr(x.principal)}</td><td>${inr(x.interest)}</td><td class="opt">${inr(x.paid)}</td><td>${inr(x.balance)}</td></tr>`).join('');
+  const monthRows = rowsAll.slice(0, 12).map((x) => `<tr><td>${monthLabel(x.m, today)}</td><td class="opt">${inr(x.paid)}</td><td>${inr(x.principal)}</td><td>${inr(x.interest)}</td><td>${inr(x.balance)}</td></tr>`).join('');
   const qa = [
     ['What is a home loan amortization schedule?', 'It is the full list of your loan payments, showing how much of each EMI pays interest, how much repays principal, and the balance left after each payment.'],
     ['Why is most of my early EMI interest?', `Interest is charged on what you still owe, which is highest at the start. On ₹50 lakh at ${rate(r)} for ${y} years, about ${share(1)}% of what you pay in year 1 is interest, falling to about ${share(15)}% in year 15.`],
@@ -868,9 +877,10 @@ function amortizationPage() {
 <p class="lead">See exactly where every EMI goes. Change the amount, rate and tenure, then switch between a year-by-year and a month-by-month repayment schedule.</p>
 ${calcWidget(P, r, y)}
 <h2>Repayment schedule for ₹50 lakh at ${rate(r)} over ${y} years</h2>
-<div class="scroll"><table><thead><tr><th>Year</th><th>Principal</th><th>Interest</th><th>Paid</th><th>Balance left</th></tr></thead><tbody>${yearRows}</tbody></table></div>
+<p class="small">${scheduleStartNote}</p>
+<div class="scroll"><table><thead><tr><th>Year</th><th>Principal</th><th>Interest</th><th class="opt">Paid</th><th>Balance left</th></tr></thead><tbody>${yearRows}</tbody></table></div>
 <h2>First 12 months, month by month</h2>
-<div class="scroll"><table><thead><tr><th>Month</th><th>EMI paid</th><th>Principal</th><th>Interest</th><th>Balance left</th></tr></thead><tbody>${monthRows}</tbody></table></div>
+<div class="scroll"><table><thead><tr><th>Month</th><th class="opt">EMI paid</th><th>Principal</th><th>Interest</th><th>Balance left</th></tr></thead><tbody>${monthRows}</tbody></table></div>
 ${leadForm({ loan: 'home-loan', amount: P })}
 ${toolChips()}
 <h2>Frequently asked questions</h2>${faqHtml(qa)}`,
@@ -899,8 +909,8 @@ function ratesPage() {
       const list = forLoan(l);
       if (!list.length) return '';
       return `<h2>${esc(l.name)} interest rates</h2>
-<div class="scroll"><table><thead><tr><th>Bank</th><th>Starting rate</th><th>Applies to</th><th>Checked</th></tr></thead><tbody>${list
-        .map((p) => `<tr><td><span class="title-row" style="gap:8px">${avatar(p.bankInfo.short, p.bank)}<a href="${href(bankUrl(l, p))}">${esc(p.bankInfo.name)}</a></span></td><td>${rate(p.rateFrom)}</td><td style="text-align:left">${esc(p.conditions ?? 'Starting rate for eligible borrowers')}</td><td>${esc(p.retrievedOn)}</td></tr>`)
+<div class="scroll"><table class="stack"><thead><tr><th>Bank</th><th>Starting rate</th><th>Applies to</th><th>Checked</th></tr></thead><tbody>${list
+        .map((p) => `<tr><td><span class="title-row" style="gap:8px">${avatar(p.bankInfo.short, p.bank)}<a href="${href(bankUrl(l, p))}">${esc(p.bankInfo.name)}</a></span></td><td data-label="Starting rate"><b>${rate(p.rateFrom)}</b></td><td data-label="Applies to" style="text-align:left">${esc(p.conditions ?? 'Starting rate for eligible borrowers')}</td><td data-label="Checked">${esc(fmtDate(p.retrievedOn))}</td></tr>`)
         .join('')}</tbody></table></div>`;
     })
     .join('\n');
@@ -1144,7 +1154,7 @@ function excelPage() {
   const r = 8.5;
   const y = 20;
   const e = emi(P, r, y);
-  const first = schedule(P, r, y).slice(0, 6).map((x) => `<tr><td>${x.m}</td><td>${inr(x.paid)}</td><td>${inr(x.interest)}</td><td>${inr(x.principal)}</td><td>${inr(x.balance)}</td></tr>`).join('');
+  const first = schedule(P, r, y).slice(0, 6).map((x) => `<tr><td>${monthLabel(x.m, today)}</td><td class="opt">${inr(x.paid)}</td><td>${inr(x.interest)}</td><td>${inr(x.principal)}</td><td>${inr(x.balance)}</td></tr>`).join('');
   const qa = [
     ['What is the Excel formula for EMI?', 'Use =PMT(rate/12, years*12, -loan). For ₹50 lakh at 8.5% for 20 years that is =PMT(8.5%/12, 240, -5000000), which gives about ' + inr(e) + '.'],
     ['Does the sheet work in Google Sheets?', 'Yes. In Google Sheets choose File, then Import, then Upload, and select the downloaded file. All formulas keep working.'],
@@ -1172,7 +1182,7 @@ function excelPage() {
 <pre class="code"><code>=PMT(8.5%/12, 20*12, -5000000)</code></pre>
 <p>That returns about <b>${inr(e)}</b> a month. The rate is divided by 12 because EMIs are monthly, and the loan amount is negative because it is money you receive.</p>
 <h2>First months of the schedule</h2>
-<div class="scroll"><table><thead><tr><th>Month</th><th>EMI</th><th>Interest</th><th>Principal</th><th>Balance left</th></tr></thead><tbody>${first}</tbody></table></div>
+<div class="scroll"><table><thead><tr><th>Month</th><th class="opt">EMI</th><th>Interest</th><th>Principal</th><th>Balance left</th></tr></thead><tbody>${first}</tbody></table></div>
 <p class="small">₹50 lakh at 8.5% for 20 years. The download contains all ${y * 12} months.</p>
 <h2>Frequently asked questions</h2>${faqHtml(qa)}
 <p>Prefer not to download? Use the <a href="${href('/home-loan-emi-calculator/')}">online EMI calculator</a>, or <a href="${href('/embed/')}">add our calculator to your website</a>.</p>`,
@@ -1230,13 +1240,15 @@ function stampStatePage(s) {
   const rateRows = s.areas
     .map((a) => `<tr><td>${esc(a.label)}</td>${a.duty.map((d) => `<td>${pctLabel(d.pct)}${d.womanPct != null ? ` <span class="small">(women ${pctLabel(d.womanPct)})</span>` : ''}</td>`).join('')}<td>${regLabel(a.registration)}</td></tr>`)
     .join('');
+  // With a women's column the table has five columns; phones then show only the totals.
+  const opt = woman ? ' class="opt"' : '';
   const valueRows = STAMP_VALUES.map((v) => {
     const m = stampDuty(main, v);
-    return `<tr><td>${lakhShort(v)}</td><td>${inr(m.duty)}</td><td>${inr(m.registration)}</td><td><b>${inr(m.total)}</b></td>${woman ? `<td>${inr(stampDuty(main, v, 'woman').total)}</td>` : ''}</tr>`;
+    return `<tr><td>${lakhShort(v)}</td><td${opt}>${inr(m.duty)}</td><td${opt}>${inr(m.registration)}</td><td><b>${inr(m.total)}</b></td>${woman ? `<td>${inr(stampDuty(main, v, 'woman').total)}</td>` : ''}</tr>`;
   }).join('');
   const cashRows = STAMP_VALUES.map((v) => {
     const u = upfront(main, v);
-    return `<tr><td>${lakhShort(v)}</td><td>${inr(u.loan)}</td><td>${inr(u.down)}</td><td>${inr(u.sd.total)}</td><td><b>${inr(u.cash)}</b></td></tr>`;
+    return `<tr><td>${lakhShort(v)}</td><td class="opt">${inr(u.loan)}</td><td>${inr(u.down)}</td><td>${inr(u.sd.total)}</td><td><b>${inr(u.cash)}</b></td></tr>`;
   }).join('');
   const u50 = upfront(main, 5000000);
   const inArea = (a) => `in a ${a.label.charAt(0).toLowerCase()}${a.label.slice(1)}`;
@@ -1271,10 +1283,10 @@ ${stampWidget(s)}
 ${sourcesHtml(s)}
 <h2>Stamp duty on common property values</h2>
 <p class="small">${multi ? `${esc(main.label)}. ` : ''}${woman ? 'Total for a man buying alone, and for a woman.' : 'Same for men and women buyers.'}</p>
-<div class="scroll"><table><thead><tr><th>Property value</th><th>Stamp duty</th><th>Registration</th><th>Total${woman ? ' (man)' : ''}</th>${woman ? '<th>Total (woman)</th>' : ''}</tr></thead><tbody>${valueRows}</tbody></table></div>
+<div class="scroll"><table><thead><tr><th>Property value</th><th${opt}>Stamp duty</th><th${opt}>Registration</th><th>Total${woman ? ' (man)' : ''}</th>${woman ? '<th>Total (woman)</th>' : ''}</tr></thead><tbody>${valueRows}</tbody></table></div>
 <h2>Total cash you need to buy a home in ${esc(s.name)}</h2>
 <p>Banks lend up to 90% of the property value for loans up to ₹30 lakh, 80% up to ₹75 lakh and 75% above that. The rest, plus stamp duty and registration, comes from your own savings.</p>
-<div class="scroll"><table><thead><tr><th>Property value</th><th>Most a bank can lend</th><th>Down payment</th><th>Stamp duty and registration</th><th>Cash you need</th></tr></thead><tbody>${cashRows}</tbody></table></div>
+<div class="scroll"><table><thead><tr><th>Property value</th><th class="opt">Most a bank can lend</th><th>Down payment</th><th>Stamp duty and registration</th><th>Cash you need</th></tr></thead><tbody>${cashRows}</tbody></table></div>
 <p>Check what your salary supports with the <a href="${href('/home-loan-eligibility-calculator/')}">home loan eligibility calculator</a>, then <a href="${href('/home-loan/')}">compare home loan rates</a>.</p>
 <h2>Things to know</h2>
 <ul class="clean">${s.notes.map((n) => `<li>${esc(n)}</li>`).join('')}</ul>
@@ -1292,7 +1304,7 @@ function stampHubPage() {
     .flatMap((s) =>
       s.areas.map((a, i) => {
         const w = a.duty.some((d) => d.womanPct != null);
-        return `<tr><td>${i === 0 ? `<a href="${href(stampUrl(s))}">${esc(s.name)}</a>` : ''}</td><td>${esc(a.label)}</td><td>${pctLabel(dutyPct(a))}${w ? ` <span class="small">(women ${pctLabel(dutyPct(a, 'woman'))})</span>` : ''}</td><td>${regLabel(a.registration)}</td><td><b>${inr(stampDuty(a, 5000000).total)}</b></td></tr>`;
+        return `<tr><td>${i === 0 ? `<a href="${href(stampUrl(s))}">${esc(s.name)}</a>` : ''}</td><td data-label="Area">${esc(a.label)}</td><td data-label="Stamp duty">${pctLabel(dutyPct(a))}${w ? ` <span class="small">(women ${pctLabel(dutyPct(a, 'woman'))})</span>` : ''}</td><td data-label="Registration">${regLabel(a.registration)}</td><td data-label="On ₹50 lakh"><b>${inr(stampDuty(a, 5000000).total)}</b></td></tr>`;
       }),
     )
     .join('');
@@ -1317,7 +1329,7 @@ function stampHubPage() {
 <p class="lead">Work out the stamp duty and registration fee on your home, and the total cash you need on top of your home loan. Rates are taken from each state's official registration website.</p>
 ${stampWidget(def)}
 <h2>Stamp duty and registration fee by state</h2>
-<div class="scroll"><table><thead><tr><th>State</th><th>Area</th><th>Stamp duty</th><th>Registration fee</th><th>On a ₹50 lakh home</th></tr></thead><tbody>${rows}</tbody></table></div>
+<div class="scroll"><table class="stack"><thead><tr><th>State</th><th>Area</th><th>Stamp duty</th><th>Registration fee</th><th>On a ₹50 lakh home</th></tr></thead><tbody>${rows}</tbody></table></div>
 <p class="small">We add a state only after checking every charge on its official government website. More states are on the way.</p>
 <h2>How stamp duty is calculated</h2>
 <p>Multiply the property value by the state's stamp duty rate, then add the registration fee. For example, a ₹50 lakh home in ${esc(def.name)} (${esc(def.areas[0].label.charAt(0).toLowerCase() + def.areas[0].label.slice(1))}) pays ${pctLabel(dutyPct(def.areas[0]))} stamp duty (${inr(stampDuty(def.areas[0], 5000000).duty)}) plus a registration fee of ${inr(stampDuty(def.areas[0], 5000000).registration)}, a total of ${inr(stampDuty(def.areas[0], 5000000).total)}.</p>

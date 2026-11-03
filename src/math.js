@@ -63,6 +63,38 @@ export function yearly(rows) {
   return out;
 }
 
+// Calendar dates for a schedule whose first EMI falls in the month of `start` (a Date or "YYYY-MM-DD").
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const startOf = (start) => {
+  const d = new Date(start);
+  return { y: d.getUTCFullYear(), mo: d.getUTCMonth() };
+};
+const instalmentDate = (m, start) => {
+  const s = startOf(start);
+  const k = s.mo + m - 1;
+  return { y: s.y + Math.floor(k / 12), mo: k % 12 };
+};
+// "2026-Nov" for instalment number m.
+export const monthLabel = (m, start) => {
+  const d = instalmentDate(m, start);
+  return `${d.y}-${MONTHS[d.mo]}`;
+};
+// Groups a monthly schedule by calendar year (the first year holds only the months left in it).
+export function calendarYearly(rows, start) {
+  const out = [];
+  for (const row of rows) {
+    const y = instalmentDate(row.m, start).y;
+    let cur = out.at(-1);
+    if (!cur || cur.year !== y) out.push((cur = { year: y, months: 0, principal: 0, interest: 0, paid: 0, balance: 0 }));
+    cur.months += 1;
+    cur.principal += row.principal;
+    cur.interest += row.interest;
+    cur.paid += row.paid;
+    cur.balance = row.balance;
+  }
+  return out;
+}
+
 // Maximum EMI a lender is likely to allow: a share (foir, percent) of net monthly income,
 // minus EMIs already being paid.
 export const maxEmiFor = (income, existingEmi, foir = 50) => Math.max(0, (income * foir) / 100 - existingEmi);

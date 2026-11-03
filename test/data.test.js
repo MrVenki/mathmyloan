@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { publishable } from '../src/data.js';
 import { validate, relevantLines, stripHtml } from '../src/collect.js';
-import { emi, schedule, yearly, maxEmiFor, balanceTransfer, flatEmi, flatToReducing, ltvFor, maxLoanForValue, stampDuty } from '../src/math.js';
+import { emi, schedule, yearly, maxEmiFor, balanceTransfer, flatEmi, flatToReducing, ltvFor, maxLoanForValue, stampDuty, calendarYearly, monthLabel } from '../src/math.js';
 import fs from 'node:fs';
 
 const NOW = Date.parse('2026-11-10');
@@ -152,4 +152,15 @@ test('every loan type compares at least 10 banks', () => {
     const banks = new Set(products.filter((p) => p.loan === loan.slug && !p.review).map((p) => p.bank));
     assert.ok(banks.size >= 10, `${loan.slug} has only ${banks.size} banks`);
   }
+});
+
+test('schedules use calendar dates from the first EMI month', () => {
+  const rows = schedule(5e6, 8.5, 20);
+  assert.equal(monthLabel(1, '2026-11-03'), '2026-Nov');
+  assert.equal(monthLabel(3, '2026-11-03'), '2027-Jan');
+  const ys = calendarYearly(rows, '2026-11-03');
+  assert.deepEqual([ys[0].year, ys[0].months, ys[1].year, ys[1].months], [2026, 2, 2027, 12]);
+  assert.equal(ys.at(-1).year, 2046);
+  assert.equal(ys.reduce((a, y) => a + y.months, 0), rows.length);
+  assert.ok(Math.abs(ys.reduce((a, y) => a + y.principal, 0) - 5e6) < 1);
 });
