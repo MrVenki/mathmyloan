@@ -55,7 +55,7 @@
       var x = M + 46, white = [1, 1, 1];
       this.text('Math', x, H - 33, 20, true, white);
       x += width('Math', true, 20);
-      this.text('My', x, H - 33, 20, true, [0.525, 0.937, 0.675]);
+      this.text('My', x, H - 33, 20, true, [0.749, 0.859, 0.996]);
       x += width('My', true, 20);
       this.text('Loan', x, H - 33, 20, true, white);
       this.text(TAGLINE, M + 46, H - 47, 8.5, false, [0.86, 0.92, 1]);
@@ -91,17 +91,21 @@
       n(x) + ' ' + n(y + r - k) + ' ' + n(x + r - k) + ' ' + n(y) + ' ' + n(x + r) + ' ' + n(y) + ' c',
     ].join(' ') + ' h f');
   };
-  // The calculator-keys logo (as assets/brand/logo.svg, on a 40-unit grid). On the blue band it sits on a white tile.
+  // The logo: a drawn ₹ on a rounded tile, the same path as assets/brand/logo.svg (40-unit grid, y down).
+  // Drawn as lines, so it shows a real ₹ even though the standard PDF fonts have none.
+  // On the blue header band the tile is white with a blue ₹.
   Doc.prototype.mark = function (x, y, size, onBlue) {
-    var u = size / 40, self = this;
+    var u = size / 40;
+    var P = function (px, py) { return n(x + px * u) + ' ' + n(y + (40 - py) * u); };
     this.rrect(x, y, size, size, 11 * u, onBlue ? [1, 1, 1] : BLUE);
-    var keys = [[8, 8, onBlue ? BLUE : [1, 1, 1]], [21, 8, [0.576, 0.773, 0.992]], [8, 21, [0.576, 0.773, 0.992]], [21, 21, [0.133, 0.773, 0.369]]];
-    keys.forEach(function (k) { self.rrect(x + k[0] * u, y + (40 - k[1] - 11) * u, 11 * u, 11 * u, 3 * u, k[2]); });
-    if (size >= 24) {
-      // "=" on the green key; the rupee key stays plain because the standard fonts have no ₹.
-      this.rrect(x + 23.6 * u, y + (40 - 24.4 - 1.7) * u, 5.8 * u, 1.7 * u, 0.85 * u, [1, 1, 1]);
-      this.rrect(x + 23.6 * u, y + (40 - 27.6 - 1.7) * u, 5.8 * u, 1.7 * u, 0.85 * u, [1, 1, 1]);
-    }
+    this.ops.push(rgb(onBlue ? BLUE : [1, 1, 1]) + ' RG ' + n((size < 24 ? 4 : 3.1) * u) + ' w 1 J 1 j ' + [
+      P(13, 11) + ' m', P(27, 11) + ' l',
+      P(13, 16.6) + ' m', P(27, 16.6) + ' l',
+      P(13, 11) + ' m', P(17.4, 11) + ' l',
+      P(21.3, 11) + ' ' + P(23.5, 13.3) + ' ' + P(23.5, 16.6) + ' c',
+      P(23.5, 19.9) + ' ' + P(21.3, 22.3) + ' ' + P(17.4, 22.3) + ' c',
+      P(14, 22.3) + ' l', P(24.6, 31) + ' l',
+    ].join(' ') + ' S');
   };
   Doc.prototype.line = function (x1, y1, x2, y2, color) { this.ops.push(rgb(color) + ' RG 0.6 w ' + n(x1) + ' ' + n(y1) + ' m ' + n(x2) + ' ' + n(y2) + ' l S'); };
 

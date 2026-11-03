@@ -1,6 +1,6 @@
 // Renders the site icons from assets/brand/*.svg with headless Chrome, so they match the on-page logo.
 // Run: node scripts/make-icons.mjs && node scripts/make-ico.mjs
-// Small sizes use favicon.svg (the four keys only); larger ones use logo.svg (with the ₹ and = keys).
+// Small sizes use favicon.svg (the same ₹ with thicker lines so it stays clear); larger ones use logo.svg.
 import { spawn } from 'node:child_process';
 import fs from 'node:fs';
 import os from 'node:os';

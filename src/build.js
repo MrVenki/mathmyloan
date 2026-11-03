@@ -47,7 +47,7 @@ function write(rel, content) {
 }
 
 const CSS = fs.readFileSync(path.join(ROOT, 'src', 'style.css'), 'utf8');
-// Logo: calculator keys (₹, =) from assets/brand/logo.svg, inlined so it needs no extra request.
+// Logo: a drawn ₹ on a blue tile from assets/brand/logo.svg, inlined so it needs no extra request.
 const MARK = fs.readFileSync(path.join(ROOT, 'assets', 'brand', 'logo.svg'), 'utf8').trim().replace('<svg ', '<svg class="logo" width="36" height="36" aria-hidden="true" focusable="false" ');
 const brandLink = () => `<a class="brand" href="${href('/')}">${MARK}<span class="wm"><span class="nm">${esc(cfg.siteName).replace('My', '<em>My</em>')}</span><span class="tag">${esc(cfg.tagline)}</span></span></a>`;
 // Browser tab, bookmark, home-screen and search-result icons (Google wants 48px or larger).
