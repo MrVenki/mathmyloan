@@ -4,6 +4,7 @@
 (function (root) {
   var W = 595.28, H = 841.89, M = 40, CW = W - 2 * M, TOP = H - 40, BOTTOM = 62;
   var BLUE = [0.145, 0.388, 0.922], INK = [0.059, 0.09, 0.165], MUTED = [0.278, 0.333, 0.412], LINE = [0.886, 0.91, 0.941];
+  var TAGLINE = 'The math behind every rupee.';
   var SOFT = [0.961, 0.973, 1], HEAD = [0.937, 0.965, 1], ZEBRA = [0.973, 0.98, 0.988], GOOD = [0.086, 0.4, 0.204];
 
   // Helvetica and Helvetica-Bold advance widths (1/1000 em) for ASCII 32-126.
@@ -50,12 +51,19 @@
     var first = this.pages.length === 1;
     if (first) {
       this.rect(0, H - 64, W, 64, BLUE);
-      this.text('MathMyLoan', M, H - 40, 20, true, [1, 1, 1]);
-      this.text('Loan calculators and bank rates for India', M, H - 54, 8.5, false, [0.86, 0.92, 1]);
-      this.text('mathmyloan.com', W - M, H - 40, 11, true, [1, 1, 1], 'r');
+      this.mark(M, H - 50, 36, true);
+      var x = M + 46, white = [1, 1, 1];
+      this.text('Math', x, H - 33, 20, true, white);
+      x += width('Math', true, 20);
+      this.text('My', x, H - 33, 20, true, [0.525, 0.937, 0.675]);
+      x += width('My', true, 20);
+      this.text('Loan', x, H - 33, 20, true, white);
+      this.text(TAGLINE, M + 46, H - 47, 8.5, false, [0.86, 0.92, 1]);
+      this.text('mathmyloan.com', W - M, H - 37, 11, true, white, 'r');
       this.y = H - 96;
     } else {
-      this.text('MathMyLoan', M, H - 30, 10, true, BLUE);
+      this.mark(M, H - 34, 14, false);
+      this.text('MathMyLoan', M + 20, H - 30, 10, true, BLUE);
       this.text(this.title, W - M, H - 30, 8.5, false, MUTED, 'r');
       this.line(M, H - 38, W - M, H - 38, LINE);
       this.y = H - 58;
@@ -69,6 +77,32 @@
     this.ops.push('BT /' + (bold ? 'F2' : 'F1') + ' ' + n(size) + ' Tf ' + rgb(color || INK) + ' rg ' + n(x) + ' ' + n(y) + ' Td (' + esc(s) + ') Tj ET');
   };
   Doc.prototype.rect = function (x, y, w, h, fill) { this.ops.push(rgb(fill) + ' rg ' + n(x) + ' ' + n(y) + ' ' + n(w) + ' ' + n(h) + ' re f'); };
+  // Rounded rectangle (Bezier corners), x/y is the bottom-left corner.
+  Doc.prototype.rrect = function (x, y, w, h, r, fill) {
+    var k = r * 0.5523;
+    this.ops.push(rgb(fill) + ' rg ' + [
+      n(x + r) + ' ' + n(y) + ' m', n(x + w - r) + ' ' + n(y) + ' l',
+      n(x + w - r + k) + ' ' + n(y) + ' ' + n(x + w) + ' ' + n(y + r - k) + ' ' + n(x + w) + ' ' + n(y + r) + ' c',
+      n(x + w) + ' ' + n(y + h - r) + ' l',
+      n(x + w) + ' ' + n(y + h - r + k) + ' ' + n(x + w - r + k) + ' ' + n(y + h) + ' ' + n(x + w - r) + ' ' + n(y + h) + ' c',
+      n(x + r) + ' ' + n(y + h) + ' l',
+      n(x + r - k) + ' ' + n(y + h) + ' ' + n(x) + ' ' + n(y + h - r + k) + ' ' + n(x) + ' ' + n(y + h - r) + ' c',
+      n(x) + ' ' + n(y + r) + ' l',
+      n(x) + ' ' + n(y + r - k) + ' ' + n(x + r - k) + ' ' + n(y) + ' ' + n(x + r) + ' ' + n(y) + ' c',
+    ].join(' ') + ' h f');
+  };
+  // The calculator-keys logo (as assets/brand/logo.svg, on a 40-unit grid). On the blue band it sits on a white tile.
+  Doc.prototype.mark = function (x, y, size, onBlue) {
+    var u = size / 40, self = this;
+    this.rrect(x, y, size, size, 11 * u, onBlue ? [1, 1, 1] : BLUE);
+    var keys = [[8, 8, onBlue ? BLUE : [1, 1, 1]], [21, 8, [0.576, 0.773, 0.992]], [8, 21, [0.576, 0.773, 0.992]], [21, 21, [0.133, 0.773, 0.369]]];
+    keys.forEach(function (k) { self.rrect(x + k[0] * u, y + (40 - k[1] - 11) * u, 11 * u, 11 * u, 3 * u, k[2]); });
+    if (size >= 24) {
+      // "=" on the green key; the rupee key stays plain because the standard fonts have no ₹.
+      this.rrect(x + 23.6 * u, y + (40 - 24.4 - 1.7) * u, 5.8 * u, 1.7 * u, 0.85 * u, [1, 1, 1]);
+      this.rrect(x + 23.6 * u, y + (40 - 27.6 - 1.7) * u, 5.8 * u, 1.7 * u, 0.85 * u, [1, 1, 1]);
+    }
+  };
   Doc.prototype.line = function (x1, y1, x2, y2, color) { this.ops.push(rgb(color) + ' RG 0.6 w ' + n(x1) + ' ' + n(y1) + ' m ' + n(x2) + ' ' + n(y2) + ' l S'); };
 
   Doc.prototype.heading = function (s) {

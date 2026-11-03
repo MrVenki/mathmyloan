@@ -47,6 +47,9 @@ function write(rel, content) {
 }
 
 const CSS = fs.readFileSync(path.join(ROOT, 'src', 'style.css'), 'utf8');
+// Logo: calculator keys (₹, =) from assets/brand/logo.svg, inlined so it needs no extra request.
+const MARK = fs.readFileSync(path.join(ROOT, 'assets', 'brand', 'logo.svg'), 'utf8').trim().replace('<svg ', '<svg class="logo" width="36" height="36" aria-hidden="true" focusable="false" ');
+const brandLink = () => `<a class="brand" href="${href('/')}">${MARK}<span class="wm"><span class="nm">${esc(cfg.siteName).replace('My', '<em>My</em>')}</span><span class="tag">${esc(cfg.tagline)}</span></span></a>`;
 // Browser tab, bookmark, home-screen and search-result icons (Google wants 48px or larger).
 const ICON_LINKS = `<link rel="icon" href="${href('/favicon.ico')}" sizes="32x32 48x48">
 <link rel="icon" href="${href('/favicon.svg')}" type="image/svg+xml">
@@ -87,7 +90,7 @@ function footer() {
   const col = (title, links) => `<div><p class="fh">${esc(title)}</p><ul>${links.map(([u, t]) => `<li><a href="${href(u)}">${esc(t)}</a></li>`).join('')}</ul></div>`;
   return `<footer class="site"><div class="wrap">
 <div class="fgrid">
-<div class="fbrand"><a class="brand" href="${href('/')}"><span class="logo" aria-hidden="true">₹</span>${esc(cfg.siteName)}</a>
+<div class="fbrand">${brandLink()}
 <p>Compare loan interest rates from Indian banks, each checked on the bank's own website and dated.</p></div>
 ${col('Loan rates', [...loans.map((l) => [`/${l.slug}/`, `${l.name} rates`]), ['/loan-interest-rates/', 'All bank loan rates']])}
 ${col('Calculators', [...TOOLS.map((t) => [t.url, t.name.replace(/^Home loan /, '').replace(/^./, (c) => c.toUpperCase())]), ['/calculators/', 'All calculators']])}
@@ -141,7 +144,7 @@ ${ICON_LINKS}
 <script type="application/ld+json">${JSON.stringify(ld).replace(/</g, '\\u003c')}</script>
 </head>
 <body>
-<header class="top"><div class="wrap"><a class="brand" href="${href('/')}"><span class="logo" aria-hidden="true">₹</span>${esc(cfg.siteName)}</a>
+<header class="top"><div class="wrap">${brandLink()}
 <nav id="main-nav" aria-label="Main">${loans.map((l) => `<a href="${href(`/${l.slug}/`)}">${esc(l.name)}</a>`).join('')}<a href="${href('/calculators/')}">Calculators</a><a href="${href('/loan-interest-rates/')}">All rates</a></nav>
 <a class="cta-top" href="${callbackHref}">Free call back</a>
 <button type="button" class="menu-btn" aria-expanded="false" aria-controls="main-nav" aria-label="Open menu"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg></button></div></header>
@@ -576,8 +579,8 @@ function homePage() {
   ].filter(Boolean);
 
   return layout({
-    title: `${cfg.siteName}: Compare Loan Interest Rates & EMI in India`,
-    desc: 'Compare home, personal, car and education loan interest rates across Indian banks, with the source and check date for every rate. Free EMI, eligibility, prepayment and balance transfer calculators.',
+    title: `Compare Loan Interest Rates and EMI in India | ${cfg.siteName}`,
+    desc: `${cfg.tagline.replace(/\.$/, '')}: compare starting rates from ${new Set(products.map((p) => p.bank)).size} Indian banks, each checked on the bank's own site, and see your real EMI, eligibility and full repayment schedule.`,
     url: '/',
     jsonld: [
       { '@context': 'https://schema.org', '@type': 'Organization', name: cfg.siteName, url: `${cfg.siteUrl}/`, logo: `${cfg.siteUrl}/icon-512.png` },
