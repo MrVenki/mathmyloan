@@ -393,7 +393,36 @@
         '<rect x="' + x.toFixed(1) + '" y="' + (base - hp - hi).toFixed(1) + '" width="' + bw.toFixed(1) + '" height="' + hi.toFixed(1) + '" fill="#f2b632"/>';
       if (j % every === 0 || j === n - 1) out += '<text x="' + (x + bw / 2).toFixed(1) + '" y="' + (H - 9) + '" text-anchor="middle" font-size="11" fill="#64748b">' + v.year + '</text>';
     });
-    svg.innerHTML = out;
+    // Highlight band for the hovered year, drawn behind the bars.
+    svg.innerHTML = '<rect data-hl x="0" y="' + t + '" width="0" height="' + ch + '" fill="#001e60" opacity="0" rx="4"/>' + out;
+    svg._g = { ys: ys, W: W, l: l, slot: slot, t: t, ch: ch, top: top };
+  }
+  // Hover (or tap) a bar to see that year's figures.
+  function plBarsTip(svg) {
+    var wrap = svg.parentNode, tip = document.createElement('div');
+    tip.className = 'pl-tip'; tip.hidden = true; tip.setAttribute('role', 'tooltip');
+    wrap.appendChild(tip);
+    function show(clientX) {
+      var g = svg._g; if (!g) return;
+      var r = svg.getBoundingClientRect(), k = g.W / r.width, x = (clientX - r.left) * k, j = Math.floor((x - g.l) / g.slot);
+      var hl = svg.querySelector('[data-hl]');
+      if (j < 0 || j >= g.ys.length) { tip.hidden = true; hl.setAttribute('opacity', '0'); return; }
+      var v = g.ys[j], total = v.principal + v.interest;
+      hl.setAttribute('x', (g.l + g.slot * j).toFixed(1)); hl.setAttribute('width', g.slot.toFixed(1)); hl.setAttribute('opacity', '.07');
+      tip.innerHTML = '<b>' + v.year + (v.months < 12 ? ' · ' + v.months + ' month' + (v.months > 1 ? 's' : '') : '') + '</b>' +
+        '<span><span><i style="background:#001e60"></i>Principal</span>' + inr(v.principal) + '</span>' +
+        '<span><span><i style="background:#f2b632"></i>Interest</span>' + inr(v.interest) + '</span>' +
+        '<span class="t"><span>Total paid</span>' + inr(total) + '</span>' +
+        '<span><span>Balance left</span>' + inr(v.balance) + '</span>';
+      var wr = wrap.getBoundingClientRect(), cx = (g.l + g.slot * (j + 0.5)) / k + (r.left - wr.left), barTop = (g.t + g.ch - g.ch * total / g.top) / k + (r.top - wr.top);
+      tip.hidden = false;
+      var half = tip.offsetWidth / 2;
+      tip.style.left = Math.min(Math.max(cx, half), wr.width - half) + 'px';
+      tip.style.top = Math.max(barTop, tip.offsetHeight + 12) + 'px';
+    }
+    svg.addEventListener('mousemove', function (e) { show(e.clientX); });
+    svg.addEventListener('mouseleave', function () { tip.hidden = true; var hl = svg.querySelector('[data-hl]'); if (hl) hl.setAttribute('opacity', '0'); });
+    svg.addEventListener('click', function (e) { show(e.clientX); });
   }
   document.querySelectorAll('[data-planner]').forEach(function (box) {
     var D = window.PLANNER || { banks: [] }, B = D.banks;
@@ -401,6 +430,7 @@
     var amt = $('#pl-amt', box), yrs = $('#pl-yrs', box), bankSel = $('[name=pl-bank]', box), own = $('[name=pl-own]', box);
     var pp = $('[name=pl-pp]', box), extraEl = $('[name=pl-extra]', box), table = document.querySelector('.pl-banks');
     var mode = function () { return $('[name=pl-mode]:checked', box).value; };
+    plBarsTip($('[data-bars]', box));
     function pick() {
       var m = mode();
       if (m === 'bank') { var i = +bankSel.value; return { name: B[i].name, short: B[i].short, rate: B[i].rate, i: i }; }

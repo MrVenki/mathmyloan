@@ -379,7 +379,7 @@ details.trust-box[open] > summary{margin-bottom:8px}
 .dl-report{gap:8px;margin:0;background:#fff;color:var(--accent);border:1px solid var(--accent);min-height:44px;padding:0 16px;font-size:.95rem;border-radius:8px}
 .dl-report:hover{background:var(--accent50);color:var(--accent)}
 .dl-report[disabled]{opacity:.6;cursor:progress}
-.dc{display:grid;grid-template-columns:300px minmax(0,1fr);border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff}
+.dc{display:grid;grid-template-columns:320px minmax(0,1fr);border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff}
 .dc label{margin:0}
 .lp{background:var(--soft);border-right:1px solid var(--line)}
 .lp .sec{border-bottom:1px solid var(--line)}
@@ -396,10 +396,24 @@ details.trust-box[open] > summary{margin-bottom:8px}
 .rg{display:flex;justify-content:space-between;font-size:.72rem;color:#64748b}
 .pl-opt{display:grid;grid-template-columns:18px minmax(0,1fr);gap:8px;align-items:start;padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:#fff;cursor:pointer}
 .pl-opt input[type=radio]{margin:3px 0 0;accent-color:var(--accent)}
-.pl-opt b{font-size:.88rem;display:block;color:var(--ink)}
+.pl-opt b{font-size:.88rem;font-weight:700;display:block;color:var(--ink)}
 .pl-opt small{color:var(--muted);font-size:.78rem}
 .pl-opt.on{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
 .pl-opt select,.pl-opt input[type=number]{margin-top:6px;min-height:38px;padding:6px 9px}
+/* Dropdowns and the rate box use the panel's text size, not the larger form default. */
+.dc select,.pl-opt input[type=number]{font-size:.9rem;font-weight:500;color:var(--ink);border-radius:8px}
+.dc select{padding-left:8px;padding-right:4px}
+.pl-opt select{font-size:.86rem}
+/* Bar chart hover card: the year's principal, interest, total and balance. */
+.pl-bars{position:relative}
+.pl-bars svg{cursor:crosshair;touch-action:pan-y}
+.pl-tip{position:absolute;z-index:5;pointer-events:none;background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:0 8px 24px rgba(15,23,42,.14);padding:9px 11px;font-size:.8rem;line-height:1.5;white-space:nowrap;transform:translate(-50%,calc(-100% - 10px))}
+.pl-tip[hidden]{display:none}
+.pl-tip b{display:block;font-family:var(--serif);color:var(--accent);font-size:.92rem;margin-bottom:2px}
+.pl-tip > span{display:flex;justify-content:space-between;gap:18px}
+.pl-tip > span > span{display:inline}
+.pl-tip i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:6px;vertical-align:middle}
+.pl-tip .t{border-top:1px solid var(--line2);margin-top:3px;padding-top:3px;font-weight:700}
 .pl-sw{display:flex!important;align-items:center;justify-content:space-between;gap:10px;font-size:.88rem;color:var(--ink);font-weight:600;cursor:pointer}
 .pl-sw input{appearance:none;width:40px;height:23px;border-radius:999px;background:#c5cddb;position:relative;cursor:pointer;flex:none;margin:0}
 .pl-sw input::after{content:"";position:absolute;top:3px;left:3px;width:17px;height:17px;border-radius:50%;background:#fff;transition:left .15s}
