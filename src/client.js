@@ -367,6 +367,125 @@
     run();
   });
 
+  // ---- Loan planner on loan-type pages: inputs left, charts and comparison right, bank list below ----
+  var lakhS = function (n) { var t = function (x) { return String(+x.toFixed(2)); }; return n >= 1e7 ? '₹' + t(n / 1e7) + ' cr' : n >= 1e5 ? '₹' + t(n / 1e5) + ' lakh' : inr(n); };
+  function plDonut(svg, P, I, e) {
+    var tot = P + I, c = 2 * Math.PI * 78, p = tot ? P / tot : 1;
+    svg.innerHTML = '<circle cx="100" cy="100" r="78" fill="none" stroke="#f2b632" stroke-width="22"/>' +
+      '<circle cx="100" cy="100" r="78" fill="none" stroke="#001e60" stroke-width="22" stroke-dasharray="' + (c * p).toFixed(1) + ' ' + c.toFixed(1) + '" transform="rotate(-90 100 100)"/>' +
+      '<text x="100" y="95" text-anchor="middle" font-family="Source Serif 4, Georgia, serif" font-size="' + (e >= 1e6 ? 22 : 27) + '" font-weight="700" fill="#001e60">' + inr(e) + '</text>' +
+      '<text x="100" y="117" text-anchor="middle" font-size="12" fill="#475569">EMI per month</text>' +
+      '<text x="100" y="137" text-anchor="middle" font-size="11" fill="#64748b">Interest ' + Math.round((1 - p) * 100) + '% of total</text>';
+  }
+  function plBars(svg, ys) {
+    var narrow = (svg.getBoundingClientRect().width || 520) < 440, W = narrow ? 340 : 520, H = narrow ? 220 : 240, l = 54, r = 6, t = 10, b = 28, cw = W - l - r, ch = H - t - b;
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    var max = Math.max.apply(null, ys.map(function (v) { return v.interest + v.principal; })) || 1;
+    var raw = max / 4, mag = Math.pow(10, Math.floor(Math.log10(raw))), step = Math.ceil(raw / mag) * mag, top = step * 4, out = '';
+    for (var k = 0; k <= 4; k++) {
+      var gy = t + ch - ch * k / 4;
+      out += '<line x1="' + l + '" x2="' + (W - r) + '" y1="' + gy.toFixed(1) + '" y2="' + gy.toFixed(1) + '" stroke="#e2e8f0"/><text x="' + (l - 6) + '" y="' + (gy + 4).toFixed(1) + '" text-anchor="end" font-size="11" fill="#64748b">' + (k ? lakhS(step * k) : '0') + '</text>';
+    }
+    var n = ys.length, slot = cw / n, bw = Math.max(3, Math.min(34, slot * 0.68)), every = Math.ceil(n / (narrow ? 5 : 10));
+    ys.forEach(function (v, j) {
+      var x = l + slot * j + (slot - bw) / 2, hp = ch * v.principal / top, hi = ch * v.interest / top, base = t + ch;
+      out += '<rect x="' + x.toFixed(1) + '" y="' + (base - hp).toFixed(1) + '" width="' + bw.toFixed(1) + '" height="' + hp.toFixed(1) + '" fill="#001e60"/>' +
+        '<rect x="' + x.toFixed(1) + '" y="' + (base - hp - hi).toFixed(1) + '" width="' + bw.toFixed(1) + '" height="' + hi.toFixed(1) + '" fill="#f2b632"/>';
+      if (j % every === 0 || j === n - 1) out += '<text x="' + (x + bw / 2).toFixed(1) + '" y="' + (H - 9) + '" text-anchor="middle" font-size="11" fill="#64748b">' + v.year + '</text>';
+    });
+    svg.innerHTML = out;
+  }
+  document.querySelectorAll('[data-planner]').forEach(function (box) {
+    var D = window.PLANNER || { banks: [] }, B = D.banks;
+    if (!B.length) return;
+    var amt = $('#pl-amt', box), yrs = $('#pl-yrs', box), bankSel = $('[name=pl-bank]', box), own = $('[name=pl-own]', box);
+    var pp = $('[name=pl-pp]', box), extraEl = $('[name=pl-extra]', box), table = document.querySelector('.pl-banks');
+    var mode = function () { return $('[name=pl-mode]:checked', box).value; };
+    function pick() {
+      var m = mode();
+      if (m === 'bank') { var i = +bankSel.value; return { name: B[i].name, short: B[i].short, rate: B[i].rate, i: i }; }
+      if (m === 'own') return { name: 'Your rate', short: 'Your rate', rate: Math.max(0.01, num(own)), i: -1 };
+      return { name: B[0].name, short: B[0].short, rate: B[0].rate, i: 0 };
+    }
+    function run() {
+      var P = num(amt), y = Math.round(num(yrs));
+      if (!P || !y) return;
+      var c = pick(), ex = pp.checked ? num(extraEl) : 0;
+      var me = schedule(P, c.rate, y, ex), base = ex ? schedule(P, c.rate, y) : me;
+      var lo = schedule(P, B[0].rate, y, ex), hi = schedule(P, B[B.length - 1].rate, y, ex);
+      var e = emi(P, c.rate, y), I = sum(me, 'interest'), Ilo = sum(lo, 'interest'), Ihi = sum(hi, 'interest'), Ibase = sum(base, 'interest');
+      [].forEach.call(box.querySelectorAll('.pl-opt'), function (o) { o.classList.toggle('on', $('input[type=radio]', o).checked); });
+      var isLow = c.i === 0 || (c.i > 0 && B[c.i].rate === B[0].rate);
+      var chip = $('[data-chip]', box);
+      chip.textContent = c.short + ' · ' + c.rate.toFixed(2) + '%' + (isLow ? ' · lowest of ' + B.length + ' banks' : '');
+      chip.classList.toggle('best', isLow);
+      plDonut($('[data-donut]', box), P, I, e);
+      plBars($('[data-bars]', box), yearly(me));
+      $('[data-col=me]', box).innerHTML = (c.i === -1 ? 'Your rate' : 'Your choice') + '<br>' + c.rate.toFixed(2) + '%';
+      var rows = [['Monthly EMI', e, emi(P, B[0].rate, y), emi(P, B[B.length - 1].rate, y)], ['Total interest', I, Ilo, Ihi], ['Total payment', P + I, P + Ilo, P + Ihi]];
+      $('[data-cmp]', box).innerHTML = rows.map(function (r) { return '<tr><td>' + r[0] + '</td><td class="sel">' + inr(r[1]) + '</td><td class="hide-sm">' + inr(r[2]) + '</td><td>' + inr(r[3]) + '</td></tr>'; }).join('') +
+        '<tr><td>Last EMI</td><td class="sel">' + monthLabel(me.length) + '</td><td class="hide-sm">' + monthLabel(lo.length) + '</td><td>' + monthLabel(hi.length) + '</td></tr>';
+      var msg = [];
+      if (Ihi - I > 1) msg.push('This choice saves <b>' + inr(Ihi - I) + '</b> in interest compared with the highest-rate bank.');
+      if (ex && Ibase - I > 1) msg.push('Paying ' + inr(ex) + ' extra a month ends the loan ' + span(base.length - me.length) + ' early and saves <b>' + inr(Ibase - I) + '</b>.');
+      var save = $('[data-save]', box); save.hidden = !msg.length; save.innerHTML = msg.join(' ');
+      if (table) {
+        $('[data-emi-head]', table).textContent = 'EMI · ' + lakhS(P) + ', ' + y + ' yrs';
+        [].forEach.call(table.querySelectorAll('tr[data-i]'), function (tr) {
+          var i = +tr.getAttribute('data-i'), s = schedule(P, B[i].rate, y, ex);
+          $('[data-emi]', tr).textContent = inr(emi(P, B[i].rate, y));
+          $('[data-int]', tr).textContent = inr(sum(s, 'interest'));
+          tr.classList.toggle('on', i === c.i);
+          $('.use', tr).textContent = i === c.i ? 'Showing' : 'Use';
+        });
+      }
+      box._report = {
+        title: D.name + ' comparison and repayment plan', file: D.slug + '-plan',
+        subtitle: pageName() + '. Rates are each bank\'s advertised starting rate. First EMI in ' + monthLabel(1) + '.',
+        inputs: [['Loan type', D.name], ['Amount', inr(P)], ['Tenure', y + ' years'], ['Rate used', c.name + ', ' + c.rate.toFixed(2) + '% a year']].concat(ex ? [['Extra payment every month', inr(ex)]] : []),
+        results: [['Monthly EMI', inr(e), true], ['Total interest', inr(I)], ['Total payment', inr(P + I)], ['Last EMI', monthLabel(me.length)],
+          ['Saving vs highest-rate bank', inr(Math.max(0, Ihi - I)), true]].concat(ex ? [['Saved by extra payments', inr(Ibase - I)]] : []),
+        sections: [
+          { title: 'Every bank at your amount and tenure', head: ['Bank', 'Starting rate', 'EMI', 'Total interest'], widths: [1.7, 0.9, 1, 1.1],
+            rows: B.map(function (b) { var s = schedule(P, b.rate, y, ex); return [b.name, b.rate.toFixed(2) + '%', inr(emi(P, b.rate, y)), inr(sum(s, 'interest'))]; }) },
+          { title: 'Year-by-year schedule at ' + c.rate.toFixed(2) + '%', head: ['Year', 'Principal', 'Interest', 'Total paid', 'Balance left'],
+            rows: yearly(me).map(function (x) { return [x.year + (x.months < 12 ? ' (' + x.months + ' mo)' : ''), inr(x.principal), inr(x.interest), inr(x.paid), inr(x.balance)]; }) },
+          { title: 'Month-by-month schedule', head: ['Month', 'EMI no.', 'Paid', 'Principal', 'Interest', 'Balance left'], widths: [1.1, 0.7, 1, 1, 1, 1.2],
+            rows: me.map(function (r) { return [monthLabel(r.m), String(r.m), inr(r.paid), inr(r.principal), inr(r.interest), inr(r.balance)]; }) },
+        ],
+        notes: ['Rates are the starting rates published on each bank\'s own website; most borrowers are offered more depending on credit score, income and loan size.',
+          'EMI = P x r x (1 + r)^n / ((1 + r)^n - 1), where P is the loan amount, r the monthly interest rate and n the number of EMIs.'],
+      };
+    }
+    // Number box and slider stay in step.
+    [].forEach.call(box.querySelectorAll('input[type=range][data-for]'), function (rg) {
+      var box2 = document.getElementById(rg.getAttribute('data-for'));
+      rg.addEventListener('input', function () { box2.value = rg.value; run(); });
+      box2.addEventListener('input', function () { if (+box2.value > 0) rg.value = box2.value; });
+    });
+    box.addEventListener('input', run);
+    box.addEventListener('change', function (ev) {
+      if (ev.target.matches('[data-nav]')) { location.href = ev.target.value; return; }
+      if (ev.target === bankSel) $('[name=pl-mode][value=bank]', box).checked = true;
+      if (ev.target === own) $('[name=pl-mode][value=own]', box).checked = true;
+      if (ev.target === pp) $('[data-ppbox]', box).hidden = !pp.checked;
+      run();
+    });
+    own.addEventListener('focus', function () { $('[name=pl-mode][value=own]', box).checked = true; run(); });
+    if (table) table.addEventListener('click', function (ev) {
+      if (ev.target.closest('a')) return;
+      var tr = ev.target.closest('tr[data-i]');
+      if (!tr) return;
+      bankSel.value = tr.getAttribute('data-i');
+      $('[name=pl-mode][value=bank]', box).checked = true;
+      run();
+      box.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    var rz;
+    window.addEventListener('resize', function () { clearTimeout(rz); rz = setTimeout(run, 150); });
+    run();
+  });
+
   // ---- "Download PDF report" under every calculator ----
   // Each calculator keeps box._report up to date; pdf.js (loaded on first click) turns it into a PDF file.
   var PDF_BOXES = '[data-calc],[data-elig],[data-bt],[data-flat],[data-stamp]';
@@ -388,7 +507,8 @@
   document.addEventListener('click', function (ev) {
     var btn = ev.target.closest && ev.target.closest('[data-pdf]');
     if (!btn) return;
-    var box = btn.closest(PDF_BOXES), note = btn.nextElementSibling;
+    // A button outside its calculator (the planner's "Download report" in the page header) names its target.
+    var box = btn.closest(PDF_BOXES) || document.querySelector(btn.getAttribute('data-pdf-target') || '[data-none]'), note = btn.nextElementSibling;
     if (!box || !box._report) { note.textContent = 'Enter your loan details above first.'; return; }
     btn.disabled = true;
     loadPdf(function () {

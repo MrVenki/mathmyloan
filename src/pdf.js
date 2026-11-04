@@ -3,7 +3,7 @@
 // Uses the PDF standard fonts (Helvetica), so text is limited to WinAnsi characters; ₹ prints as "Rs.".
 (function (root) {
   var W = 595.28, H = 841.89, M = 40, CW = W - 2 * M, TOP = H - 40, BOTTOM = 62;
-  var BLUE = [0.145, 0.388, 0.922], INK = [0.059, 0.09, 0.165], MUTED = [0.278, 0.333, 0.412], LINE = [0.886, 0.91, 0.941];
+  var BLUE = [0, 0.118, 0.376], INK = [0.059, 0.09, 0.165], MUTED = [0.278, 0.333, 0.412], LINE = [0.886, 0.91, 0.941];
   var TAGLINE = 'The math behind every rupee.';
   var SOFT = [0.961, 0.973, 1], HEAD = [0.937, 0.965, 1], ZEBRA = [0.973, 0.98, 0.988], GOOD = [0.086, 0.4, 0.204];
 
@@ -55,7 +55,7 @@
       var x = M + 46, white = [1, 1, 1];
       this.text('Math', x, H - 33, 20, true, white);
       x += width('Math', true, 20);
-      this.text('My', x, H - 33, 20, true, [0.749, 0.859, 0.996]);
+      this.text('My', x, H - 33, 20, true, [0.624, 0.722, 0.918]);
       x += width('My', true, 20);
       this.text('Loan', x, H - 33, 20, true, white);
       this.text(TAGLINE, M + 46, H - 47, 8.5, false, [0.86, 0.92, 1]);

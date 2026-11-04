@@ -47,8 +47,10 @@ function write(rel, content) {
 }
 
 const CSS = fs.readFileSync(path.join(ROOT, 'src', 'style.css'), 'utf8');
-// Logo: a drawn ₹ on a blue tile from assets/brand/logo.svg, inlined so it needs no extra request.
-const MARK = fs.readFileSync(path.join(ROOT, 'assets', 'brand', 'logo.svg'), 'utf8').trim().replace('<svg ', '<svg class="logo" width="36" height="36" aria-hidden="true" focusable="false" ');
+// Logo: a drawn ₹ on a navy tile from assets/brand/logo.svg, inlined so it needs no extra request.
+const MARK = fs.readFileSync(path.join(ROOT, 'assets', 'brand', 'logo.svg'), 'utf8').trim().replace('<svg ', '<svg class="logo" width="36" height="36" aria-hidden="true" focusable="false" ')
+  // The header and footer are navy, so the mark there is a white tile with a navy rupee.
+  .replace('fill="#001e60"', 'fill="#ffffff"').replace('stroke="#ffffff"', 'stroke="#001e60"');
 const brandLink = () => `<a class="brand" href="${href('/')}">${MARK}<span class="wm"><span class="nm">${esc(cfg.siteName).replace('My', '<em>My</em>')}</span><span class="tag">${esc(cfg.tagline)}</span></span></a>`;
 // Browser tab, bookmark, home-screen and search-result icons (Google wants 48px or larger).
 const ICON_LINKS = `<link rel="icon" href="${href('/favicon.ico')}" sizes="32x32 48x48">
@@ -56,9 +58,9 @@ const ICON_LINKS = `<link rel="icon" href="${href('/favicon.ico')}" sizes="32x32
 <link rel="icon" href="${href('/icon-192.png')}" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="${href('/apple-touch-icon.png')}">
 <link rel="manifest" href="${href('/site.webmanifest')}">
-<meta name="theme-color" content="#2563eb">`;
+<meta name="theme-color" content="#001e60">`;
 
-const FONT_CSS = 'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap';
+const FONT_CSS = 'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap';
 const fmtDate = (d) => new Date(d).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
 const slugify = (s) => s.toLowerCase().replace(/<[^>]+>/g, '').replace(/&[a-z]+;/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 60);
 
@@ -252,71 +254,188 @@ const scheduleStartNote = `First EMI in ${monthLabel(1, today)}. Years are calen
 
 // ---------- pages ----------
 
+// Slider ranges for the loan planner (amount in rupees, tenure in years).
+const PLAN_RANGE = {
+  'home-loan': { min: 500000, max: 30000000, step: 100000, ymax: 30 },
+  'personal-loan': { min: 50000, max: 4000000, step: 10000, ymax: 7 },
+  'car-loan': { min: 100000, max: 5000000, step: 10000, ymax: 7 },
+  'education-loan': { min: 100000, max: 15000000, step: 50000, ymax: 15 },
+  'loan-against-property': { min: 500000, max: 50000000, step: 100000, ymax: 20 },
+};
+
+// Guide text for each loan type: practical steps, and what sets the rate. Kept factual and general;
+// bank-specific facts come from the verified rate data.
+const GUIDES = {
+  'home-loan': {
+    tips: [
+      ['Check your credit score first.', 'The lowest advertised home loan rates are usually for scores of 750 to 800 and above.'],
+      ['Put more money down.', 'Some banks quote their best rate only when the loan is up to 80% of the property value.'],
+      ['Consider a woman co-borrower.', 'Several banks, including Central Bank of India and Canara Bank, list lower rates for women borrowers.'],
+      ['Ask about the processing fee and festive waivers.', 'Fees of 0.25% to 0.5% are common, and some banks waive them for a limited period.'],
+    ],
+    decides: 'Home loans are floating-rate loans linked to the bank\'s benchmark, usually the repo-linked lending rate. On top of that the bank adds a spread based on your credit score, income, the loan amount and the share of the property value you borrow. If rates fall later, you can ask your bank to reprice or move the loan to another bank.',
+  },
+  'personal-loan': {
+    tips: [
+      ['Check your credit score first.', 'The lowest advertised personal loan rates are for scores of 750 to 800 and above.'],
+      ['Start with the bank that holds your salary account.', 'Bank of Baroda, Canara Bank and Bank of Maharashtra quote their best rates to existing salary customers.'],
+      ['Compare the fee as well as the rate.', 'A 2% processing fee on ₹5 lakh is ₹10,000, which can outweigh a small rate difference.'],
+      ['Choose the shortest tenure you can afford.', 'Interest falls sharply as the tenure shortens.'],
+    ],
+    decides: 'Personal loans are unsecured, so the bank prices your own risk: credit score and repayment history, monthly income, your employer\'s category and the EMIs you already pay. The advertised rate is the floor; most borrowers are offered more.',
+  },
+  'car-loan': {
+    tips: [
+      ['Check your credit score first.', 'Most banks link car loan rates to your score, with the lowest at 750 to 800 and above.'],
+      ['Look at electric-car rates.', 'Banks such as Punjab National Bank and Union Bank of India list lower rates for electric cars.'],
+      ['Compare a dealer\'s flat rate properly.', 'A flat rate looks lower than it is; convert it with the flat vs reducing rate calculator.'],
+      ['Keep the tenure short.', 'A car loses value quickly, and a shorter loan costs far less interest.'],
+    ],
+    decides: 'Car loans are secured on the car, so rates are lower than for personal loans. The bank looks at your credit score, income, whether the car is new or used, the loan amount and the tenure.',
+  },
+  'education-loan': {
+    tips: [
+      ['Check whether your institute is on a premier list.', 'The lowest rates, around 7%, are for top-rated institutes under schemes such as PM Vidyalaxmi.'],
+      ['Compare loans above and below ₹7.5 lakh.', 'Banks price these differently, and larger loans usually need collateral.'],
+      ['Ask about concessions.', 'Some banks, such as Union Bank of India and Central Bank of India, give women students a lower rate.'],
+      ['Plan for interest during the course.', 'Interest usually builds up during the study period and grace period before EMIs start.'],
+    ],
+    decides: 'Education loan rates depend mostly on the institute and course, the loan amount, whether there is collateral or a guarantee, and the co-borrower\'s credit profile. Rates for listed premier institutes are much lower than general rates.',
+  },
+  'loan-against-property': {
+    tips: [
+      ['Pledge a self-occupied home if you can.', 'Banks such as Union Bank of India charge less against a self-occupied residential property than against commercial or rented property.'],
+      ['Borrow less against the property.', 'The lowest rates often need the property to be worth two to three times the loan.'],
+      ['Check your credit score first.', 'Most banks link the rate to your score, with the best at 750 to 800 and above.'],
+      ['Watch the loan size.', 'Some banks charge more on smaller loans; Federal Bank, for example, adds 1% below ₹35 lakh.'],
+    ],
+    decides: 'A loan against property is secured on a house or commercial property you own. The rate depends on the type of property, how much you borrow against its value, your credit score and income, and the tenure.',
+  },
+};
+
 function loanHub(loan) {
   const list = forLoan(loan);
   const P = loan.defaultAmountLakh * 100000;
+  const y = loan.defaultTenure;
   const best = list[0];
   const latest = best ? list.map((p) => p.retrievedOn).sort().at(-1) : null;
   const month = best ? monthOf(latest) : '';
-  const qa = best
-    ? [
-        [`Which bank has the lowest ${loan.name.toLowerCase()} interest rate?`, `Among the banks we have checked, ${best.bankInfo.name} advertises the lowest starting rate at ${rate(best.rateFrom)} per annum (checked ${best.retrievedOn}). The rate you are offered can be higher.`],
-        [`What is the EMI on a ${lakhLabel(loan.defaultAmountLakh)} ${loan.name.toLowerCase()} for ${loan.defaultTenure} years?`, `At ${rate(best.rateFrom)} it is about ${inr(emi(P, best.rateFrom, loan.defaultTenure))} a month, and at ${rate(loan.defaultRate)} it is about ${inr(emi(P, loan.defaultRate, loan.defaultTenure))}.`],
-      ]
-    : [];
-  const vs = list.length > 1 ? `<h2>Compare two banks</h2><p class="chips">${popularPairs(list, 12).map(([a, b]) => `<a href="${href(vsUrl(loan, a, b))}">${esc(a.bankInfo.short)} vs ${esc(b.bankInfo.short)}</a>`).join('')}</p>${list.length > 5 ? '<p class="small">Each bank\'s page links to its comparison with every other bank.</p>' : ''}` : '';
+  const ln = loan.name.toLowerCase();
+  if (!best) {
+    return layout({
+      title: titled(`${loan.name} Interest Rates in India`),
+      desc: `Compare ${ln} interest rates, processing fees and EMI across Indian banks.`,
+      url: `/${loan.slug}/`,
+      crumbs: [{ name: loan.name, url: `/${loan.slug}/` }],
+      noindex: true,
+      body: `<h1>${esc(loan.name)} Interest Rates</h1><p class="note">We are still verifying bank rates for this loan type, so none are listed yet. The calculator below works for any rate.</p>${calcWidget(P, loan.defaultRate, y)}`,
+    });
+  }
+  const top = list.at(-1);
+  const e1 = emi(P, best.rateFrom, y);
+  const e2 = emi(P, top.rateFrom, y);
+  const g = GUIDES[loan.slug] ?? GUIDES['personal-loan'];
+  const qa = [
+    [`Which bank has the lowest ${ln} interest rate?`, `Among the ${list.length} banks we checked, ${best.bankInfo.name} advertises the lowest starting rate at ${rate(best.rateFrom)} per annum (checked ${best.retrievedOn}). The rate you are offered can be higher.`],
+    [`What is the EMI on a ${lakhLabel(loan.defaultAmountLakh)} ${ln} for ${y} years?`, `About ${inr(e1)} a month at ${rate(best.rateFrom)}, and about ${inr(e2)} at ${rate(top.rateFrom)}.`],
+    ['How often are these rates checked?', 'An automated check re-reads every bank\'s official rate page each week, and each rate shows the date it was checked.'],
+  ];
+  const answer = `The lowest ${esc(ln)} rate this month is <b>${rate(best.rateFrom)} a year</b> at ${esc(best.bankInfo.name)}${best.conditions ? ` (${esc(best.conditions.charAt(0).toLowerCase() + best.conditions.slice(1))})` : ''}. Starting rates run from ${rate(best.rateFrom)} to ${rate(top.rateFrom)} across ${list.length} banks. On ${lakhLabel(loan.defaultAmountLakh)} over ${y} years that is an EMI of about <b>${inr(e1)} to ${inr(e2)}</b> a month.`;
+  const vs = popularPairs(list, 12);
   return layout({
-    title: best
-      ? titled(`${loan.name} Interest Rates ${month}: Lowest ${rate(best.rateFrom)}, ${list.length} Bank${list.length > 1 ? 's' : ''}`)
-      : titled(`${loan.name} Interest Rates in India`),
-    desc: best
-      ? `Best ${loan.name.toLowerCase()} interest rates for ${month}: lowest starting rate ${rate(best.rateFrom)} (${best.bankInfo.short}). Compare EMI, processing fees and prepayment across ${list.length} bank${list.length > 1 ? 's' : ''}, each with its source.`
-      : `Compare ${loan.name.toLowerCase()} interest rates, processing fees and EMI across Indian banks.`,
+    title: titled(`${loan.name} Interest Rates ${month}: Lowest ${rate(best.rateFrom)}, ${list.length} Banks`),
+    desc: `Best ${ln} interest rates for ${month}: lowest starting rate ${rate(best.rateFrom)} (${best.bankInfo.short}). Compare EMI, processing fees and prepayment across ${list.length} banks, each with its source.`,
     url: `/${loan.slug}/`,
     crumbs: [{ name: loan.name, url: `/${loan.slug}/` }],
-    jsonld: qa.length ? [faqLd(qa)] : [],
-    noindex: !best,
+    jsonld: [faqLd(qa)],
     updated: latest,
-    toc: true,
-    body: `<div class="title-row"><span class="ico">${icon(loan.slug)}</span><h1 style="margin:0">${esc(loan.name)} Interest Rates${best ? ` ${esc(month)}` : ''}</h1></div>
-${best ? metaLine(latest) : ''}
-<p class="lead">${best ? `The lowest ${esc(loan.name.toLowerCase())} interest rate we found this month is <b>${rate(best.rateFrom)}</b> from ${esc(best.bankInfo.name)}. Compare the best ${esc(loan.name.toLowerCase())} rates from ${list.length} bank${list.length > 1 ? 's' : ''} below, each linked to the bank's own page. ` : ''}${esc(loan.blurb)}</p>
-${best ? `<div class="tiles">
-<div class="tile"><span>Lowest starting rate</span><b>${rate(best.rateFrom)}</b><span>${esc(best.bankInfo.short)}</span></div>
-<div class="tile"><span><abbr title="Equated Monthly Instalment: the fixed amount you pay the bank every month">EMI</abbr> at that rate</span><b>${inr(emi(P, best.rateFrom, loan.defaultTenure))}</b><span>${lakhLabel(loan.defaultAmountLakh)}, ${loan.defaultTenure} years</span></div>
-<div class="tile"><span>Banks compared</span><b>${list.length}</b><span>each with its source</span></div>
-<div class="tile"><span>Last checked</span><b>${esc(month)}</b><span>from bank websites</span></div>
-</div>
-<h2>${esc(loan.name)} rates by bank</h2>
-${ratesCard(loan, list, P, loan.defaultTenure)}` : `<p class="note">We are still verifying bank rates for this loan type, so none are listed yet. The calculator below works for any rate.</p>
-${calcWidget(P, loan.defaultRate, loan.defaultTenure)}`}
-${loanTools(loan)}
-${leadForm({ loan: loan.slug, amount: P, heading: `Get help choosing a ${loan.name.toLowerCase()}` })}
-${vs}
-${qa.length ? `<h2>Frequently asked questions</h2>${faqHtml(qa)}` : ''}
-${list.length ? trustBox(list) : ''}`,
+    extraScript: `window.PLANNER=${JSON.stringify({ name: loan.name, slug: loan.slug, own: loan.defaultRate, banks: list.map((p) => ({ name: p.bankInfo.name, short: p.bankInfo.short, rate: p.rateFrom })) }).replace(/</g, '\\u003c')};`,
+    body: `<div class="phead"><div class="phead-t">
+<h1>${esc(loan.name)} Interest Rates ${esc(month)}: Compare ${list.length} Banks</h1>
+<p class="meta-line"><span>Updated ${esc(fmtDate(latest))}</span><span>By MathMyLoan research team</span><span>Rates from ${list.length} official bank websites</span><a href="${href('/about/')}">How we check rates</a></p>
+</div><div class="phead-dl"><button type="button" class="dl-report" data-pdf data-pdf-target="[data-planner]"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 19h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Download report</button><span class="small pdf-note" aria-live="polite"></span></div></div>
+${planner(loan, list, P, y)}
+<h2 id="banks">${esc(loan.name)} rates from ${list.length} banks</h2>
+<p class="small">Each bank's advertised starting rate, checked on its own website. Choose a bank to load its numbers into the planner.</p>
+${plannerBanks(loan, list, P, y)}
+<div class="guide"><article class="guide-main">
+<h2>Your guide to ${esc(ln)} rates</h2>
+<div class="answer"><p class="k">Quick answer</p><p>${answer}</p></div>
+<h3>How to get the lowest ${esc(ln)} rate</h3>
+<ol class="tips">${g.tips.map(([b, t]) => `<li><b>${esc(b)}</b> ${esc(t)}</li>`).join('')}</ol>
+<h3>What decides your rate</h3>
+<p>${esc(g.decides)}</p>
+<h2>Frequently asked questions</h2>
+${faqHtml(qa)}
+${leadForm({ loan: loan.slug, amount: P, heading: `Get help choosing a ${ln}` })}
+</article><aside class="guide-side">
+<div class="gbox"><b>Not sure which bank?</b><p class="small">A partner lender or advisor can call you back. No fee from us.</p><a class="btn" href="#callback">Get a free call back</a></div>
+${vs.length ? `<div class="gbox"><b>Compare two banks</b><p class="chips">${vs.map(([a, b]) => `<a href="${href(vsUrl(loan, a, b))}">${esc(a.bankInfo.short)} vs ${esc(b.bankInfo.short)}</a>`).join('')}</p></div>` : ''}
+${trustBox(list)}
+</aside></div>
+${loanTools(loan)}`,
   });
 }
 
-// One list of every bank: rate and conditions as text (what search engines read), with a live EMI for the
-// amount and tenure typed above it. Fee, prepayment and tenure appear only where the bank states them.
-function ratesCard(loan, list, P, y) {
-  const rows = list.map((p) => ({ p, ...summary(P, p.rateFrom, y) }));
-  const best = rows[0];
-  const worst = rows.at(-1);
-  const max = Math.max(...rows.map((r) => r.interest)) || 1;
-  const facts = (p) => [p.fee && `Processing fee: ${p.fee}`, p.prepayment && `Prepayment: ${p.prepayment}`, p.maxTenureYears && `Up to ${p.maxTenureYears} years`].filter(Boolean).join(' · ');
-  return `<div class="card rates-card" data-rates>
-<div class="row">${field('Loan amount (₹)', 'amount', P)}${field('Tenure (years)', 'years', y)}</div>
-${rows.length > 1 ? `<p class="verdict"><b>${esc(best.p.bankInfo.short)}</b> costs <b>${inr(worst.interest - best.interest)}</b> less interest than ${esc(worst.p.bankInfo.short)} over ${y} years, about <b>${inr(worst.emi - best.emi)}</b> less every month.</p>` : ''}
-${rows
-  .map((r, i) => {
-    const f = facts(r.p);
-    return `<div class="rank${i === 0 && rows.length > 1 ? ' best' : ''}" data-rate="${r.p.rateFrom}" data-name="${esc(r.p.bankInfo.short)}">${avatar(r.p.bankInfo.short, r.p.bank)}<span class="nm"><b><a href="${href(bankUrl(loan, r.p))}">${esc(r.p.bankInfo.name)}</a>${i === 0 && rows.length > 1 ? '<span class="badge">Lowest rate</span>' : ''}</b><span class="small" data-emi>EMI ${inr(r.emi)} / month</span>${r.p.conditions ? `<span class="cond">${esc(r.p.conditions)}</span>` : ''}${f ? `<span class="cond">${esc(f)}</span>` : ''}</span><span class="px"><b class="rt">${r.p.rateFrom.toFixed(2)}%<small> p.a.</small></b><span class="extra" data-extra>${i === 0 ? `Interest ${inr(r.interest)}` : `+${inr(r.interest - best.interest)} more interest`}</span></span><span class="bar"><i style="width:${Math.max(6, Math.round((r.interest / max) * 100))}%"></i></span></div>`;
-  })
-  .join('')}
-${stdNote}
-</div>`;
+// Decision centre: inputs on the left; on the right a chart pair and a comparison of the chosen rate
+// against the lowest and highest bank. The numbers in the table are in the HTML; the charts are drawn by app.js.
+function planner(loan, list, P, y) {
+  const R = PLAN_RANGE[loan.slug] ?? { min: 50000, max: 10000000, step: 10000, ymax: 30 };
+  const low = list[0];
+  const high = list.at(-1);
+  const me = summary(P, low.rateFrom, y);
+  const hi = summary(P, high.rateFrom, y);
+  const lastEmi = (r) => monthLabel(schedule(P, r, y).length, today);
+  const types = loans.filter((l) => forLoan(l).length);
+  const extra = Math.max(1000, Math.round((P * 0.01) / 500) * 500);
+  const cmpRows = [
+    ['Monthly EMI', inr(me.emi), inr(hi.emi)],
+    ['Total interest', inr(me.interest), inr(hi.interest)],
+    ['Total payment', inr(me.total), inr(hi.total)],
+    ['Last EMI', lastEmi(low.rateFrom), lastEmi(high.rateFrom)],
+  ];
+  return `<div class="dc" data-planner data-min="${R.min}" data-max="${R.max}">
+<div class="lp" role="group" aria-label="Your loan details">
+<div class="sec"><p class="sec-h"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg>Your loan</p><div class="bd">
+<div class="fld"><label for="pl-type">Loan type</label><select id="pl-type" data-nav>${types.map((l) => `<option value="${href(`/${l.slug}/`)}"${l.slug === loan.slug ? ' selected' : ''}>${esc(l.name)}</option>`).join('')}</select></div>
+<div class="fld"><div class="tp"><label for="pl-amt">Amount (₹)</label><input type="number" id="pl-amt" name="amount" min="${R.min}" max="${R.max * 5}" step="${R.step}" value="${P}"></div><input type="range" data-for="pl-amt" min="${R.min}" max="${R.max}" step="${R.step}" value="${P}" aria-label="Amount"><div class="rg"><span>${lakhShort(R.min)}</span><span>${lakhShort(R.max)}</span></div></div>
+<div class="fld"><div class="tp"><label for="pl-yrs">Tenure (years)</label><input type="number" id="pl-yrs" name="years" min="1" max="${R.ymax}" step="1" value="${y}"></div><input type="range" data-for="pl-yrs" min="1" max="${R.ymax}" step="1" value="${y}" aria-label="Tenure"><div class="rg"><span>1 yr</span><span>${R.ymax} yrs</span></div></div>
+</div></div>
+<div class="sec"><p class="sec-h"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 8h.01M16 16h.01"/></svg>Interest rate</p><div class="bd" role="radiogroup" aria-label="Which rate to use">
+<label class="pl-opt on"><input type="radio" name="pl-mode" value="lowest" checked><span><b>Lowest available rate</b><small>${esc(low.bankInfo.name)} · ${low.rateFrom.toFixed(2)}%</small></span></label>
+<label class="pl-opt"><input type="radio" name="pl-mode" value="bank"><span><b>Choose a bank</b><select name="pl-bank" aria-label="Bank">${list.map((p, i) => `<option value="${i}">${esc(p.bankInfo.short)} · ${p.rateFrom.toFixed(2)}%</option>`).join('')}</select></span></label>
+<label class="pl-opt"><input type="radio" name="pl-mode" value="own"><span><b>Enter my own rate</b><input type="number" name="pl-own" min="1" max="40" step="0.05" value="${loan.defaultRate}" aria-label="Your rate, percent a year"></span></label>
+</div></div>
+<div class="sec"><p class="sec-h"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Prepayment</p><div class="bd">
+<label class="pl-sw"><span>Pay extra every month</span><input type="checkbox" name="pl-pp"></label>
+<div class="fld" data-ppbox hidden><div class="tp"><label for="pl-extra">Extra per month (₹)</label><input type="number" id="pl-extra" name="pl-extra" min="0" step="500" value="${extra}"></div></div>
+<p class="pl-hint">Figures use each bank's advertised starting rate, a best case. Your rate depends on your credit score, income and loan size.</p>
+</div></div>
+</div>
+<div class="rp" aria-live="polite">
+<p class="viewing">Viewing</p>
+<div class="vt"><p class="vt-h">EMI summary</p><span class="pl-chip best" data-chip>${esc(low.bankInfo.short)} · ${low.rateFrom.toFixed(2)}% · lowest of ${list.length} banks</span></div>
+<div class="charts" aria-hidden="true">
+<div class="pl-donut"><svg viewBox="0 0 200 200" data-donut></svg><p class="lgd"><span><i class="ip"></i>Principal</span><span><i class="ii"></i>Interest</span></p></div>
+<div class="pl-bars"><p class="ctitle">Payments by calendar year</p><svg viewBox="0 0 520 240" data-bars></svg><p class="lgd"><span><i class="ip sq"></i>Principal</span><span><i class="ii sq"></i>Interest</span></p></div>
+</div>
+<div class="cmp"><table><thead><tr><th></th><th class="sel" data-col="me">Your choice<br>${low.rateFrom.toFixed(2)}%</th><th class="hide-sm">Lowest rate<br>${low.rateFrom.toFixed(2)}%</th><th>Highest rate<br>${high.rateFrom.toFixed(2)}%</th></tr></thead>
+<tbody data-cmp>${cmpRows.map(([k, a, b]) => `<tr><td>${k}</td><td class="sel">${a}</td><td class="hide-sm">${a}</td><td>${b}</td></tr>`).join('')}</tbody></table></div>
+<p class="pl-save" data-save>This choice saves <b>${inr(hi.interest - me.interest)}</b> in interest compared with the highest-rate bank.</p>
+</div></div>`;
+}
+
+// Every bank, with its rate and conditions as text and a link to its own page; app.js keeps the EMI columns
+// in step with the planner and lets a row load that bank.
+function plannerBanks(loan, list, P, y) {
+  const facts = (p) => [p.fee && `Fee: ${p.fee}`, p.prepayment && `Prepayment: ${p.prepayment}`, p.maxTenureYears && `Up to ${p.maxTenureYears} years`].filter(Boolean).join(' · ');
+  return `<div class="scroll pl-banks"><table><thead><tr><th>Bank</th><th>Starts at</th><th data-emi-head>EMI · ${lakhLabel(P / 100000)}, ${y} yrs</th><th class="hide-sm">Total interest</th><th class="hide-sm"><span class="sr-only">Load into planner</span></th></tr></thead><tbody>${list
+    .map((p, i) => {
+      const s = summary(P, p.rateFrom, y);
+      const f = facts(p);
+      return `<tr data-i="${i}"${i === 0 ? ' class="on"' : ''}><td><div class="bk">${avatar(p.bankInfo.short, p.bank)}<span><a href="${href(bankUrl(loan, p))}">${esc(p.bankInfo.name)}</a>${i === 0 ? '<span class="badge">Lowest</span>' : ''}${p.conditions ? `<span class="cond">${esc(p.conditions)}</span>` : ''}${f ? `<span class="cond">${esc(f)}</span>` : ''}</span></div></td><td><b>${p.rateFrom.toFixed(2)}%</b></td><td data-emi>${inr(s.emi)}</td><td class="hide-sm" data-int>${inr(s.interest)}</td><td class="hide-sm"><button type="button" class="use">${i === 0 ? 'Showing' : 'Use'}</button></td></tr>`;
+    })
+    .join('')}</tbody></table></div>`;
 }
 
 // "Work it out": links to the dedicated calculators instead of a second full calculator on the page.
@@ -1427,7 +1546,7 @@ write(
       short_name: cfg.siteName,
       start_url: href('/'),
       display: 'browser',
-      theme_color: '#2563eb',
+      theme_color: '#001e60',
       background_color: '#ffffff',
       icons: [
         { src: href('/icon-192.png'), sizes: '192x192', type: 'image/png' },
