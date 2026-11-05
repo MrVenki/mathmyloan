@@ -125,7 +125,8 @@ label{display:block;font-size:.84rem;margin:10px 0 4px;color:var(--muted);font-w
 input[type=number],input[type=text],input[type=tel],select{width:100%;min-height:46px;padding:10px 12px;border:1px solid #cbd5e1;border-radius:10px;background:#fff;color:var(--fg);font:inherit;font-size:1rem}
 input[type=number]:focus,input[type=text]:focus,input[type=tel]:focus,select:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px var(--accent100)}
 input[type=range]{width:100%;accent-color:var(--accent);margin:8px 0 14px}
-select{appearance:auto}
+/* One drawn chevron for every dropdown, inset from the edge (the browser's own arrow sits against it). */
+select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5' fill='none' stroke='%23112551' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;background-size:12px 8px;padding-right:34px!important;text-overflow:ellipsis}
 .row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
 @media (max-width:640px){.row{grid-template-columns:1fr}}
 button,.btn{display:inline-flex;align-items:center;justify-content:center;min-height:46px;background:var(--accent);color:#fff;border:0;border-radius:12px;padding:0 20px;font:inherit;font-size:1rem;font-weight:700;cursor:pointer;margin-top:12px;text-decoration:none}
@@ -403,8 +404,10 @@ details.trust-box[open] > summary{margin-bottom:8px}
 .pl-opt select,.pl-opt input[type=number]{margin-top:6px;min-height:38px;padding:6px 9px}
 /* Dropdowns and the rate box use the panel's text size, not the larger form default. */
 .dc select,.pl-opt input[type=number]{font-size:.9rem;font-weight:500;color:var(--ink);border-radius:8px}
-.dc select{padding-left:8px;padding-right:4px}
+.dc select{padding-left:10px}
 .pl-opt select{font-size:.86rem}
+/* Inside an option card, the dropdown and rate box start under the radio button and use the card's full width. */
+.pl-opt select,.pl-opt input[type=number]{display:block;margin-left:-26px;width:calc(100% + 26px)}
 /* Bar chart hover card: the year's principal, interest, total and balance. */
 .pl-bars{position:relative}
 .pl-bars svg{cursor:crosshair;touch-action:pan-y}
