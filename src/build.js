@@ -400,7 +400,7 @@ function planner(loan, list, P, y) {
 <div class="lp" role="group" aria-label="Your loan details">
 <div class="sec"><p class="sec-h"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg>Your loan</p><div class="bd">
 <div class="fld"><label for="pl-type">Loan type</label><select id="pl-type" data-nav>${types.map((l) => `<option value="${href(`/${l.slug}/`)}"${l.slug === loan.slug ? ' selected' : ''}>${esc(l.name)}</option>`).join('')}</select></div>
-<div class="fld"><div class="tp"><label for="pl-amt">Amount (₹)</label><input type="text" inputmode="numeric" autocomplete="off" id="pl-amt" name="amount" value="${money(P)}" data-money data-words></div><small class="hint"></small><input type="range" data-for="pl-amt" min="${R.min}" max="${R.max}" step="${R.step}" value="${P}" aria-label="Amount"><div class="rg"><span>${lakhShort(R.min)}</span><span>${lakhShort(R.max)}</span></div></div>
+<div class="fld"><div class="tp"><label for="pl-amt">Amount (₹)</label><input type="text" inputmode="numeric" autocomplete="off" id="pl-amt" name="amount" value="${money(P)}" data-money></div><input type="range" data-for="pl-amt" min="${R.min}" max="${R.max}" step="${R.step}" value="${P}" aria-label="Amount"><div class="rg"><span class="rg-val" data-words-for="pl-amt">${lakhShort(P).replace('₹', '')}</span></div></div>
 <div class="fld"><div class="tp"><label for="pl-yrs">Tenure (years)</label><input type="number" id="pl-yrs" name="years" min="1" max="${R.ymax}" step="1" value="${y}"></div><input type="range" data-for="pl-yrs" min="1" max="${R.ymax}" step="1" value="${y}" aria-label="Tenure"><div class="rg"><span>1 yr</span><span>${R.ymax} yrs</span></div></div>
 </div></div>
 <div class="sec"><p class="sec-h"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 8h.01M16 16h.01"/></svg>Interest rate</p><div class="bd" role="radiogroup" aria-label="Which rate to use">
@@ -410,7 +410,7 @@ function planner(loan, list, P, y) {
 </div></div>
 <div class="sec"><p class="sec-h"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Prepayment</p><div class="bd">
 <label class="pl-sw"><span>Pay extra every month</span><input type="checkbox" name="pl-pp"></label>
-<div class="fld" data-ppbox hidden><div class="tp"><label for="pl-extra">Extra per month (₹)</label><input type="text" inputmode="numeric" autocomplete="off" id="pl-extra" name="pl-extra" value="${money(extra)}" data-money data-words></div><small class="hint"></small></div>
+<div class="fld" data-ppbox hidden><div class="tp"><label for="pl-extra">Extra per month (₹)</label><input type="text" inputmode="numeric" autocomplete="off" id="pl-extra" name="pl-extra" value="${money(extra)}" data-money></div></div>
 <p class="pl-hint">Figures use each bank's advertised starting rate, a best case. Your rate depends on your credit score, income and loan size.</p>
 </div></div>
 </div>

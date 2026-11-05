@@ -394,6 +394,7 @@ details.trust-box[open] > summary{margin-bottom:8px}
 .dc select{min-height:40px;padding:7px 9px}
 .dc input[type=range]{margin:2px 0 0}
 .rg{display:flex;justify-content:space-between;font-size:.72rem;color:#64748b}
+.rg .rg-val{font-size:.84rem;font-weight:700;color:var(--accent)}
 .pl-opt{display:grid;grid-template-columns:18px minmax(0,1fr);gap:8px;align-items:start;padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:#fff;cursor:pointer}
 .pl-opt input[type=radio]{margin:3px 0 0;accent-color:var(--accent)}
 .pl-opt b{font-size:.88rem;font-weight:700;display:block;color:var(--ink)}

@@ -455,6 +455,9 @@
     function run() {
       var P = num(amt), y = Math.round(num(yrs));
       if (!P || !y) return;
+      // Under the slider: the amount in the box, in words (5 lakh, 1.25 crore).
+      var wl = $('[data-words-for=pl-amt]', box);
+      if (wl) wl.textContent = P >= 1e7 ? +(P / 1e7).toFixed(2) + ' crore' : P >= 1e5 ? +(P / 1e5).toFixed(2) + ' lakh' : grp(P);
       var c = pick(), ex = pp.checked ? num(extraEl) : 0;
       var me = schedule(P, c.rate, y, ex), base = ex ? schedule(P, c.rate, y) : me;
       var lo = schedule(P, B[0].rate, y, ex), hi = schedule(P, B[B.length - 1].rate, y, ex);
