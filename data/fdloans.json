@@ -1,0 +1,33 @@
+{
+  "_about": "Loan or overdraft against your own fixed deposit: the bank charges your FD rate plus a margin. Checked on each bank's official page.",
+  "banks": [
+    {
+      "bank": "sbi",
+      "margin": 1,
+      "conditions": "Overdraft on YONO up to 90% of the FD value; interest on the daily balance used",
+      "sourceUrl": "https://sbi.bank.in/web/yono/loan-against-fixed-deposit",
+      "retrievedOn": "2026-11-05"
+    },
+    {
+      "bank": "indian-bank",
+      "margin": 1,
+      "conditions": "Term loan or overdraft against own deposits",
+      "sourceUrl": "https://indianbank.bank.in/en/interest-rates-on-personal-segment-loan-products",
+      "retrievedOn": "2026-11-05"
+    },
+    {
+      "bank": "bank-of-baroda",
+      "margin": 1,
+      "conditions": "Against the bank's own deposits",
+      "sourceUrl": "https://bankofbaroda.bank.in/interest-rate-and-service-charges/retail-loans-interest-rates",
+      "retrievedOn": "2026-11-05"
+    },
+    {
+      "bank": "federal-bank",
+      "margin": 2,
+      "conditions": "Own deposits; 3% above if the deposit is non-callable",
+      "sourceUrl": "https://www.federal.bank.in/retail-loans-interest-rates",
+      "retrievedOn": "2026-11-05"
+    }
+  ]
+}

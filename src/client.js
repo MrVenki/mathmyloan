@@ -478,7 +478,7 @@
       if (ex && Ibase - I > 1) msg.push('Paying ' + inr(ex) + ' extra a month ends the loan ' + span(base.length - me.length) + ' early and saves <b>' + inr(Ibase - I) + '</b>.');
       var save = $('[data-save]', box); save.hidden = !msg.length; save.innerHTML = msg.join(' ');
       if (table) {
-        $('[data-emi-head]', table).textContent = 'EMI · ' + lakhS(P) + ', ' + y + ' yrs';
+        $('[data-emi-head]', table).textContent = 'EMI · ' + lakhS(P) + ', ' + y + (y === 1 ? ' yr' : ' yrs');
         [].forEach.call(table.querySelectorAll('tr[data-i]'), function (tr) {
           var i = +tr.getAttribute('data-i'), s = schedule(P, B[i].rate, y, ex);
           $('[data-emi]', tr).textContent = inr(emi(P, B[i].rate, y));
@@ -531,6 +531,20 @@
     });
     var rz;
     window.addEventListener('resize', function () { clearTimeout(rz); rz = setTimeout(run, 150); });
+    run();
+  });
+
+  // Loan against FD: loan rate = your FD rate + each bank's margin; interest on the full amount for the months chosen.
+  document.querySelectorAll('[data-fdcalc]').forEach(function (box) {
+    function run() {
+      var fd = num($('[name=fdrate]', box)), P = num($('[name=amount]', box)), mo = num($('[name=months]', box));
+      [].forEach.call(box.querySelectorAll('tr[data-m]'), function (tr) {
+        var r = fd + (+tr.getAttribute('data-m'));
+        $('[data-rate]', tr).textContent = r.toFixed(2) + '%';
+        $('[data-cost]', tr).textContent = inr(P * r * mo / 1200);
+      });
+    }
+    box.addEventListener('input', run);
     run();
   });
 

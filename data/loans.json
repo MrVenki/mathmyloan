@@ -1,32 +1,12 @@
 [
-  {
-    "slug": "home-loan", "name": "Home Loan", "defaultRate": 8.5, "defaultTenure": 20, "defaultAmountLakh": 50,
-    "amountsLakh": [10, 20, 30, 50, 75, 100], "tenures": [10, 15, 20, 25, 30],
-    "pageAmountsLakh": [20, 30, 50, 75, 100], "pageTenures": [15, 20, 25],
-    "blurb": "A home loan finances buying or building a house. Lenders charge interest on the reducing balance and the loan is secured on the property."
-  },
-  {
-    "slug": "personal-loan", "name": "Personal Loan", "defaultRate": 12, "defaultTenure": 3, "defaultAmountLakh": 5,
-    "amountsLakh": [1, 2, 3, 5, 10, 15], "tenures": [1, 2, 3, 4, 5],
-    "pageAmountsLakh": [2, 5, 10], "pageTenures": [2, 3, 5],
-    "blurb": "A personal loan is an unsecured loan for any purpose, so rates are usually higher than for secured loans and depend heavily on your credit score and income."
-  },
-  {
-    "slug": "car-loan", "name": "Car Loan", "defaultRate": 9.5, "defaultTenure": 5, "defaultAmountLakh": 8,
-    "amountsLakh": [3, 5, 8, 10, 15, 20], "tenures": [3, 4, 5, 6, 7],
-    "pageAmountsLakh": [5, 8, 10, 15], "pageTenures": [3, 5, 7],
-    "blurb": "A car loan finances a vehicle purchase, and the car is the security. Banks usually fund a share of the on-road price."
-  },
-  {
-    "slug": "education-loan", "name": "Education Loan", "defaultRate": 10, "defaultTenure": 10, "defaultAmountLakh": 20,
-    "amountsLakh": [5, 10, 20, 30, 50], "tenures": [5, 7, 10, 12, 15],
-    "pageAmountsLakh": [10, 20, 30], "pageTenures": [7, 10, 15],
-    "blurb": "An education loan pays for courses in India or abroad. Repayment commonly starts after the course ends plus a moratorium period."
-  },
-  {
-    "slug": "loan-against-property", "name": "Loan Against Property", "defaultRate": 10, "defaultTenure": 15, "defaultAmountLakh": 50,
-    "amountsLakh": [10, 25, 50, 100, 200], "tenures": [5, 10, 15, 20],
-    "pageAmountsLakh": [25, 50, 100], "pageTenures": [10, 15, 20],
-    "blurb": "A loan against property lets you borrow against a house or commercial property you already own, usually at a lower rate than a personal loan."
-  }
+  {"slug": "home-loan", "name": "Home Loan", "defaultRate": 8.5, "defaultTenure": 20, "defaultAmountLakh": 50, "amountsLakh": [10, 20, 30, 50, 75, 100], "tenures": [10, 15, 20, 25, 30], "pageAmountsLakh": [20, 30, 50, 75, 100], "pageTenures": [15, 20, 25], "blurb": "A home loan finances buying or building a house. Lenders charge interest on the reducing balance and the loan is secured on the property.", "core": true},
+  {"slug": "personal-loan", "name": "Personal Loan", "defaultRate": 12, "defaultTenure": 3, "defaultAmountLakh": 5, "amountsLakh": [1, 2, 3, 5, 10, 15], "tenures": [1, 2, 3, 4, 5], "pageAmountsLakh": [2, 5, 10], "pageTenures": [2, 3, 5], "blurb": "A personal loan is an unsecured loan for any purpose, so rates are usually higher than for secured loans and depend heavily on your credit score and income.", "core": true},
+  {"slug": "car-loan", "name": "Car Loan", "defaultRate": 9.5, "defaultTenure": 5, "defaultAmountLakh": 8, "amountsLakh": [3, 5, 8, 10, 15, 20], "tenures": [3, 4, 5, 6, 7], "pageAmountsLakh": [5, 8, 10, 15], "pageTenures": [3, 5, 7], "blurb": "A car loan finances a vehicle purchase, and the car is the security. Banks usually fund a share of the on-road price.", "core": true},
+  {"slug": "education-loan", "name": "Education Loan", "defaultRate": 10, "defaultTenure": 10, "defaultAmountLakh": 20, "amountsLakh": [5, 10, 20, 30, 50], "tenures": [5, 7, 10, 12, 15], "pageAmountsLakh": [10, 20, 30], "pageTenures": [7, 10, 15], "blurb": "An education loan pays for courses in India or abroad. Repayment commonly starts after the course ends plus a moratorium period.", "core": true},
+  {"slug": "loan-against-property", "name": "Loan Against Property", "defaultRate": 10, "defaultTenure": 15, "defaultAmountLakh": 50, "amountsLakh": [10, 25, 50, 100, 200], "tenures": [5, 10, 15, 20], "pageAmountsLakh": [25, 50, 100], "pageTenures": [10, 15, 20], "blurb": "A loan against property lets you borrow against a house or commercial property you already own, usually at a lower rate than a personal loan.", "core": true},
+  {"slug": "gold-loan", "name": "Gold Loan", "defaultRate": 9.5, "defaultTenure": 1, "defaultAmountLakh": 2, "amountsLakh": [0.5, 1, 2, 3, 5, 10], "tenures": [1, 2, 3], "pageAmountsLakh": [1, 2, 5], "pageTenures": [1, 2], "blurb": "A gold loan is secured on gold jewellery or coins that you pledge with the bank. It is quick to get, needs little paperwork, and the bank returns your gold when you repay."},
+  {"slug": "two-wheeler-loan", "name": "Two-Wheeler Loan", "defaultRate": 11, "defaultTenure": 3, "defaultAmountLakh": 1, "amountsLakh": [0.5, 1, 1.5, 2, 3], "tenures": [1, 2, 3, 4, 5], "pageAmountsLakh": [1, 1.5, 2], "pageTenures": [2, 3], "blurb": "A two-wheeler loan finances a new scooter or motorcycle, with the vehicle as security. Rates are higher than for car loans and depend on your credit score."},
+  {"slug": "used-car-loan", "name": "Used Car Loan", "defaultRate": 11, "defaultTenure": 5, "defaultAmountLakh": 5, "amountsLakh": [2, 3, 5, 8, 10], "tenures": [2, 3, 4, 5, 7], "pageAmountsLakh": [3, 5, 8], "pageTenures": [3, 5], "blurb": "A used car loan finances a pre-owned car. Banks lend a smaller share of the car's value than for a new car and charge a higher rate, often with limits on the car's age."},
+  {"slug": "home-loan-overdraft", "name": "Home Loan Overdraft", "defaultRate": 8, "defaultTenure": 20, "defaultAmountLakh": 50, "amountsLakh": [20, 30, 50, 75, 100], "tenures": [10, 15, 20, 25, 30], "pageAmountsLakh": [30, 50, 75], "pageTenures": [15, 20], "blurb": "A home loan overdraft, such as PNB Max Saver or Union Smart Save, links your home loan to a current or savings account. Money you park in that account reduces the balance on which interest is charged, and you can withdraw it again when needed."},
+  {"slug": "loan-against-securities", "name": "Loan Against Mutual Funds and Shares", "defaultRate": 10.5, "defaultTenure": 3, "defaultAmountLakh": 10, "amountsLakh": [2, 5, 10, 25, 50], "tenures": [1, 2, 3], "pageAmountsLakh": [5, 10, 25], "pageTenures": [1, 3], "blurb": "A loan against securities lets you borrow against mutual fund units, shares or bonds you already own, without selling them. Banks lend a share of their value, usually as an overdraft, and you pay interest only on what you use."}
 ]

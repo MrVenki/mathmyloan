@@ -158,5 +158,6 @@ export function stampDuty(area, value, buyer = 'man') {
 export const inr = (n) => '₹' + Math.round(n).toLocaleString('en-IN');
 
 export function lakhLabel(lakh) {
+  if (lakh < 1) return `₹${Math.round(lakh * 100000).toLocaleString('en-IN')}`;
   return lakh >= 100 ? `₹${lakh / 100} crore` : `₹${lakh} lakh`;
 }

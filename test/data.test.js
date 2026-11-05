@@ -145,12 +145,13 @@ test('LTV slabs cap the loan on a property value', () => {
   assert.equal(maxLoanForValue(2e7), 1.5e7);
 });
 
-test('every loan type compares at least 10 banks', () => {
+test('core loan types compare at least 10 banks, newer types at least 4', () => {
   const products = JSON.parse(fs.readFileSync(new URL('../data/products.json', import.meta.url), 'utf8'));
   const loans = JSON.parse(fs.readFileSync(new URL('../data/loans.json', import.meta.url), 'utf8'));
   for (const loan of loans) {
     const banks = new Set(products.filter((p) => p.loan === loan.slug && !p.review).map((p) => p.bank));
-    assert.ok(banks.size >= 10, `${loan.slug} has only ${banks.size} banks`);
+    const min = loan.core ? 10 : 4;
+    assert.ok(banks.size >= min, `${loan.slug} has only ${banks.size} banks (needs ${min})`);
   }
 });
 
@@ -163,4 +164,13 @@ test('schedules use calendar dates from the first EMI month', () => {
   assert.equal(ys.at(-1).year, 2046);
   assert.equal(ys.reduce((a, y) => a + y.months, 0), rows.length);
   assert.ok(Math.abs(ys.reduce((a, y) => a + y.principal, 0) - 5e6) < 1);
+});
+
+test('loan against FD lists margins from official pages', () => {
+  const fd = JSON.parse(fs.readFileSync(new URL('../data/fdloans.json', import.meta.url), 'utf8')).banks;
+  assert.ok(fd.length >= 4);
+  for (const b of fd) {
+    assert.ok(b.sourceUrl.startsWith('https://'), `${b.bank} needs an https source`);
+    assert.ok(Number.isFinite(b.margin) && b.margin > 0 && b.margin < 5, `${b.bank} margin`);
+  }
 });

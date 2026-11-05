@@ -31,6 +31,9 @@ const lakhShort = (n) => {
   return inr(n);
 };
 // Adds the brand to a title only when it still fits in a search result (about 65 characters).
+// "1 year" / "3 years" (gold loans and loans against securities can run for a single year).
+const yrs = (n) => `${n} year${n === 1 ? '' : 's'}`;
+const Yrs = (n) => `${n} Year${n === 1 ? '' : 's'}`;
 const titled = (s) => (s.length + cfg.siteName.length + 3 <= 65 ? `${s} | ${cfg.siteName}` : s);
 const history = (() => {
   try {
@@ -88,13 +91,20 @@ function withToc(body) {
 const metaLine = (updated) =>
   `<p class="meta-line"><span>Updated ${esc(fmtDate(updated))}</span><span>Rates from official bank websites</span><a href="${href('/about/')}">How we check rates</a></p>`;
 
+// Main menu: the five core loan types, then every other loan page under "More loans" (all links are in the HTML).
+function navLinks() {
+  const core = loans.filter((l) => l.core && l.slug !== 'loan-against-property');
+  const more = loans.filter((l) => !core.includes(l));
+  return `${core.map((l) => `<a href="${href(`/${l.slug}/`)}">${esc(l.name)}</a>`).join('')}<details class="nav-more"><summary>More loans</summary><div class="nav-menu">${more.map((l) => `<a href="${href(`/${l.slug}/`)}">${esc(l.name)}</a>`).join('')}<a href="${href(FD_URL)}">Loan Against FD</a></div></details>`;
+}
+
 function footer() {
   const col = (title, links) => `<div><p class="fh">${esc(title)}</p><ul>${links.map(([u, t]) => `<li><a href="${href(u)}">${esc(t)}</a></li>`).join('')}</ul></div>`;
   return `<footer class="site"><div class="wrap">
 <div class="fgrid">
 <div class="fbrand">${brandLink()}
 <p>Compare loan interest rates from Indian banks, each checked on the bank's own website and dated.</p></div>
-${col('Loan rates', [...loans.map((l) => [`/${l.slug}/`, `${l.name} rates`]), ['/loan-interest-rates/', 'All bank loan rates']])}
+${col('Loan rates', [...loans.map((l) => [`/${l.slug}/`, `${l.name} rates`]), [FD_URL, 'Loan Against FD rates'], ['/loan-interest-rates/', 'All bank loan rates']])}
 ${col('Calculators', [...TOOLS.map((t) => [t.url, t.name.replace(/^Home loan /, '').replace(/^./, (c) => c.toUpperCase())]), ['/calculators/', 'All calculators']])}
 ${col('Company', [['/about/', 'About and how we check rates'], ['/embed/', 'Free calculator for your website'], ['/privacy/', 'Privacy policy']])}
 </div>
@@ -147,7 +157,7 @@ ${ICON_LINKS}
 </head>
 <body>
 <header class="top"><div class="wrap">${brandLink()}
-<nav id="main-nav" aria-label="Main">${loans.map((l) => `<a href="${href(`/${l.slug}/`)}">${esc(l.name)}</a>`).join('')}<a href="${href('/calculators/')}">Calculators</a><a href="${href('/loan-interest-rates/')}">All rates</a></nav>
+<nav id="main-nav" aria-label="Main">${navLinks()}<a href="${href('/calculators/')}">Calculators</a><a href="${href('/loan-interest-rates/')}">All rates</a></nav>
 <a class="cta-top" href="${callbackHref}">Free call back</a>
 <button type="button" class="menu-btn" aria-expanded="false" aria-controls="main-nav" aria-label="Open menu"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg></button></div></header>
 <noscript><style>#main-nav{display:flex!important}.menu-btn{display:none!important}</style></noscript>
@@ -237,6 +247,12 @@ const ICONS = {
   'car-loan': '<path d="M3 13l2-6h14l2 6"/><rect x="3" y="13" width="18" height="5" rx="1"/><circle cx="7.5" cy="18" r="1.5"/><circle cx="16.5" cy="18" r="1.5"/>',
   'education-loan': '<path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c3 2 9 2 12 0v-5"/>',
   'loan-against-property': '<rect x="4" y="3" width="10" height="18"/><path d="M14 9h6v12h-6"/><path d="M8 7h2M8 11h2M8 15h2"/>',
+  'gold-loan': '<path d="M4 18h16l-2-6H6z"/><path d="M8 12l1.5-4h5L16 12"/>',
+  'two-wheeler-loan': '<circle cx="6" cy="16" r="3"/><circle cx="18" cy="16" r="3"/><path d="M6 16l4-6h4l4 6M14 10l-1-3h-2"/>',
+  'used-car-loan': '<path d="M3 13l2-6h14l2 6"/><rect x="3" y="13" width="18" height="5" rx="1"/><circle cx="7.5" cy="18" r="1.5"/><circle cx="16.5" cy="18" r="1.5"/><path d="M10 4h4"/>',
+  'home-loan-overdraft': '<path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M9 15h6M12 12v6"/>',
+  'loan-against-securities': '<path d="M4 19V5"/><path d="M4 19h16"/><path d="M7 15l4-4 3 3 5-6"/>',
+  'loan-against-fd': '<rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M7 9h.01M17 15h.01"/>',
 };
 const icon = (slug) => `<svg viewBox="0 0 24 24" aria-hidden="true">${ICONS[slug] ?? ''}</svg>`;
 const hueOf = (s) => [...s].reduce((a, c) => (a * 31 + c.charCodeAt(0)) % 360, 7);
@@ -264,6 +280,11 @@ const PLAN_RANGE = {
   'car-loan': { min: 100000, max: 5000000, step: 10000, ymax: 7 },
   'education-loan': { min: 100000, max: 15000000, step: 50000, ymax: 15 },
   'loan-against-property': { min: 500000, max: 50000000, step: 100000, ymax: 20 },
+  'gold-loan': { min: 10000, max: 5000000, step: 5000, ymax: 3 },
+  'two-wheeler-loan': { min: 20000, max: 500000, step: 5000, ymax: 5 },
+  'used-car-loan': { min: 100000, max: 3000000, step: 10000, ymax: 7 },
+  'home-loan-overdraft': { min: 500000, max: 30000000, step: 100000, ymax: 30 },
+  'loan-against-securities': { min: 50000, max: 10000000, step: 10000, ymax: 3 },
 };
 
 // Guide text for each loan type: practical steps, and what sets the rate. Kept factual and general;
@@ -314,6 +335,51 @@ const GUIDES = {
     ],
     decides: 'A loan against property is secured on a house or commercial property you own. The rate depends on the type of property, how much you borrow against its value, your credit score and income, and the tenure.',
   },
+  'gold-loan': {
+    tips: [
+      ['Check how much each bank lends per gram.', 'Banks lend a set share of your gold’s market value, so the amount you can borrow on the same jewellery differs between banks.'],
+      ['Pick the repayment style that suits you.', 'Banks offer EMIs, an overdraft where you pay interest only on what you use, or a bullet loan where interest and principal are paid at the end.'],
+      ['Compare the processing fee.', 'Fees range from up to 1% at HDFC Bank to up to 2% at ICICI Bank, which matters on a short loan.'],
+      ['Repay or renew on time.', 'If a gold loan is not repaid, the bank can auction the pledged gold after giving notice.'],
+    ],
+    decides: 'Because the loan is secured on gold, banks focus on the purity and weight of the gold, the amount and the repayment type rather than your credit score alone. Short tenures of up to 12 months are common.',
+  },
+  'two-wheeler-loan': {
+    tips: [
+      ['Check your credit score first.', 'Most banks link two-wheeler rates to your score, with the lowest at 750 and above.'],
+      ['Look at electric scooters and bikes.', 'Some banks, such as Central Bank of India, list lower rates for electric two-wheelers, especially for women borrowers.'],
+      ['Pay a bigger down payment.', 'A smaller loan costs less interest and is easier to get approved.'],
+      ['Compare the dealer’s offer with the bank’s.', 'Dealer finance is often quoted as a flat rate; convert it with the flat vs reducing rate calculator.'],
+    ],
+    decides: 'Two-wheeler rates depend on your credit score and income, the vehicle and its price, and the tenure. They are usually higher than car loan rates.',
+  },
+  'used-car-loan': {
+    tips: [
+      ['Check the car’s age limit.', 'Banks restrict how old the car can be; Union Bank of India, for example, finances cars up to 3 years old.'],
+      ['Get the car valued.', 'Banks lend a share of the car’s assessed value, not the price you agree with the seller.'],
+      ['Check your credit score first.', 'The lowest used car rates are for scores of 750 and above.'],
+      ['Compare with a personal loan.', 'If the car is old or cheap, a personal loan can sometimes cost about the same with less paperwork.'],
+    ],
+    decides: 'Used car rates are higher than new car rates because the car is worth less as security. Banks look at the car’s age and value, your credit score and income, and the tenure.',
+  },
+  'home-loan-overdraft': {
+    tips: [
+      ['Choose it only if you will park spare money.', 'The saving comes from the money you keep in the linked account; without it you just pay a slightly higher rate.'],
+      ['Compare with the regular home loan rate.', 'Bank of Maharashtra and Union Bank of India charge 0.25% more for their overdraft versions than for their regular home loans.'],
+      ['Keep an emergency buffer there.', 'Money in the overdraft account stays available to withdraw, so it can double as your emergency fund.'],
+      ['Check the minimum loan size.', 'Some banks offer the overdraft only above a certain loan amount.'],
+    ],
+    decides: 'The rate follows the bank’s home loan rate, usually with a small premium for the overdraft facility. Your credit score, income and the property value set the base rate, as for any home loan.',
+  },
+  'loan-against-securities': {
+    tips: [
+      ['Check how much you can borrow per fund.', 'Banks lend a smaller share against equity funds and shares than against debt funds, because their prices move more.'],
+      ['Watch for margin calls.', 'If the market falls, the bank can ask you to add securities or repay part of the loan.'],
+      ['Use it as an overdraft.', 'Most of these loans charge interest only on the amount you actually draw.'],
+      ['Compare the fee as well as the rate.', 'ICICI Bank, for example, charges up to 2% of the sanctioned amount.'],
+    ],
+    decides: 'The rate depends on the type of security pledged, the loan size and the bank’s benchmark. Your investments stay invested, so you keep any returns while you borrow.',
+  },
 };
 
 function loanHub(loan) {
@@ -340,10 +406,10 @@ function loanHub(loan) {
   const g = GUIDES[loan.slug] ?? GUIDES['personal-loan'];
   const qa = [
     [`Which bank has the lowest ${ln} interest rate?`, `Among the ${list.length} banks we checked, ${best.bankInfo.name} advertises the lowest starting rate at ${rate(best.rateFrom)} per annum (checked ${best.retrievedOn}). The rate you are offered can be higher.`],
-    [`What is the EMI on a ${lakhLabel(loan.defaultAmountLakh)} ${ln} for ${y} years?`, `About ${inr(e1)} a month at ${rate(best.rateFrom)}, and about ${inr(e2)} at ${rate(top.rateFrom)}.`],
+    [`What is the EMI on a ${lakhLabel(loan.defaultAmountLakh)} ${ln} for ${yrs(y)}?`, `About ${inr(e1)} a month at ${rate(best.rateFrom)}, and about ${inr(e2)} at ${rate(top.rateFrom)}.`],
     ['How often are these rates checked?', 'An automated check re-reads every bank\'s official rate page each week, and each rate shows the date it was checked.'],
   ];
-  const answer = `The lowest ${esc(ln)} rate this month is <b>${rate(best.rateFrom)} a year</b> at ${esc(best.bankInfo.name)}${best.conditions ? ` (${esc(best.conditions.charAt(0).toLowerCase() + best.conditions.slice(1))})` : ''}. Starting rates run from ${rate(best.rateFrom)} to ${rate(top.rateFrom)} across ${list.length} banks. On ${lakhLabel(loan.defaultAmountLakh)} over ${y} years that is an EMI of about <b>${inr(e1)} to ${inr(e2)}</b> a month.`;
+  const answer = `The lowest ${esc(ln)} rate this month is <b>${rate(best.rateFrom)} a year</b> at ${esc(best.bankInfo.name)}${best.conditions ? ` (${esc(best.conditions.charAt(0).toLowerCase() + best.conditions.slice(1))})` : ''}. Starting rates run from ${rate(best.rateFrom)} to ${rate(top.rateFrom)} across ${list.length} banks. On ${lakhLabel(loan.defaultAmountLakh)} over ${yrs(y)} that is an EMI of about <b>${inr(e1)} to ${inr(e2)}</b> a month.`;
   const vs = popularPairs(list, 12);
   return layout({
     title: titled(`${loan.name} Interest Rates ${month}: Lowest ${rate(best.rateFrom)}, ${list.length} Banks`),
@@ -463,6 +529,7 @@ function pairs(list) {
 }
 
 // The pairs people search for most: large, well-known lenders first. Bank pages link every pair.
+const FD_URL = '/loan-against-fd/';
 const BIG_BANKS = ['sbi', 'hdfc-bank', 'icici-bank', 'axis-bank', 'kotak-mahindra-bank', 'punjab-national-bank', 'bank-of-baroda', 'canara-bank', 'union-bank-of-india'];
 const bigRank = (p) => (BIG_BANKS.includes(p.bank) ? BIG_BANKS.indexOf(p.bank) : 99);
 const popularPairs = (list, n) => pairs(list).sort((x, y) => bigRank(x[0]) + bigRank(x[1]) - (bigRank(y[0]) + bigRank(y[1]))).slice(0, n);
@@ -476,7 +543,7 @@ function bankPage(loan, p) {
   // Only questions the bank's own page answers; "not stated" answers help nobody.
   const qa = [
     [`What is the ${name} ${loan.name.toLowerCase()} interest rate?`, `${name}'s website advertises ${loan.name.toLowerCase()} rates starting from ${rate(p.rateFrom)} per annum (checked ${p.retrievedOn}). The rate you get depends on your credit score, income and loan amount.`],
-    [`What is the EMI on a ${lakhLabel(loan.defaultAmountLakh)} ${loan.name.toLowerCase()} from ${name}?`, `At the starting rate of ${rate(p.rateFrom)} over ${loan.defaultTenure} years the EMI is about ${inr(s.emi)} a month, with total interest of about ${inr(s.interest)}. A higher personal rate would raise this.`],
+    [`What is the EMI on a ${lakhLabel(loan.defaultAmountLakh)} ${loan.name.toLowerCase()} from ${name}?`, `At the starting rate of ${rate(p.rateFrom)} over ${yrs(loan.defaultTenure)} the EMI is about ${inr(s.emi)} a month, with total interest of about ${inr(s.interest)}. A higher personal rate would raise this.`],
     ...(p.fee ? [[`What is the processing fee for a ${name} ${loan.name.toLowerCase()}?`, `${name} states: ${p.fee}.`]] : []),
     ...(p.prepayment ? [[`Does ${name} charge prepayment charges on a ${loan.name.toLowerCase()}?`, `${p.prepayment}. Terms can differ between floating and fixed rates, so confirm with the bank.`]] : []),
     ...(all.length > 1 ? [[`How does ${name} compare with other banks?`, `Its starting rate of ${rate(p.rateFrom)} is number ${rank} of the ${all.length} banks we checked for ${loan.name.toLowerCase()}s, where the lowest is ${rate(all[0].rateFrom)} (${all[0].bankInfo.name}).`]] : []),
@@ -491,8 +558,8 @@ function bankPage(loan, p) {
   ];
   const missing = [!p.fee && 'processing fee', !p.prepayment && 'prepayment terms'].filter(Boolean);
   // EMI table: every amount and tenure we have a page for, each figure linking to that page's full schedule.
-  const emiGrid = `<div class="scroll"><table class="emi-grid"><thead><tr><th>Loan amount</th>${loan.pageTenures.map((y) => `<th>${y} years</th>`).join('')}</tr></thead><tbody>${loan.pageAmountsLakh
-    .map((a) => `<tr><td>${lakhLabel(a)}</td>${loan.pageTenures.map((y) => `<td><a href="${href(emiUrl(loan, p, a, y))}">${inr(emi(a * 100000, p.rateFrom, y))}<span class="sr-only"> a month for ${lakhLabel(a)} over ${y} years</span></a></td>`).join('')}</tr>`)
+  const emiGrid = `<div class="scroll"><table class="emi-grid"><thead><tr><th>Loan amount</th>${loan.pageTenures.map((y) => `<th>${yrs(y)}</th>`).join('')}</tr></thead><tbody>${loan.pageAmountsLakh
+    .map((a) => `<tr><td>${lakhLabel(a)}</td>${loan.pageTenures.map((y) => `<td><a href="${href(emiUrl(loan, p, a, y))}">${inr(emi(a * 100000, p.rateFrom, y))}<span class="sr-only"> a month for ${lakhLabel(a)} over ${yrs(y)}</span></a></td>`).join('')}</tr>`)
     .join('')}</tbody></table></div>
 <p class="small">EMI per month at ${rate(p.rateFrom)}. Tap a figure for its full repayment schedule.</p>`;
   const rivals = all.filter((q) => q.bank !== p.bank);
@@ -506,10 +573,10 @@ function bankPage(loan, p) {
     toc: true,
     body: `<div class="title-row">${avatar(p.bankInfo.short, p.bank)}<h1 style="margin:0">${esc(name)} ${esc(loan.name)} Interest Rate ${esc(monthOf(p.retrievedOn))}</h1></div>
 ${metaLine(p.retrievedOn)}
-<p class="lead">${esc(name)} advertises ${esc(loan.name.toLowerCase())} rates starting from <b>${rate(p.rateFrom)}</b> per annum. For ${lakhLabel(loan.defaultAmountLakh)} over ${loan.defaultTenure} years that is an EMI of about <b>${inr(s.emi)}</b> a month.</p>
+<p class="lead">${esc(name)} advertises ${esc(loan.name.toLowerCase())} rates starting from <b>${rate(p.rateFrom)}</b> per annum. For ${lakhLabel(loan.defaultAmountLakh)} over ${yrs(loan.defaultTenure)} that is an EMI of about <b>${inr(s.emi)}</b> a month.</p>
 <div class="tiles">
 <div class="tile"><span>Starting rate</span><b>${rate(p.rateFrom)}</b><span>per annum</span></div>
-<div class="tile"><span><abbr title="Equated Monthly Instalment: the fixed amount you pay the bank every month">EMI</abbr> per month</span><b>${inr(s.emi)}</b><span>${lakhLabel(loan.defaultAmountLakh)}, ${loan.defaultTenure} years</span></div>
+<div class="tile"><span><abbr title="Equated Monthly Instalment: the fixed amount you pay the bank every month">EMI</abbr> per month</span><b>${inr(s.emi)}</b><span>${lakhLabel(loan.defaultAmountLakh)}, ${yrs(loan.defaultTenure)}</span></div>
 <div class="tile"><span>Total interest</span><b>${inr(s.interest)}</b><span>over the full term</span></div>
 ${all.length > 1 ? `<div class="tile"><span>Rank by rate</span><b>#${rank} of ${all.length}</b><span><a href="${href(`/${loan.slug}/`)}">banks we checked</a></span></div>` : ''}
 </div>
@@ -542,17 +609,17 @@ function emiPage(loan, p, lakh, years) {
     .map((y) => `<tr><td>${yearCell(y)}</td><td>${inr(y.principal)}</td><td>${inr(y.interest)}</td><td class="opt">${inr(y.paid)}</td><td>${inr(y.balance)}</td></tr>`)
     .join('');
   const qa = [
-    [`What is the EMI for a ${lakhLabel(lakh)} ${name} ${loan.name.toLowerCase()} for ${years} years?`, `At ${name}'s starting rate of ${rate(p.rateFrom)} the EMI is about ${inr(s.emi)} a month. If your offered rate is ${rate(p.rateFrom + 1)} it would be about ${inr(emi(P, p.rateFrom + 1, years))}.`],
-    [`How much total interest will I pay?`, `At ${rate(p.rateFrom)} the total interest over ${years} years is about ${inr(s.interest)}, so you repay about ${inr(s.total)} in all.`],
+    [`What is the EMI for a ${lakhLabel(lakh)} ${name} ${loan.name.toLowerCase()} for ${yrs(years)}?`, `At ${name}'s starting rate of ${rate(p.rateFrom)} the EMI is about ${inr(s.emi)} a month. If your offered rate is ${rate(p.rateFrom + 1)} it would be about ${inr(emi(P, p.rateFrom + 1, years))}.`],
+    [`How much total interest will I pay?`, `At ${rate(p.rateFrom)} the total interest over ${yrs(years)} is about ${inr(s.interest)}, so you repay about ${inr(s.total)} in all.`],
   ];
   return layout({
-    title: `${name} ${lakhLabel(lakh)} ${loan.name} EMI for ${years} Years: ${inr(s.emi)}/month | ${cfg.siteName}`,
-    desc: `EMI on a ${lakhLabel(lakh)} ${name} ${loan.name.toLowerCase()} over ${years} years is about ${inr(s.emi)} a month at the ${rate(p.rateFrom)} starting rate, with EMI at higher rates too.`,
+    title: `${name} ${lakhLabel(lakh)} ${loan.name} EMI for ${Yrs(years)}: ${inr(s.emi)}/month | ${cfg.siteName}`,
+    desc: `EMI on a ${lakhLabel(lakh)} ${name} ${loan.name.toLowerCase()} over ${yrs(years)} is about ${inr(s.emi)} a month at the ${rate(p.rateFrom)} starting rate, with EMI at higher rates too.`,
     url: emiUrl(loan, p, lakh, years),
-    crumbs: [{ name: loan.name, url: `/${loan.slug}/` }, { name, url: bankUrl(loan, p) }, { name: `${lakhLabel(lakh)} for ${years} years`, url: emiUrl(loan, p, lakh, years) }],
+    crumbs: [{ name: loan.name, url: `/${loan.slug}/` }, { name, url: bankUrl(loan, p) }, { name: `${lakhLabel(lakh)} for ${yrs(years)}`, url: emiUrl(loan, p, lakh, years) }],
     jsonld: [faqLd(qa)],
     updated: p.retrievedOn,
-    body: `<h1>${esc(name)} ${esc(lakhLabel(lakh))} ${esc(loan.name)} EMI for ${years} Years</h1>
+    body: `<h1>${esc(name)} ${esc(lakhLabel(lakh))} ${esc(loan.name)} EMI for ${Yrs(years)}</h1>
 ${metaLine(p.retrievedOn)}
 <p class="lead">At the advertised starting rate of <b>${rate(p.rateFrom)}</b>, the EMI is about <b>${inr(s.emi)}</b> a month, with total interest of about ${inr(s.interest)}.</p>
 <p class="small">${sourceLine(p)}</p>
@@ -578,10 +645,10 @@ function vsPage(loan, a, b) {
   const same = Math.abs(sa.interest - sb.interest) < 1;
   const verdict = same
     ? `${a.bankInfo.name} and ${b.bankInfo.name} advertise the same starting rate.`
-    : `${lo.bankInfo.name} advertises the lower starting rate (${rate(lo.rateFrom)} vs ${rate(hi.rateFrom)}). On ${lakhLabel(loan.defaultAmountLakh)} over ${y} years that is about ${inr(sHi.interest - sLo.interest)} less interest, or ${inr(sHi.emi - sLo.emi)} less per month, at the starting rates.`;
+    : `${lo.bankInfo.name} advertises the lower starting rate (${rate(lo.rateFrom)} vs ${rate(hi.rateFrom)}). On ${lakhLabel(loan.defaultAmountLakh)} over ${yrs(y)} that is about ${inr(sHi.interest - sLo.interest)} less interest, or ${inr(sHi.emi - sLo.emi)} less per month, at the starting rates.`;
   const rowsData = [
     ['Starting interest rate', rate(a.rateFrom), rate(b.rateFrom)],
-    [`EMI for ${lakhLabel(loan.defaultAmountLakh)}, ${y} years`, inr(sa.emi), inr(sb.emi)],
+    [`EMI for ${lakhLabel(loan.defaultAmountLakh)}, ${yrs(y)}`, inr(sa.emi), inr(sb.emi)],
     ['Total interest', inr(sa.interest), inr(sb.interest)],
     ['Processing fee', a.fee ?? 'Not stated', b.fee ?? 'Not stated'],
     ['Prepayment', a.prepayment ?? 'Not stated', b.prepayment ?? 'Not stated'],
@@ -662,7 +729,7 @@ function rankRowsHtml(list, P, y, limit = Infinity) {
   const max = Math.max(...rows.map((r) => r.interest)) || 1;
   const verdict =
     rows.length > 1
-      ? `<p class="verdict"><b>${esc(best.p.bankInfo.short)}</b> costs <b>${inr(worst.interest - best.interest)}</b> less interest than ${esc(worst.p.bankInfo.short)} over ${y} years, about <b>${inr(worst.emi - best.emi)}</b> less every month.</p>`
+      ? `<p class="verdict"><b>${esc(best.p.bankInfo.short)}</b> costs <b>${inr(worst.interest - best.interest)}</b> less interest than ${esc(worst.p.bankInfo.short)} over ${yrs(y)}, about <b>${inr(worst.emi - best.emi)}</b> less every month.</p>`
       : '';
   return (
     verdict +
@@ -679,6 +746,8 @@ function rankRowsHtml(list, P, y, limit = Infinity) {
 
 function homePage() {
   const verified = loans.filter((l) => forLoan(l).length);
+  // The hero tabs and comparison lists stay on the five core loan types; every type still gets a rate card.
+  const coreVerified = verified.filter((l) => l.core);
   const upcoming = loans.filter((l) => !forLoan(l).length);
   const first = verified[0];
   const P = first ? first.defaultAmountLakh * 100000 : 5000000;
@@ -707,7 +776,7 @@ function homePage() {
     max: Math.round((l.amountsLakh.at(-1) * 100000 * 1.5) / 100000) * 100000,
   });
   const quick = Object.fromEntries(
-    verified.map((l) => [
+    coreVerified.map((l) => [
       l.slug,
       {
         name: l.name,
@@ -751,7 +820,7 @@ ${spread ? `<div><b>${esc(lakhShort(spread))}</b><span>Cheapest vs costliest ban
 </div>
 </div>
 <div class="card" data-quick>
-<div class="tabs" role="tablist" aria-label="Loan type">${verified
+<div class="tabs" role="tablist" aria-label="Loan type">${coreVerified
       .map((l, i) => `<button type="button" role="tab" data-loan="${l.slug}" aria-selected="${i === 0}">${esc(l.name.replace(/ Loan$/, ''))}</button>`)
       .join('')}</div>
 <div class="amt"><label for="q-amount">Loan amount</label><output for="q-amount">${inr(P)} <small>${lakhLabel(P / 100000).replace('₹', '')}</small></output></div>
@@ -816,7 +885,7 @@ ${homeList[0] ? `<a class="tcard" href="${href('/home-loan-balance-transfer-calc
 </div>
 </section>
 
-${verified.flatMap((l) => (forLoan(l).length > 1 ? [`<section class="block"><h2>Popular ${esc(l.name.toLowerCase())} comparisons</h2><p class="chips">${popularPairs(forLoan(l), l.slug === 'home-loan' ? 8 : 4).map(([a, b]) => `<a href="${href(vsUrl(l, a, b))}">${esc(a.bankInfo.short)} vs ${esc(b.bankInfo.short)}</a>`).join('')}</p></section>`] : [])).join('\n')}
+${coreVerified.flatMap((l) => (forLoan(l).length > 1 ? [`<section class="block"><h2>Popular ${esc(l.name.toLowerCase())} comparisons</h2><p class="chips">${popularPairs(forLoan(l), l.slug === 'home-loan' ? 8 : 4).map(([a, b]) => `<a href="${href(vsUrl(l, a, b))}">${esc(a.bankInfo.short)} vs ${esc(b.bankInfo.short)}</a>`).join('')}</p></section>`] : [])).join('\n')}
 
 <section class="block faq">
 <h2>Common questions</h2>
@@ -887,8 +956,8 @@ function eligibilityPage() {
     .map((inc) => `<tr><td><a href="${href(`/home-loan-for-${inc}-salary/`)}">${inr(inc)}</a></td><td>${inr(maxEmiFor(inc, 0, 50))}</td><td>${inr(forIncome(inc))}</td></tr>`)
     .join('');
   const qa = [
-    [`How much home loan can I get on a ₹50,000 salary?`, `With no other EMIs, lenders often allow total EMIs of up to about half your net monthly income, so about ${inr(maxEmiFor(50000, 0, 50))} a month. At ${rate(r)} for ${y} years that supports a home loan of about ${inr(forIncome(50000))}. Lenders' limits vary, commonly between 40% and 60% of income.`],
-    [`How much home loan can I get on a ₹1 lakh salary?`, `About ${inr(forIncome(100000))} at ${rate(r)} over ${y} years, assuming no other EMIs and a 50% limit. A longer tenure or a lower rate raises the amount; existing EMIs reduce it.`],
+    [`How much home loan can I get on a ₹50,000 salary?`, `With no other EMIs, lenders often allow total EMIs of up to about half your net monthly income, so about ${inr(maxEmiFor(50000, 0, 50))} a month. At ${rate(r)} for ${yrs(y)} that supports a home loan of about ${inr(forIncome(50000))}. Lenders' limits vary, commonly between 40% and 60% of income.`],
+    [`How much home loan can I get on a ₹1 lakh salary?`, `About ${inr(forIncome(100000))} at ${rate(r)} over ${yrs(y)}, assuming no other EMIs and a 50% limit. A longer tenure or a lower rate raises the amount; existing EMIs reduce it.`],
     [`How much down payment do I need?`, `RBI limits how much of a home's value a bank can lend: up to 90% for loans up to ₹30 lakh, 80% for ₹30 to ₹75 lakh, and 75% above ₹75 lakh. You pay the rest, plus stamp duty and registration, yourself.`],
     [`Does my credit score change my eligibility?`, `Yes. A higher score usually gets a lower rate, and a lower rate supports a larger loan for the same EMI. Some banks advertise their lowest rate only for scores of 750 or 800 and above.`],
   ];
@@ -908,7 +977,7 @@ function eligibilityPage() {
 <div class="out" aria-live="polite"></div></div>
 <p class="note">Banks also look at your age, job, credit score and the property. Treat this as an estimate, not an approval.</p>
 <h2>Home loan eligibility by salary</h2>
-<p class="small">At ${rate(r)} for ${y} years, with no other EMIs and EMIs capped at 50% of net income.</p>
+<p class="small">At ${rate(r)} for ${yrs(y)}, with no other EMIs and EMIs capped at 50% of net income.</p>
 <div class="scroll"><table><thead><tr><th>Net monthly income</th><th>Maximum EMI</th><th>Eligible loan</th></tr></thead><tbody>${rows}</tbody></table></div>
 ${leadForm({ loan: 'home-loan', heading: 'Want a lender to confirm your eligibility?' })}
 ${toolChips()}
@@ -943,7 +1012,7 @@ function prepaymentPage() {
     ['Is it better to reduce the EMI or the tenure after a prepayment?', 'Keeping the same EMI and shortening the tenure usually saves more interest, because the loan is cleared sooner. Reducing the EMI eases your monthly budget but saves less.'],
     ['Do banks charge for prepaying a home loan?', 'Under RBI rules, banks generally cannot charge prepayment or foreclosure penalties on floating-rate home loans taken by individuals. Fixed-rate loans can carry a charge, so check your loan agreement.'],
     ['When does prepayment save the most?', 'In the early years, when most of each EMI is interest. The same extra payment made in year 2 saves far more than one made in year 15.'],
-    [`How much does ₹5,000 extra a month save on a ₹50 lakh loan?`, `At ${rate(r)} over ${y} years, paying ₹5,000 more each month clears the loan ${span(base.length - s5.length)} early and saves about ${inr(baseInterest - s5.reduce((a, x) => a + x.interest, 0))} in interest.`],
+    [`How much does ₹5,000 extra a month save on a ₹50 lakh loan?`, `At ${rate(r)} over ${yrs(y)}, paying ₹5,000 more each month clears the loan ${span(base.length - s5.length)} early and saves about ${inr(baseInterest - s5.reduce((a, x) => a + x.interest, 0))} in interest.`],
   ];
   return layout({
     title: 'Home Loan Prepayment Calculator: Interest and Time Saved',
@@ -956,7 +1025,7 @@ function prepaymentPage() {
 <p class="lead">Paying a little extra can take years off your home loan. Try a monthly top-up, a yearly bonus or a one-time lump sum and see the interest you save.</p>
 ${calcWidget(P, r, y, { open: true, extraM: 5000 })}
 <h2>How much prepayment saves on a ₹50 lakh loan</h2>
-<p class="small">₹50 lakh at ${rate(r)} for ${y} years, keeping the same EMI. Without prepayment you pay ${inr(baseInterest)} in interest.</p>
+<p class="small">₹50 lakh at ${rate(r)} for ${yrs(y)}, keeping the same EMI. Without prepayment you pay ${inr(baseInterest)} in interest.</p>
 <div class="scroll"><table><thead><tr><th>Prepayment</th><th>Loan ends after</th><th>Time saved</th><th>Interest saved</th></tr></thead><tbody>${rows}</tbody></table></div>
 ${leadForm({ loan: 'home-loan', amount: P, heading: 'Thinking of moving to a cheaper loan instead?' })}
 ${toolChips()}
@@ -981,7 +1050,7 @@ function balanceTransferPage() {
     ['Should I ask my current bank to lower my rate first?', 'Yes. Many banks will reprice an existing loan to a lower rate for a fee, which can be cheaper and quicker than moving to a new bank.'],
     ['Does a balance transfer affect my credit score?', 'The new lender will check your credit, which can cause a small, temporary dip. Paying the new loan on time matters far more.'],
   ];
-  if (best) qa.unshift([`How much can I save by moving a ₹40 lakh loan at 9.5% to ${best.bankInfo.short}?`, `At ${best.bankInfo.short}'s starting rate of ${rate(best.rateFrom)}, with ${y} years left and ₹10,000 in fees, you would save about ${inr(balanceTransfer(O, oldRate, best.rateFrom, y, fees).monthly)} a month and about ${inr(balanceTransfer(O, oldRate, best.rateFrom, y, fees).net)} overall. Your actual offer may be higher than the starting rate.`]);
+  if (best) qa.unshift([`How much can I save by moving a ₹40 lakh loan at 9.5% to ${best.bankInfo.short}?`, `At ${best.bankInfo.short}'s starting rate of ${rate(best.rateFrom)}, with ${yrs(y)} left and ₹10,000 in fees, you would save about ${inr(balanceTransfer(O, oldRate, best.rateFrom, y, fees).monthly)} a month and about ${inr(balanceTransfer(O, oldRate, best.rateFrom, y, fees).net)} overall. Your actual offer may be higher than the starting rate.`]);
   return layout({
     title: 'Home Loan Balance Transfer Calculator: Savings After Fees',
     desc: 'Check if moving your home loan to another bank saves money. Enter your outstanding loan, current rate and fees to see monthly savings, total savings and the break-even point.',
@@ -997,7 +1066,7 @@ function balanceTransferPage() {
 <div class="row">${field('New rate (% p.a.)', 'newRate', best ? best.rateFrom : 8.5, '0.05')}${field('Total switching fees (₹)', 'fees', fees)}</div>
 <div class="out" aria-live="polite"></div></div>
 ${rows ? `<h2>Savings at each bank's starting rate</h2>
-<p class="small">Example: ₹40 lakh outstanding at ${rate(oldRate)} with ${y} years left and ₹10,000 in fees. Uses each bank's advertised starting rate, which is a best case.</p>
+<p class="small">Example: ₹40 lakh outstanding at ${rate(oldRate)} with ${yrs(y)} left and ₹10,000 in fees. Uses each bank's advertised starting rate, which is a best case.</p>
 <div class="scroll"><table><thead><tr><th>Bank</th><th class="opt">Starting rate</th><th>Saving per month</th><th>Net saving</th><th>Fees earned back in</th></tr></thead><tbody>${rows}</tbody></table></div>` : ''}
 ${leadForm({ loan: 'home-loan', amount: O, heading: 'Want help switching your home loan?' })}
 ${toolChips()}
@@ -1017,7 +1086,7 @@ function amortizationPage() {
   const monthRows = rowsAll.slice(0, 12).map((x) => `<tr><td>${monthLabel(x.m, today)}</td><td class="opt">${inr(x.paid)}</td><td>${inr(x.principal)}</td><td>${inr(x.interest)}</td><td>${inr(x.balance)}</td></tr>`).join('');
   const qa = [
     ['What is a home loan amortization schedule?', 'It is the full list of your loan payments, showing how much of each EMI pays interest, how much repays principal, and the balance left after each payment.'],
-    ['Why is most of my early EMI interest?', `Interest is charged on what you still owe, which is highest at the start. On ₹50 lakh at ${rate(r)} for ${y} years, about ${share(1)}% of what you pay in year 1 is interest, falling to about ${share(15)}% in year 15.`],
+    ['Why is most of my early EMI interest?', `Interest is charged on what you still owe, which is highest at the start. On ₹50 lakh at ${rate(r)} for ${yrs(y)}, about ${share(1)}% of what you pay in year 1 is interest, falling to about ${share(15)}% in year 15.`],
     ['How can I pay less interest?', 'Prepay when you can, especially in the early years, choose a shorter tenure if the EMI is affordable, or move to a lower rate.'],
   ];
   return layout({
@@ -1030,7 +1099,7 @@ function amortizationPage() {
     body: `<h1>Home Loan Amortization Schedule</h1>
 <p class="lead">See exactly where every EMI goes. Change the amount, rate and tenure, then switch between a year-by-year and a month-by-month repayment schedule.</p>
 ${calcWidget(P, r, y)}
-<h2>Repayment schedule for ₹50 lakh at ${rate(r)} over ${y} years</h2>
+<h2>Repayment schedule for ₹50 lakh at ${rate(r)} over ${yrs(y)}</h2>
 <p class="small">${scheduleStartNote}</p>
 <div class="scroll"><table><thead><tr><th>Year</th><th>Principal</th><th>Interest</th><th class="opt">Paid</th><th>Balance left</th></tr></thead><tbody>${yearRows}</tbody></table></div>
 <h2>First 12 months, month by month</h2>
@@ -1156,7 +1225,7 @@ function salaryPage(sal) {
   const bankRows = banksRanked
     .map(({ p, amt }, i) => `<tr><td><span class="title-row" style="gap:8px">${avatar(p.bankInfo.short, p.bank)}<a href="${href(bankUrl(homeLoan, p))}">${esc(p.bankInfo.name)}</a></span>${i === 0 ? '<span class="badge">Highest amount</span>' : ''}</td><td>${p.rateFrom.toFixed(2)}%</td><td><b>${inr(amt)}</b></td></tr>`)
     .join('');
-  const tenureRows = [15, 20, 25, 30].map((t) => `<tr><td>${t} years</td><td>${inr(loanForEmi(maxE, r, t))}</td><td>${inr(maxE)}</td></tr>`).join('');
+  const tenureRows = [15, 20, 25, 30].map((t) => `<tr><td>${yrs(t)}</td><td>${inr(loanForEmi(maxE, r, t))}</td><td>${inr(maxE)}</td></tr>`).join('');
   const existingRows = [0, 2000, 5000, 10000, 20000]
     .filter((e) => e < maxE)
     .map((e) => `<tr><td>${e ? `${inr(e)} a month` : 'None'}</td><td>${inr(maxEmiFor(sal, e, 50))}</td><td>${inr(loanForEmi(maxEmiFor(sal, e, 50), r, y))}</td></tr>`)
@@ -1164,7 +1233,7 @@ function salaryPage(sal) {
   const joint = loanForEmi(maxEmiFor(sal * 2, 0, 50), r, y);
   const top = banksRanked[0];
   const qa = [
-    [`How much home loan can I get on a ${label} salary?`, `With a ${label} net monthly salary and no other EMIs, banks typically allow an EMI of up to about ${inr(maxE)}. At ${rate(r)} over ${y} years that supports a home loan of about ${inr(loan)}.`],
+    [`How much home loan can I get on a ${label} salary?`, `With a ${label} net monthly salary and no other EMIs, banks typically allow an EMI of up to about ${inr(maxE)}. At ${rate(r)} over ${yrs(y)} that supports a home loan of about ${inr(loan)}.`],
     [`What price of home can I buy on a ${label} salary?`, `About ${inr(home)}. Banks lend up to ${Math.round(ltvFor(loan) * 100)}% of the property value at this loan size, so you would pay about ${inr(home - loan)} yourself, plus stamp duty and registration.`],
     [`Which bank gives the highest home loan on a ${label} salary?`, `At advertised starting rates, ${top.p.bankInfo.name} supports the most, about ${inr(top.amt)}, because a lower rate means more loan for the same EMI. Your actual rate depends on your credit score.`],
     [`How can I get a bigger loan on a ${label} salary?`, `Choose a longer tenure (30 years supports about ${inr(loanForEmi(maxE, r, 30))}), add a co-applicant (with a partner earning the same, about ${inr(joint)}), close small loans first, and keep your credit score above 750.`],
@@ -1181,15 +1250,15 @@ function salaryPage(sal) {
     extraScript: productsScript(homeList, homeLoan),
     body: `<h1>Home Loan for ${esc(label)} Salary</h1>
 ${metaLine(homeUpdated())}
-<p class="lead">With a <b>${esc(label)}</b> net monthly salary and no other EMIs, you can typically get a home loan of about <b>${inr(loan)}</b> at ${rate(r)} over ${y} years, with an EMI of up to ${inr(maxE)} a month.</p>
+<p class="lead">With a <b>${esc(label)}</b> net monthly salary and no other EMIs, you can typically get a home loan of about <b>${inr(loan)}</b> at ${rate(r)} over ${yrs(y)}, with an EMI of up to ${inr(maxE)} a month.</p>
 <div class="tiles">
-<div class="tile"><span>Eligible loan</span><b>${lakhShort(loan)}</b><span>at ${rate(r)}, ${y} years</span></div>
+<div class="tile"><span>Eligible loan</span><b>${lakhShort(loan)}</b><span>at ${rate(r)}, ${yrs(y)}</span></div>
 <div class="tile"><span>Maximum EMI</span><b>${inr(maxE)}</b><span>half of take-home pay</span></div>
 <div class="tile"><span>Home you could buy</span><b>${lakhShort(home)}</b><span>with ${lakhShort(home - loan)} down payment</span></div>
 <div class="tile"><span>With a co-applicant</span><b>${lakhShort(joint)}</b><span>if they earn the same</span></div>
 </div>
 <h2>Eligible loan at each bank</h2>
-<p class="sub">EMI up to ${inr(maxE)} over ${y} years, at each bank's advertised starting rate (a best case).</p>
+<p class="sub">EMI up to ${inr(maxE)} over ${yrs(y)}, at each bank's advertised starting rate (a best case).</p>
 <div class="scroll"><table><thead><tr><th>Bank</th><th>Starting rate</th><th>Eligible loan</th></tr></thead><tbody>${bankRows}</tbody></table></div>
 <h2>Check your own numbers</h2>
 ${eligWidget(sal)}
@@ -1493,6 +1562,69 @@ ${toolChips()}
   });
 }
 
+// ---------- loan against FD (priced as the deposit's own rate plus a margin) ----------
+
+const fdLoans = (() => {
+  let list = [];
+  try {
+    list = readJson('data/fdloans.json').banks;
+  } catch {
+    return [];
+  }
+  const fresh = (b) => /^https:\/\//.test(b.sourceUrl ?? '') && (Date.parse(today) - Date.parse(b.retrievedOn)) / 864e5 <= cfg.maxAgeDays && Number.isFinite(b.margin);
+  return list
+    .filter(fresh)
+    .map((b) => ({ ...b, bankInfo: banks.find((x) => x.slug === b.bank) }))
+    .filter((b) => b.bankInfo)
+    .sort((a, b) => a.margin - b.margin || a.bankInfo.name.localeCompare(b.bankInfo.name));
+})();
+
+function fdPage() {
+  const list = fdLoans;
+  const latest = list.map((b) => b.retrievedOn).sort().at(-1);
+  const month = monthOf(latest);
+  const fdRate = 7;
+  const loan = 200000;
+  const months = 12;
+  const cost = (m) => (loan * (fdRate + m) * months) / 1200;
+  const lowM = list[0].margin;
+  const highM = list.at(-1).margin;
+  const rows = list
+    .map((b, i) => `<tr data-m="${b.margin}"><td><div class="bk">${avatar(b.bankInfo.short, b.bank)}<span><b>${esc(b.bankInfo.name)}</b>${i === 0 ? '<span class="badge">Lowest margin</span>' : ''}<span class="cond">${esc(b.conditions)}</span></span></div></td><td><b>FD rate + ${b.margin}%</b></td><td data-rate>${(fdRate + b.margin).toFixed(2)}%</td><td data-cost>${inr(cost(b.margin))}</td></tr>`)
+    .join('');
+  const qa = [
+    ['What is the interest rate on a loan against FD?', `Banks charge your fixed deposit's own rate plus a margin. Among the banks we checked, ${list.filter((b) => b.margin === lowM).map((b) => b.bankInfo.name).join(', ')} add ${lowM}% and ${list.filter((b) => b.margin === highM).map((b) => b.bankInfo.name).join(', ')} add${list.filter((b) => b.margin === highM).length === 1 ? 's' : ''} ${highM}%. On a ${fdRate}% FD that is ${fdRate + lowM}% to ${fdRate + highM}% a year.`],
+    ['How much can I borrow against my FD?', 'Usually up to 90% of the deposit\'s value; SBI, for example, allows up to 90% on YONO. The deposit stays invested and keeps earning interest while the loan runs.'],
+    ['Is a loan against FD better than breaking the FD?', 'For a short need it often is: the deposit keeps earning interest, you avoid the penalty most banks apply when a deposit is closed early, and the loan costs only the margin over the FD rate.'],
+  ];
+  return layout({
+    title: titled(`Loan Against FD Interest Rates ${month}: FD Rate + ${lowM}%`),
+    desc: `Loan against fixed deposit rates for ${month}: banks charge your FD rate plus ${lowM}% to ${highM}%. Compare ${list.length} banks and work out the interest on your own FD.`,
+    url: FD_URL,
+    crumbs: [{ name: 'Loan Against FD', url: FD_URL }],
+    jsonld: [faqLd(qa)],
+    updated: latest,
+    extraScript: `window.FDLOANS=${JSON.stringify(list.map((b) => ({ name: b.bankInfo.short, m: b.margin })))};`,
+    body: `<div class="phead"><div class="phead-t">
+<h1>Loan Against FD Interest Rates ${esc(month)}: Compare ${list.length} Banks</h1>
+<p class="meta-line"><span>Updated ${esc(fmtDate(latest))}</span><span>By MathMyLoan research team</span><span>Rates from ${list.length} official bank websites</span><a href="${href('/about/')}">How we check rates</a></p>
+</div></div>
+<div class="answer"><p class="k">Quick answer</p><p>A loan or overdraft against your own fixed deposit costs <b>your FD rate plus ${lowM}% to ${highM}%</b>. On a ${fdRate}% FD that is ${fdRate + lowM}% to ${fdRate + highM}% a year, usually well below a personal loan, and your deposit keeps earning interest.</p></div>
+<h2>Work out the cost on your FD</h2>
+<div class="card fd-calc" data-fdcalc>
+<div class="row">${field('Your FD rate (% a year)', 'fdrate', fdRate, '0.05')}${field('Amount you need (₹)', 'amount', loan)}${field('For how many months', 'months', months, '1')}</div>
+<div class="scroll"><table><thead><tr><th>Bank</th><th>Loan rate</th><th>Your rate</th><th>Interest for the period</th></tr></thead><tbody>${rows}</tbody></table></div>
+<p class="note-line">Interest is worked out on the full amount for the whole period; on an overdraft you pay only on what you use, so your cost can be lower.</p>
+</div>
+<h2>How a loan against FD works</h2>
+<p>You pledge your fixed deposit and the bank lends you up to about 90% of its value, as a loan or an overdraft. The deposit is not broken: it keeps earning its own rate, and the bank charges that rate plus a small margin. When you repay, the lien on the deposit is lifted.</p>
+<h2>Frequently asked questions</h2>
+${faqHtml(qa)}
+${leadForm({ loan: 'loan-against-fd', heading: 'Get a call back about a loan against FD' })}
+<details class="trust-box"><summary>How we checked these rates (${list.length} official sources)</summary><ul>${list.map((b) => `<li>${esc(b.bankInfo.name)}: <a rel="nofollow noopener" href="${esc(b.sourceUrl)}">bank's official page</a>, checked ${esc(fmtDate(b.retrievedOn))}. ${esc(b.conditions)}.</li>`).join('')}</ul></details>`,
+  });
+}
+
 // ---------- build ----------
 
 fs.rmSync(OUT, { recursive: true, force: true });
@@ -1513,6 +1645,7 @@ if (homeLoan) {
 }
 write('flat-vs-reducing-interest-rate-calculator/index.html', flatPage());
 write('emi-calculator-excel/index.html', excelPage());
+if (fdLoans.length) write(`${FD_URL.slice(1)}index.html`, fdPage());
 if (stampStates.length) {
   write('stamp-duty-calculator/index.html', stampHubPage());
   for (const st of stampStates) write(`${stampUrl(st).slice(1)}index.html`, stampStatePage(st));
