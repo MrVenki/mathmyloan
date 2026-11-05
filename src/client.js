@@ -372,8 +372,8 @@
   function plDonut(svg, P, I, e) {
     var tot = P + I, c = 2 * Math.PI * 78, p = tot ? P / tot : 1;
     svg.innerHTML = '<circle cx="100" cy="100" r="78" fill="none" stroke="#f2b632" stroke-width="22"/>' +
-      '<circle cx="100" cy="100" r="78" fill="none" stroke="#001e60" stroke-width="22" stroke-dasharray="' + (c * p).toFixed(1) + ' ' + c.toFixed(1) + '" transform="rotate(-90 100 100)"/>' +
-      '<text x="100" y="95" text-anchor="middle" font-family="Source Serif 4, Georgia, serif" font-size="' + (e >= 1e6 ? 22 : 27) + '" font-weight="700" fill="#001e60">' + inr(e) + '</text>' +
+      '<circle cx="100" cy="100" r="78" fill="none" stroke="#112551" stroke-width="22" stroke-dasharray="' + (c * p).toFixed(1) + ' ' + c.toFixed(1) + '" transform="rotate(-90 100 100)"/>' +
+      '<text x="100" y="95" text-anchor="middle" font-family="Source Serif 4, Georgia, serif" font-size="' + (e >= 1e6 ? 22 : 27) + '" font-weight="700" fill="#112551">' + inr(e) + '</text>' +
       '<text x="100" y="117" text-anchor="middle" font-size="12" fill="#475569">EMI per month</text>' +
       '<text x="100" y="137" text-anchor="middle" font-size="11" fill="#64748b">Interest ' + Math.round((1 - p) * 100) + '% of total</text>';
   }
@@ -389,12 +389,12 @@
     var n = ys.length, slot = cw / n, bw = Math.max(3, Math.min(34, slot * 0.68)), every = Math.ceil(n / (narrow ? 5 : 10));
     ys.forEach(function (v, j) {
       var x = l + slot * j + (slot - bw) / 2, hp = ch * v.principal / top, hi = ch * v.interest / top, base = t + ch;
-      out += '<rect x="' + x.toFixed(1) + '" y="' + (base - hp).toFixed(1) + '" width="' + bw.toFixed(1) + '" height="' + hp.toFixed(1) + '" fill="#001e60"/>' +
+      out += '<rect x="' + x.toFixed(1) + '" y="' + (base - hp).toFixed(1) + '" width="' + bw.toFixed(1) + '" height="' + hp.toFixed(1) + '" fill="#112551"/>' +
         '<rect x="' + x.toFixed(1) + '" y="' + (base - hp - hi).toFixed(1) + '" width="' + bw.toFixed(1) + '" height="' + hi.toFixed(1) + '" fill="#f2b632"/>';
       if (j % every === 0 || j === n - 1) out += '<text x="' + (x + bw / 2).toFixed(1) + '" y="' + (H - 9) + '" text-anchor="middle" font-size="11" fill="#64748b">' + v.year + '</text>';
     });
     // Highlight band for the hovered year, drawn behind the bars.
-    svg.innerHTML = '<rect data-hl x="0" y="' + t + '" width="0" height="' + ch + '" fill="#001e60" opacity="0" rx="4"/>' + out;
+    svg.innerHTML = '<rect data-hl x="0" y="' + t + '" width="0" height="' + ch + '" fill="#112551" opacity="0" rx="4"/>' + out;
     svg._g = { ys: ys, W: W, l: l, slot: slot, t: t, ch: ch, top: top };
   }
   // Hover (or tap) a bar to see that year's figures.
@@ -410,7 +410,7 @@
       var v = g.ys[j], total = v.principal + v.interest;
       hl.setAttribute('x', (g.l + g.slot * j).toFixed(1)); hl.setAttribute('width', g.slot.toFixed(1)); hl.setAttribute('opacity', '.07');
       tip.innerHTML = '<b>' + v.year + (v.months < 12 ? ' · ' + v.months + ' month' + (v.months > 1 ? 's' : '') : '') + '</b>' +
-        '<span><span><i style="background:#001e60"></i>Principal</span>' + inr(v.principal) + '</span>' +
+        '<span><span><i style="background:#112551"></i>Principal</span>' + inr(v.principal) + '</span>' +
         '<span><span><i style="background:#f2b632"></i>Interest</span>' + inr(v.interest) + '</span>' +
         '<span class="t"><span>Total paid</span>' + inr(total) + '</span>' +
         '<span><span>Balance left</span>' + inr(v.balance) + '</span>';

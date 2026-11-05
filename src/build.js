@@ -50,7 +50,7 @@ const CSS = fs.readFileSync(path.join(ROOT, 'src', 'style.css'), 'utf8');
 // Logo: a drawn ₹ on a navy tile from assets/brand/logo.svg, inlined so it needs no extra request.
 const MARK = fs.readFileSync(path.join(ROOT, 'assets', 'brand', 'logo.svg'), 'utf8').trim().replace('<svg ', '<svg class="logo" width="36" height="36" aria-hidden="true" focusable="false" ')
   // The header and footer are navy, so the mark there is a white tile with a navy rupee.
-  .replace('fill="#001e60"', 'fill="#ffffff"').replace('stroke="#ffffff"', 'stroke="#001e60"');
+  .replace('fill="#112551"', 'fill="#ffffff"').replace('stroke="#ffffff"', 'stroke="#112551"');
 const brandLink = () => `<a class="brand" href="${href('/')}">${MARK}<span class="wm"><span class="nm">${esc(cfg.siteName).replace('My', '<em>My</em>')}</span><span class="tag">${esc(cfg.tagline)}</span></span></a>`;
 // Browser tab, bookmark, home-screen and search-result icons (Google wants 48px or larger).
 const ICON_LINKS = `<link rel="icon" href="${href('/favicon.ico')}" sizes="32x32 48x48">
@@ -58,7 +58,7 @@ const ICON_LINKS = `<link rel="icon" href="${href('/favicon.ico')}" sizes="32x32
 <link rel="icon" href="${href('/icon-192.png')}" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="${href('/apple-touch-icon.png')}">
 <link rel="manifest" href="${href('/site.webmanifest')}">
-<meta name="theme-color" content="#001e60">`;
+<meta name="theme-color" content="#112551">`;
 
 const FONT_CSS = 'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap';
 const fmtDate = (d) => new Date(d).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
@@ -800,7 +800,7 @@ ${homeList[0] ? `<a class="tcard" href="${href('/home-loan-balance-transfer-calc
       .map((s) => `<div><i class="i" style="flex:${s}"></i><i class="p" style="flex:${100 - s}"></i></div>`)
       .join('')}</div>
 <div class="ilbl"><span>Year 1</span><span>Year ${Math.round(shares.length / 2)}</span><span>Year ${shares.length - 1}</span></div>
-<div class="ilegend"><span><i style="background:var(--amber)"></i>Interest</span><span><i style="background:#3b82f6"></i>Principal</span></div>
+<div class="ilegend"><span><i style="background:var(--amber)"></i>Interest</span><span><i style="background:#8fa5d4"></i>Principal</span></div>
 </div>
 </section>
 
@@ -1546,7 +1546,7 @@ write(
       short_name: cfg.siteName,
       start_url: href('/'),
       display: 'browser',
-      theme_color: '#001e60',
+      theme_color: '#112551',
       background_color: '#ffffff',
       icons: [
         { src: href('/icon-192.png'), sizes: '192x192', type: 'image/png' },

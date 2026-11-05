@@ -1,8 +1,8 @@
-/* MathMyLoan: navy (#001e60) advisor look. Navy top bar and footer, serif display headings, green for savings, gold for interest. */
+/* MathMyLoan: navy (#112551) advisor look. Navy top bar and footer, serif display headings, green for savings, gold for interest. */
 :root{
   --bg:#fff;--soft:#f4f6fa;--card:#f8fafc;--fg:#0f172a;--ink:#0f172a;--muted:#475569;--line:#e2e8f0;--line2:#eef2f7;
-  --accent:#001e60;--accent2:#1a3d8f;--accent50:#eef2f9;--accent100:#d9e1f0;--tint:#c9d4ea;--on:#fff;--serif:"Source Serif 4",Georgia,"Times New Roman",serif;
-  --good:#16a34a;--goodbg:#ecfdf3;--goodink:#14532d;--amber:#f2b632;--accent3:#f2b632;--navy:#001e60;--warn:#92400e;
+  --accent:#112551;--accent2:#2a4a8f;--accent50:#eef1f7;--accent100:#dbe1ec;--tint:#c7d0e1;--on:#fff;--serif:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --good:#16a34a;--goodbg:#ecfdf3;--goodink:#14532d;--amber:#f2b632;--accent3:#f2b632;--navy:#112551;--warn:#92400e;
   --shadow:0 1px 3px rgba(15,23,42,.06),0 8px 24px rgba(15,23,42,.06);--lift:0 20px 50px rgba(15,23,42,.10);
   --radius:16px;color-scheme:light
 }
@@ -25,14 +25,14 @@ a.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.25r
 /* Logo: white tile with a navy ₹ on the navy bars; "My" in a light navy tint. */
 svg.logo{display:block;width:36px;height:36px;flex:none}
 .brand .wm{display:flex;flex-direction:column;line-height:1.1}
-.brand .nm em{font-style:normal;color:#9fb8ea}
-.brand .tag{font-size:.7rem;font-weight:500;letter-spacing:0;color:#b9c7e4;margin-top:3px}
-footer.site .brand .nm em{color:#9fb8ea}
-footer.site .brand .tag{color:#b9c7e4;font-size:.78rem}
+.brand .nm em{font-style:normal;color:#a8b9dc}
+.brand .tag{font-size:.7rem;font-weight:500;letter-spacing:0;color:#bcc6db;margin-top:3px}
+footer.site .brand .nm em{color:#a8b9dc}
+footer.site .brand .tag{color:#bcc6db;font-size:.78rem}
 @media (max-width:640px){header.top .brand .tag{display:none}svg.logo{width:32px;height:32px}}
 /* One real nav with every link in the HTML: inline on wide screens, behind the menu button below 1180px. */
 #main-nav{display:flex;align-items:center;justify-content:flex-end;gap:2px;flex:1;font-weight:500;font-size:.93rem}
-#main-nav a{white-space:nowrap;padding:8px 9px;border-radius:8px;color:#dbe4f5;text-decoration:none}
+#main-nav a{white-space:nowrap;padding:8px 9px;border-radius:8px;color:#dce2ee;text-decoration:none}
 #main-nav a:hover{background:rgba(255,255,255,.1);color:#fff}
 .cta-top{background:transparent;border:1px solid rgba(255,255,255,.55);color:#fff!important;text-decoration:none;font-weight:700;font-size:.9rem;padding:0 16px;border-radius:10px;white-space:nowrap;min-height:44px;display:inline-flex;align-items:center}
 .cta-top:hover{background:rgba(255,255,255,.12)}
@@ -54,19 +54,19 @@ footer.site .brand .tag{color:#b9c7e4;font-size:.78rem}
 .ticker a{color:#334155;text-decoration:none} .ticker a:hover{color:var(--accent2);text-decoration:underline}
 main{max-width:1200px;margin:0 auto;padding:8px 24px 40px}
 @media (max-width:640px){main{padding:8px 16px 8px}}
-footer.site{background:var(--navy);color:#c7d3ea;margin-top:48px}
+footer.site{background:var(--navy);color:#c8d0e0;margin-top:48px}
 footer.site .wrap{padding-top:44px;padding-bottom:28px;font-size:.9rem}
 .fgrid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:28px 32px}
 @media (max-width:900px){.fgrid{grid-template-columns:1fr 1fr}}
 @media (max-width:520px){.fgrid{grid-template-columns:1fr}}
 .fbrand .brand{color:#fff;margin-bottom:10px}
-.fbrand p{margin:0;color:#b9c7e4;line-height:1.6;max-width:34ch}
-footer.site .fh{font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#9fb8ea;margin:4px 0 12px;padding:0}
+.fbrand p{margin:0;color:#bcc6db;line-height:1.6;max-width:34ch}
+footer.site .fh{font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#a8b9dc;margin:4px 0 12px;padding:0}
 footer.site .fh::after{display:none}
 footer.site ul{list-style:none;margin:0;padding:0}
 footer.site li{margin:0 0 9px}
 footer.site a{color:#e2e8f0;text-decoration:none} footer.site a:hover{color:#fff;text-decoration:underline}
-footer.site .fine{border-top:1px solid rgba(255,255,255,.14);margin:32px 0 0;padding-top:18px;font-size:.8rem;color:#b9c7e4;line-height:1.6}
+footer.site .fine{border-top:1px solid rgba(255,255,255,.14);margin:32px 0 0;padding-top:18px;font-size:.8rem;color:#bcc6db;line-height:1.6}
 @media (max-width:640px){footer.site .wrap{padding-bottom:100px}}
 .mbar{display:none}
 @media (max-width:640px){.mbar{display:flex;gap:10px;position:fixed;left:0;right:0;bottom:0;z-index:30;padding:10px 16px 14px;background:#fff;border-top:1px solid var(--line);box-shadow:0 -6px 20px rgba(15,23,42,.06)}
@@ -217,7 +217,7 @@ main .tiles{grid-template-columns:repeat(2,minmax(0,1fr))}main .tile b{font-size
 /* ---- insight band ---- */
 .insight{background:var(--navy);color:#e2e8f0;border-radius:24px;padding:34px;display:flex;flex-wrap:wrap;gap:34px;align-items:center;margin:40px 0}
 .insight .copy{flex:1 1 320px;min-width:0}
-.insight .k{font-size:.8rem;font-weight:700;color:#9fb8ea;letter-spacing:.06em}
+.insight .k{font-size:.8rem;font-weight:700;color:#a8b9dc;letter-spacing:.06em}
 .insight h2{color:#fff;margin:10px 0 12px}
 .insight p{color:#cbd5e1;margin:0 0 20px;line-height:1.6}
 .insight a.btn-lg{background:#fff;color:var(--ink)} .insight a.btn-lg:hover{background:var(--accent100);color:var(--ink)}
@@ -225,7 +225,7 @@ main .tiles{grid-template-columns:repeat(2,minmax(0,1fr))}main .tile b{font-size
 .ibars{display:flex;align-items:flex-end;gap:6px;height:170px}
 .ibars div{flex:1;display:flex;flex-direction:column;height:100%}
 .ibars i{display:block}
-.ibars .i{background:var(--amber);border-radius:4px 4px 0 0} .ibars .p{background:#6d8bd0}
+.ibars .i{background:var(--amber);border-radius:4px 4px 0 0} .ibars .p{background:#8fa5d4}
 .ilbl{display:flex;justify-content:space-between;font-size:.75rem;color:#94a3b8;margin-top:8px}
 .ilegend{display:flex;gap:18px;font-size:.82rem;margin-top:10px;color:#cbd5e1}
 .ilegend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:middle}
