@@ -158,6 +158,7 @@ ${body}
 </main>
 ${footer()}
 <div class="mbar"><a href="${href('/home-loan-eligibility-calculator/')}">Eligibility</a><a class="go" href="${callbackHref}">Free call back</a></div>
+${body.includes('data-lead') ? '' : `<template id="callback-tpl">${leadForm({ heading: 'Get a free call back' })}</template>`}
 <script>window.CALC={worker:${JSON.stringify(cfg.workerUrl)}};window.LOGOS=${JSON.stringify(logoMap)};${extraScript}</script>
 <script src="${href('/app.js')}" defer></script>
 </body>

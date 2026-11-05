@@ -660,7 +660,9 @@
     box.addEventListener('input', run);
   });
 
-  document.querySelectorAll('form[data-lead]').forEach(function (form) {
+  function initLead(form) {
+    if (form._lead) return;
+    form._lead = true;
     var msg = $('.msg', form);
     form.addEventListener('submit', function (ev) {
       ev.preventDefault();
@@ -690,5 +692,51 @@
         .then(function () { form.reset(); msg.textContent = 'Thank you. We will contact you soon.'; })
         .catch(function () { msg.textContent = 'Sorry, something went wrong. Please try again later.'; });
     });
+  }
+  document.querySelectorAll('form[data-lead]').forEach(initLead);
+
+  // "Free call back" opens the form in a popup. The form stays in the page's HTML where it was (search engines
+  // see the same page); while the popup is open it is moved into the dialog, and put back when it closes.
+  // Pages without a form clone an inert <template> copy. Without dialog support the link simply scrolls.
+  var dlg, holder;
+  function openCallback() {
+    if (!window.HTMLDialogElement) return false;
+    var form = document.getElementById('callback');
+    if (!form) {
+      var tpl = document.getElementById('callback-tpl');
+      if (!tpl) return false;
+      form = tpl.content.cloneNode(true).querySelector('form');
+      initLead(form);
+    }
+    if (!dlg) {
+      dlg = document.createElement('dialog');
+      dlg.className = 'cb-dialog';
+      dlg.setAttribute('aria-label', 'Request a free call back');
+      dlg.innerHTML = '<button type="button" class="cb-close" aria-label="Close">&times;</button>';
+      document.body.appendChild(dlg);
+      dlg.addEventListener('click', function (e) { if (e.target === dlg || e.target.closest('.cb-close')) dlg.close(); });
+      dlg.addEventListener('close', function () {
+        var f = dlg.querySelector('form');
+        if (f && holder) { holder.parentNode.replaceChild(f, holder); holder = null; }
+      });
+    }
+    if (form.parentNode && form.parentNode !== dlg) {
+      holder = document.createElement('span');
+      holder.hidden = true;
+      form.parentNode.insertBefore(holder, form);
+    }
+    dlg.appendChild(form);
+    hints(form);
+    dlg.showModal();
+    var first = form.querySelector('input[name=name]');
+    if (first) first.focus();
+    return true;
+  }
+  document.addEventListener('click', function (ev) {
+    var a = ev.target.closest && ev.target.closest('a[href$="#callback"]');
+    if (a && openCallback()) ev.preventDefault();
   });
+  if (location.hash === '#callback' && openCallback()) {
+    try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {}
+  }
 })();
