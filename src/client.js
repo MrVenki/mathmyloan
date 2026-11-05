@@ -3,7 +3,9 @@
 (function () {
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var inr = function (n) { return '₹' + Math.round(n).toLocaleString('en-IN'); };
-  var num = function (el) { return Math.max(0, parseFloat(el && el.value) || 0); };
+  // Amounts may carry Indian digit grouping (5,00,000); read them without the commas.
+  var num = function (el) { return Math.max(0, parseFloat(String(el && el.value != null ? el.value : '').replace(/,/g, '')) || 0); };
+  var grp = function (n) { return Math.round(n).toLocaleString('en-IN'); };
   var hue = function (s) { var h = 7; for (var i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) % 360; return h; };
   var initials = function (s) { return s.split(/\s+/).slice(0, 2).map(function (w) { return w[0]; }).join('').toUpperCase(); };
   var LOGOS = window.LOGOS || {};
@@ -75,13 +77,26 @@
   // ---- plain-language hints under money fields ("₹50,00,000 = 50 lakh") ----
   function hints(root) {
     root.querySelectorAll('input[data-words]').forEach(function (inp) {
-      var h = inp.nextElementSibling;
+      var slot = inp.closest('.fld'), h = slot ? $('.hint', slot) : inp.nextElementSibling;
       if (!h || !h.classList.contains('hint')) { h = document.createElement('small'); h.className = 'hint'; inp.parentNode.insertBefore(h, inp.nextSibling); }
       var n = num(inp), w = words(n);
       h.textContent = n && w ? inr(n) + ' = ' + w : '';
     });
   }
-  document.addEventListener('input', function (ev) { if (ev.target.matches && ev.target.matches('input[data-words]')) hints(ev.target.parentNode.parentNode); });
+  document.addEventListener('input', function (ev) { if (ev.target.matches && ev.target.matches('input[data-words]')) hints(ev.target.closest('.fld, .row, form, .card') || document); });
+  // Regroup money boxes as the user types (5,00,000), keeping the caret after the same digit. Runs before the calculators read the value.
+  document.addEventListener('input', function (ev) {
+    var el = ev.target;
+    if (!el.matches || !el.matches('input[data-money]')) return;
+    var raw = el.value, caret = el.selectionStart == null ? raw.length : el.selectionStart;
+    var before = raw.slice(0, caret).replace(/[^0-9]/g, '').length, digits = raw.replace(/[^0-9]/g, '').replace(/^0+(?=\d)/, '');
+    var out = digits ? grp(+digits) : '';
+    if (out === raw) return;
+    el.value = out;
+    var pos = 0, seen = 0;
+    while (pos < out.length && seen < before) { if (/\d/.test(out[pos])) seen++; pos++; }
+    try { el.setSelectionRange(pos, pos); } catch (e) {}
+  }, true);
   hints(document);
 
   // ---- ranked bank list with cost bars and a one-line verdict ----
@@ -490,8 +505,8 @@
     // Number box and slider stay in step.
     [].forEach.call(box.querySelectorAll('input[type=range][data-for]'), function (rg) {
       var box2 = document.getElementById(rg.getAttribute('data-for'));
-      rg.addEventListener('input', function () { box2.value = rg.value; run(); });
-      box2.addEventListener('input', function () { if (+box2.value > 0) rg.value = box2.value; });
+      rg.addEventListener('input', function () { box2.value = box2.hasAttribute('data-money') ? grp(+rg.value) : rg.value; hints(box2.closest('.fld')); run(); });
+      box2.addEventListener('input', function () { if (num(box2) > 0) rg.value = num(box2); });
     });
     box.addEventListener('input', run);
     box.addEventListener('change', function (ev) {
@@ -651,7 +666,7 @@
         name: (f.get('name') || '').trim(),
         phone: (f.get('phone') || '').replace(/[\s-]/g, '').replace(/^\+?91/, ''),
         city: (f.get('city') || '').trim(),
-        amount: parseFloat(f.get('amount')) || 0,
+        amount: parseFloat(String(f.get('amount') || '').replace(/,/g, '')) || 0,
         consent: f.get('consent') === 'on',
         website: f.get('website') || '',
         loan: form.getAttribute('data-loan') || '',

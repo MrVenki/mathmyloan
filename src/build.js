@@ -167,9 +167,11 @@ ${footer()}
 
 let fieldId = 0;
 const MONEY = new Set(['amount', 'extraM', 'extraY', 'lump', 'income', 'existing', 'outstanding', 'fees']);
+// Money amounts show Indian digit grouping (5,00,000), so they are text boxes with a numeric keypad; app.js reads them without commas.
+const money = (v) => (v === '' || v == null ? '' : Math.round(Number(v)).toLocaleString('en-IN'));
 const field = (label, name, value, step = 'any') => {
   const id = `${name}-${++fieldId}`;
-  return `<div><label for="${id}">${label}</label><input type="number" inputmode="decimal" id="${id}" name="${name}" value="${value}" step="${step}" min="0"${MONEY.has(name) ? ' data-words' : ''}></div>`;
+  return `<div><label for="${id}">${label}</label>${MONEY.has(name) ? `<input type="text" inputmode="numeric" autocomplete="off" id="${id}" name="${name}" value="${money(value)}" data-money data-words>` : `<input type="number" inputmode="decimal" id="${id}" name="${name}" value="${value}" step="${step}" min="0">`}</div>`;
 };
 
 const calcWidget = (P, r, y, { open = false, extraM = 0, extraY = 0, lump = 0, lumpAt = 12, view = '', sched = '' } = {}) => `<div class="card" data-calc="emi"${view ? ` data-view-default="${view}"` : ''}${sched ? ` data-sched="${sched}"` : ''}>
@@ -398,7 +400,7 @@ function planner(loan, list, P, y) {
 <div class="lp" role="group" aria-label="Your loan details">
 <div class="sec"><p class="sec-h"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg>Your loan</p><div class="bd">
 <div class="fld"><label for="pl-type">Loan type</label><select id="pl-type" data-nav>${types.map((l) => `<option value="${href(`/${l.slug}/`)}"${l.slug === loan.slug ? ' selected' : ''}>${esc(l.name)}</option>`).join('')}</select></div>
-<div class="fld"><div class="tp"><label for="pl-amt">Amount (₹)</label><input type="number" id="pl-amt" name="amount" min="${R.min}" max="${R.max * 5}" step="${R.step}" value="${P}"></div><input type="range" data-for="pl-amt" min="${R.min}" max="${R.max}" step="${R.step}" value="${P}" aria-label="Amount"><div class="rg"><span>${lakhShort(R.min)}</span><span>${lakhShort(R.max)}</span></div></div>
+<div class="fld"><div class="tp"><label for="pl-amt">Amount (₹)</label><input type="text" inputmode="numeric" autocomplete="off" id="pl-amt" name="amount" value="${money(P)}" data-money data-words></div><small class="hint"></small><input type="range" data-for="pl-amt" min="${R.min}" max="${R.max}" step="${R.step}" value="${P}" aria-label="Amount"><div class="rg"><span>${lakhShort(R.min)}</span><span>${lakhShort(R.max)}</span></div></div>
 <div class="fld"><div class="tp"><label for="pl-yrs">Tenure (years)</label><input type="number" id="pl-yrs" name="years" min="1" max="${R.ymax}" step="1" value="${y}"></div><input type="range" data-for="pl-yrs" min="1" max="${R.ymax}" step="1" value="${y}" aria-label="Tenure"><div class="rg"><span>1 yr</span><span>${R.ymax} yrs</span></div></div>
 </div></div>
 <div class="sec"><p class="sec-h"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 8h.01M16 16h.01"/></svg>Interest rate</p><div class="bd" role="radiogroup" aria-label="Which rate to use">
@@ -408,7 +410,7 @@ function planner(loan, list, P, y) {
 </div></div>
 <div class="sec"><p class="sec-h"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Prepayment</p><div class="bd">
 <label class="pl-sw"><span>Pay extra every month</span><input type="checkbox" name="pl-pp"></label>
-<div class="fld" data-ppbox hidden><div class="tp"><label for="pl-extra">Extra per month (₹)</label><input type="number" id="pl-extra" name="pl-extra" min="0" step="500" value="${extra}"></div></div>
+<div class="fld" data-ppbox hidden><div class="tp"><label for="pl-extra">Extra per month (₹)</label><input type="text" inputmode="numeric" autocomplete="off" id="pl-extra" name="pl-extra" value="${money(extra)}" data-money data-words></div><small class="hint"></small></div>
 <p class="pl-hint">Figures use each bank's advertised starting rate, a best case. Your rate depends on your credit score, income and loan size.</p>
 </div></div>
 </div>

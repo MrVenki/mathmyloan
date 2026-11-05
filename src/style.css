@@ -390,7 +390,7 @@ details.trust-box[open] > summary{margin-bottom:8px}
 .fld{display:grid;gap:5px}
 .fld label{font-size:.84rem;font-weight:600;color:#2d3748}
 .fld .tp{display:flex;justify-content:space-between;align-items:center;gap:8px}
-.dc .fld .tp input[type=number]{width:132px;min-height:38px;text-align:right;font-weight:700;color:var(--accent);padding:6px 9px}
+.dc .fld .tp input[type=number],.dc .fld .tp input[data-money]{width:132px;min-height:38px;text-align:right;font-weight:700;color:var(--accent);padding:6px 9px}
 .dc select{min-height:40px;padding:7px 9px}
 .dc input[type=range]{margin:2px 0 0}
 .rg{display:flex;justify-content:space-between;font-size:.72rem;color:#64748b}
