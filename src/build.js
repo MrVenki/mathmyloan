@@ -253,6 +253,8 @@ const ICONS = {
   'home-loan-overdraft': '<path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M9 15h6M12 12v6"/>',
   'loan-against-securities': '<path d="M4 19V5"/><path d="M4 19h16"/><path d="M7 15l4-4 3 3 5-6"/>',
   'loan-against-fd': '<rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M7 9h.01M17 15h.01"/>',
+  'plot-loan': '<path d="M3 20l4-12h10l4 12z"/><path d="M12 8v12M5 14h14"/>',
+  'top-up-home-loan': '<path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M12 18v-6M9 15l3-3 3 3"/>',
 };
 const icon = (slug) => `<svg viewBox="0 0 24 24" aria-hidden="true">${ICONS[slug] ?? ''}</svg>`;
 const hueOf = (s) => [...s].reduce((a, c) => (a * 31 + c.charCodeAt(0)) % 360, 7);
@@ -285,6 +287,8 @@ const PLAN_RANGE = {
   'used-car-loan': { min: 100000, max: 3000000, step: 10000, ymax: 7 },
   'home-loan-overdraft': { min: 500000, max: 30000000, step: 100000, ymax: 30 },
   'loan-against-securities': { min: 50000, max: 10000000, step: 10000, ymax: 3 },
+  'plot-loan': { min: 200000, max: 30000000, step: 50000, ymax: 15 },
+  'top-up-home-loan': { min: 100000, max: 10000000, step: 50000, ymax: 15 },
 };
 
 // Guide text for each loan type: practical steps, and what sets the rate. Kept factual and general;
@@ -379,6 +383,24 @@ const GUIDES = {
       ['Compare the fee as well as the rate.', 'ICICI Bank, for example, charges up to 2% of the sanctioned amount.'],
     ],
     decides: 'The rate depends on the type of security pledged, the loan size and the bank’s benchmark. Your investments stay invested, so you keep any returns while you borrow.',
+  },
+  'plot-loan': {
+    tips: [
+      ['Check the construction condition.', 'Many plot loans expect you to build within a set time; Canara Bank, for example, ties repayment to the construction period the allotment agency allows.'],
+      ['Plan for a bigger down payment.', 'Banks lend up to about 75% to 80% of the plot’s cost, and HDFC Bank may limit this to 70% for plots outside city limits.'],
+      ['Consider a plot plus construction loan.', 'Federal Bank prices a combined plot and construction loan at its home loan rate, below most standalone plot loans.'],
+      ['Buy only plots with clear approvals.', 'Banks fund plots in approved layouts with a clear title, so check the approvals before paying a deposit.'],
+    ],
+    decides: 'Plot loans usually cost more than home loans because land on its own is riskier security. The rate depends on your credit score and income, where the plot is and its approvals, and how much of its value you borrow.',
+  },
+  'top-up-home-loan': {
+    tips: [
+      ['Ask your current lender first.', 'Top-ups are offered to existing home loan customers after a period of on-time repayment; HDFC Bank asks for 12 months after the final disbursement.'],
+      ['Check the margin over your home loan rate.', 'Union Bank of India adds 0.75% and Bank of Maharashtra adds 0.50% to the home loan rate.'],
+      ['Compare with a personal loan.', 'A top-up is usually far cheaper than a personal loan, but it runs for many years, so total interest can still be high.'],
+      ['Consider moving the loan with the top-up.', 'If another bank’s home loan rate is lower, a balance transfer with a top-up can cut the cost of both.'],
+    ],
+    decides: 'Top-up rates are linked to your existing home loan, usually with a margin of about 0.25% to 0.75% added. Your repayment record, credit score, income and the property’s current value decide how much you can get.',
   },
 };
 

@@ -1046,5 +1046,117 @@
     "sourceUrl": "https://www.federal.bank.in/retail-loans-interest-rates",
     "retrievedOn": "2026-11-05",
     "conditions": "Term loan against own securities; loan against demat shares 12.50%"
+  },
+  {
+    "bank": "federal-bank",
+    "loan": "plot-loan",
+    "rateFrom": 7.5,
+    "fee": null,
+    "prepayment": null,
+    "maxTenureYears": null,
+    "sourceUrl": "https://www.federal.bank.in/retail-loans-interest-rates",
+    "retrievedOn": "2026-11-06",
+    "conditions": "Home loan for plot purchase plus construction, 7.50% to 9.25%; 1% higher below ₹35 lakh"
+  },
+  {
+    "bank": "hdfc-bank",
+    "loan": "plot-loan",
+    "rateFrom": 8.0,
+    "fee": null,
+    "prepayment": null,
+    "maxTenureYears": null,
+    "sourceUrl": "https://homeloans.hdfc.bank.in/housing-loans/plot-loans",
+    "retrievedOn": "2026-11-06",
+    "conditions": "Policy repo rate + 2.50% to 7.95% (8% to 13.45%); up to 80% of the plot cost, 70% outside city limits"
+  },
+  {
+    "bank": "indian-bank",
+    "loan": "plot-loan",
+    "rateFrom": 8.4,
+    "fee": null,
+    "prepayment": null,
+    "maxTenureYears": null,
+    "sourceUrl": "https://indianbank.bank.in/en/interest-rates-on-personal-segment-loan-products",
+    "retrievedOn": "2026-11-06",
+    "conditions": "Plot Loan, 8.40% to 9.80%"
+  },
+  {
+    "bank": "canara-bank",
+    "loan": "plot-loan",
+    "rateFrom": 9.3,
+    "fee": null,
+    "prepayment": null,
+    "maxTenureYears": null,
+    "sourceUrl": "https://www.canarabank.bank.in/pages/rates-of-interest-for-retail-lending-schemes-linked-to-rllr",
+    "retrievedOn": "2026-11-06",
+    "effectiveFrom": "2026-10-09",
+    "conditions": "Canara Site, best credit grade; up to 75% of the site cost, repaid within 10 years or the construction period allowed"
+  },
+  {
+    "bank": "bank-of-maharashtra",
+    "loan": "top-up-home-loan",
+    "rateFrom": 7.75,
+    "fee": null,
+    "prepayment": null,
+    "maxTenureYears": null,
+    "sourceUrl": "https://bankofmaharashtra.bank.in/retail-interest-rates",
+    "retrievedOn": "2026-11-06",
+    "conditions": "Top-up for existing home loan borrowers: 0.50% above the Maha Super Housing rate of 7.25%, CIBIL score 800 or more"
+  },
+  {
+    "bank": "union-bank-of-india",
+    "loan": "top-up-home-loan",
+    "rateFrom": 8.15,
+    "fee": null,
+    "prepayment": null,
+    "maxTenureYears": null,
+    "sourceUrl": "https://www.unionbankofindia.bank.in/pdf/retail_roi.pdf",
+    "retrievedOn": "2026-11-06",
+    "effectiveFrom": "2026-10-08",
+    "conditions": "Union Mortgage Plus (top-up): 0.75% above your Union Home loan rate, which starts at 7.40%"
+  },
+  {
+    "bank": "central-bank-of-india",
+    "loan": "top-up-home-loan",
+    "rateFrom": 8.2,
+    "fee": null,
+    "prepayment": null,
+    "maxTenureYears": null,
+    "sourceUrl": "https://centralbank.bank.in/en/retail-scheme-interest",
+    "retrievedOn": "2026-11-06",
+    "conditions": "Cent Top Up, 8.20% to 9.55% by CIC score"
+  },
+  {
+    "bank": "hdfc-bank",
+    "loan": "top-up-home-loan",
+    "rateFrom": 8.25,
+    "fee": null,
+    "prepayment": null,
+    "maxTenureYears": null,
+    "sourceUrl": "https://homeloans.hdfc.bank.in/housing-loans/top-up-loans",
+    "retrievedOn": "2026-11-06",
+    "conditions": "Balance transfer with top-up: policy repo rate + 2.75% (8.25% to 13.95%); existing customers can apply 12 months after the final disbursement"
+  },
+  {
+    "bank": "hdfc-bank",
+    "loan": "loan-against-securities",
+    "rateFrom": 10.75,
+    "fee": null,
+    "prepayment": null,
+    "maxTenureYears": null,
+    "sourceUrl": "https://www.hdfc.bank.in/loan-against-securities",
+    "retrievedOn": "2026-11-06",
+    "conditions": "Advertised starting rate; up to 50% of the value of equity mutual funds"
+  },
+  {
+    "bank": "kotak-mahindra-bank",
+    "loan": "loan-against-securities",
+    "rateFrom": 10.5,
+    "fee": "Up to 2% of the sanctioned limit (₹1,499 for digital loans)",
+    "prepayment": null,
+    "maxTenureYears": null,
+    "sourceUrl": "https://www.kotak.bank.in/en/rates.html",
+    "retrievedOn": "2026-11-06",
+    "conditions": "10.50% to 12.00%; an overdraft where interest is charged on the amount used"
   }
 ]
