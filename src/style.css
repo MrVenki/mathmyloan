@@ -502,3 +502,26 @@ dialog.cb-dialog .row.row4{grid-template-columns:repeat(2,minmax(0,1fr))}
 .fd-calc td .bk{display:flex;gap:10px;align-items:center}
 .fd-calc .cond{display:block;font-size:.76rem;color:var(--muted)}
 .fd-calc .badge{margin-left:6px}
+
+/* ---- loan icons: one colour per loan type ---- */
+svg.li{width:18px;height:18px;flex:none;fill:none;stroke:var(--c);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vertical-align:-3px;margin-right:7px}
+header.top #main-nav > a svg.li,footer.site svg.li{stroke:var(--cd)}
+#main-nav > a{display:inline-flex;align-items:center}
+.nav-menu a{display:flex;align-items:center}
+@media (max-width:1180px){#main-nav .nav-menu svg.li{stroke:var(--cd)}}
+footer.site li a{display:inline-flex;align-items:center}
+footer.site svg.li{width:15px;height:15px;margin-right:6px}
+.ltile{display:inline-grid;place-items:center;width:46px;height:46px;border-radius:12px;background:var(--t);color:var(--c);flex:none}
+.ltile svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ltile.big{width:52px;height:52px;border-radius:14px}
+.ltile.big svg{width:26px;height:26px}
+.ltile.sm{width:30px;height:30px;border-radius:9px;margin-right:9px;vertical-align:middle}
+.ltile.sm svg{width:17px;height:17px}
+.rcard .k{display:flex;align-items:center}
+.h1row{display:flex;align-items:center;gap:14px;margin-bottom:6px}
+.h1row h1{margin:0}
+@media (max-width:640px){.h1row{align-items:flex-start}.ltile.big{width:42px;height:42px;margin-top:4px}.ltile.big svg{width:21px;height:21px}}
+.tabs button svg.li{width:16px;height:16px;margin-right:6px}
+/* Planner loan-type dropdown: the current loan's icon on the left, chevron on the right. */
+select.has-icon{background-image:var(--icon),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5' fill='none' stroke='%23112551' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-position:11px center,right 12px center;background-size:19px 19px,12px 8px;background-repeat:no-repeat;padding-left:40px!important}
+.lcard span.ltile{display:grid;color:var(--c);font-size:inherit}

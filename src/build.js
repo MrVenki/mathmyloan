@@ -95,16 +95,16 @@ const metaLine = (updated) =>
 function navLinks() {
   const core = loans.filter((l) => l.core && l.slug !== 'loan-against-property');
   const more = loans.filter((l) => !core.includes(l));
-  return `${core.map((l) => `<a href="${href(`/${l.slug}/`)}">${esc(l.name)}</a>`).join('')}<details class="nav-more"><summary>More loans</summary><div class="nav-menu">${more.map((l) => `<a href="${href(`/${l.slug}/`)}">${esc(l.name)}</a>`).join('')}<a href="${href(FD_URL)}">Loan Against FD</a></div></details>`;
+  return `${core.map((l) => `<a href="${href(`/${l.slug}/`)}">${loanIcon(l.slug)}${esc(l.name)}</a>`).join('')}<details class="nav-more"><summary>More loans</summary><div class="nav-menu">${more.map((l) => `<a href="${href(`/${l.slug}/`)}">${loanIcon(l.slug)}${esc(l.name)}</a>`).join('')}<a href="${href(FD_URL)}">${loanIcon('loan-against-fd')}Loan Against FD</a></div></details>`;
 }
 
 function footer() {
-  const col = (title, links) => `<div><p class="fh">${esc(title)}</p><ul>${links.map(([u, t]) => `<li><a href="${href(u)}">${esc(t)}</a></li>`).join('')}</ul></div>`;
+  const col = (title, links) => `<div><p class="fh">${esc(title)}</p><ul>${links.map(([u, t, ic]) => `<li><a href="${href(u)}">${ic ? loanIcon(ic) : ''}${esc(t)}</a></li>`).join('')}</ul></div>`;
   return `<footer class="site"><div class="wrap">
 <div class="fgrid">
 <div class="fbrand">${brandLink()}
 <p>Compare loan interest rates from Indian banks, each checked on the bank's own website and dated.</p></div>
-${col('Loan rates', [...loans.map((l) => [`/${l.slug}/`, `${l.name} rates`]), [FD_URL, 'Loan Against FD rates'], ['/loan-interest-rates/', 'All bank loan rates']])}
+${col('Loan rates', [...loans.map((l) => [`/${l.slug}/`, `${l.name} rates`, l.slug]), [FD_URL, 'Loan Against FD rates', 'loan-against-fd'], ['/loan-interest-rates/', 'All bank loan rates']])}
 ${col('Calculators', [...TOOLS.map((t) => [t.url, t.name.replace(/^Home loan /, '').replace(/^./, (c) => c.toUpperCase())]), ['/calculators/', 'All calculators']])}
 ${col('Company', [['/about/', 'About and how we check rates'], ['/embed/', 'Free calculator for your website'], ['/privacy/', 'Privacy policy']])}
 </div>
@@ -247,15 +247,37 @@ const ICONS = {
   'car-loan': '<path d="M3 13l2-6h14l2 6"/><rect x="3" y="13" width="18" height="5" rx="1"/><circle cx="7.5" cy="18" r="1.5"/><circle cx="16.5" cy="18" r="1.5"/>',
   'education-loan': '<path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c3 2 9 2 12 0v-5"/>',
   'loan-against-property': '<rect x="4" y="3" width="10" height="18"/><path d="M14 9h6v12h-6"/><path d="M8 7h2M8 11h2M8 15h2"/>',
-  'gold-loan': '<path d="M4 18h16l-2-6H6z"/><path d="M8 12l1.5-4h5L16 12"/>',
+  'gold-loan': '<path d="M3 19h8l-1.6-5H4.6zM13 19h8l-1.6-5h-4.8zM8 14h8l-1.6-5H9.6z"/>',
   'two-wheeler-loan': '<circle cx="6" cy="16" r="3"/><circle cx="18" cy="16" r="3"/><path d="M6 16l4-6h4l4 6M14 10l-1-3h-2"/>',
   'used-car-loan': '<path d="M3 13l2-6h14l2 6"/><rect x="3" y="13" width="18" height="5" rx="1"/><circle cx="7.5" cy="18" r="1.5"/><circle cx="16.5" cy="18" r="1.5"/><path d="M10 4h4"/>',
   'home-loan-overdraft': '<path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M9 15h6M12 12v6"/>',
   'loan-against-securities': '<path d="M4 19V5"/><path d="M4 19h16"/><path d="M7 15l4-4 3 3 5-6"/>',
-  'loan-against-fd': '<rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M7 9h.01M17 15h.01"/>',
-  'plot-loan': '<path d="M3 20l4-12h10l4 12z"/><path d="M12 8v12M5 14h14"/>',
+  'loan-against-fd': '<rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="14" cy="12" r="3"/><path d="M14 10.5V12l1 1M6 9v6"/>',
+  'plot-loan': '<path d="M2 20h20"/><path d="M5 20l3-6h8l3 6"/><path d="M12 14V4l5 2.5L12 9"/>',
   'top-up-home-loan': '<path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M12 18v-6M9 15l3-3 3 3"/>',
 };
+const LOAN_COLORS = {
+  'home-loan': ['#2563eb', '#e4ecfe', '#8fb3ff'],
+  'personal-loan': ['#7c3aed', '#efe8ff', '#c5a8ff'],
+  'car-loan': ['#0d9488', '#dcf4f1', '#6fe0d3'],
+  'education-loan': ['#ea580c', '#ffeadc', '#ffb07a'],
+  'loan-against-property': ['#dc2626', '#fde5e5', '#fca5a5'],
+  'gold-loan': ['#ca8a04', '#fdf3d0', '#fcd34d'],
+  'two-wheeler-loan': ['#16a34a', '#e1f6e7', '#86efac'],
+  'used-car-loan': ['#0891b2', '#daf2f8', '#67d6ef'],
+  'home-loan-overdraft': ['#4f46e5', '#e7e6fd', '#a5b4fc'],
+  'loan-against-securities': ['#c026d3', '#f8e3fb', '#f0abfc'],
+  'loan-against-fd': ['#65a30d', '#ecf7da', '#bef264'],
+  'plot-loan': ['#92400e', '#f8eadb', '#f4b67a'],
+  'top-up-home-loan': ['#0284c7', '#dff0fb', '#7dd3fc'],
+};
+const loanColors = (slug) => LOAN_COLORS[slug] ?? ['#112551', '#eef1f7', '#c8d0e0'];
+// A loan's own icon in its colour (on navy bars it switches to the lighter shade through CSS).
+const loanIcon = (slug) => { const [c, , d] = loanColors(slug); return `<svg class="li" viewBox="0 0 24 24" aria-hidden="true" style="--c:${c};--cd:${d}">${ICONS[slug] ?? ''}</svg>`; };
+// The same icon on a tinted tile, for headings and cards.
+const loanTile = (slug, cls = '') => { const [c, t] = loanColors(slug); return `<span class="ltile${cls ? ` ${cls}` : ''}" style="--c:${c};--t:${t}">${icon(slug)}</span>`; };
+// The icon as a CSS background, for the planner's loan-type dropdown.
+const loanIconUrl = (slug) => `url(data:image/svg+xml,${encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='${loanColors(slug)[0]}' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>${(ICONS[slug] ?? '').replace(/"/g, "'")}</svg>`).replace(/['()]/g, (ch) => `%${ch.charCodeAt(0).toString(16)}`)})`;
 const icon = (slug) => `<svg viewBox="0 0 24 24" aria-hidden="true">${ICONS[slug] ?? ''}</svg>`;
 const hueOf = (s) => [...s].reduce((a, c) => (a * 31 + c.charCodeAt(0)) % 360, 7);
 const initialsOf = (s) => s.split(/\s+/).slice(0, 2).map((w) => w[0]).join('').toUpperCase();
@@ -442,7 +464,7 @@ function loanHub(loan) {
     updated: latest,
     extraScript: `window.PLANNER=${JSON.stringify({ name: loan.name, slug: loan.slug, own: loan.defaultRate, banks: list.map((p) => ({ name: p.bankInfo.name, short: p.bankInfo.short, rate: p.rateFrom })) }).replace(/</g, '\\u003c')};`,
     body: `<div class="phead"><div class="phead-t">
-<h1>${esc(loan.name)} Interest Rates ${esc(month)}: Compare ${list.length} Banks</h1>
+<div class="h1row">${loanTile(loan.slug, 'big')}<h1>${esc(loan.name)} Interest Rates ${esc(month)}: Compare ${list.length} Banks</h1></div>
 <p class="meta-line"><span>Updated ${esc(fmtDate(latest))}</span><span>By MathMyLoan research team</span><span>Rates from ${list.length} official bank websites</span><a href="${href('/about/')}">How we check rates</a></p>
 </div><div class="phead-dl"><button type="button" class="dl-report" data-pdf data-pdf-target="[data-planner]"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 19h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Download report</button><span class="small pdf-note" aria-live="polite"></span></div></div>
 ${planner(loan, list, P, y)}
@@ -488,7 +510,7 @@ function planner(loan, list, P, y) {
   return `<div class="dc" data-planner data-min="${R.min}" data-max="${R.max}">
 <div class="lp" role="group" aria-label="Your loan details">
 <div class="sec"><p class="sec-h"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg>Your loan</p><div class="bd">
-<div class="fld"><label for="pl-type">Loan type</label><select id="pl-type" data-nav>${types.map((l) => `<option value="${href(`/${l.slug}/`)}"${l.slug === loan.slug ? ' selected' : ''}>${esc(l.name)}</option>`).join('')}</select></div>
+<div class="fld"><label for="pl-type">Loan type</label><select id="pl-type" data-nav class="has-icon" style='--icon:${loanIconUrl(loan.slug)}'>${types.map((l) => `<option value="${href(`/${l.slug}/`)}"${l.slug === loan.slug ? ' selected' : ''}>${esc(l.name)}</option>`).join('')}</select></div>
 <div class="fld"><div class="tp"><label for="pl-amt">Amount (₹)</label><input type="text" inputmode="numeric" autocomplete="off" id="pl-amt" name="amount" value="${money(P)}" data-money></div><input type="range" data-for="pl-amt" min="${R.min}" max="${R.max}" step="${R.step}" value="${P}" aria-label="Amount"><div class="rg"><span class="rg-val" data-words-for="pl-amt">${lakhShort(P).replace('₹', '')}</span></div></div>
 <div class="fld"><div class="tp"><label for="pl-yrs">Tenure (years)</label><input type="number" id="pl-yrs" name="years" min="1" max="${R.ymax}" step="1" value="${y}"></div><input type="range" data-for="pl-yrs" min="1" max="${R.ymax}" step="1" value="${y}" aria-label="Tenure"><div class="rg"><span>1 yr</span><span>${R.ymax} yrs</span></div></div>
 </div></div>
@@ -540,7 +562,7 @@ function loanTools(loan) {
     t.push(['/flat-vs-reducing-interest-rate-calculator/', 'Flat vs reducing rate', 'The real rate behind a flat-rate quote.', 'car-loan']);
   }
   t.push(['/calculators/', 'All calculators', 'Every loan calculator in one place.', 'education-loan']);
-  return `<h2>Work it out</h2><div class="grid tools">${t.map(([u, n, d, ic]) => `<a class="lcard" href="${href(u)}"><span class="ico">${icon(ic)}</span><span><b>${esc(n)}</b><span>${esc(d)}</span></span></a>`).join('')}</div>`;
+  return `<h2>Work it out</h2><div class="grid tools">${t.map(([u, n, d, ic], k) => `<a class="lcard" href="${href(u)}">${k === 0 ? loanTile(ic) : `<span class="ico">${icon(ic)}</span>`}<span><b>${esc(n)}</b><span>${esc(d)}</span></span></a>`).join('')}</div>`;
 }
 
 function pairs(list) {
@@ -843,7 +865,7 @@ ${spread ? `<div><b>${esc(lakhShort(spread))}</b><span>Cheapest vs costliest ban
 </div>
 <div class="card" data-quick>
 <div class="tabs" role="tablist" aria-label="Loan type">${coreVerified
-      .map((l, i) => `<button type="button" role="tab" data-loan="${l.slug}" aria-selected="${i === 0}">${esc(l.name.replace(/ Loan$/, ''))}</button>`)
+      .map((l, i) => `<button type="button" role="tab" data-loan="${l.slug}" aria-selected="${i === 0}">${loanIcon(l.slug)}${esc(l.name.replace(/ Loan$/, ''))}</button>`)
       .join('')}</div>
 <div class="amt"><label for="q-amount">Loan amount</label><output for="q-amount">${inr(P)} <small>${lakhLabel(P / 100000).replace('₹', '')}</small></output></div>
 <input type="range" id="q-amount" name="amount" min="${fr.min}" max="${fr.max}" step="50000" value="${P}">
@@ -864,7 +886,7 @@ ${spread ? `<div><b>${esc(lakhShort(spread))}</b><span>Cheapest vs costliest ban
 ${verified
   .map((l) => {
     const list = forLoan(l);
-    return `<a class="rcard" href="${href(`/${l.slug}/`)}"><span class="k">${esc(l.name)}</span><span class="v">${list[0].rateFrom.toFixed(2)}%</span><span class="s">${esc(list[0].bankInfo.short)} · ${list.length} bank${list.length > 1 ? 's' : ''} compared</span><span class="go">Compare ${esc(l.name.toLowerCase())} rates</span></a>`;
+    return `<a class="rcard" href="${href(`/${l.slug}/`)}"><span class="k">${loanTile(l.slug, 'sm')}${esc(l.name)}</span><span class="v">${list[0].rateFrom.toFixed(2)}%</span><span class="s">${esc(list[0].bankInfo.short)} · ${list.length} bank${list.length > 1 ? 's' : ''} compared</span><span class="go">Compare ${esc(l.name.toLowerCase())} rates</span></a>`;
   })
   .join('\n')}
 ${upcoming.map((l) => `<a class="rcard" href="${href(`/${l.slug}-emi-calculator/`)}"><span class="k">${esc(l.name)}</span><span class="v" style="font-size:1.4rem;padding:8px 0">Rates coming soon</span><span class="s">Use the EMI calculator meanwhile</span><span class="go">${esc(l.name)} EMI calculator</span></a>`).join('\n')}
@@ -1141,7 +1163,7 @@ function calculatorsPage() {
     body: `<h1>Loan calculators</h1>
 <p class="lead">Free, no sign-up. Every calculator runs in your browser.</p>
 <div class="grid">${TOOLS.map((t) => `<a class="lcard" href="${href(t.url)}"><span class="ico">${icon(t.icon)}</span><span><b>${esc(t.name)}</b><span>${esc(t.desc)}</span></span></a>`).join('\n')}
-${loans.filter((l) => l.slug !== 'home-loan').map((l) => `<a class="lcard" href="${href(`/${l.slug}-emi-calculator/`)}"><span class="ico">${icon(l.slug)}</span><span><b>${esc(l.name)} EMI calculator</b><span>Monthly EMI, interest and repayment schedule.</span></span></a>`).join('\n')}</div>
+${loans.filter((l) => l.slug !== 'home-loan').map((l) => `<a class="lcard" href="${href(`/${l.slug}-emi-calculator/`)}">${loanTile(l.slug)}<span><b>${esc(l.name)} EMI calculator</b><span>Monthly EMI, interest and repayment schedule.</span></span></a>`).join('\n')}</div>
 <p>Want one of these on your own website? <a href="${href('/embed/')}">Embed our EMI calculator for free</a>.</p>`,
   });
 }
@@ -1628,7 +1650,7 @@ function fdPage() {
     updated: latest,
     extraScript: `window.FDLOANS=${JSON.stringify(list.map((b) => ({ name: b.bankInfo.short, m: b.margin })))};`,
     body: `<div class="phead"><div class="phead-t">
-<h1>Loan Against FD Interest Rates ${esc(month)}: Compare ${list.length} Banks</h1>
+<div class="h1row">${loanTile('loan-against-fd', 'big')}<h1>Loan Against FD Interest Rates ${esc(month)}: Compare ${list.length} Banks</h1></div>
 <p class="meta-line"><span>Updated ${esc(fmtDate(latest))}</span><span>By MathMyLoan research team</span><span>Rates from ${list.length} official bank websites</span><a href="${href('/about/')}">How we check rates</a></p>
 </div></div>
 <div class="answer"><p class="k">Quick answer</p><p>A loan or overdraft against your own fixed deposit costs <b>your FD rate plus ${lowM}% to ${highM}%</b>. On a ${fdRate}% FD that is ${fdRate + lowM}% to ${fdRate + highM}% a year, usually well below a personal loan, and your deposit keeps earning interest.</p></div>
