@@ -1,13 +1,13 @@
 {
-  "updatedAt": "2026-11-09T17:44:42.270Z",
+  "updatedAt": "2026-11-09T17:45:46.356Z",
   "lastEmailDigest": null,
   "summary": {
     "suspect": 1,
     "changed": 1,
-    "new": 27,
-    "failed": 16,
+    "new": 30,
+    "failed": 10,
     "manual": 0,
-    "same": 83
+    "same": 89
   },
   "items": [
     {
@@ -91,6 +91,29 @@
       "status": "new",
       "proposed": {
         "rateFrom": 8.9,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "indian-overseas-bank|car-loan",
+      "bank": "indian-overseas-bank",
+      "loan": "car-loan",
+      "url": "https://www.iob.bank.in/en/emi-calculator",
+      "live": null,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 7.8,
+      "method": "keywords",
+      "via": "http",
+      "evidence": "Vehicle Loans\nStarting from\n7.80%",
+      "status": "new",
+      "proposed": {
+        "rateFrom": 7.8,
         "conditions": "",
         "effectiveFrom": null,
         "fee": null,
@@ -492,6 +515,29 @@
       "review": "pending"
     },
     {
+      "id": "indian-overseas-bank|home-loan",
+      "bank": "indian-overseas-bank",
+      "loan": "home-loan",
+      "url": "https://www.iob.bank.in/en/emi-calculator",
+      "live": null,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 7.45,
+      "method": "keywords",
+      "via": "http",
+      "evidence": "Home Loans\nStarting from\n7.45%",
+      "status": "new",
+      "proposed": {
+        "rateFrom": 7.45,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
       "id": "tamilnad-mercantile-bank|home-loan",
       "bank": "tamilnad-mercantile-bank",
       "loan": "home-loan",
@@ -789,6 +835,29 @@
       "status": "new",
       "proposed": {
         "rateFrom": 10.99,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "indian-overseas-bank|personal-loan",
+      "bank": "indian-overseas-bank",
+      "loan": "personal-loan",
+      "url": "https://www.iob.bank.in/en/emi-calculator",
+      "live": null,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 10.5,
+      "method": "keywords",
+      "via": "http",
+      "evidence": "Personal Loans\nStarting from\n10.50%",
+      "status": "new",
+      "proposed": {
+        "rateFrom": 10.5,
         "conditions": "",
         "effectiveFrom": null,
         "fee": null,
@@ -1100,30 +1169,6 @@
       "review": "pending"
     },
     {
-      "id": "sbi|car-loan",
-      "bank": "sbi",
-      "loan": "car-loan",
-      "url": "https://sbi.bank.in/web/interest-rates/interest-rates/loan-schemes-interest-rates/auto-loans",
-      "live": 8.55,
-      "liveHeld": false,
-      "checkedOn": "2026-11-09",
-      "found": null,
-      "method": null,
-      "via": null,
-      "evidence": null,
-      "status": "failed",
-      "error": "could not load the page (fetch failed)",
-      "proposed": {
-        "rateFrom": 8.55,
-        "conditions": "CIC score 800 or more, tenure 3 to 5 years; range 8.55% to 9.50% (3-month MCLR 8.40%)",
-        "effectiveFrom": null,
-        "fee": null,
-        "prepayment": null,
-        "maxTenureYears": null
-      },
-      "review": "pending"
-    },
-    {
       "id": "federal-bank|education-loan",
       "bank": "federal-bank",
       "loan": "education-loan",
@@ -1140,54 +1185,6 @@
       "proposed": {
         "rateFrom": 9.75,
         "conditions": "Floating rate 9.75% to 13.75%, linked to the repo rate",
-        "effectiveFrom": null,
-        "fee": null,
-        "prepayment": null,
-        "maxTenureYears": null
-      },
-      "review": "pending"
-    },
-    {
-      "id": "sbi|education-loan",
-      "bank": "sbi",
-      "loan": "education-loan",
-      "url": "https://sbi.bank.in/web/interest-rates/interest-rates/loan-schemes-interest-rates/education-loan-scheme",
-      "live": 7,
-      "liveHeld": false,
-      "checkedOn": "2026-11-09",
-      "found": null,
-      "method": null,
-      "via": null,
-      "evidence": null,
-      "status": "failed",
-      "error": "could not load the page (fetch failed)",
-      "proposed": {
-        "rateFrom": 7,
-        "conditions": "Premier institutes such as IITs and IIMs, until 31 December 2026; up to ₹7.5 lakh without collateral 10.15%",
-        "effectiveFrom": "2026-10-15",
-        "fee": null,
-        "prepayment": null,
-        "maxTenureYears": null
-      },
-      "review": "pending"
-    },
-    {
-      "id": "sbi|gold-loan",
-      "bank": "sbi",
-      "loan": "gold-loan",
-      "url": "https://sbi.bank.in/web/interest-rates/interest-rates/loan-schemes-interest-rates/loan-against-securities-and-consumer-durable-loans",
-      "live": 9.2,
-      "liveHeld": false,
-      "checkedOn": "2026-11-09",
-      "found": null,
-      "method": null,
-      "via": null,
-      "evidence": null,
-      "status": "failed",
-      "error": "could not load the page (fetch failed)",
-      "proposed": {
-        "rateFrom": 9.2,
-        "conditions": "SBI Gold Loan, advertised starting rate",
         "effectiveFrom": null,
         "fee": null,
         "prepayment": null,
@@ -1292,30 +1289,6 @@
       "review": "pending"
     },
     {
-      "id": "sbi|loan-against-securities",
-      "bank": "sbi",
-      "loan": "loan-against-securities",
-      "url": "https://sbi.bank.in/web/interest-rates/interest-rates/loan-schemes-interest-rates/loan-against-securities-and-consumer-durable-loans",
-      "live": 9.95,
-      "liveHeld": false,
-      "checkedOn": "2026-11-09",
-      "found": null,
-      "method": null,
-      "via": null,
-      "evidence": null,
-      "status": "failed",
-      "error": "could not load the page (fetch failed)",
-      "proposed": {
-        "rateFrom": 9.95,
-        "conditions": "Loan against mutual fund units: 1-year MCLR + 1.25%",
-        "effectiveFrom": "2025-08-15",
-        "fee": null,
-        "prepayment": null,
-        "maxTenureYears": null
-      },
-      "review": "pending"
-    },
-    {
       "id": "federal-bank|personal-loan",
       "bank": "federal-bank",
       "loan": "personal-loan",
@@ -1333,54 +1306,6 @@
         "rateFrom": 11.75,
         "conditions": "Fixed rate 11.75% to 18.99%",
         "effectiveFrom": null,
-        "fee": null,
-        "prepayment": null,
-        "maxTenureYears": null
-      },
-      "review": "pending"
-    },
-    {
-      "id": "idfc-first-bank|personal-loan",
-      "bank": "idfc-first-bank",
-      "loan": "personal-loan",
-      "url": "https://www.idfcfirst.bank.in/personal-banking/loans/personal-loan/personal-loan-interest-rates",
-      "live": 9.99,
-      "liveHeld": false,
-      "checkedOn": "2026-11-09",
-      "found": null,
-      "method": null,
-      "via": null,
-      "evidence": null,
-      "status": "failed",
-      "error": "could not load the page (fetch failed)",
-      "proposed": {
-        "rateFrom": 9.99,
-        "conditions": "Advertised starting rate",
-        "effectiveFrom": null,
-        "fee": null,
-        "prepayment": null,
-        "maxTenureYears": null
-      },
-      "review": "pending"
-    },
-    {
-      "id": "sbi|personal-loan",
-      "bank": "sbi",
-      "loan": "personal-loan",
-      "url": "https://sbi.bank.in/web/interest-rates/interest-rates/loan-schemes-interest-rates/personal-loans-schemes",
-      "live": 10,
-      "liveHeld": false,
-      "checkedOn": "2026-11-09",
-      "found": null,
-      "method": null,
-      "via": null,
-      "evidence": null,
-      "status": "failed",
-      "error": "could not load the page (fetch failed)",
-      "proposed": {
-        "rateFrom": 10,
-        "conditions": "SBI Personal Loan scheme: 2-year MCLR (8.75%) plus 1.25% to 6.25%, so 10.00% to 15.00%",
-        "effectiveFrom": "2025-12-15",
         "fee": null,
         "prepayment": null,
         "maxTenureYears": null
@@ -1644,6 +1569,29 @@
       "review": "pending"
     },
     {
+      "id": "sbi|car-loan",
+      "bank": "sbi",
+      "loan": "car-loan",
+      "url": "https://sbi.bank.in/web/interest-rates/interest-rates/loan-schemes-interest-rates/auto-loans",
+      "live": 8.55,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 8.55,
+      "method": "rule",
+      "via": "http",
+      "evidence": "Auto Loans Interest Rates (Fixed Rate-Interest Rate applied at the time of disbursement will remain same for the entire loan period)\nScheme | (3-month MCLR: 8.40%)\nSBI Car Loan, NRI Car Loan, Assured Car Loan | From 8.55% to 9.50%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 8.55,
+        "conditions": "CIC score 800 or more, tenure 3 to 5 years; range 8.55% to 9.50% (3-month MCLR 8.40%)",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
       "id": "union-bank-of-india|car-loan",
       "bank": "union-bank-of-india",
       "loan": "car-loan",
@@ -1828,6 +1776,29 @@
       "review": "pending"
     },
     {
+      "id": "sbi|education-loan",
+      "bank": "sbi",
+      "loan": "education-loan",
+      "url": "https://sbi.bank.in/web/interest-rates/interest-rates/loan-schemes-interest-rates/education-loan-scheme",
+      "live": 7,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 7,
+      "method": "rule",
+      "via": "http",
+      "evidence": "Education Loan Portal\n\" Special Concessional Interest Rate: 7.00% p.a.\nSBI Offers a concessional interest rate of 7.00% to students securing admission to premier institutes:",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 7,
+        "conditions": "Premier institutes such as IITs and IIMs, until 31 December 2026; up to ₹7.5 lakh without collateral 10.15%",
+        "effectiveFrom": "2026-10-15",
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
       "id": "union-bank-of-india|education-loan",
       "bank": "union-bank-of-india",
       "loan": "education-loan",
@@ -2004,6 +1975,29 @@
       "proposed": {
         "rateFrom": 8.75,
         "conditions": "Overdraft against gold jewels, 8.75% to 9.05%; term loan with bullet repayment 9.35%",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "sbi|gold-loan",
+      "bank": "sbi",
+      "loan": "gold-loan",
+      "url": "https://sbi.bank.in/web/interest-rates/interest-rates/loan-schemes-interest-rates/loan-against-securities-and-consumer-durable-loans",
+      "live": 9.2,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 9.2,
+      "method": "rule",
+      "via": "http",
+      "evidence": "View All\nSEE PRODUCTS\nStarts From 9.20%*",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 9.2,
+        "conditions": "SBI Gold Loan, advertised starting rate",
         "effectiveFrom": null,
         "fee": null,
         "prepayment": null,
@@ -2685,6 +2679,29 @@
       "review": "pending"
     },
     {
+      "id": "sbi|loan-against-securities",
+      "bank": "sbi",
+      "loan": "loan-against-securities",
+      "url": "https://sbi.bank.in/web/interest-rates/interest-rates/loan-schemes-interest-rates/loan-against-securities-and-consumer-durable-loans",
+      "live": 9.95,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 9.95,
+      "method": "rule",
+      "via": "http",
+      "evidence": "Loan against NSC/ KVP | 8.70% | 2.50% | 11.20%\nLoan against Insurance Policies of LIC/ Dept. of Post Offices/India Post/SBI Life/ ICICI Prudential/ HDFC Standard\nLoan against Mutual Fund Units | 8.70% | 1.25% | 9.95%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 9.95,
+        "conditions": "Loan against mutual fund units: 1-year MCLR + 1.25%",
+        "effectiveFrom": "2025-08-15",
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
       "id": "axis-bank|personal-loan",
       "bank": "axis-bank",
       "loan": "personal-loan",
@@ -2846,6 +2863,29 @@
       "review": "pending"
     },
     {
+      "id": "idfc-first-bank|personal-loan",
+      "bank": "idfc-first-bank",
+      "loan": "personal-loan",
+      "url": "https://www.idfcfirst.bank.in/personal-banking/loans/personal-loan/personal-loan-interest-rates",
+      "live": 9.99,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 9.99,
+      "method": "rule",
+      "via": "http",
+      "evidence": "terest rates.\nFIRSTmoney by IDFC FIRST Bank offers low interest personal loans starting from 9.99% p.a. Eligible borrowers can access personal loans from ₹50,000 up to ₹15 lakh, with flexible repayment tenures ranging from 9 to 60 months and zero foreclosure charges. The application process is 100% digital, and on approval, eligible applicants can receive loan disbursal in as little as 10 minutes.",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 9.99,
+        "conditions": "Advertised starting rate",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
       "id": "indian-bank|personal-loan",
       "bank": "indian-bank",
       "loan": "personal-loan",
@@ -2908,6 +2948,29 @@
         "rateFrom": 10.85,
         "conditions": "Digital personal loan for salaried borrowers with a CIBIL score of 800 or more",
         "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "sbi|personal-loan",
+      "bank": "sbi",
+      "loan": "personal-loan",
+      "url": "https://sbi.bank.in/web/interest-rates/interest-rates/loan-schemes-interest-rates/personal-loans-schemes",
+      "live": 10,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 10,
+      "method": "rule",
+      "via": "http",
+      "evidence": "Mean ROI (Q1 FY 2026-27): 11.54%\nSpread over 2-year MCLR | Effective Interest Rate\n1.25% - 6.25% | 10.00% - 15.00%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 10,
+        "conditions": "SBI Personal Loan scheme: 2-year MCLR (8.75%) plus 1.25% to 6.25%, so 10.00% to 15.00%",
+        "effectiveFrom": "2025-12-15",
         "fee": null,
         "prepayment": null,
         "maxTenureYears": null
