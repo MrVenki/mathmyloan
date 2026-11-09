@@ -3,10 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "engines": { "node": ">=22" },
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "build": "node src/build.js",
-    "collect": "node src/collect.js",
+    "scrape": "node src/scrape/run.js",
     "test": "node --test"
+  },
+  "dependencies": {
+    "pdfjs-dist": "6.4.299"
   }
 }

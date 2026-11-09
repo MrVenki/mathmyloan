@@ -1,0 +1,785 @@
+{
+  "axis-bank|gold-loan": {
+    "shape": "interest rate | #% | #%",
+    "prev": "completely transparent and kept to a minimum so that you pay less upfront. here's what you have to pay: / parameters | min | max",
+    "head": "axis bank offers gold loans at nominal charges and our gold loan charges are",
+    "nth": 0,
+    "index": 0,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "axis-bank|home-loan": {
+    "shape": "axis bank's housing loan interest rates start from as low as #% making your dream home more affordable. apart from the interest rates, there are also other charges that you should know about.",
+    "prev": "home loan interest rates fees & charges / view fees & charges",
+    "head": "home loan interest rates fees & charges",
+    "nth": 0,
+    "index": 0,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "axis-bank|loan-against-property": {
+    "shape": "floating rate - psl category | repo rate + #% to repo rate + #% | #% - #% p.a.",
+    "prev": "for term loans / type | repo rate + spread | effective rate of interest",
+    "head": "make the most of your property’s value with a loan against property , offering competitive interest rates to meet your financial needs. whether it's for busines",
+    "nth": 0,
+    "index": 2,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "axis-bank|loan-against-securities": {
+    "shape": "above inr # lacs | #% | #% | #%",
+    "prev": "up to inr # lacs | #% | #% | #% | quarterly revision or as decided by bank, whichever is earlier / inr # - # lacs | #% | #% | #%",
+    "head": "# | #x# loan against securities (digital) | sanction limit | repo rate | spread over repo rate | effective interest rate | reset",
+    "nth": 0,
+    "index": 2,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "axis-bank|personal-loan": {
+    "shape": "when considering a personal loan , it's essential to examine the low interest personal loan options available to you. axis bank offers personal loans with interest rates that begin at a competitive margin of #% over the #-year mclr, resulting in an effective rate of interest (roi) that ranges from a modest #%p.a. to a maximum of #% per annum. this ensures you have access to some of the lowest interest rate personal loans available in the market.",
+    "prev": "faqs / interest rates and charges",
+    "head": "securing the ideal personal loan hinges on multiple elements, with personal loan interest rates taking center stage. selecting a personal",
+    "nth": 0,
+    "index": 1,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "bank-of-baroda|car-loan": {
+    "shape": "car loan | conditions new car | repo rate + spread from brllr -#% to brllr + sp + #% | effective rate of interest from #% to #%",
+    "prev": "floating rate: (for fixed rate; kindly visit 'interest rate linked to mclr' section.) / product | conditions | repo rate + spread | effective rate of interest",
+    "head": "baroda auto loan",
+    "nth": 0,
+    "index": 2,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "bank-of-baroda|gold-loan": {
+    "shape": "interest rate | effective rate of interest demand loan/emi : brllr + sp + #% overdraft : brllr + sp + #% or fixed : #% p.a",
+    "prev": "retail gold loan / product | effective rate of interest",
+    "head": "retail gold loan",
+    "nth": 0,
+    "index": 2,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "bank-of-baroda|personal-loan": {
+    "shape": "baroda personal loan | conditions govt employees / defence personnel maintaining salary account with our bank under scheme code sb # & # | repo rate + spread linked with cibil score of the individual,ranges from brllr + s.p. + #% to brllr + sp + #% | effective rate of interest from #% to #%",
+    "prev": "baroda personal loan / product | conditions | repo rate + spread | effective rate of interest",
+    "head": "baroda personal loan",
+    "nth": 0,
+    "index": 3,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "bank-of-baroda|two-wheeler-loan": {
+    "shape": "two wheeler loan | repo rate + spread brllr + sp + #% | effective rate of interest #%",
+    "prev": "conditions pre owned car | repo rate + spread from brllr + sp +#% to brllr + sp + #% | effective rate of interest from #% to #% / digital car loan | conditions new car | repo rate + spread from brllr -#% to brllr + sp + #% | effective rate of interest from #% to #%",
+    "head": "digital car loan | conditions new car | repo rate + spread from brllr -#% to brllr + sp + #% | effective rate of interest from #% to #%",
+    "nth": 0,
+    "index": 1,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "bank-of-baroda|used-car-loan": {
+    "shape": "conditions pre owned car | repo rate + spread from brllr + sp +#% to brllr + sp + #% | effective rate of interest from #% to #%",
+    "prev": "product | conditions | repo rate + spread | effective rate of interest / car loan | conditions new car | repo rate + spread from brllr -#% to brllr + sp + #% | effective rate of interest from #% to #%",
+    "head": "car loan | conditions new car | repo rate + spread from brllr -#% to brllr + sp + #% | effective rate of interest from #% to #%",
+    "nth": 0,
+    "index": 2,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "bank-of-maharashtra|car-loan": {
+    "shape": "maha super car loan scheme salaried non- salaried cibil score benchmark spread er benchmark spread er # & above rllr -#% #% rllr -#% #% # to # rllr -#% #% rllr -#% #% # to # rllr -#% #% rllr -#% #% # to # rllr #% #% rllr #% #% # to # rllr #% #% rllr #% #% # to # rllr #% #% rllr #% #% below # rllr #% #% rllr #% #% -# or # and ntc rllr #% #% rllr #% #%",
+    "prev": "cibil score rate of interest # & above premium of # bps over & above applicable roi for maha super housing loan based on cibil score structure. # to # premium of # bps over & above applicable roi for maha super housing loan based on cibil score structure. # to #/ntc premium of # bps over & above applicable roi for maha super housing loan based on cibil score structure. # and below premium of # bps over & above applicable roi for maha super housing loan based on cibil score structure. / maha super car loan scheme:",
+    "head": "maha super car loan scheme:",
+    "nth": 0,
+    "index": 1,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "bank-of-maharashtra|education-loan": {
+    "shape": "# % p.a* apply now!",
+    "prev": "# % p.a* apply now! / education loan",
+    "head": "education loan",
+    "nth": 3,
+    "index": 0,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "bank-of-maharashtra|gold-loan": {
+    "shape": "# % p.a* apply now!",
+    "prev": "# % p.a* apply now! / gold loan",
+    "head": "gold loan",
+    "nth": 2,
+    "index": 0,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "bank-of-maharashtra|home-loan": {
+    "shape": "# %p.a*",
+    "prev": "bank of maharashtra helps you buy your dream home with low emis. the emi calculator on the website works this out for you. check your eligibility, upload your documents and obtain instant in-principle sanction. / housing loan interest rate",
+    "head": "housing loan interest rate",
+    "nth": 0,
+    "index": 0,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "bank-of-maharashtra|home-loan-overdraft#base": {
+    "shape": "concession of # % in the applicable roi of maha super housing loan scheme subject to minimum floor rate i.e. rllr -#% i.e. #% at present no additional concession in any form will be applicable in the scheme.",
+    "prev": "#% higher than that of applicable roi for maha super housing loan scheme. / maha super green building - (for green building)",
+    "head": "#% higher than that of applicable roi for maha super housing loan scheme.",
+    "nth": 0,
+    "index": 2,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "bank-of-maharashtra|loan-against-property": {
+    "shape": "cibil score benchmark spread er # and above rllr #% #% # to # rllr #% #% # to # rllr #% #% # to # rllr #% #% below # rllr #% #% -# or # and # to # rllr #% #%",
+    "prev": "benchmark spread er rllr #% #% / loan against property-individual",
+    "head": "loan against property-individual",
+    "nth": 2,
+    "index": 1,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "bank-of-maharashtra|loan-against-securities": {
+    "shape": "benchmark spread er rllr #% #%",
+    "prev": "benchmark spread er rllr #% #% / loan against paper security",
+    "head": "loan against paper security",
+    "nth": 5,
+    "index": 1,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "bank-of-maharashtra|personal-loan": {
+    "shape": "cibil score benchmark spread er # & above rllr #% #% # to # rllr #% #% # to # rllr #% #% # to # rllr #% #% # & below rllr #% #% ntc or -# or # rllr #% #%",
+    "prev": "maha bank personal loan scheme / a maha bank personal loan scheme for salaried borrowers . category -a i.e. confirmed employees of central govt. / state govt. / public sector undertakings/ govt. educational institutions: having salary account with bank of maharashtra",
+    "head": "a maha bank personal loan scheme for salaried borrowers . category -a i.e. confirmed employees of central govt. / state govt. / public sector undertakings/ govt",
+    "nth": 0,
+    "index": 1,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "bank-of-maharashtra|top-up-home-loan#base": {
+    "shape": "concession of # % in the applicable roi of maha super housing loan scheme subject to minimum floor rate i.e. rllr -#% i.e. #% at present no additional concession in any form will be applicable in the scheme.",
+    "prev": "#% higher than that of applicable roi for maha super housing loan scheme. / maha super green building - (for green building)",
+    "head": "#% higher than that of applicable roi for maha super housing loan scheme.",
+    "nth": 0,
+    "index": 2,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "bank-of-maharashtra|two-wheeler-loan": {
+    "shape": "cibil score benchmark spread er # and above rllr #% #% # to # rllr #% #% # to # rllr #% #% # to # rllr #% #% below # rllr #% #% -# or # and # to # rllr #% #%",
+    "prev": "cibil score benchmark spread er # and above rllr #% #% # to # rllr #% #% # to # rllr #% #% # to # rllr #% #% below # rllr #% #% -# or # and # to # rllr #% #% / mahabank vehicle loan scheme: for purchasing two wheelers loans:",
+    "head": "mahabank vehicle loan scheme: for purchasing two wheelers loans:",
+    "nth": 1,
+    "index": 1,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "bank-of-maharashtra|used-car-loan": {
+    "shape": "cibil score benchmark spread er # and above rllr #% #% # to # rllr #% #% # to # rllr #% #% # to # rllr #% #% below # rllr #% #% -# or # and # to # rllr #% #%",
+    "prev": "concessions in roi #% concession in applicable rate of interest will be given to existing housing loan (including staff-hl) / msme & corporate borrowers /corporate salary account holders/professional & self-employed borrowers having minimum satisfactory standing of # months relationship with our bank subject to lowest roi in the scheme i.e. rllr - #% at present. #% concession in green car loan (e-vehicle) subject to lowest roi under the scheme i.e. rllr - #% at present. / mahabank vehicle loan scheme: for purchasing second hand car loan (pre -owned cars):",
+    "head": "mahabank vehicle loan scheme: for purchasing second hand car loan (pre -owned cars):",
+    "nth": 0,
+    "index": 1,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "canara-bank|car-loan": {
+    "shape": "crg-prime | # | # | -# | # | # | -# | #",
+    "prev": "crg : # | # | # | # | # | # | # | # / applicable roi for sanctioned limit above rs. # lakh",
+    "head": "canara vehicle (# wheeler loans including agriculturists (general) | crg-prime | # | # | -# | # | # | -# | #",
+    "nth": 3,
+    "index": 6,
+    "pct": false,
+    "learnedOn": "2026-11-09"
+  },
+  "canara-bank|education-loan": {
+    "shape": "pm vidyalaxmi scheme | \"aaa\" category institutitons | # | -# | #",
+    "prev": "coll. security #% & above (less than #%). | # | # | # / coll. security #% & above (less than #%). | # | # | #",
+    "head": "^new education loan scheme for pursuing master’s degree in abroad from select top ranking universities of world | coll. security #% & above | # | # | #",
+    "nth": 0,
+    "index": 2,
+    "pct": false,
+    "learnedOn": "2026-11-09"
+  },
+  "canara-bank|home-loan": {
+    "shape": "#. for housing loan (all variants) under crg-prime, crg-# & crg-#, additional # bps concession for takeover/ready to move hl proposals & # bps concession for salaried employees working in central/state govt./psus/mncs/blue chip companies & corporates maintaining/switching salary a/c wth us including canara sb premium payroll package payroll a/cs is applicable in all loan slabs. (the rate of interest including all concessions shall not to fall below #%)",
+    "prev": "crg : # | # | # | -# | # | # | -# | # / note:-",
+    "head": "housing loan | crg-prime | # | # | -# | # | # | -# | #",
+    "nth": 0,
+    "index": 0,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "canara-bank|loan-against-property": {
+    "shape": "# | canara mortgage^ | crg : # | # | # | # | # | # | # | #",
+    "prev": "sl.no | loan product | crg | rllr | where security is equal to #% | where security is equal to >#%=#% | where security is equal to >#% / credit risk premium over rllr | effective rate of interest under rllr | credit risk premium over rllr | effective rate of interest under rllr | credit risk premium over rllr | effective rate of interest under rllr",
+    "head": "canara vehicle (# wheelers) | crg : # | # | # | # | # | # | # | #",
+    "nth": 0,
+    "index": 6,
+    "pct": false,
+    "learnedOn": "2026-11-09"
+  },
+  "canara-bank|loan-against-securities": {
+    "shape": "# | canara insta mf loan | # | # | #",
+    "prev": "# | canara-heal | # | # | # / # | canara readycash | # | # | #",
+    "head": "pm vidyalaxmi scheme | \"aaa\" category institutitons | # | -# | #",
+    "nth": 0,
+    "index": 2,
+    "pct": false,
+    "learnedOn": "2026-11-09"
+  },
+  "canara-bank|personal-loan": {
+    "shape": "crg : # | # | # | -# | # | # | -# | #",
+    "prev": "crg : # | # | # | -# | # | # | -# | # / crg : # | # | # | -# | # | # | -# | #",
+    "head": "housing loan | crg-prime | # | # | -# | # | # | -# | #",
+    "nth": 11,
+    "index": 6,
+    "pct": false,
+    "learnedOn": "2026-11-09"
+  },
+  "canara-bank|plot-loan": {
+    "shape": "# | canara mortgage^ | crg : # | # | # | # | # | # | # | #",
+    "prev": "sl.no | loan product | crg | rllr | where security is equal to #% | where security is equal to >#%=#% | where security is equal to >#% / credit risk premium over rllr | effective rate of interest under rllr | credit risk premium over rllr | effective rate of interest under rllr | credit risk premium over rllr | effective rate of interest under rllr",
+    "head": "canara vehicle (# wheelers) | crg : # | # | # | # | # | # | # | #",
+    "nth": 0,
+    "index": 6,
+    "pct": false,
+    "learnedOn": "2026-11-09"
+  },
+  "canara-bank|two-wheeler-loan": {
+    "shape": "canara vehicle (# wheelers) | crg : # | # | # | # | # | # | # | #",
+    "prev": "crg : # | # | # | -# | # | # | -# | # / **the above concession shall remain same till the loan completes # years from the date of first disbursement for all the variants of hl & canara vehicle #-wheeler (including green wheels & agriculturists).",
+    "head": "**the above concession shall remain same till the loan completes # years from the date of first disbursement for all the variants of hl & canara vehicle #-wheel",
+    "nth": 0,
+    "index": 6,
+    "pct": false,
+    "learnedOn": "2026-11-09"
+  },
+  "central-bank-of-india|car-loan": {
+    "shape": "#. | cent vehicle (#-wheeler)* | rblr - #% to rblr + #% | #% to #%",
+    "prev": "#. | cent shakti drive* | rblr - #% to rblr + #% | #% to #% / #. | cent shakti drive green* | rblr - #% to rblr + #% | #% to #%",
+    "head": "#. | cent top up * | rblr - #% to rblr + #% | #% to #%",
+    "nth": 0,
+    "index": 2,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "central-bank-of-india|education-loan": {
+    "shape": "education loans to students from institutes:- pm vidyalaxmi scheme under aaa category other than pm vidyalaxmi scheme under aaa category | repo+#% | #%",
+    "prev": "#. | education loans under various categories | roi / repo/ rblr + spread | effective roi",
+    "head": "#. | education loans under various categories | roi",
+    "nth": 0,
+    "index": 1,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "central-bank-of-india|gold-loan": {
+    "shape": "#. | cent gold loan (retail) | rblr + #% | #%",
+    "prev": "(ii)loans with repayment above # yrs | rblr + #% | #% / #. | cent mortgage* | rblr + #% to rblr + #% | #% to #%",
+    "head": "#. | cent mortgage* | rblr + #% to rblr + #% | #% to #%",
+    "nth": 0,
+    "index": 1,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "central-bank-of-india|home-loan": {
+    "shape": "#. | cent surya ghar #. for loans up to rs.# lakh #. home loan borrower (> rs.# lakh) #. non-home loan borrower (># lakh) | repo + #% as per cent home loan scheme as per cent home loan scheme + #% | #% #% to #% #% to #%",
+    "prev": "#. | cent mortgage* | rblr + #% to rblr + #% | #% to #% / #. | cent gold loan (retail) | rblr + #% | #%",
+    "head": "#. | cent gold loan (retail) | rblr + #% | #%",
+    "nth": 0,
+    "index": 3,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "central-bank-of-india|loan-against-property": {
+    "shape": "#. | cent mortgage* | rblr + #% to rblr + #% | #% to #%",
+    "prev": "#. | cent rental (i) loan with repayment up to # yrs | rblr + #% | #% / (ii)loans with repayment above # yrs | rblr + #% | #%",
+    "head": "#. | pre-approved personal loan | rblr + #% | #%",
+    "nth": 0,
+    "index": 2,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "central-bank-of-india|personal-loan": {
+    "shape": "#. | cent personal # | rblr + #% or rblr + #% | #% or # %",
+    "prev": "#. | cent combo vehicle (#-wheeler)* | rblr - #% to rblr + #% | #% to #% / #. | cent combo go green vehicle (#-w)* | rblr - #% to rblr + #% | #% to #%",
+    "head": "#. | cent combo vehicle (#-wheeler)* | rblr - #% to rblr + #% | #% to #%",
+    "nth": 0,
+    "index": 2,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "central-bank-of-india|top-up-home-loan": {
+    "shape": "#. | cent top up * | rblr - #% to rblr + #% | #% to #%",
+    "prev": "#. | cent home loan for #rd/ # th / # th house* | rblr - #% to rblr + #% | #% to #% / #. | cent home double plus @ | rblr + #% to rblr + #% | #% to #%",
+    "head": "#. | cent home loan for #rd/ # th / # th house* | rblr - #% to rblr + #% | #% to #%",
+    "nth": 0,
+    "index": 2,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "central-bank-of-india|two-wheeler-loan": {
+    "shape": "#. | cent vehicle (#-wheeler)* | rblr + #% to rblr + #% | #% to #%",
+    "prev": "#. | cent shakti drive green* | rblr - #% to rblr + #% | #% to #% / #. | cent vehicle (#-wheeler)* | rblr - #% to rblr + #% | #% to #%",
+    "head": "#. | cent vehicle (#-wheeler)* | rblr - #% to rblr + #% | #% to #%",
+    "nth": 0,
+    "index": 2,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "hdfc-bank|car-loan": {
+    "shape": "interest rates | #% onwards depending on loan amount, tenure & bureau score",
+    "prev": "commercial / personal use noc (conversion subject to credit approval) | ₹# per noc / registration certificate (rc) collection fees | ₹# per case (to be refunded in case of case cancellation.)",
+    "head": "description of charges | new car loans",
+    "nth": 0,
+    "index": 0,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "hdfc-bank|gold-loan": {
+    "shape": "gold loan | # | # | # | # | # | #",
+    "prev": "q# - apr may june # / product | min irr | max irr | avg irr | min apr | max apr | avg apr",
+    "head": "gold loan rate of interest (november #)",
+    "nth": 0,
+    "index": 0,
+    "pct": false,
+    "learnedOn": "2026-11-09"
+  },
+  "hdfc-bank|home-loan": {
+    "shape": "# % p.a.",
+    "prev": "# years / interest rate",
+    "head": "looking for a new home loan?",
+    "nth": 0,
+    "index": 0,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "hdfc-bank|loan-against-securities": {
+    "shape": "starting from #",
+    "prev": "interest rate for loan against / securities",
+    "head": "digital loan against shares",
+    "nth": 0,
+    "index": 0,
+    "pct": false,
+    "learnedOn": "2026-11-09"
+  },
+  "hdfc-bank|personal-loan": {
+    "shape": "<td>salaried: #% - #%</td>",
+    "prev": "<th>amount to be paid</th> / </tr></thead><tbody><tr><td>rack interest rate</td>",
+    "head": "<p><span><b>hdfc bank personal loan interest rate fees and charges:</b></span></p>",
+    "nth": 0,
+    "index": 0,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "hdfc-bank|plot-loan": {
+    "shape": "for all loans* | policy repo rate + #% to #%= #% to #%",
+    "prev": "special home loan rates for salaried & self employed (professionals & non-professionals) / loan slab | interest rates (% p.a.)",
+    "head": "special home loan rates for salaried & self employed (professionals & non-professionals)",
+    "nth": 0,
+    "index": 2,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "hdfc-bank|top-up-home-loan": {
+    "shape": "for all loan amounts | policy repo rate + #% to #%= #% to #%",
+    "prev": "special top up rates for salaried & self employed (professionals & non-professionals) / loan slab (balance transfer + top up simultaneous loan) | interest rates (% p.a.)",
+    "head": "loan slab (balance transfer + top up simultaneous loan) | interest rates (% p.a.)",
+    "nth": 0,
+    "index": 2,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "icici-bank|car-loan": {
+    "shape": "get your dream car with an icici bank car loan that offers financing of up to #% of the on-road price at competitive interest rates starting at #%* per annum (subject to eligibility criteria). benefit from a hassle-free online application process, minimal documentation and quick approval. apply for a car loan and drive home your dream car with confidence.",
+    "prev": "car loan / car loan",
+    "head": "car loan",
+    "nth": 0,
+    "index": 1,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "icici-bank|education-loan": {
+    "shape": "secured loans for select institutes: starting from #% p.a.",
+    "prev": "unsecured loans: starting from #% p.a. / domestic studies: engineering & management courses",
+    "head": "education loan interest rate categories",
+    "nth": 0,
+    "index": 0,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "icici-bank|gold-loan": {
+    "shape": "#% | #% | #%",
+    "prev": "icici bank gold loan interest rate varies as per the factors mentioned above. given below is the current range of interest rates. / interest rate range*: q# (july # to september #) | minimum | maximum | mean",
+    "head": "icici bank gold loan interest rate varies as per the factors mentioned above. given below is the current range of interest rates.",
+    "nth": 0,
+    "index": 0,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "icici-bank|home-loan": {
+    "shape": "the home loan interest rate varies based on the loan amount, applicant’s profile, employment type and existing relationship with the bank, if any. the interest rate for icici bank home loan starts from #% p.a.",
+    "prev": "home loan interest rate, fees & charges / home loan interest rate",
+    "head": "home loan interest rate",
+    "nth": 0,
+    "index": 0,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "icici-bank|loan-against-securities": {
+    "shape": "interest rate | #% - #% per annum",
+    "prev": "apply now / interest rates",
+    "head": "loan against securities interest rates and charges",
+    "nth": 0,
+    "index": 0,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "icici-bank|personal-loan": {
+    "shape": "personal loan - apply for personal loan online starting @ #% p.a*",
+    "prev": "",
+    "head": "",
+    "nth": 0,
+    "index": 0,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "icici-bank|used-car-loan": {
+    "shape": "#%* onwards, based on cibil score and car segment",
+    "prev": "#%* onwards, based on cibil score and car segment / used car loans",
+    "head": "used car loans",
+    "nth": 1,
+    "index": 0,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "idfc-first-bank|loan-against-property": {
+    "shape": "loan against property interest rates starting at just #% p.a.*",
+    "prev": "loan against property / loan against property interest rate",
+    "head": "loan against property interest rate",
+    "nth": 0,
+    "index": 0,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "idfc-first-bank|personal-loan": {
+    "shape": "firstmoney by idfc first bank offers low interest personal loans starting from #% p.a. eligible borrowers can access personal loans from ₹# up to ₹# lakh, with flexible repayment tenures ranging from # to # months and zero foreclosure charges. the application process is #% digital, and on approval, eligible applicants can receive loan disbursal in as little as # minutes.",
+    "prev": "a personal loan interest rate is the percentage charged by a lender on the amount you borrow. it determines the cost of borrowing and directly affects your equated monthly instalments (emis) and the total amount you repay over the loan tenure. understanding how personal loan interest rates work can help you compare loan offers, estimate your repayment obligations, and choose a loan that suits your financial needs. / the personal loan interest rate offered to an applicant depends on several factors, including credit score , income, repayment capacity, employment profile, existing financial obligations, and the lender's credit assessment. maintaining a healthy credit profile and meeting the lender's eligibility criteria can improve your chances of qualifying for one of the lowest personal loan interest rates.",
+    "head": "the personal loan interest rate offered to an applicant depends on several factors, including credit score , income, repayment capacity, employment profile, exi",
+    "nth": 0,
+    "index": 0,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "indian-bank|car-loan": {
+    "shape": "ib vehicle loan | #% to #%",
+    "prev": "ib skill loan | #% / vehicle loan",
+    "head": "vehicle loan",
+    "nth": 0,
+    "index": 0,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "indian-bank|education-loan": {
+    "shape": "pm vidyalaxmi | #% to #%",
+    "prev": "overdraft facility will attract interest rate at #% higher than term loan rate if the lessee(s) is(are) our bank / psb / pvt sector bank / reputed financial institution / government organization / psu / company & firm (externally rated “a” / equivalent and above), concession of #% is application on effective roi / education loan",
+    "head": "education loan",
+    "nth": 0,
+    "index": 0,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "indian-bank|gold-loan": {
+    "shape": "jewel loan (non-priority) - od against gold jewels | #% to #%",
+    "prev": "pension loan | #% to #% / jewel loan",
+    "head": "online personal loan to salaried customers | #%",
+    "nth": 0,
+    "index": 0,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "indian-bank|home-loan": {
+    "shape": "ib home loan, ib home loan (nri) | #% to #%",
+    "prev": "product name / home loan",
+    "head": "home loan",
+    "nth": 0,
+    "index": 0,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "indian-bank|loan-against-property": {
+    "shape": "ind mortgage (term loan) | loan amount upto rs.# cr: # % to #% loan amount above rs. # cr:#% to #%",
+    "prev": "ib home loan plus | #% to #% / ind mortgage loan",
+    "head": "ind mortgage loan",
+    "nth": 0,
+    "index": 0,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "indian-bank|personal-loan": {
+    "shape": "clean loan to salaried class - term loan | #% to #%",
+    "prev": "ib insta cash | #% / salary loan & ibcls plus",
+    "head": "online personal loan to salaried customers | #%",
+    "nth": 0,
+    "index": 0,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "indian-bank|plot-loan": {
+    "shape": "plot loan & plot loan (nri) | #% to #%",
+    "prev": "home loan to corporate entity | #% to #% / plot loan",
+    "head": "plot loan",
+    "nth": 0,
+    "index": 0,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "indian-bank|two-wheeler-loan": {
+    "shape": "vehicle loan for purchase of # wheeler | #% to #%",
+    "prev": "ib vehicle loan (eco vahan ) | #% to #% / ib vehicle loan for purchase of user car $ | #% to #%",
+    "head": "ib vehicle loan for purchase of user car $ | #% to #%",
+    "nth": 0,
+    "index": 0,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "indian-bank|used-car-loan": {
+    "shape": "ib vehicle loan for purchase of user car $ | #% to #%",
+    "prev": "ib vehicle loan | #% to #% / ib vehicle loan (eco vahan ) | #% to #%",
+    "head": "ib vehicle loan (eco vahan ) | #% to #%",
+    "nth": 0,
+    "index": 0,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "kotak-mahindra-bank|education-loan": {
+    "shape": "educational loan | #% - #% | fixed rate | upto #% + applicable taxes",
+    "prev": "loan against securities | individual or non individual | #% - #% | #% + #% #% + #% | for digital cases - rs. #/- for equity (non-digital), debt - mf/fmp/, bonds - up to #% of the loan/sanctioned credit limit subject to minimum of rs. #/-) for other physical securities (lic / pvt insurance policies) - up to #% of the loan/sanctioned credit limit subject to minimum of rs. #/- / consumer durables | individual | #% - #% (cirr) | fixed rate | rs. # onwards on select products, merchants, payment mode is applicable. there are wide range of schemes with nil processing fee for consumers.",
+    "head": "loan against securities | individual or non individual | #% - #% | #% + #% #% + #% | for digital cases - rs. #/- for equity (non-digital), debt - mf/fmp/, bonds",
+    "nth": 0,
+    "index": 0,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "kotak-mahindra-bank|home-loan": {
+    "shape": "own the home you have been planning sooner with kotak home loan, built to help you inch closer to your dream house. competitive interest rates starting @#%* p.a., fund up to #% of your property value.",
+    "prev": "apply now / home loans",
+    "head": "home loans",
+    "nth": 0,
+    "index": 0,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "kotak-mahindra-bank|loan-against-property": {
+    "shape": "loan against property and affordable lap | individual or non individual | #% - #% | rr+ (#-#) | upto #%",
+    "prev": "business loan | individual | #% - #% | fixed rate | upto #% + gst / personal loan | salaried individuals | #% - #% | fixed rate | upto #% + applicable taxes",
+    "head": "personal loan | salaried individuals | #% - #% | fixed rate | upto #% + applicable taxes",
+    "nth": 0,
+    "index": 0,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "kotak-mahindra-bank|loan-against-securities": {
+    "shape": "loan against securities | individual or non individual | #% - #% | #% + #% #% + #% | for digital cases - rs. #/- for equity (non-digital), debt - mf/fmp/, bonds - up to #% of the loan/sanctioned credit limit subject to minimum of rs. #/-) for other physical securities (lic / pvt insurance policies) - up to #% of the loan/sanctioned credit limit subject to minimum of rs. #/-",
+    "prev": "personal loan | salaried individuals | #% - #% | fixed rate | upto #% + applicable taxes / loan against property and affordable lap | individual or non individual | #% - #% | rr+ (#-#) | upto #%",
+    "head": "loan against property and affordable lap | individual or non individual | #% - #% | rr+ (#-#) | upto #%",
+    "nth": 0,
+    "index": 0,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "kotak-mahindra-bank|personal-loan": {
+    "shape": "apply for personal loan online starting at #% p.a.*",
+    "prev": "apply now / personal loan",
+    "head": "personal loan",
+    "nth": 0,
+    "index": 0,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "punjab-national-bank|car-loan": {
+    "shape": "women | irrespective of cics score | rllr+ bsp-#% i.e. #% p.a. (presently) | rllr+ bsp-#% i.e. #% p.a. (presently)",
+    "prev": "scheme/ borrower type | cibil tu or equivalent | car loan (other than e-vehicle) | car loan (e-vehicle) | car loan (other than e-vehicle) | car loan (e-vehicle) / roi | roi",
+    "head": "scheme/ borrower type | cibil tu or equivalent | car loan (other than e-vehicle) | car loan (e-vehicle) | car loan (other than e-vehicle) | car loan (e-vehicle)",
+    "nth": 0,
+    "index": 1,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "punjab-national-bank|education-loan": {
+    "shape": "education loan for study in # qheis: pm vidyalaxmi roi starting from #% p.a.",
+    "prev": "loan amount above rs.# lakhs student getting admission in nit’s (which are not covered under pm vidya laxmi scheme) & fms-delhi. | rllr + bsp - #% (presently #%) | #% | #% / loan amount above rs.# lakhs student getting admission in other than above mentioned institutes listed under pnb pratibha scheme | rllr + bsp - #% (presently #%) | #% | #%",
+    "head": "loan amount above rs.# lakhs student getting admission in nit’s (which are not covered under pm vidya laxmi scheme) & fms-delhi. | rllr + bsp - #% (presently #%",
+    "nth": 0,
+    "index": 0,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "punjab-national-bank|home-loan": {
+    "shape": "for loan above rs. # lacs ltv ratio & | # & above | rllr+bsp-#% (presently #% p.a.) | #% | #%",
+    "prev": "parameter | cibil tu or equivalent | floating roi | fixed roi / roi | tenure upto # years | tenure above # years",
+    "head": "housing loan/home loan roi starting from #% p.a. (during retail loan campaign - “pnb utsav festivities #” celebrate dreams, celebrate life from # to #).",
+    "nth": 0,
+    "index": 1,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "punjab-national-bank|home-loan-overdraft": {
+    "shape": "for loan above rs. # lacs ltv ratio & | # & above | rllr+bsp-#% (presently #%) | #% | #%",
+    "prev": "parameter | cibil tu or equivalent | fixed / roi | tenure upto # years | tenure above # years",
+    "head": "home loan (od pnb max saver) starting from #% p.a. (during retail loan campaign - “pnb utsav festivities #” celebrate dreams, celebrate life from # to #)",
+    "nth": 2,
+    "index": 1,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "punjab-national-bank|loan-against-property": {
+    "shape": "above # | rllr+bsp+#% (presently #%) | rllr+bsp+#% (presently #%) | #% | #% | #% | #%",
+    "prev": "tl | od / tl | od | for loan upto # years | for loan above # years | for loan upto # years | for loan above # years",
+    "head": "#. loan against immovable property (pnb myproperty) roi starting from #% p.a. (during retail loan campaign - “pnb utsav festivities #” celebrate dreams, celebra",
+    "nth": 1,
+    "index": 1,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "punjab-national-bank|personal-loan": {
+    "shape": "papl to existing car loan, home loan and personal loan borrower | >=# | rllr+bsp+#% (presently #%) | #%",
+    "prev": "papl to existing customer on the basis of qab & trv | >= # | rllr+bsp+#% (presently #%) | #% / >=# less than # | rllr+bsp+#% (presently #%) | #%",
+    "head": "digital personal loan - personal loan scheme",
+    "nth": 0,
+    "index": 1,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "punjab-national-bank|two-wheeler-loan": {
+    "shape": "rllr+bsp+#% (presently #%) | #%",
+    "prev": "pnb baghban- a scheme for house owning senior citizens of india under ‘reverse mortgage concept’ / rate of interest based on rllr | fixed roi",
+    "head": "pnb baghban- a scheme for house owning senior citizens of india under ‘reverse mortgage concept’",
+    "nth": 0,
+    "index": 1,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "punjab-national-bank|used-car-loan": {
+    "shape": "# car loan (old car) roi starting from #% p.a.",
+    "prev": "# corporates: business concerns car loan financed to business concerns for personal use of their executives i.e. other than for use in business. / pnb yuva vahan starting from #% p.a: concession of #% in roi as above.",
+    "head": "# corporates: business concerns car loan financed to business concerns for personal use of their executives i.e. other than for use in business.",
+    "nth": 0,
+    "index": 0,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "sbi|car-loan": {
+    "shape": "sbi car loan, nri car loan, assured car loan | from #% to #%",
+    "prev": "auto loans interest rates (fixed rate-interest rate applied at the time of disbursement will remain same for the entire loan period) / scheme | (#-month mclr: #%)",
+    "head": "auto loans interest rates (fixed rate-interest rate applied at the time of disbursement will remain same for the entire loan period)",
+    "nth": 0,
+    "index": 0,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "sbi|education-loan": {
+    "shape": "sbi offers a concessional interest rate of #% to students securing admission to premier institutes:",
+    "prev": "education loan portal / \" special concessional interest rate: #% p.a.",
+    "head": "education loan portal",
+    "nth": 0,
+    "index": 0,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "sbi|gold-loan": {
+    "shape": "starts from #%*",
+    "prev": "view all / see products",
+    "head": "loan against mf",
+    "nth": 0,
+    "index": 0,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "sbi|loan-against-securities": {
+    "shape": "loan against mutual fund units | #% | #% | #%",
+    "prev": "loan against nsc/ kvp | #% | #% | #% / loan against insurance policies of lic/ dept. of post offices/india post/sbi life/ icici prudential/ hdfc standard",
+    "head": "i. loans against securities",
+    "nth": 0,
+    "index": 2,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "sbi|personal-loan": {
+    "shape": "#% - #% | #% - #%",
+    "prev": "mean roi (q# fy #-#): #% / spread over #-year mclr | effective interest rate",
+    "head": "sbi personal loan scheme - rate of interest (w.e.f. #)",
+    "nth": 0,
+    "index": 2,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "union-bank-of-india|car-loan": {
+    "shape": "# & above | eblr - #% = #%",
+    "prev": "type of vehicle | cic score / salaried | non-salaried",
+    "head": "#. union vehicle loan:",
+    "nth": 6,
+    "index": 1,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "union-bank-of-india|education-loan": {
+    "shape": "union education - pm vidyalaxmi - i (aaa) | eblr | -#% | #%",
+    "prev": "(d) | (d+e=f) / (e)",
+    "head": "#. union education - pm vidyalaxmi:",
+    "nth": 0,
+    "index": 1,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "union-bank-of-india|home-loan-overdraft": {
+    "shape": "# to # | eblr - #% = #% | eblr - #% = #%",
+    "prev": "# & above | eblr - #% = #% / # to # | eblr - #% = #%",
+    "head": "#. home loan schemes:",
+    "nth": 0,
+    "index": 3,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "union-bank-of-india|loan-against-property": {
+    "shape": "# & above | eblr | #% | #%",
+    "prev": "rate (d) | (e) / (d+e=f)",
+    "head": "#. union mortgage:",
+    "nth": 0,
+    "index": 1,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "union-bank-of-india|personal-loan": {
+    "shape": "# & above | eblr | #% | #%",
+    "prev": "schemes | cic score / rate (d) | (e) | (d+e=f)",
+    "head": "# personal loan for salaried individuals other than government employee:",
+    "nth": 4,
+    "index": 1,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "union-bank-of-india|two-wheeler-loan": {
+    "shape": "below # | eblr | #% | #%",
+    "prev": "excluding open plots / -# & # to #",
+    "head": "#. union mortgage:",
+    "nth": 1,
+    "index": 1,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  },
+  "union-bank-of-india|used-car-loan": {
+    "shape": "# & above | eblr + #% = #%",
+    "prev": "below # | eblr + #% = #% / old # - wheeler",
+    "head": "old # - wheeler",
+    "nth": 1,
+    "index": 1,
+    "pct": true,
+    "learnedOn": "2026-11-09"
+  }
+}

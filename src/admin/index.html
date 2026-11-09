@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>MathMyLoan admin</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+:root{--navy:#112551;--accent:#112551;--a50:#eef1f7;--a100:#dbe1ec;--line:#e2e8f0;--muted:#64748b;--ink:#0f172a;--green:#15803d;--red:#b91c1c;--amber:#b45309}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--ink);background:#f6f7fb}
+header{background:var(--navy);color:#fff;padding:12px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;position:sticky;top:0;z-index:10}
+header b{font-size:1.05rem}
+header nav{display:flex;gap:4px;flex-wrap:wrap}
+header nav button{background:transparent;color:#c8d0e0;border:0;padding:8px 12px;border-radius:8px;font:inherit;cursor:pointer}
+header nav button[aria-current=true]{background:rgba(255,255,255,.14);color:#fff}
+header .who{margin-left:auto;font-size:.85rem;color:#c8d0e0}
+header .who button{margin-left:8px;background:transparent;border:1px solid rgba(255,255,255,.4);color:#fff;border-radius:6px;padding:3px 8px;cursor:pointer}
+main{max-width:1200px;margin:0 auto;padding:20px 16px 120px}
+h1{font-size:1.4rem;margin:0 0 4px}
+h2{font-size:1.1rem;margin:24px 0 8px}
+.muted{color:var(--muted)}
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;margin:10px 0}
+input,select,textarea{font:inherit;padding:7px 9px;border:1px solid #cbd5e1;border-radius:8px;background:#fff;color:var(--ink);min-width:0}
+textarea{width:100%;min-height:54px;resize:vertical}
+input[type=number]{width:96px}
+button.b{font:inherit;padding:8px 14px;border-radius:8px;border:1px solid var(--accent);background:#fff;color:var(--accent);cursor:pointer;font-weight:600}
+button.b.p{background:var(--accent);color:#fff}
+button.b.ok{background:var(--green);border-color:var(--green);color:#fff}
+button.b.no{color:var(--red);border-color:#fecaca}
+button.b.sm{padding:4px 10px;font-size:.85rem}
+button:disabled{opacity:.5;cursor:default}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
+.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:4px 12px;cursor:pointer;font:inherit;font-size:.88rem}
+.chip[aria-pressed=true]{background:var(--accent);color:#fff;border-color:var(--accent)}
+.badge{display:inline-block;font-size:.75rem;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--a50);color:var(--accent)}
+.badge.suspect{background:#fef3c7;color:var(--amber)} .badge.changed{background:#dbeafe;color:#1d4ed8} .badge.new{background:#dcfce7;color:var(--green)}
+.badge.failed{background:#fee2e2;color:var(--red)} .badge.manual{background:#f1f5f9;color:#475569} .badge.same{background:#f1f5f9;color:#475569}
+.badge.approved{background:#dcfce7;color:var(--green)} .badge.rejected{background:#fee2e2;color:var(--red)}
+.item{display:grid;grid-template-columns:1fr auto;gap:8px 16px}
+.item h3{margin:0;font-size:1rem}
+.rates{font-size:1.05rem}
+.rates s{color:var(--muted)}
+pre.ev{white-space:pre-wrap;background:#f8fafc;border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:.8rem;margin:6px 0 0;max-height:140px;overflow:auto}
+.fields{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px 12px;margin-top:10px}
+.fields label{display:flex;flex-direction:column;font-size:.8rem;color:var(--muted);gap:2px}
+.fields label.wide{grid-column:1/-1}
+table{border-collapse:collapse;width:100%;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+th,td{padding:7px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;font-size:.9rem}
+th{background:var(--a50);font-size:.8rem;color:#334155}
+td input:not([type=checkbox]),td select{width:100%}
+td input[type=number]{width:84px}
+.scroll{overflow-x:auto}
+.bar{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);padding:12px 20px;display:flex;gap:12px;align-items:center;justify-content:flex-end;box-shadow:0 -6px 20px rgba(15,23,42,.06);z-index:10}
+.bar .n{margin-right:auto;font-weight:600}
+.login{max-width:520px;margin:60px auto}
+.login label{display:block;margin:12px 0 4px;font-weight:600}
+.login input[type=password],.login input[type=text]{width:100%}
+#flash{max-width:1200px;margin:0 auto;padding:0 16px}
+.msg{padding:10px 12px;border-radius:8px;margin:10px 0}
+.msg.err{background:#fee2e2;color:var(--red)} .msg.ok{background:#dcfce7;color:var(--green)} .msg.info{background:var(--a50)}
+a{color:#1d4ed8}
+@media (max-width:640px){.item{grid-template-columns:1fr}header{padding:10px 12px}}
+</style>
+</head>
+<body>
+<header><b>MathMyLoan admin</b><nav id="tabs" hidden></nav><span class="who" id="who"></span></header>
+<div id="flash"></div>
+<main id="app"><p class="muted">Loading…</p></main>
+<div class="bar" id="bar" hidden><span class="n" id="dirty"></span><button class="b" id="discard">Discard</button><button class="b p" id="publish">Publish to site</button></div>
+<script src="admin.js"></script>
+</body>
+</html>

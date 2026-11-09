@@ -14,5 +14,12 @@
   { "slug": "federal-bank", "name": "Federal Bank", "short": "Federal Bank" },
   { "slug": "indian-bank", "name": "Indian Bank", "short": "Indian Bank" },
   { "slug": "central-bank-of-india", "name": "Central Bank of India", "short": "Central Bank" },
-  { "slug": "bank-of-maharashtra", "name": "Bank of Maharashtra", "short": "Bank of Maharashtra" }
+  { "slug": "bank-of-maharashtra", "name": "Bank of Maharashtra", "short": "Bank of Maharashtra" },
+  { "slug": "uco-bank", "name": "UCO Bank", "short": "UCO Bank" },
+  { "slug": "indian-overseas-bank", "name": "Indian Overseas Bank", "short": "IOB" },
+  { "slug": "indusind-bank", "name": "IndusInd Bank", "short": "IndusInd Bank" },
+  { "slug": "tamilnad-mercantile-bank", "name": "Tamilnad Mercantile Bank", "short": "TMB" },
+  { "slug": "csb-bank", "name": "CSB Bank", "short": "CSB Bank" },
+  { "slug": "city-union-bank", "name": "City Union Bank", "short": "City Union Bank" },
+  { "slug": "rbl-bank", "name": "RBL Bank", "short": "RBL Bank" }
 ]

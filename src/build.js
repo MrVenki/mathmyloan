@@ -204,7 +204,7 @@ const trustBox = (list) => `<details class="trust-box">
       `<li>${esc(p.bankInfo.name)}: <a rel="nofollow noopener" href="${esc(p.sourceUrl)}">bank's official page</a>, checked ${esc(fmtDate(p.retrievedOn))}. ${verifiedNote(p)}</li>`,
   )
   .join('')}</ul>
-<p class="small">We only publish rates we can trace to the bank's own website, and an automated check re-reads them every week. Always confirm with the bank before you apply. <a href="${href('/about/')}">Read our method</a>.</p>
+<p class="small">We only publish rates we can trace to the bank's own website, and an automated check re-reads them every day. Always confirm with the bank before you apply. <a href="${href('/about/')}">Read our method</a>.</p>
 </details>`;
 
 // Rate strip under the header: every verified home loan rate, linked to its bank page.
@@ -451,7 +451,7 @@ function loanHub(loan) {
   const qa = [
     [`Which bank has the lowest ${ln} interest rate?`, `Among the ${list.length} banks we checked, ${best.bankInfo.name} advertises the lowest starting rate at ${rate(best.rateFrom)} per annum (checked ${best.retrievedOn}). The rate you are offered can be higher.`],
     [`What is the EMI on a ${lakhLabel(loan.defaultAmountLakh)} ${ln} for ${yrs(y)}?`, `About ${inr(e1)} a month at ${rate(best.rateFrom)}, and about ${inr(e2)} at ${rate(top.rateFrom)}.`],
-    ['How often are these rates checked?', 'An automated check re-reads every bank\'s official rate page each week, and each rate shows the date it was checked.'],
+    ['How often are these rates checked?', 'An automated check re-reads every bank\'s official rate page each day, a person approves any change, and each rate shows the date it was checked.'],
   ];
   const answer = `The lowest ${esc(ln)} rate this month is <b>${rate(best.rateFrom)} a year</b> at ${esc(best.bankInfo.name)}${best.conditions ? ` (${esc(best.conditions.charAt(0).toLowerCase() + best.conditions.slice(1))})` : ''}. Starting rates run from ${rate(best.rateFrom)} to ${rate(top.rateFrom)} across ${list.length} banks. On ${lakhLabel(loan.defaultAmountLakh)} over ${yrs(y)} that is an EMI of about <b>${inr(e1)} to ${inr(e2)}</b> a month.`;
   const vs = popularPairs(list, 12);
@@ -839,7 +839,7 @@ function homePage() {
     best && [`Which bank has the lowest home loan interest rate?`, `Among the banks we checked on ${latest}, ${best.bankInfo.name} advertises the lowest starting rate at ${rate(best.rateFrom)} a year. Your own rate depends on your credit score and income.`],
     best && worst && [`What is the EMI on a ${lakhLabel(first.defaultAmountLakh)} home loan for ${Y} years?`, `About ${inr(emi(P, best.rateFrom, Y))} a month at ${rate(best.rateFrom)} and ${inr(emi(P, worst.rateFrom, Y))} at ${rate(worst.rateFrom)}.`],
     [`Are these rates guaranteed?`, `No. They are the starting rates each bank publishes for its best borrowers. Most people are offered a higher rate, so use them to shortlist banks, then ask for a quote.`],
-    [`How often are the rates updated?`, `An automated check re-reads every bank's official page each week, and each rate shows the date it was checked.`],
+    [`How often are the rates updated?`, `An automated check re-reads every bank's official page each day, a person approves any change, and each rate shows the date it was checked.`],
   ].filter(Boolean);
 
   return layout({
@@ -925,7 +925,7 @@ ${homeList[0] ? `<a class="tcard" href="${href('/home-loan-balance-transfer-calc
 <div class="steps">
 <div class="step"><em>1</em><b>Straight from the bank</b><span>We read each bank's official loan page. No third-party figures.</span></div>
 <div class="step"><em>2</em><b>Source and date on every number</b><span>Each rate links to the page it came from and shows when we checked it.</span></div>
-<div class="step"><em>3</em><b>Re-checked every week</b><span>Unclear or conflicting rates are held back until they are confirmed.</span></div>
+<div class="step"><em>3</em><b>Re-checked every day</b><span>Every change is approved by a person before it is shown.</span></div>
 </div>
 </section>
 
@@ -949,7 +949,7 @@ function aboutPage() {
 <h2>Where the numbers come from</h2>
 <p>Each rate is taken from the bank's own website. We show the source link and the date we checked it. A rate is published only if it has an official source and was checked within the last ${cfg.maxAgeDays} days.</p>
 <p>When a bank publishes a rate table or rate chart, we use it, and we note any marketing text on the same page that disagrees. If a page's headline figures contradict each other and there is no rate table, we hold the rate back until it is confirmed.</p>
-<p>An automated check re-reads each bank page every week. A value is updated only if the exact wording it came from can be found on the bank's page, and a large rate change is held for a human to confirm before it is shown.</p>
+<p>An automated check re-reads each bank page every day and records the exact line each rate came from. Nothing changes on the site until a person has compared that line with the bank's page and approved it.</p>
 <h2>What the rates mean</h2>
 <p>Banks usually advertise a starting rate for the best borrowers. Your rate depends on your credit score, income, loan size and the bank's approval, and is often higher. EMI figures use the standard reducing-balance formula.</p>
 <h2>How we earn</h2>
@@ -1198,7 +1198,7 @@ ${sections}
 <h2>Recent rate changes</h2>
 ${changes.length
   ? `<ul>${changes.map((c) => `<li>${esc(c.date)}: ${esc(bankName(c.bank))} ${esc(loanName(c.loan).toLowerCase())} rate changed from ${rate(c.from)} to ${rate(c.to)}.</li>`).join('')}</ul>`
-  : '<p>No changes recorded yet. Our automated check re-reads bank websites every Monday and lists any change here.</p>'}
+  : '<p>No changes recorded yet. Our automated check re-reads bank websites every day, and approved changes are listed here.</p>'}
 <p class="small">Journalists and bloggers are welcome to cite this page. Please link to it as the source.</p>
 ${trustBox(products)}`,
   });
@@ -1714,6 +1714,9 @@ for (const v of Object.values(logoManifest)) {
 write('app.js', fs.readFileSync(path.join(ROOT, 'src', 'client.js'), 'utf8'));
 // PDF report builder, loaded only when someone downloads a report.
 write('pdf.js', fs.readFileSync(path.join(ROOT, 'src', 'pdf.js'), 'utf8'));
+// Admin page for reviewing scraped rates (not linked, not indexed); it talks to GitHub directly.
+write('admin/index.html', fs.readFileSync(path.join(ROOT, 'src', 'admin', 'index.html'), 'utf8'));
+write('admin/admin.js', fs.readFileSync(path.join(ROOT, 'src', 'admin', 'admin.js'), 'utf8').replace('__REPO__', cfg.repo).replace('__BRANCH__', cfg.branch));
 // Site icon: made by scripts/make-icons.ps1 and scripts/make-ico.mjs, served from the site root.
 for (const f of ['favicon.ico', 'favicon.svg', 'icon-48.png', 'icon-192.png', 'icon-512.png', 'apple-touch-icon.png']) {
   fs.copyFileSync(path.join(ROOT, 'assets', 'brand', f), path.join(OUT, f));
@@ -1738,7 +1741,7 @@ write(
   ),
 );
 if (cfg.domain) write('CNAME', cfg.domain);
-write('robots.txt', `User-agent: *\nAllow: /\nSitemap: ${cfg.siteUrl}/sitemap.xml\n`);
+write('robots.txt', `User-agent: *\nAllow: /\nDisallow: /admin/\nSitemap: ${cfg.siteUrl}/sitemap.xml\n`);
 write(
   'sitemap.xml',
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pages

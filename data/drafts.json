@@ -1,0 +1,3441 @@
+{
+  "updatedAt": "2026-11-09T17:42:35.610Z",
+  "lastEmailDigest": null,
+  "summary": {
+    "suspect": 1,
+    "changed": 1,
+    "new": 30,
+    "failed": 10,
+    "manual": 0,
+    "same": 89
+  },
+  "items": [
+    {
+      "id": "axis-bank|car-loan",
+      "bank": "axis-bank",
+      "loan": "car-loan",
+      "url": "https://www.axis.bank.in/loans/car-loan/interest-rates-charges",
+      "live": 8.8,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 8.85,
+      "method": "keywords",
+      "via": "http",
+      "evidence": "ted by any fluctuations in the financial markets. Fixed interest rates are a go-to choice when one expects financial instability in the market.\nLoan Tenure | 3 Yr MCLR | Spread over MCLR | Effective ROI Range | Reset | Processing Fee | Documentation Charges\nUp to 36 months | 8.85% | 0.0% - 2.85% | 8.85% - 11.70% | No reset | Upto 2% of the loan amount + GST as applicable | ₹700 + GST as applicable",
+      "alternatives": [
+        {
+          "value": 8.9,
+          "evidence": "to know more about our car loan interest rates and charges.\n12. What is the interest rate on a Car Loan?\nThe Car Loan interest rate depends on the lender and your eligibility factors. For instance, Axis Bank charges attractive interest rates ranging from 8.90% to 11.80% per annum."
+        },
+        {
+          "value": 11.8,
+          "evidence": "to know more about our car loan interest rates and charges.\n12. What is the interest rate on a Car Loan?\nThe Car Loan interest rate depends on the lender and your eligibility factors. For instance, Axis Bank charges attractive interest rates ranging from 8.90% to 11.80% per annum."
+        }
+      ],
+      "status": "suspect",
+      "proposed": {
+        "rateFrom": 8.85,
+        "conditions": "Effective rate 8.80% to 11.70%",
+        "effectiveFrom": null,
+        "fee": "Up to 2% of the loan amount plus GST",
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "union-bank-of-india|top-up-home-loan",
+      "bank": "union-bank-of-india",
+      "loan": "top-up-home-loan",
+      "url": "https://www.unionbankofindia.bank.in/pdf/retail_roi.pdf",
+      "live": 8.15,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 7.9,
+      "method": "margin",
+      "via": "pdf",
+      "evidence": "Sr No | Type of Loan | Mean Rate\nQuarter Ended Sept 2026\n1 | Home Loan | 7.15% to 9.35% | 8.25%\n=> home-loan rate 7.15% + 0.75% margin stated by the bank (check the margin is unchanged)",
+      "status": "changed",
+      "proposed": {
+        "rateFrom": 7.9,
+        "conditions": "Union Mortgage Plus (top-up): 0.75% above your Union Home loan rate, which starts at 7.40%",
+        "effectiveFrom": "2026-10-08",
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "csb-bank|car-loan",
+      "bank": "csb-bank",
+      "loan": "car-loan",
+      "url": "https://www.csb.bank.in/base-rateservice-charges",
+      "live": null,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 8.9,
+      "method": "keywords",
+      "via": "http",
+      "evidence": "Product | Rate of Interest disbursed | Mean Rate\nMin ROI | Max ROI\nAuto Loan | 8.90% | 11.00% | 9.42%",
+      "alternatives": [
+        {
+          "value": 9.42,
+          "evidence": "Product | Rate of Interest disbursed | Mean Rate\nMin ROI | Max ROI\nAuto Loan | 8.90% | 11.00% | 9.42%"
+        },
+        {
+          "value": 11,
+          "evidence": "Product | Rate of Interest disbursed | Mean Rate\nMin ROI | Max ROI\nAuto Loan | 8.90% | 11.00% | 9.42%"
+        }
+      ],
+      "status": "new",
+      "proposed": {
+        "rateFrom": 8.9,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "indian-overseas-bank|car-loan",
+      "bank": "indian-overseas-bank",
+      "loan": "car-loan",
+      "url": "https://www.iob.bank.in/en/emi-calculator",
+      "live": null,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 7.8,
+      "method": "keywords",
+      "via": "http",
+      "evidence": "Vehicle Loans\nStarting from\n7.80%",
+      "status": "new",
+      "proposed": {
+        "rateFrom": 7.8,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "tamilnad-mercantile-bank|car-loan",
+      "bank": "tamilnad-mercantile-bank",
+      "loan": "car-loan",
+      "url": "https://www.tmb.bank.in/personal/loans/tmb-home-loan",
+      "live": null,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 8.4,
+      "method": "keywords",
+      "via": "http",
+      "evidence": "Minimum ROI (6) | Maximum ROI (7)\nHome Loan | 7.90% | 13.25% | 8.70%\nCar Loan | 8.40% | 10.70% | 9.60%",
+      "alternatives": [
+        {
+          "value": 9.6,
+          "evidence": "Minimum ROI (6) | Maximum ROI (7)\nHome Loan | 7.90% | 13.25% | 8.70%\nCar Loan | 8.40% | 10.70% | 9.60%"
+        },
+        {
+          "value": 10.7,
+          "evidence": "Minimum ROI (6) | Maximum ROI (7)\nHome Loan | 7.90% | 13.25% | 8.70%\nCar Loan | 8.40% | 10.70% | 9.60%"
+        }
+      ],
+      "status": "new",
+      "proposed": {
+        "rateFrom": 8.4,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "uco-bank|car-loan",
+      "bank": "uco-bank",
+      "loan": "car-loan",
+      "url": "https://www.uco.bank.in/repo",
+      "live": null,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 7.6,
+      "method": "keywords",
+      "via": "http",
+      "evidence": "*RoI on Car Loan (EV) PQVL is applicable only for CIBIL 700 and above, -1, 0, and below 300.\na i) | For customers with consumer CIBIL score from 750 to 824, NTC (CIBIL score of 0, -1 or <300)- The rate shall be applicable for accounts without DSA payout only | Spread | Strategic Discount | Effective Rate\nMaintaining Salary Account with our Bank | 0.00% | -0.70% | 7.60%",
+      "alternatives": [
+        {
+          "value": 7.7,
+          "evidence": "14 | UCO CAR/ STP CAR LOAN/ CAR Loan PQVL*\na | Individuals with CIBIL SCORE | Spread | Strategic Discount | Effective Rate\nFor CIBIL ≥ 825 | 0.00% | -0.60% | 7.70%"
+        },
+        {
+          "value": 7.8,
+          "evidence": "a i) | For customers with consumer CIBIL score from 750 to 824, NTC (CIBIL score of 0, -1 or <300)- The rate shall be applicable for accounts without DSA payout only | Spread | Strategic Discount | Effective Rate\nMaintaining Salary Account with our Bank | 0.00% | -0.60% | 7.70%\nNot maintaining salary account with our Bank | 0.10% | -0.60% | 7.80%"
+        },
+        {
+          "value": 7.9,
+          "evidence": "a | Individuals with CIBIL SCORE | Spread | Strategic Discount | Effective Rate\nFor CIBIL ≥ 825 | 0.00% | -0.60% | 7.70%\nFor CIBIL ≥800 and ≤824 | 0.20% | -0.60% | 7.90%"
+        },
+        {
+          "value": 8,
+          "evidence": "For CIBIL ≥ 825 | 0.00% | -0.60% | 7.70%\nFor CIBIL ≥800 and ≤824 | 0.20% | -0.60% | 7.90%\nFor 750 ≤ CIBIL ≤799 | 0.30% | -0.60% | 8.00%"
+        },
+        {
+          "value": 8.2,
+          "evidence": "The rate of interest shall also be applicable for STP vehicle and pre-qualified vehicle loan scheme\nb | BUSINESS CONCERN with CMR Ranking | Spread | Strategic Discount | Effective Rate\nCMR 1 | 0.00% | -0.10% | 8.20%"
+        }
+      ],
+      "status": "new",
+      "proposed": {
+        "rateFrom": 7.6,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "bank-of-baroda|education-loan",
+      "bank": "bank-of-baroda",
+      "loan": "education-loan",
+      "url": "https://bankofbaroda.bank.in/interest-rate-and-service-charges/retail-loans-interest-rates",
+      "live": null,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 7.1,
+      "method": "keywords",
+      "via": "http",
+      "evidence": "Product | Conditions | Repo Rate + Spread | Effective Rate of Interest\nPM VIDYALAXMI SCHEME\nConditions Top 100 Institutions | Repo Rate + Spread BRLLR - 1.05% | Effective Rate of Interest 7.10%",
+      "alternatives": [
+        {
+          "value": 7.35,
+          "evidence": "PM VIDYALAXMI SCHEME\nConditions Top 100 Institutions | Repo Rate + Spread BRLLR - 1.05% | Effective Rate of Interest 7.10%\nConditions AA | Repo Rate + Spread BRLLR - 0.80% | Effective Rate of Interest 7.35%"
+        },
+        {
+          "value": 7.45,
+          "evidence": "Conditions Top 100 Institutions | Repo Rate + Spread BRLLR - 1.05% | Effective Rate of Interest 7.10%\nConditions AA | Repo Rate + Spread BRLLR - 0.80% | Effective Rate of Interest 7.35%\nConditions A | Repo Rate + Spread BRLLR - 0.70% | Effective Rate of Interest 7.45%"
+        },
+        {
+          "value": 8.15,
+          "evidence": "Conditions AA | Repo Rate + Spread BRLLR - 0.80% | Effective Rate of Interest 7.35%\nConditions A | Repo Rate + Spread BRLLR - 0.70% | Effective Rate of Interest 7.45%\nConditions B | Repo Rate + Spread BRLLR + 0.00% | Effective Rate of Interest 8.15%"
+        },
+        {
+          "value": 8.65,
+          "evidence": "Conditions A | Repo Rate + Spread BRLLR - 0.70% | Effective Rate of Interest 7.45%\nConditions B | Repo Rate + Spread BRLLR + 0.00% | Effective Rate of Interest 8.15%\nConditions C | Repo Rate + Spread BRLLR+ 0.50% | Effective Rate of Interest 8.65%"
+        },
+        {
+          "value": 8.7,
+          "evidence": "of Interest for Children of defence personal Under Baroda Yoddha EDP education Loan (For Studies in India) Scheme is same as Baroda Executive Development Premier Institutions (For Studies in India).\nBaroda Scholar | Education loan to Premier Institution in Abroad (specified in the list of Premier Institutions):\nConditions Abroad | Repo Rate + Spread BRLLR + 0.55% | Effective Rate of Interest 8.70%"
+        }
+      ],
+      "status": "new",
+      "proposed": {
+        "rateFrom": 7.1,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "csb-bank|education-loan",
+      "bank": "csb-bank",
+      "loan": "education-loan",
+      "url": "https://www.csb.bank.in/base-rateservice-charges",
+      "live": null,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 9.02,
+      "method": "keywords",
+      "via": "http",
+      "evidence": "Product | Rate of Interest disbursed | Mean Rate\nMin ROI | Max ROI\nEducation loan | 9.02% | 12.07% | 9.78%",
+      "alternatives": [
+        {
+          "value": 9.04,
+          "evidence": "Product | Rate of Interest disbursed | Mean Rate\nMin ROI | Max ROI\nEducation loan | 9.04% | 11.25% | 10.24%"
+        },
+        {
+          "value": 9.78,
+          "evidence": "Product | Rate of Interest disbursed | Mean Rate\nMin ROI | Max ROI\nEducation loan | 9.02% | 12.07% | 9.78%"
+        },
+        {
+          "value": 10.24,
+          "evidence": "Product | Rate of Interest disbursed | Mean Rate\nMin ROI | Max ROI\nEducation loan | 9.04% | 11.25% | 10.24%"
+        },
+        {
+          "value": 11.25,
+          "evidence": "Product | Rate of Interest disbursed | Mean Rate\nMin ROI | Max ROI\nEducation loan | 9.04% | 11.25% | 10.24%"
+        },
+        {
+          "value": 11.88,
+          "evidence": "Education loan\nCategory | Repo rate | Spread | Effective Rate of Interest *\nCSB Vidya | 5.25% | 6.63% | 11.88%"
+        }
+      ],
+      "status": "new",
+      "proposed": {
+        "rateFrom": 9.02,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "tamilnad-mercantile-bank|education-loan",
+      "bank": "tamilnad-mercantile-bank",
+      "loan": "education-loan",
+      "url": "https://www.tmb.bank.in/personal/loans/tmb-home-loan",
+      "live": null,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 9,
+      "method": "keywords",
+      "via": "http",
+      "evidence": "Loan against Property | 9.50% | 11.65% | 11.37%\nPersonal Loan | 14.40% | 14.40% | 14.40%\nEducation Loan | 9.00% | 11.35% | 10.72%",
+      "alternatives": [
+        {
+          "value": 10.72,
+          "evidence": "Loan against Property | 9.50% | 11.65% | 11.37%\nPersonal Loan | 14.40% | 14.40% | 14.40%\nEducation Loan | 9.00% | 11.35% | 10.72%"
+        },
+        {
+          "value": 11.35,
+          "evidence": "Loan against Property | 9.50% | 11.65% | 11.37%\nPersonal Loan | 14.40% | 14.40% | 14.40%\nEducation Loan | 9.00% | 11.35% | 10.72%"
+        }
+      ],
+      "status": "new",
+      "proposed": {
+        "rateFrom": 9,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "uco-bank|education-loan",
+      "bank": "uco-bank",
+      "loan": "education-loan",
+      "url": "https://www.uco.bank.in/repo",
+      "live": null,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 7.15,
+      "method": "keywords",
+      "via": "http",
+      "evidence": "0.10% concession over applicable card rate for female applicants.\nf | Education Loan: Uco PM Vidyalaxmi\nAAA | -1.15% | 7.15%",
+      "alternatives": [
+        {
+          "value": 7.4,
+          "evidence": "f | Education Loan: Uco PM Vidyalaxmi\nAAA | -1.15% | 7.15%\nAA | -0.90% | 7.40%"
+        },
+        {
+          "value": 7.5,
+          "evidence": "For List 'B' Institute with Nil Collateral | 0.40% | 8.70%\nFor List 'C' Institute with Nil Collateral | 2.35% | 10.65%\nFor List 'A' Institute with at least 100% collateral | -0.80% | 7.50%"
+        },
+        {
+          "value": 7.6,
+          "evidence": "For List 'B' Institute with Nil Collateral | 0.50% | 8.80%\nFor List 'C' Institute with Nil Collateral | 2.45% | 10.75%\nFor List 'A' Institute with at least 100% collateral | -0.70% | 7.60%"
+        },
+        {
+          "value": 7.75,
+          "evidence": "For List 'C' Institute with less than 100% collateral | 1.70% | 10.00%\ne | Education Loan: UCO Aspire 2.0 (With at least 100% Collateral - A) | Spread | Effective ROI\nFor Webometrics Ranking 'Up to 200' | -0.55% | 7.75%"
+        },
+        {
+          "value": 7.8,
+          "evidence": "AAA | -1.15% | 7.15%\nAA | -0.90% | 7.40%\nA | -0.50% | 7.80%"
+        }
+      ],
+      "status": "new",
+      "proposed": {
+        "rateFrom": 7.15,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "csb-bank|gold-loan",
+      "bank": "csb-bank",
+      "loan": "gold-loan",
+      "url": "https://www.csb.bank.in/general-gold-loan",
+      "live": null,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 9.8,
+      "method": "keywords",
+      "via": "http",
+      "evidence": "Product | Rate of interest for loans disbursed between Jul’26 to Sep’26\nMinimum ROI | Maximum ROI | Mean Rate\nGold Loan | 9.8% | 12.99% | 12.76%",
+      "alternatives": [
+        {
+          "value": 12.49,
+          "evidence": "Consumption Loan\nLoan amount :- Minimum Rs 25,001 , Maximum Rs 1 Crs\nAttractive interest rates upto 12.49%"
+        },
+        {
+          "value": 12.99,
+          "evidence": "Product | Rate of interest for loans disbursed between Jul’26 to Sep’26\nMinimum ROI | Maximum ROI | Mean Rate\nGold Loan | 9.8% | 12.99% | 12.76%"
+        }
+      ],
+      "status": "new",
+      "proposed": {
+        "rateFrom": 9.8,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "uco-bank|gold-loan",
+      "bank": "uco-bank",
+      "loan": "gold-loan",
+      "url": "https://www.uco.bank.in/repo",
+      "live": null,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 8.5,
+      "method": "keywords",
+      "via": "http",
+      "evidence": "Margin Offered\n30% | 0.40% | 8.70%\n40% | 0.20% | 8.50%",
+      "alternatives": [
+        {
+          "value": 8.6,
+          "evidence": "Total Exposure up to Rs 50,000 | 1.85% | 10.15%\n9 | UCO MSME GOLD Loan Scheme\nMargin offered 30% | 0.30% | 8.60%"
+        },
+        {
+          "value": 8.7,
+          "evidence": "5 | UCO Gold Loan Scheme (Priority Sector & Non Priorty Sector) | Spread | Effective ROI\nMargin Offered\n30% | 0.40% | 8.70%"
+        },
+        {
+          "value": 8.85,
+          "evidence": "Total Exposure up to Rs 50,000 | 2.20% | 10.50%\n9 | UCO MSME GOLD Loan Scheme\nTerm Loan | 0.55% | 8.85%"
+        },
+        {
+          "value": 8.9,
+          "evidence": "30% | 0.40% | 8.70%\n40% | 0.20% | 8.50%\nGold Loan OD 30% (NPS) | 0.60% | 8.90%"
+        },
+        {
+          "value": 9.05,
+          "evidence": "9 | UCO MSME GOLD Loan Scheme\nTerm Loan | 0.55% | 8.85%\nGold Overdraft | 0.75% | 9.05%"
+        }
+      ],
+      "status": "new",
+      "proposed": {
+        "rateFrom": 8.5,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "city-union-bank|home-loan",
+      "bank": "city-union-bank",
+      "loan": "home-loan",
+      "url": "https://cityunionbank.bank.in/city-union-bank-rates",
+      "live": null,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 8.25,
+      "method": "keywords",
+      "via": "http",
+      "evidence": "Bureau Score^^ | upto Rs.30.00 lakh | >Rs.30.00 lakh - Rs.75.00 lakh | >Rs.75.00 lakh -Rs. 7.50 Cr\nMin | Max | Min | Max | Min | Max\nAbove 800 | 8.25% | 8.50% | 8.50% | 9.00% | 8.75% | 9.50% | Affordable Home loan 0.35%+ GST",
+      "alternatives": [
+        {
+          "value": 8.35,
+          "evidence": "Bureau Score^ | upto Rs.30.00 lakh | >Rs.30.00 lakh - Rs.75.00 lakh | >Rs.75.00 lakh -Rs. 7.50 Cr | Affordable Home loan 0.35%+ GST\nPrime Home loan 0.25%+ GST\nAbove 800 | 8.35% | 8.85% | 9.35% | Prime Home loan 0.25%+ GST"
+        },
+        {
+          "value": 8.5,
+          "evidence": "Bureau Score^^ | upto Rs.30.00 lakh | >Rs.30.00 lakh - Rs.75.00 lakh | >Rs.75.00 lakh -Rs. 7.50 Cr\nMin | Max | Min | Max | Min | Max\nAbove 800 | 8.25% | 8.50% | 8.50% | 9.00% | 8.75% | 9.50% | Affordable Home loan 0.35%+ GST"
+        },
+        {
+          "value": 8.85,
+          "evidence": "Bureau Score^ | upto Rs.30.00 lakh | >Rs.30.00 lakh - Rs.75.00 lakh | >Rs.75.00 lakh -Rs. 7.50 Cr | Affordable Home loan 0.35%+ GST\nPrime Home loan 0.25%+ GST\nAbove 800 | 8.35% | 8.85% | 9.35% | Prime Home loan 0.25%+ GST"
+        },
+        {
+          "value": 9,
+          "evidence": "Bureau Score^^ | upto Rs.30.00 lakh | >Rs.30.00 lakh - Rs.75.00 lakh | >Rs.75.00 lakh -Rs. 7.50 Cr\nMin | Max | Min | Max | Min | Max\nAbove 800 | 8.25% | 8.50% | 8.50% | 9.00% | 8.75% | 9.50% | Affordable Home loan 0.35%+ GST"
+        },
+        {
+          "value": 9.35,
+          "evidence": "Bureau Score^ | upto Rs.30.00 lakh | >Rs.30.00 lakh - Rs.75.00 lakh | >Rs.75.00 lakh -Rs. 7.50 Cr | Affordable Home loan 0.35%+ GST\nPrime Home loan 0.25%+ GST\nAbove 800 | 8.35% | 8.85% | 9.35% | Prime Home loan 0.25%+ GST"
+        }
+      ],
+      "status": "new",
+      "proposed": {
+        "rateFrom": 8.25,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "csb-bank|home-loan",
+      "bank": "csb-bank",
+      "loan": "home-loan",
+      "url": "https://www.csb.bank.in/base-rateservice-charges",
+      "live": null,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 8.75,
+      "method": "keywords",
+      "via": "http",
+      "evidence": "S.No | Parameters | Interest Rate of Contracted Loans | Annual Percentage Rate (APR)\nMinimum % | Maximum % | Mean % | Minimum % | Maximum % | Mean %\n1 | Housing Loan | 8.75% | 11.5% | 9.54% | 8.75% | 11.5% | 9.54%",
+      "status": "new",
+      "proposed": {
+        "rateFrom": 8.75,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "indian-overseas-bank|home-loan",
+      "bank": "indian-overseas-bank",
+      "loan": "home-loan",
+      "url": "https://www.iob.bank.in/en/emi-calculator",
+      "live": null,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 7.45,
+      "method": "keywords",
+      "via": "http",
+      "evidence": "Home Loans\nStarting from\n7.45%",
+      "status": "new",
+      "proposed": {
+        "rateFrom": 7.45,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "tamilnad-mercantile-bank|home-loan",
+      "bank": "tamilnad-mercantile-bank",
+      "loan": "home-loan",
+      "url": "https://www.tmb.bank.in/personal/loans/tmb-home-loan",
+      "live": null,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 7.9,
+      "method": "keywords",
+      "via": "http",
+      "evidence": "Loan Product (1) | Range of Rate of Interest | Mean ROI (8)\nMinimum ROI (6) | Maximum ROI (7)\nHome Loan | 7.90% | 13.25% | 8.70%",
+      "alternatives": [
+        {
+          "value": 8.15,
+          "evidence": "Minimum | Maximum\n1 | TMB - Home Loan | 8.50% | 9.05% | 9.55%\n2 | TMB - ELITE Home Loan | 8.50% | 8.15% | 8.70%"
+        },
+        {
+          "value": 8.5,
+          "evidence": "S. No. | Name of the Loan Scheme | ROI - RLLR (w.e.f - 08.10.2026) | Effective ROI\nMinimum | Maximum\n1 | TMB - Home Loan | 8.50% | 9.05% | 9.55%"
+        },
+        {
+          "value": 8.7,
+          "evidence": "Loan Product (1) | Range of Rate of Interest | Mean ROI (8)\nMinimum ROI (6) | Maximum ROI (7)\nHome Loan | 7.90% | 13.25% | 8.70%"
+        },
+        {
+          "value": 9.05,
+          "evidence": "S. No. | Name of the Loan Scheme | ROI - RLLR (w.e.f - 08.10.2026) | Effective ROI\nMinimum | Maximum\n1 | TMB - Home Loan | 8.50% | 9.05% | 9.55%"
+        },
+        {
+          "value": 9.75,
+          "evidence": "1 | TMB - Home Loan | 8.50% | 9.05% | 9.55%\n2 | TMB - ELITE Home Loan | 8.50% | 8.15% | 8.70%\n3 | TMB - Car | 8.50% | 9.75% | 11.40%"
+        }
+      ],
+      "status": "new",
+      "proposed": {
+        "rateFrom": 7.9,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "uco-bank|home-loan",
+      "bank": "uco-bank",
+      "loan": "home-loan",
+      "url": "https://www.uco.bank.in/repo",
+      "live": null,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 7.4,
+      "method": "keywords",
+      "via": "http",
+      "evidence": "13 | HOME LOAN | Spread | Strategic Discount | Effective Rate\na | Individuals\nFor Home Loan (Borrowers with Cibil Score or Equivalent ≥850) (Uco Super Platina Customers) | 0.05% | -0.95% | 7.40%",
+      "alternatives": [
+        {
+          "value": 7.45,
+          "evidence": "Addl. Concession Women Borrower | 0.05%\na i) | For customers with consumer CIBIL score from 750 to 824, NTC (CIBIL score of 0, -1 or <300) with loan amount Rs.50 lakh & above | Spread | Strategic Discount | Effective Rate\nMaintaining Salary Account with our Bank | 0.10% | -0.95% | 7.45%"
+        },
+        {
+          "value": 7.5,
+          "evidence": "a | Individuals\nFor Home Loan (Borrowers with Cibil Score or Equivalent ≥850) (Uco Super Platina Customers) | 0.05% | -0.95% | 7.40%\nFor Home Loan (Borrowers with Cibil Score or Equivalent ≥ 825 and < 849) (Uco Super Platina Customers) | 0.15% | -0.95% | 7.50%"
+        },
+        {
+          "value": 7.55,
+          "evidence": "a i) | For customers with consumer CIBIL score from 750 to 824, NTC (CIBIL score of 0, -1 or <300) with loan amount Rs.50 lakh & above | Spread | Strategic Discount | Effective Rate\nMaintaining Salary Account with our Bank | 0.10% | -0.95% | 7.45%\nNot Maintaining Salary Account with our Bank | 0.20% | -0.95% | 7.55%"
+        },
+        {
+          "value": 7.6,
+          "evidence": "For Home Loan (Borrowers with Cibil Score or Equivalent ≥850) (Uco Super Platina Customers) | 0.05% | -0.95% | 7.40%\nFor Home Loan (Borrowers with Cibil Score or Equivalent ≥ 825 and < 849) (Uco Super Platina Customers) | 0.15% | -0.95% | 7.50%\nFor Home Loan (Borrowers with Cibil Score or Equivalent ≥800 and ≤824) (Uco Platina Customers) | 0.25% | -0.95% | 7.60%"
+        },
+        {
+          "value": 7.65,
+          "evidence": "For Home Loan (Borrowers with Cibil Score or Equivalent ≥750 and≤ 799) (Uco Premia Customers) | 0.45% | -0.95% | 7.80%\nFor Home Loan (Borrowers with Cibil Score or Equivalent ≥700 and≤ 749) (Uco Optima Customers) | 0.75% | -0.95% | 8.10%\nFor Home Loan (Borrowers with Cibil Score 0-1 or <300) (New To Credit) | 0.30% | -0.95% | 7.65%"
+        }
+      ],
+      "status": "new",
+      "proposed": {
+        "rateFrom": 7.4,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "bank-of-baroda|home-loan-overdraft",
+      "bank": "bank-of-baroda",
+      "loan": "home-loan-overdraft",
+      "url": "https://bankofbaroda.bank.in/interest-rate-and-service-charges/retail-loans-interest-rates",
+      "live": null,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 10.15,
+      "method": "keywords",
+      "via": "http",
+      "evidence": "Baroda Loan Against Future Rent Receivables\nPeriod of Loan | Floating ROI | Effective ROI (floating) | Fixed ROI | Effective ROI (fixed)\nUpto 10 Years | BRLLR + Strategic Premium + 2.00% | 10.15% | BRLLR + Strategic Premium + 4.00% | 12.15%",
+      "alternatives": [
+        {
+          "value": 12.15,
+          "evidence": "Baroda Loan Against Future Rent Receivables\nPeriod of Loan | Floating ROI | Effective ROI (floating) | Fixed ROI | Effective ROI (fixed)\nUpto 10 Years | BRLLR + Strategic Premium + 2.00% | 10.15% | BRLLR + Strategic Premium + 4.00% | 12.15%"
+        },
+        {
+          "value": 10.4,
+          "evidence": "Period of Loan | Floating ROI | Effective ROI (floating) | Fixed ROI | Effective ROI (fixed)\nUpto 10 Years | BRLLR + Strategic Premium + 2.00% | 10.15% | BRLLR + Strategic Premium + 4.00% | 12.15%\nAbove 10 year | BRLLR + Strategic Premium + 2.25% | 10.40% | BRLLR + Strategic Premium + 4.25% | 12.40%"
+        },
+        {
+          "value": 12.4,
+          "evidence": "Period of Loan | Floating ROI | Effective ROI (floating) | Fixed ROI | Effective ROI (fixed)\nUpto 10 Years | BRLLR + Strategic Premium + 2.00% | 10.15% | BRLLR + Strategic Premium + 4.00% | 12.15%\nAbove 10 year | BRLLR + Strategic Premium + 2.25% | 10.40% | BRLLR + Strategic Premium + 4.25% | 12.40%"
+        }
+      ],
+      "status": "new",
+      "proposed": {
+        "rateFrom": 10.15,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "bank-of-baroda|loan-against-property",
+      "bank": "bank-of-baroda",
+      "loan": "loan-against-property",
+      "url": "https://bankofbaroda.bank.in/interest-rate-and-service-charges/retail-loans-interest-rates",
+      "live": null,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 8.9,
+      "method": "keywords",
+      "via": "http",
+      "evidence": "Floating Rates:\nProduct | Conditions | Repo Rate + Spread | Effective Rate of Interest*\nBaroda Mortgage Loan - Individuals | Conditions Tenor up to 120 Months | Up to Rs. 7.5 crore | Repo Rate + Spread From BRLLR + SP + 0.75% To BRLLR + SP + 3.35% (As per Risk Rating of the applicant/s.) | Effective Rate of Interest* From 8.90% to 11.50%",
+      "alternatives": [
+        {
+          "value": 11.5,
+          "evidence": "Floating Rates:\nProduct | Conditions | Repo Rate + Spread | Effective Rate of Interest*\nBaroda Mortgage Loan - Individuals | Conditions Tenor up to 120 Months | Up to Rs. 7.5 crore | Repo Rate + Spread From BRLLR + SP + 0.75% To BRLLR + SP + 3.35% (As per Risk Rating of the applicant/s.) | Effective Rate of Interest* From 8.90% to 11.50%"
+        },
+        {
+          "value": 9.2,
+          "evidence": "Parameters | Tenor up to 120 Months and facility upto Rs 7.50 crores\nMargin\nAbove 50% | BRLLR + SP + 1.05% i.e. 9.20% p.a. at present."
+        },
+        {
+          "value": 9.7,
+          "evidence": "Margin\nAbove 50% | BRLLR + SP + 1.05% i.e. 9.20% p.a. at present.\nUp to 50% | BRLLR + SP + 1.55% i.e. 9.70% p.a. at present"
+        }
+      ],
+      "status": "new",
+      "proposed": {
+        "rateFrom": 8.9,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "city-union-bank|loan-against-property",
+      "bank": "city-union-bank",
+      "loan": "loan-against-property",
+      "url": "https://cityunionbank.bank.in/city-union-bank-rates",
+      "live": null,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 11,
+      "method": "keywords",
+      "via": "http",
+      "evidence": "Bureau Score^^ | ^^ Borrower+ Co borrower+ Co-applicant (if income considered for | Loan upto 1.00 Crore - 0.35 %\nloan eligibility).\nAbove 800 | 11.00% | Loan above 1.00 Crore - 0.25 %",
+      "status": "new",
+      "proposed": {
+        "rateFrom": 11,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "tamilnad-mercantile-bank|loan-against-property",
+      "bank": "tamilnad-mercantile-bank",
+      "loan": "loan-against-property",
+      "url": "https://www.tmb.bank.in/personal/loans/tmb-home-loan",
+      "live": null,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 8.5,
+      "method": "keywords",
+      "via": "http",
+      "evidence": "4 | TMB - Two Wheelers | 8.50% | 13.55% | 13.55%\n5 | TMB - Personal | 8.50% | 13.00% | 15.15%\n6 | TMB - LAP | 8.50% | 11.40% | 12.30%",
+      "alternatives": [
+        {
+          "value": 9.45,
+          "evidence": "S. No. | Name of the Loan Scheme | ROI - MCLR (w.e.f 07.11.26) | Effective ROI\nMinimum | Maximum\n1 | TMB - LAP | 9.45% | 12.20% | 12.20%"
+        },
+        {
+          "value": 9.5,
+          "evidence": "Home Loan | 7.90% | 13.25% | 8.70%\nCar Loan | 8.40% | 10.70% | 9.60%\nLoan against Property | 9.50% | 11.65% | 11.37%"
+        },
+        {
+          "value": 9.9,
+          "evidence": "5 | TMB - Personal | 8.50% | 13.00% | 15.15%\n6 | TMB - LAP | 8.50% | 11.40% | 12.30%\n7 | TMB - MINI LAP | 8.50% | 9.90% | 10.50%"
+        },
+        {
+          "value": 9.95,
+          "evidence": "2 | TMB - Mahalir | 9.45% | 11.65% | 11.65%\n3 | TMB - IPO Finance | 9.45% | 13.10% | 13.10%\n4 | TMB - Smart Business | 9.45% | 9.95% | 11.45%"
+        },
+        {
+          "value": 10.05,
+          "evidence": "11 | TMB - LAP | 8.50% | 11.25% | 11.25%\n12 | TMB - MSME Easy Credit | 8.50% | 9.05% | 9.95%\n13 | TMB - Green Energy | 8.50% | 10.05% | 12.45%"
+        }
+      ],
+      "status": "new",
+      "proposed": {
+        "rateFrom": 8.5,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "bank-of-baroda|loan-against-securities",
+      "bank": "bank-of-baroda",
+      "loan": "loan-against-securities",
+      "url": "https://bankofbaroda.bank.in/interest-rate-and-service-charges/retail-loans-interest-rates",
+      "live": null,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 9.9,
+      "method": "keywords",
+      "via": "http",
+      "evidence": "i.e., 1.25% over KVP rate or BRLLR + S.P. + 1.75%, whichever is higher. | Effective Rate of Interest -\nConditions Staff | Repo Rate + Spread 0.50% over KVP rate | Effective Rate of Interest -\nLoan against Life Insurance Policies, Loan against securities of Relief Bonds / Government Bonds | Conditions Demand Loan / Term Loan | Repo Rate + Spread BRLLR + SP + 1.50% | Effective Rate of Interest 9.90%",
+      "alternatives": [
+        {
+          "value": 10.15,
+          "evidence": "r KVP rate | Effective Rate of Interest -\nLoan against Life Insurance Policies, Loan against securities of Relief Bonds / Government Bonds | Conditions Demand Loan / Term Loan | Repo Rate + Spread BRLLR + SP + 1.50% | Effective Rate of Interest 9.90%\nConditions Overdraft | Repo Rate + Spread 0.25% higher than the ROI applicable to DL / TL i.e. BRLLR + SP + 1.75% | Effective Rate of Interest 10.15%"
+        }
+      ],
+      "status": "new",
+      "proposed": {
+        "rateFrom": 9.9,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "csb-bank|personal-loan",
+      "bank": "csb-bank",
+      "loan": "personal-loan",
+      "url": "https://www.csb.bank.in/base-rateservice-charges",
+      "live": null,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 10.99,
+      "method": "keywords",
+      "via": "http",
+      "evidence": "Product | Rate of Interest disbursed | Mean Rate\nMin ROI | Max ROI\nPersonal loan | 10.99% | 14.00% | 11.10%",
+      "alternatives": [
+        {
+          "value": 11.07,
+          "evidence": "Product | Rate of Interest disbursed | Mean Rate\nMin ROI | Max ROI\nPersonal loan | 11.07% | 16.23% | 11.64%"
+        },
+        {
+          "value": 11.1,
+          "evidence": "Product | Rate of Interest disbursed | Mean Rate\nMin ROI | Max ROI\nPersonal loan | 10.99% | 14.00% | 11.10%"
+        },
+        {
+          "value": 11.64,
+          "evidence": "Product | Rate of Interest disbursed | Mean Rate\nMin ROI | Max ROI\nPersonal loan | 11.07% | 16.23% | 11.64%"
+        },
+        {
+          "value": 14,
+          "evidence": "Product | Rate of Interest disbursed | Mean Rate\nMin ROI | Max ROI\nPersonal loan | 10.99% | 14.00% | 11.10%"
+        },
+        {
+          "value": 16.23,
+          "evidence": "Product | Rate of Interest disbursed | Mean Rate\nMin ROI | Max ROI\nPersonal loan | 11.07% | 16.23% | 11.64%"
+        }
+      ],
+      "status": "new",
+      "proposed": {
+        "rateFrom": 10.99,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "indian-overseas-bank|personal-loan",
+      "bank": "indian-overseas-bank",
+      "loan": "personal-loan",
+      "url": "https://www.iob.bank.in/en/emi-calculator",
+      "live": null,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 10.5,
+      "method": "keywords",
+      "via": "http",
+      "evidence": "Personal Loans\nStarting from\n10.50%",
+      "status": "new",
+      "proposed": {
+        "rateFrom": 10.5,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "indusind-bank|personal-loan",
+      "bank": "indusind-bank",
+      "loan": "personal-loan",
+      "url": "https://www.indusind.bank.in/in/en/personal/loans/personal-loan-interest-rate.html",
+      "live": null,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 10.49,
+      "method": "keywords",
+      "via": "http",
+      "evidence": "IndusInd Bank Personal loan Interest Rate\nPersonal loan interest rates at IndusInd Bank are determined based on your creditworthiness, income stability, and repayment capacity. These rates define the cost of borrowing and directly impact your monthly EMI and total repayment amount.\nIndusInd Bank Personal Loan interest rate starts from 10.49% p.a.",
+      "status": "new",
+      "proposed": {
+        "rateFrom": 10.49,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "rbl-bank|personal-loan",
+      "bank": "rbl-bank",
+      "loan": "personal-loan",
+      "url": "https://www.rbl.bank.in/product/loans/personal-loan",
+      "live": null,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 18,
+      "method": "keywords",
+      "via": "http",
+      "evidence": "EMIs, you have to pay the bank a fee of 3% of your outstanding principal. NIL foreclosure charges only if minimum 12 EMIs are paid without any bounce and foreclosure is using Own funds. Balance Transfer of loan outstanding to another financial institute is not treated as own source of funds.\nInterest Rates: Customers of personal loan from RBL Bank receive favourable interest rate of 18% per annum.",
+      "status": "new",
+      "proposed": {
+        "rateFrom": 18,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "tamilnad-mercantile-bank|personal-loan",
+      "bank": "tamilnad-mercantile-bank",
+      "loan": "personal-loan",
+      "url": "https://www.tmb.bank.in/personal/loans/tmb-home-loan",
+      "live": null,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 14.4,
+      "method": "keywords",
+      "via": "http",
+      "evidence": "Car Loan | 8.40% | 10.70% | 9.60%\nLoan against Property | 9.50% | 11.65% | 11.37%\nPersonal Loan | 14.40% | 14.40% | 14.40%",
+      "status": "new",
+      "proposed": {
+        "rateFrom": 14.4,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "punjab-national-bank|top-up-home-loan",
+      "bank": "punjab-national-bank",
+      "loan": "top-up-home-loan",
+      "url": "https://pnb.bank.in/Retail-Advances-interst-rate-on-advances-linked-to-mclr.html",
+      "live": null,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 8.6,
+      "method": "keywords",
+      "via": "http",
+      "evidence": "TOP-UP LOAN- OVERDRFT/ TERM LOAN | Type | Floating ROI | Floating ROI\nTenure upto 10 years | Tenure above 10 years\nROI Irrespective of CIC Score | Term Loan | RLLR+BSP+ 0.25% (Presently 8.60%) | 9.60% | 10.10%",
+      "alternatives": [
+        {
+          "value": 9.6,
+          "evidence": "TOP-UP LOAN- OVERDRFT/ TERM LOAN | Type | Floating ROI | Floating ROI\nTenure upto 10 years | Tenure above 10 years\nROI Irrespective of CIC Score | Term Loan | RLLR+BSP+ 0.25% (Presently 8.60%) | 9.60% | 10.10%"
+        },
+        {
+          "value": 10.1,
+          "evidence": "TOP-UP LOAN- OVERDRFT/ TERM LOAN | Type | Floating ROI | Floating ROI\nTenure upto 10 years | Tenure above 10 years\nROI Irrespective of CIC Score | Term Loan | RLLR+BSP+ 0.25% (Presently 8.60%) | 9.60% | 10.10%"
+        },
+        {
+          "value": 10.6,
+          "evidence": "Tenure upto 10 years | Tenure above 10 years\nROI Irrespective of CIC Score | Term Loan | RLLR+BSP+ 0.25% (Presently 8.60%) | 9.60% | 10.10%\nOverdraft | RLLR+BSP+ 1.25% (Presently 9.60%) | 10.60% | 11.10%"
+        },
+        {
+          "value": 11.1,
+          "evidence": "Tenure upto 10 years | Tenure above 10 years\nROI Irrespective of CIC Score | Term Loan | RLLR+BSP+ 0.25% (Presently 8.60%) | 9.60% | 10.10%\nOverdraft | RLLR+BSP+ 1.25% (Presently 9.60%) | 10.60% | 11.10%"
+        }
+      ],
+      "status": "new",
+      "proposed": {
+        "rateFrom": 8.6,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "uco-bank|top-up-home-loan",
+      "bank": "uco-bank",
+      "loan": "top-up-home-loan",
+      "url": "https://www.uco.bank.in/repo",
+      "live": null,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 8.4,
+      "method": "keywords",
+      "via": "http",
+      "evidence": "For Others | 3.80% | 12.10%\nc | UCO TOP UP HOME LOAN | Spread | Strategic Discount | Effective Rate\nFor Customers with CIBIL ≥850 (UCO Platina Customer) | 0.10% | 0.00% | 8.40%",
+      "alternatives": [
+        {
+          "value": 8.75,
+          "evidence": "c | UCO TOP UP HOME LOAN | Spread | Strategic Discount | Effective Rate\nFor Customers with CIBIL ≥850 (UCO Platina Customer) | 0.10% | 0.00% | 8.40%\nFor Customers with CIBIL ≥ 825 and < 849(UCO Premia Customer) | 0.45% | 0.00% | 8.75%"
+        },
+        {
+          "value": 9,
+          "evidence": "For Customers with CIBIL ≥850 (UCO Platina Customer) | 0.10% | 0.00% | 8.40%\nFor Customers with CIBIL ≥ 825 and < 849(UCO Premia Customer) | 0.45% | 0.00% | 8.75%\nFor Customers with CIBIL ≥ 800 and ≤ 824(UCO Optima Customers) | 0.70% | 0.00% | 9.00%"
+        },
+        {
+          "value": 9.35,
+          "evidence": "For Customers with CIBIL ≥ 825 and < 849(UCO Premia Customer) | 0.45% | 0.00% | 8.75%\nFor Customers with CIBIL ≥ 800 and ≤ 824(UCO Optima Customers) | 0.70% | 0.00% | 9.00%\nFor Customers with CIBIL ≥750 and ≤799 | 1.05% | 0.00% | 9.35%"
+        },
+        {
+          "value": 9.5,
+          "evidence": "For Customers with CIBIL ≥ 800 and ≤ 824(UCO Optima Customers) | 0.70% | 0.00% | 9.00%\nFor Customers with CIBIL ≥750 and ≤799 | 1.05% | 0.00% | 9.35%\nFor Customers with CIBIL ≥700 and ≤749 | 1.20% | 0.00% | 9.50%"
+        },
+        {
+          "value": 11,
+          "evidence": "For Customers with CIBIL ≥750 and ≤799 | 1.05% | 0.00% | 9.35%\nFor Customers with CIBIL ≥700 and ≤749 | 1.20% | 0.00% | 9.50%\nFor Customers with CIBIL ≥650 and ≤699 | 2.70% | 0.00% | 11.00%"
+        }
+      ],
+      "status": "new",
+      "proposed": {
+        "rateFrom": 8.4,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "tamilnad-mercantile-bank|two-wheeler-loan",
+      "bank": "tamilnad-mercantile-bank",
+      "loan": "two-wheeler-loan",
+      "url": "https://www.tmb.bank.in/personal/loans/tmb-home-loan",
+      "live": null,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 8.5,
+      "method": "keywords",
+      "via": "http",
+      "evidence": "2 | TMB - ELITE Home Loan | 8.50% | 8.15% | 8.70%\n3 | TMB - Car | 8.50% | 9.75% | 11.40%\n4 | TMB - Two Wheelers | 8.50% | 13.55% | 13.55%",
+      "alternatives": [
+        {
+          "value": 13,
+          "evidence": "3 | TMB - Car | 8.50% | 9.75% | 11.40%\n4 | TMB - Two Wheelers | 8.50% | 13.55% | 13.55%\n5 | TMB - Personal | 8.50% | 13.00% | 15.15%"
+        },
+        {
+          "value": 13.55,
+          "evidence": "2 | TMB - ELITE Home Loan | 8.50% | 8.15% | 8.70%\n3 | TMB - Car | 8.50% | 9.75% | 11.40%\n4 | TMB - Two Wheelers | 8.50% | 13.55% | 13.55%"
+        }
+      ],
+      "status": "new",
+      "proposed": {
+        "rateFrom": 8.5,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "uco-bank|two-wheeler-loan",
+      "bank": "uco-bank",
+      "loan": "two-wheeler-loan",
+      "url": "https://www.uco.bank.in/repo",
+      "live": null,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 9.1,
+      "method": "keywords",
+      "via": "http",
+      "evidence": "Rs 50,000 and above and upto Rs 5.00 Lakh | 1.35% | 9.65%\n11 | Prime Minister's Mudra Yojana (PMMY) including Two wheeler & E - Rickshaw Under MUDRA\nFor Rs 50,000 | 0.80% | 9.10%",
+      "alternatives": [
+        {
+          "value": 9.25,
+          "evidence": "(c) 50% Liquid Collateral | 4.75% | 13.05%\n4 | Uco 2-Wheeler Elite | Spread | Effective ROI\nFor Cibil with ≥ 825 score | 0.95% | 9.25%"
+        },
+        {
+          "value": 9.5,
+          "evidence": "4 | Uco 2-Wheeler Elite | Spread | Effective ROI\nFor Cibil with ≥ 825 score | 0.95% | 9.25%\nFor Cibil with ≥800 and ≤824 | 1.20% | 9.50%"
+        },
+        {
+          "value": 9.65,
+          "evidence": "11 | Prime Minister's Mudra Yojana (PMMY) including Two wheeler & E - Rickshaw Under MUDRA\nFor Rs 50,000 | 0.80% | 9.10%\nAbove Rs 50,000 & upto Rs 20.00 Lakh | 1.35% | 9.65%"
+        },
+        {
+          "value": 10,
+          "evidence": "For Cibil with ≥ 825 score | 0.95% | 9.25%\nFor Cibil with ≥800 and ≤824 | 1.20% | 9.50%\nFor Cibil with ≥750 and ≤799 | 1.70% | 10.00%"
+        },
+        {
+          "value": 10.5,
+          "evidence": "For Cibil with ≥800 and ≤824 | 1.20% | 9.50%\nFor Cibil with ≥750 and ≤799 | 1.70% | 10.00%\nFor Cibil ≥721 and ≤749 | 2.20% | 10.50%"
+        }
+      ],
+      "status": "new",
+      "proposed": {
+        "rateFrom": 9.1,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "uco-bank|used-car-loan",
+      "bank": "uco-bank",
+      "loan": "used-car-loan",
+      "url": "https://www.uco.bank.in/repo",
+      "live": null,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 7.6,
+      "method": "keywords",
+      "via": "http",
+      "evidence": "15 | UCO CAR (EV)\na | Individuals with CIBIL SCORE | Spread | Strategic Discount | Effective Rate\nFor CIBIL ≥ 825 | -0.70% | 7.60%",
+      "alternatives": [
+        {
+          "value": 7.8,
+          "evidence": "a | Individuals with CIBIL SCORE | Spread | Strategic Discount | Effective Rate\nFor CIBIL ≥ 825 | -0.70% | 7.60%\nFor CIBIL ≥ 800 | 0.20% | -0.70% | 7.80%"
+        },
+        {
+          "value": 7.9,
+          "evidence": "For CIBIL ≥ 825 | -0.70% | 7.60%\nFor CIBIL ≥ 800 | 0.20% | -0.70% | 7.80%\nFor 750 ≤ CIBIL ≤799 | 0.30% | -0.70% | 7.90%"
+        },
+        {
+          "value": 8.15,
+          "evidence": "For 750 ≤ CIBIL ≤799 | 0.30% | -0.70% | 7.90%\nFor 700 ≤ CIBIL ≤749\ni)Rate for Category A | -0.15% | 8.15%"
+        },
+        {
+          "value": 8.25,
+          "evidence": "For 700 ≤ CIBIL ≤749\ni)Rate for Category A | -0.15% | 8.15%\nii)Rate for Category B | -0.05% | 8.25%"
+        },
+        {
+          "value": 8.35,
+          "evidence": "i)Rate for Category A | -0.15% | 8.15%\nii)Rate for Category B | -0.05% | 8.25%\niii)Rate other than for Category A and Category B | 0.05% | 8.35%"
+        }
+      ],
+      "status": "new",
+      "proposed": {
+        "rateFrom": 7.6,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "federal-bank|car-loan",
+      "bank": "federal-bank",
+      "loan": "car-loan",
+      "url": "https://www.federal.bank.in/retail-loans-interest-rates",
+      "live": 7.85,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": null,
+      "method": null,
+      "via": null,
+      "evidence": null,
+      "status": "failed",
+      "error": "the bank's site refused automated access; check this page by hand",
+      "proposed": {
+        "rateFrom": 7.85,
+        "conditions": "New car, fixed rate 7.85% to 9.00%",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "federal-bank|education-loan",
+      "bank": "federal-bank",
+      "loan": "education-loan",
+      "url": "https://www.federal.bank.in/retail-loans-interest-rates",
+      "live": 9.75,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": null,
+      "method": null,
+      "via": null,
+      "evidence": null,
+      "status": "failed",
+      "error": "the bank's site refused automated access; check this page by hand",
+      "proposed": {
+        "rateFrom": 9.75,
+        "conditions": "Floating rate 9.75% to 13.75%, linked to the repo rate",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "federal-bank|home-loan",
+      "bank": "federal-bank",
+      "loan": "home-loan",
+      "url": "https://www.federal.bank.in/retail-loans-interest-rates",
+      "live": 7.5,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": null,
+      "method": null,
+      "via": null,
+      "evidence": null,
+      "status": "failed",
+      "error": "the bank's site refused automated access; check this page by hand",
+      "proposed": {
+        "rateFrom": 7.5,
+        "conditions": "Term loans above ₹35 lakh (7.50% to 9.25%); 1% higher for smaller loans",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "federal-bank|home-loan-overdraft",
+      "bank": "federal-bank",
+      "loan": "home-loan-overdraft",
+      "url": "https://www.federal.bank.in/retail-loans-interest-rates",
+      "live": 7.7,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": null,
+      "method": null,
+      "via": null,
+      "evidence": null,
+      "status": "failed",
+      "error": "the bank's site refused automated access; check this page by hand",
+      "proposed": {
+        "rateFrom": 7.7,
+        "conditions": "Home loan overdraft, 7.70% to 9.75%; 1% higher for loans below ₹35 lakh",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "federal-bank|loan-against-property",
+      "bank": "federal-bank",
+      "loan": "loan-against-property",
+      "url": "https://www.federal.bank.in/retail-loans-interest-rates",
+      "live": 8.45,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": null,
+      "method": null,
+      "via": null,
+      "evidence": null,
+      "status": "failed",
+      "error": "the bank's site refused automated access; check this page by hand",
+      "proposed": {
+        "rateFrom": 8.45,
+        "conditions": "Property Power term loan, 8.45% to 10.25%; 1% higher for loans below ₹35 lakh",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "federal-bank|loan-against-securities",
+      "bank": "federal-bank",
+      "loan": "loan-against-securities",
+      "url": "https://www.federal.bank.in/retail-loans-interest-rates",
+      "live": 12.5,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": null,
+      "method": null,
+      "via": null,
+      "evidence": null,
+      "status": "failed",
+      "error": "the bank's site refused automated access; check this page by hand",
+      "proposed": {
+        "rateFrom": 12.5,
+        "conditions": "Term loan against own securities; loan against demat shares 12.50%",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "federal-bank|personal-loan",
+      "bank": "federal-bank",
+      "loan": "personal-loan",
+      "url": "https://www.federal.bank.in/retail-loans-interest-rates",
+      "live": 11.75,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": null,
+      "method": null,
+      "via": null,
+      "evidence": null,
+      "status": "failed",
+      "error": "the bank's site refused automated access; check this page by hand",
+      "proposed": {
+        "rateFrom": 11.75,
+        "conditions": "Fixed rate 11.75% to 18.99%",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "federal-bank|plot-loan",
+      "bank": "federal-bank",
+      "loan": "plot-loan",
+      "url": "https://www.federal.bank.in/retail-loans-interest-rates",
+      "live": 7.5,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": null,
+      "method": null,
+      "via": null,
+      "evidence": null,
+      "status": "failed",
+      "error": "the bank's site refused automated access; check this page by hand",
+      "proposed": {
+        "rateFrom": 7.5,
+        "conditions": "Home loan for plot purchase plus construction, 7.50% to 9.25%; 1% higher below ₹35 lakh",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "federal-bank|two-wheeler-loan",
+      "bank": "federal-bank",
+      "loan": "two-wheeler-loan",
+      "url": "https://www.federal.bank.in/retail-loans-interest-rates",
+      "live": 13.5,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": null,
+      "method": null,
+      "via": null,
+      "evidence": null,
+      "status": "failed",
+      "error": "the bank's site refused automated access; check this page by hand",
+      "proposed": {
+        "rateFrom": 13.5,
+        "conditions": "Fixed rate, 13.50% to 16.00%",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "federal-bank|used-car-loan",
+      "bank": "federal-bank",
+      "loan": "used-car-loan",
+      "url": "https://www.federal.bank.in/retail-loans-interest-rates",
+      "live": 10.25,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": null,
+      "method": null,
+      "via": null,
+      "evidence": null,
+      "status": "failed",
+      "error": "the bank's site refused automated access; check this page by hand",
+      "proposed": {
+        "rateFrom": 10.25,
+        "conditions": "Fixed rate, 10.25% to 14.00%",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "bank-of-baroda|car-loan",
+      "bank": "bank-of-baroda",
+      "loan": "car-loan",
+      "url": "https://bankofbaroda.bank.in/interest-rate-and-service-charges/retail-loans-interest-rates",
+      "live": 7.85,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 7.85,
+      "method": "learned",
+      "via": "http",
+      "evidence": "Floating Rate: (For Fixed Rate; kindly visit 'Interest Rate linked to MCLR' section.)\nProduct | Conditions | Repo Rate + Spread | Effective Rate of Interest\nCar Loan | Conditions New Car | Repo Rate + Spread From BRLLR -0.30% to BRLLR + SP + 3.15% | Effective Rate of Interest From 7.85% to 11.55%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 7.85,
+        "conditions": "New car, floating rate 7.85% to 11.55%",
+        "effectiveFrom": "2026-10-08",
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "bank-of-maharashtra|car-loan",
+      "bank": "bank-of-maharashtra",
+      "loan": "car-loan",
+      "url": "https://bankofmaharashtra.bank.in/retail-interest-rates",
+      "live": 7.7,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 7.7,
+      "method": "learned",
+      "via": "http",
+      "evidence": " ER Benchmark Spread ER 800 & above RLLR -0.60% 7.70% RLLR -0.50% 7.80% 776 to 799 RLLR -0.40% 7.90% RLLR -0.30% 8.00% 750 to 775 RLLR -0.30% 8.00% RLLR -0.20% 8.10% 700 to 749 RLLR 0.00% 8.30% RLLR 0.20% 8.50% 650 to 699 RLLR 1.55% 9.85% RLLR 1.75% 10.05% 600 to 649 RLLR 1.85% 10.15% RLLR 2.20% 10.50% Below 600 RLLR 2.60% 10.90% RLLR 3.70% 12.00% -1 or 0 and NTC RLLR 0.70% 9.00% RLLR 2.20% 10.50%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 7.7,
+        "conditions": "Maha Super Car Loan, salaried with a CIBIL score of 800 or more",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "canara-bank|car-loan",
+      "bank": "canara-bank",
+      "loan": "car-loan",
+      "url": "https://www.canarabank.bank.in/pages/rates-of-interest-for-retail-lending-schemes-linked-to-rllr",
+      "live": 7.8,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 7.8,
+      "method": "learned",
+      "via": "http",
+      "evidence": "CRG : 4 | 8.25 | 2.65 | 0.00 | 10.9 | 2.70 | 0.00 | 10.95\nAPPLICABLE ROI FOR SANCTIONED LIMIT ABOVE RS. 15.00 LAKH\nCRG-PRIME | 8.25 | 0.10 | -0.60 | 7.75 | 0.15 | -0.60 | 7.80",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 7.8,
+        "conditions": "Loans above ₹15 lakh in the best credit grade; 7.75% for women borrowers",
+        "effectiveFrom": "2026-10-09",
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "central-bank-of-india|car-loan",
+      "bank": "central-bank-of-india",
+      "loan": "car-loan",
+      "url": "https://centralbank.bank.in/en/retail-scheme-interest",
+      "live": 7.9,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 7.9,
+      "method": "learned",
+      "via": "http",
+      "evidence": "6. | Cent Shakti Drive* | RBLR - 0.70% TO RBLR + 0.55% | 7.80% to 9.05%\n7. | Cent Shakti Drive Green* | RBLR - 0.75% TO RBLR + 0.55% | 7.75% to 9.05%\n8. | Cent Vehicle (4-Wheeler)* | RBLR - 0.60% TO RBLR + 1.05% | 7.90% to 9.55%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 7.9,
+        "conditions": "Cent Vehicle (4-wheeler): 7.90% to 9.55% depending on CIC score",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "hdfc-bank|car-loan",
+      "bank": "hdfc-bank",
+      "loan": "car-loan",
+      "url": "https://www.hdfc.bank.in/car-loan/interest-rates-and-charges",
+      "live": 8.4,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 8.4,
+      "method": "learned",
+      "via": "http",
+      "evidence": "Commercial / personal use NOC (conversion subject to credit approval) | ₹200 per NOC\nRegistration Certificate (RC) Collection Fees | ₹600 per case (To be refunded in case of case cancellation.)\nInterest rates | 8.40% onwards depending on loan amount, tenure & bureau score",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 8.4,
+        "conditions": "Depends on loan amount, tenure and bureau score",
+        "effectiveFrom": null,
+        "fee": "Up to 0.5% of the loan amount (min ₹3,500, max ₹8,000)",
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "icici-bank|car-loan",
+      "bank": "icici-bank",
+      "loan": "car-loan",
+      "url": "https://www.icici.bank.in/personal-banking/loans/car-loan",
+      "live": 8.4,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 8.4,
+      "method": "learned",
+      "via": "http",
+      "evidence": "Car Loan\nCar Loan\nGet your dream car with an ICICI Bank Car Loan that offers financing of up to 100% of the on-road price at competitive interest rates starting at 8.40%* per annum (subject to eligibility criteria). Benefit from a hassle-free online application process, minimal documentation and quick approval. Apply for a Car Loan and drive home your dream car with confidence.",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 8.4,
+        "conditions": "New cars with tenure over 36 months; new cars under 36 months from 10.25%, used cars from 9.75%",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": 7
+      },
+      "review": "pending"
+    },
+    {
+      "id": "indian-bank|car-loan",
+      "bank": "indian-bank",
+      "loan": "car-loan",
+      "url": "https://indianbank.bank.in/en/interest-rates-on-personal-segment-loan-products",
+      "live": 7.75,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 7.75,
+      "method": "learned",
+      "via": "http",
+      "evidence": "IB SKILL Loan | 9.70%\nVehicle Loan\nIB Vehicle Loan | 7.75% to 9.10%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 7.75,
+        "conditions": "IB Vehicle Loan: 7.75% to 9.10%",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "punjab-national-bank|car-loan",
+      "bank": "punjab-national-bank",
+      "loan": "car-loan",
+      "url": "https://pnb.bank.in/Retail-Advances-interst-rate-on-advances-linked-to-mclr.html",
+      "live": 7.9,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 7.9,
+      "method": "learned",
+      "via": "http",
+      "evidence": "Scheme/ Borrower Type | CIBIL TU or equivalent | Car Loan (other than e-vehicle) | Car Loan (e-vehicle) | Car Loan (other than e-vehicle) | Car Loan (e-vehicle)\nROI | ROI\nWomen | Irrespective of CICs Score | RLLR+ BSP-0.45% i.e. 7.90% p.a. (Presently) | RLLR+ BSP-0.50% i.e. 7.85% p.a. (Presently)",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 7.9,
+        "conditions": "CIBIL score 750 or more, or women borrowers; electric cars from 7.85%",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "sbi|car-loan",
+      "bank": "sbi",
+      "loan": "car-loan",
+      "url": "https://sbi.bank.in/web/interest-rates/interest-rates/loan-schemes-interest-rates/auto-loans",
+      "live": 8.55,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 8.55,
+      "method": "learned",
+      "via": "http",
+      "evidence": "Auto Loans Interest Rates (Fixed Rate-Interest Rate applied at the time of disbursement will remain same for the entire loan period)\nScheme | (3-month MCLR: 8.40%)\nSBI Car Loan, NRI Car Loan, Assured Car Loan | From 8.55% to 9.50%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 8.55,
+        "conditions": "CIC score 800 or more, tenure 3 to 5 years; range 8.55% to 9.50% (3-month MCLR 8.40%)",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "union-bank-of-india|car-loan",
+      "bank": "union-bank-of-india",
+      "loan": "car-loan",
+      "url": "https://www.unionbankofindia.bank.in/pdf/retail_roi.pdf",
+      "live": 7.85,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 7.85,
+      "method": "learned",
+      "via": "pdf",
+      "evidence": "Type of vehicle | CIC score\nSalaried | Non-Salaried\n825 & above | EBLR - 0.40% = 7.85%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 7.85,
+        "conditions": "Salaried, CIBIL score 800 or more; electric cars from 7.75%",
+        "effectiveFrom": "2026-10-08",
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "bank-of-maharashtra|education-loan",
+      "bank": "bank-of-maharashtra",
+      "loan": "education-loan",
+      "url": "https://bankofmaharashtra.bank.in/retail-interest-rates",
+      "live": 7.1,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 7.1,
+      "method": "learned",
+      "via": "http",
+      "evidence": "8.75 % P.A* Apply Now!\nEducation Loan\n7.10 % P.A* Apply Now!",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 7.1,
+        "conditions": "AAA institutions under PM Vidyalaxmi; other loans above ₹7.5 lakh 9.95%, up to ₹7.5 lakh 10.30%",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "canara-bank|education-loan",
+      "bank": "canara-bank",
+      "loan": "education-loan",
+      "url": "https://www.canarabank.bank.in/pages/rates-of-interest-for-retail-lending-schemes-linked-to-rllr",
+      "live": 7.5,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 7.5,
+      "method": "learned",
+      "via": "http",
+      "evidence": "COLL. SECURITY 75% & above (less than 100%). | 8.25 | 1.85 | 10.10\nCOLL. SECURITY 50% & above (less than 75%). | 8.25 | 2.10 | 10.35\nPM Vidyalaxmi Scheme | \"AAA\" Category Institutitons | 8.25 | -0.75 | 7.50",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 7.5,
+        "conditions": "AAA-category institutions under PM Vidyalaxmi; Vidya Turant with co-borrower 8.25%",
+        "effectiveFrom": "2026-10-09",
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "central-bank-of-india|education-loan",
+      "bank": "central-bank-of-india",
+      "loan": "education-loan",
+      "url": "https://centralbank.bank.in/en/retail-scheme-interest",
+      "live": 6.95,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 6.95,
+      "method": "learned",
+      "via": "http",
+      "evidence": "22. | Education Loans under various Categories | ROI\nREPO/ RBLR + Spread | Effective ROI\nEducation loans to Students from Institutes:- PM Vidyalaxmi Scheme under AAA Category Other than PM Vidyalaxmi Scheme under AAA Category | Repo+1.50% | 6.95%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 6.95,
+        "conditions": "AAA-rated institutes; Cent Vidyarthi up to ₹7.5 lakh 9.75%",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "icici-bank|education-loan",
+      "bank": "icici-bank",
+      "loan": "education-loan",
+      "url": "https://www.icici.bank.in/personal-banking/loans/education-loan",
+      "live": 8.5,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 8.5,
+      "method": "learned",
+      "via": "http",
+      "evidence": "Unsecured loans: Starting from 10.25% p.a.\nDomestic Studies: Engineering & Management Courses\nSecured loans for select institutes: Starting from 8.50% p.a.",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 8.5,
+        "conditions": "Secured loans for select institutes in India; unsecured loans abroad from 10.25%",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": "No foreclosure charges",
+        "maxTenureYears": 15
+      },
+      "review": "pending"
+    },
+    {
+      "id": "indian-bank|education-loan",
+      "bank": "indian-bank",
+      "loan": "education-loan",
+      "url": "https://indianbank.bank.in/en/interest-rates-on-personal-segment-loan-products",
+      "live": 7.3,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 7.3,
+      "method": "learned",
+      "via": "http",
+      "evidence": "Overdraft facility will attract interest rate at 1% higher than term loan rate If the lessee(s) is(are) our Bank / PSB / Pvt sector Bank / Reputed Financial Institution / Government Organization / PSU / Company & Firm (Externally rated “A” / equivalent and above), concession of 0.50% is application on effective ROI\nEducation Loan\nPM VIDYALAXMI | 7.30% to 8.70%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 7.3,
+        "conditions": "Education loan: 7.30% to 10.40%",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "kotak-mahindra-bank|education-loan",
+      "bank": "kotak-mahindra-bank",
+      "loan": "education-loan",
+      "url": "https://www.kotak.bank.in/en/rates/interest-rates.html",
+      "live": 11,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 11,
+      "method": "learned",
+      "via": "http",
+      "evidence": "ties (LIC / Pvt Insurance policies) - Up to 2% of the Loan/Sanctioned credit limit subject to Minimum of Rs. 5,000/-\nConsumer Durables | Individual | 10% - 40% (CIRR) | Fixed Rate | Rs. 99 onwards on select products, merchants, payment mode is applicable. There are wide range of schemes with NIL processing fee for consumers.\nEducational Loan | 11% - 17% | Fixed Rate | Upto 2.00% + applicable taxes",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 11,
+        "conditions": "Range 11% to 17%",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "punjab-national-bank|education-loan",
+      "bank": "punjab-national-bank",
+      "loan": "education-loan",
+      "url": "https://pnb.bank.in/Retail-Advances-interst-rate-on-advances-linked-to-mclr.html",
+      "live": 7.1,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 7.1,
+      "method": "learned",
+      "via": "http",
+      "evidence": "n in NIT’s (which are not covered under PM Vidya Laxmi Scheme) & FMS-Delhi. | RLLR + BSP - 0.85% (Presently 7.50%) | 8.50% | 9.00%\nLoan amount above Rs.7.50 lakhs Student getting admission in other than above mentioned institutes listed under PNB PRATIBHA Scheme | RLLR + BSP - 0.25% (Presently 8.10%) | 9.10% | 9.60%\nEDUCATION LOAN FOR STUDY IN 1441 QHEIs: PM VIDYALAXMI ROI STARTING FROM 7.10% p.a.",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 7.1,
+        "conditions": "Listed premier institutes (IIMs, IITs and others); loans up to ₹7.5 lakh from 8.60%",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "sbi|education-loan",
+      "bank": "sbi",
+      "loan": "education-loan",
+      "url": "https://sbi.bank.in/web/interest-rates/interest-rates/loan-schemes-interest-rates/education-loan-scheme",
+      "live": 7,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 7,
+      "method": "learned",
+      "via": "http",
+      "evidence": "Education Loan Portal\n\" Special Concessional Interest Rate: 7.00% p.a.\nSBI Offers a concessional interest rate of 7.00% to students securing admission to premier institutes:",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 7,
+        "conditions": "Premier institutes such as IITs and IIMs, until 31 December 2026; up to ₹7.5 lakh without collateral 10.15%",
+        "effectiveFrom": "2026-10-15",
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "union-bank-of-india|education-loan",
+      "bank": "union-bank-of-india",
+      "loan": "education-loan",
+      "url": "https://www.unionbankofindia.bank.in/pdf/retail_roi.pdf",
+      "live": 7.35,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 7.35,
+      "method": "learned",
+      "via": "pdf",
+      "evidence": "(D) | (D+E=F)\n(E)\nUnion Education - PM VIDYALAXMI - I (AAA) | EBLR | -0.90% | 7.35%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 7.35,
+        "conditions": "AAA-category institutions under PM Vidyalaxmi, and ISB; other loans up to ₹7.5 lakh 10.25% (9.75% for women)",
+        "effectiveFrom": "2026-10-08",
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "axis-bank|gold-loan",
+      "bank": "axis-bank",
+      "loan": "gold-loan",
+      "url": "https://www.axis.bank.in/loans/gold-loan/interest-rates-charges",
+      "live": 9.75,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 9.75,
+      "method": "learned",
+      "via": "http",
+      "evidence": "completely transparent and kept to a minimum so that you pay less upfront. Here's what you have to pay:\nParameters | Min | Max\nInterest Rate | 9.75% | 17%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 9.75,
+        "conditions": "Range 9.75% to 17%",
+        "effectiveFrom": null,
+        "fee": "Up to 1.5% of the sanctioned amount, plus taxes",
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "bank-of-baroda|gold-loan",
+      "bank": "bank-of-baroda",
+      "loan": "gold-loan",
+      "url": "https://bankofbaroda.bank.in/interest-rate-and-service-charges/retail-loans-interest-rates",
+      "live": 9,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 9,
+      "method": "learned",
+      "via": "http",
+      "evidence": "Retail Gold Loan\nProduct | Effective Rate of Interest\nInterest Rate | Effective Rate of Interest Demand loan/EMI : BRLLR + SP + 0.75% Overdraft : BRLLR + SP + 0.85% OR Fixed : 9.00% p.a",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 9,
+        "conditions": "Fixed-rate option; floating demand loan at BRLLR + spread + 0.75%",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "bank-of-maharashtra|gold-loan",
+      "bank": "bank-of-maharashtra",
+      "loan": "gold-loan",
+      "url": "https://bankofmaharashtra.bank.in/retail-interest-rates",
+      "live": 8.75,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 8.75,
+      "method": "learned",
+      "via": "http",
+      "evidence": "7.70 % P.A* Apply Now!\nGold Loan\n8.75 % P.A* Apply Now!",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 8.75,
+        "conditions": "Maha Gold Loan, advertised rate",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "central-bank-of-india|gold-loan",
+      "bank": "central-bank-of-india",
+      "loan": "gold-loan",
+      "url": "https://centralbank.bank.in/en/retail-scheme-interest",
+      "live": 8.75,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 8.75,
+      "method": "learned",
+      "via": "http",
+      "evidence": "(ii)Loans with Repayment Above 3 Yrs | RBLR + 3.35% | 11.85%\n19. | Cent Mortgage* | RBLR + 0.40% TO RBLR + 4.00% | 8.90% to 12.50%\n20. | Cent Gold Loan (Retail) | RBLR + 0.25% | 8.75%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 8.75,
+        "conditions": "Cent Gold Loan (retail): RBLR + 0.25%",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "hdfc-bank|gold-loan",
+      "bank": "hdfc-bank",
+      "loan": "gold-loan",
+      "url": "https://www.hdfc.bank.in/gold-loan/interest-rates-and-charges",
+      "live": 9.3,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 9.3,
+      "method": "learned",
+      "via": "http",
+      "evidence": "Q1 - Apr May June 2026\nProduct | Min IRR | Max IRR | Avg IRR | Min APR | Max APR | Avg APR\nGOLD LOAN | 9.3 | 19 | 11.69 | 9.32 | 20.71 | 11.85",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 9.3,
+        "conditions": "Loans given Apr to Jun 2026 ranged from 9.3% to 19%",
+        "effectiveFrom": null,
+        "fee": "Up to 1% of the amount disbursed, plus taxes",
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "icici-bank|gold-loan",
+      "bank": "icici-bank",
+      "loan": "gold-loan",
+      "url": "https://www.icici.bank.in/personal-banking/loans/gold-loan/interest-rate-and-charges",
+      "live": 9,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 9,
+      "method": "learned",
+      "via": "http",
+      "evidence": "ICICI Bank Gold Loan interest rate varies as per the factors mentioned above. Given below is the current range of interest rates.\nInterest rate range*: Q2 (July 2026 To September 2026) | Minimum | Maximum | Mean\n9% | 16.00% | 10.96%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 9,
+        "conditions": "Loans given Jul to Sep 2026 ranged from 9% to 16%",
+        "effectiveFrom": null,
+        "fee": "Up to 2% of the loan amount",
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "indian-bank|gold-loan",
+      "bank": "indian-bank",
+      "loan": "gold-loan",
+      "url": "https://indianbank.bank.in/en/interest-rates-on-personal-segment-loan-products",
+      "live": 8.75,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 8.75,
+      "method": "learned",
+      "via": "http",
+      "evidence": "Pension Loan | 10.15% to 10.40%\nJewel Loan\nJewel Loan (Non-Priority) - OD against Gold Jewels | 8.75% to 9.05%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 8.75,
+        "conditions": "Overdraft against gold jewels, 8.75% to 9.05%; term loan with bullet repayment 9.35%",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "sbi|gold-loan",
+      "bank": "sbi",
+      "loan": "gold-loan",
+      "url": "https://sbi.bank.in/web/interest-rates/interest-rates/loan-schemes-interest-rates/loan-against-securities-and-consumer-durable-loans",
+      "live": 9.2,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 9.2,
+      "method": "learned",
+      "via": "http",
+      "evidence": "View All\nSEE PRODUCTS\nStarts From 9.20%*",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 9.2,
+        "conditions": "SBI Gold Loan, advertised starting rate",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "axis-bank|home-loan",
+      "bank": "axis-bank",
+      "loan": "home-loan",
+      "url": "https://www.axis.bank.in/loans/home-loan/interest-rates-charges",
+      "live": 8,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 8,
+      "method": "learned",
+      "via": "http",
+      "evidence": "Home loan interest rates fees & charges\nView Fees & Charges\nAxis Bank's Housing Loan interest rates start from as low as 8.00% making your dream home more affordable. Apart from the interest rates, there are also other charges that you should know about.",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 8,
+        "conditions": "8.00% to 8.85% for a CIBIL score of 751 and above; 8.20% to 9.10% for 750 or below",
+        "effectiveFrom": null,
+        "fee": "Up to 1% of the loan amount or ₹10,000 (whichever is higher) + GST",
+        "prepayment": "Nil on floating-rate loans; 2% of the amount prepaid on fixed-rate loans",
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "bank-of-baroda|home-loan",
+      "bank": "bank-of-baroda",
+      "loan": "home-loan",
+      "url": "https://www.bankofbaroda.bank.in/personal-banking/loans/home-loan",
+      "live": 7.4,
+      "liveHeld": true,
+      "checkedOn": "2026-11-09",
+      "found": 7.4,
+      "method": "keywords",
+      "via": "http",
+      "evidence": "to top\nLowest interest rates & EMI\nGive happiness a whole new meaning with home loan starting @7.40%",
+      "alternatives": [
+        {
+          "value": 7.5,
+          "evidence": "Home Loan - Apply Housing Loan up to ₹20 Cr at 7.5% Interest | Bank of Baroda"
+        }
+      ],
+      "status": "same",
+      "proposed": {
+        "rateFrom": 7.4,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": "The bank states there are no prepayment charges on home loans",
+        "maxTenureYears": 30
+      },
+      "review": "pending"
+    },
+    {
+      "id": "bank-of-maharashtra|home-loan",
+      "bank": "bank-of-maharashtra",
+      "loan": "home-loan",
+      "url": "https://bankofmaharashtra.bank.in/personal-banking/loans/home-loan",
+      "live": 7.25,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 7.25,
+      "method": "learned",
+      "via": "http",
+      "evidence": "Bank of Maharashtra helps you buy your dream home with low EMIs. The EMI Calculator on the website works this out for you. Check your eligibility, upload your documents and obtain instant in-principle sanction.\nHousing Loan Interest Rate\n7.25 %P.A*",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 7.25,
+        "conditions": "Based on credit score, loan amount and profession",
+        "effectiveFrom": null,
+        "fee": "0.25% of the loan amount + GST",
+        "prepayment": "No pre-payment, pre-closure or part-payment charges",
+        "maxTenureYears": 30
+      },
+      "review": "pending"
+    },
+    {
+      "id": "canara-bank|home-loan",
+      "bank": "canara-bank",
+      "loan": "home-loan",
+      "url": "https://www.canarabank.bank.in/pages/rates-of-interest-for-retail-lending-schemes-linked-to-rllr",
+      "live": 7.4,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 7.4,
+      "method": "learned",
+      "via": "http",
+      "evidence": " CRG-2, additional 5 bps concession for Takeover/Ready to move HL proposals & 5 bps concession for salaried employees working in Central/State Govt./PSUs/MNCs/Blue chip Companies & Corporates maintaining/switching salary a/c wth us including Canara SB Premium Payroll package payroll a/cs is applicable in all loan slabs. (The Rate of Interest including all concessions shall not to fall below 7.40%)",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 7.4,
+        "conditions": "Floor rate: women borrowers in the best credit grade, loans above ₹1 crore",
+        "effectiveFrom": "2026-10-09",
+        "fee": "0.50% of the loan (min ₹1,500, max ₹10,000) + GST; waived 01.10.2026 to 31.12.2026",
+        "prepayment": "No prepayment penalty",
+        "maxTenureYears": 30
+      },
+      "review": "pending"
+    },
+    {
+      "id": "central-bank-of-india|home-loan",
+      "bank": "central-bank-of-india",
+      "loan": "home-loan",
+      "url": "https://centralbank.bank.in/en/retail-scheme-interest",
+      "live": 7.45,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 7.45,
+      "method": "learned",
+      "via": "http",
+      "evidence": "19. | Cent Mortgage* | RBLR + 0.40% TO RBLR + 4.00% | 8.90% to 12.50%\n20. | Cent Gold Loan (Retail) | RBLR + 0.25% | 8.75%\n21. | Cent Surya Ghar 1. For loans up to Rs.2 Lakh 2. Home Loan borrower (> Rs.2 Lakh) 3. Non-Home loan borrower (>2 Lakh) | Repo + 0.50% As per Cent Home loan Scheme As per Cent Home loan Scheme + 1% | 6.00% 7.45% to 9.00% 8.45% to 10.00%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 7.45,
+        "conditions": "Cent Home, 7.45% to 9.00% based on credit score; Cent Grih Lakshmi (women borrowers) from 7.25%",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "hdfc-bank|home-loan",
+      "bank": "hdfc-bank",
+      "loan": "home-loan",
+      "url": "https://homeloans.hdfc.bank.in/",
+      "live": 8.5,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 8.5,
+      "method": "learned",
+      "via": "http",
+      "evidence": "15 Years\nInterest Rate\n8.50 % p.a.",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 8.5,
+        "conditions": "For a credit score of 800 and above",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": 30
+      },
+      "review": "pending"
+    },
+    {
+      "id": "icici-bank|home-loan",
+      "bank": "icici-bank",
+      "loan": "home-loan",
+      "url": "https://www.icici.bank.in/personal-banking/loans/home-loan",
+      "live": 8.5,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 8.5,
+      "method": "learned",
+      "via": "http",
+      "evidence": "Home Loan Interest Rate, Fees & Charges\nHome Loan Interest Rate\nThe Home Loan interest rate varies based on the loan amount, applicant’s profile, employment type and existing relationship with the bank, if any. The interest rate for ICICI Bank Home Loan starts from 8.50% p.a.",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 8.5,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": "Up to 2% of the loan amount, plus applicable taxes",
+        "prepayment": "No prepayment charges on floating-rate home loans",
+        "maxTenureYears": 30
+      },
+      "review": "pending"
+    },
+    {
+      "id": "indian-bank|home-loan",
+      "bank": "indian-bank",
+      "loan": "home-loan",
+      "url": "https://indianbank.bank.in/en/interest-rates-on-personal-segment-loan-products",
+      "live": 7.35,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 7.35,
+      "method": "learned",
+      "via": "http",
+      "evidence": "Product Name\nHome Loan\nIB Home Loan, IB Home Loan (NRI) | 7.35% to 8.80%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 7.35,
+        "conditions": "IB Home Loan floating rate range 7.35% to 8.80%",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "kotak-mahindra-bank|home-loan",
+      "bank": "kotak-mahindra-bank",
+      "loan": "home-loan",
+      "url": "https://www.kotak.bank.in/en/personal-banking/loans/home-loan.html",
+      "live": 7.6,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 7.6,
+      "method": "learned",
+      "via": "http",
+      "evidence": "Apply Now\nHome Loans\nOwn the home you have been planning sooner with Kotak Home Loan, built to help you inch closer to your dream house. Competitive interest rates starting @7.60%* p.a., fund up to 90% of your property value.",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 7.6,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": "The bank advertises freedom from prepayment charges",
+        "maxTenureYears": 25
+      },
+      "review": "pending"
+    },
+    {
+      "id": "punjab-national-bank|home-loan",
+      "bank": "punjab-national-bank",
+      "loan": "home-loan",
+      "url": "https://pnb.bank.in/Retail-Advances-interst-rate-on-advances-linked-to-mclr.html",
+      "live": 7.45,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 7.45,
+      "method": "learned",
+      "via": "http",
+      "evidence": "PARAMETER | CIBIL TU or equivalent | Floating ROI | Fixed ROI\nROI | Tenure upto 10 years | Tenure above 10 years\nFor loan above Rs. 30 lacs LTV Ratio & | 800 & above | RLLR+BSP-0.90% (presently 7.45% p.a.) | 8.45% | 8.95%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 7.45,
+        "conditions": "CIBIL score 800+ and loan-to-value up to 80%; festive campaign rate valid 01.10.2026 to 31.12.2026",
+        "effectiveFrom": "2026-10-01",
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "union-bank-of-india|home-loan",
+      "bank": "union-bank-of-india",
+      "loan": "home-loan",
+      "url": "https://www.unionbankofindia.bank.in/en/details/home-loan-interest-rate",
+      "live": 8.6,
+      "liveHeld": true,
+      "checkedOn": "2026-11-09",
+      "found": 8.6,
+      "method": "keywords",
+      "via": "http",
+      "evidence": "Frequently Asked Questions (FAQs)\nWhat is the interest rate of a Union Home Loan?\nThe interest rate on Union Home Loan starts at 8.60% pa. The final interest rate will be determined by various factors like your CIBIL score, loan amount, monthly income, etc.",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 8.6,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "bank-of-maharashtra|home-loan-overdraft",
+      "bank": "bank-of-maharashtra",
+      "loan": "home-loan-overdraft",
+      "url": "https://bankofmaharashtra.bank.in/retail-interest-rates",
+      "live": 7.5,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 7.5,
+      "method": "margin",
+      "via": "http",
+      "evidence": "0.25% higher than that of applicable ROI for Maha Super Housing Loan scheme.\nMaha Super Green Building - (For Green Building)\nConcession of 0.10 % in the applicable ROI of Maha Super Housing Loan scheme subject to minimum floor Rate i.e. RLLR -1.05% i.e. 7.25% at present No additional concession in any form will be applicable in the scheme.\n=> home-loan rate 7.25% + 0.25% margin stated by the bank (check the margin is unchanged)",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 7.5,
+        "conditions": "Maha Super Flexi Housing Loan, linked to a savings account: 0.25% above the Maha Super Housing rate of 7.25%",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "punjab-national-bank|home-loan-overdraft",
+      "bank": "punjab-national-bank",
+      "loan": "home-loan-overdraft",
+      "url": "https://pnb.bank.in/Retail-Advances-interst-rate-on-advances-linked-to-mclr.html",
+      "live": 7.6,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 7.6,
+      "method": "learned",
+      "via": "http",
+      "evidence": "Parameter | CIBIL TU or equivalent | Fixed\nROI | Tenure upto 10 years | Tenure above 10 years\nFor loan above Rs. 30 lacs LTV Ratio & | 800 & above | RLLR+BSP-0.75% (presently 7.60%) | 8.60% | 9.10%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 7.6,
+        "conditions": "PNB Max Saver (term loan or overdraft), advertised starting rate",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "union-bank-of-india|home-loan-overdraft",
+      "bank": "union-bank-of-india",
+      "loan": "home-loan-overdraft",
+      "url": "https://www.unionbankofindia.bank.in/pdf/retail_roi.pdf",
+      "live": 7.65,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 7.65,
+      "method": "learned",
+      "via": "pdf",
+      "evidence": "825 & above | EBLR - 0.85% = 7.40%\n800 to 824 | EBLR - 0.80% = 7.45%\n750 to 799 | EBLR - 0.65% = 7.60% | EBLR - 0.60% = 7.65%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 7.65,
+        "conditions": "Union Smart Save: 0.25% above the Union Home rate, CIC score 825 or more",
+        "effectiveFrom": "2026-10-08",
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "axis-bank|loan-against-property",
+      "bank": "axis-bank",
+      "loan": "loan-against-property",
+      "url": "https://www.axis.bank.in/loans/loan-against-property/interest-rate-on-loans",
+      "live": 9.15,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 9.15,
+      "method": "learned",
+      "via": "http",
+      "evidence": "For Term Loans\nType | Repo Rate + Spread | Effective Rate of Interest\nFloating Rate - PSL Category | Repo Rate + 3.90% to Repo Rate + 4.75% | 9.15% - 10.00% p.a.",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 9.15,
+        "conditions": "Term loan, floating rate, priority-sector category: repo rate (5.25%) + 3.90% to 4.75%",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "bank-of-maharashtra|loan-against-property",
+      "bank": "bank-of-maharashtra",
+      "loan": "loan-against-property",
+      "url": "https://bankofmaharashtra.bank.in/retail-interest-rates",
+      "live": 9.95,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 9.95,
+      "method": "learned",
+      "via": "http",
+      "evidence": "Benchmark Spread ER RLLR 1.50% 9.80%\nLoan against Property-Individual\nCIBIL Score Benchmark Spread ER 750 and above RLLR 1.65% 9.95% 700 to 749 RLLR 2.00% 10.30% 650 to 699 RLLR 2.15% 10.45% 600 to 649 RLLR 2.40% 10.70% Below 600 RLLR 2.65% 10.95% -1 or 0 and 01 to 05 RLLR 2.15% 10.45%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 9.95,
+        "conditions": "Loan against property (individual), CIBIL score 750 or more",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "canara-bank|loan-against-property",
+      "bank": "canara-bank",
+      "loan": "loan-against-property",
+      "url": "https://www.canarabank.bank.in/pages/rates-of-interest-for-retail-lending-schemes-linked-to-rllr",
+      "live": 9.3,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 9.3,
+      "method": "learned",
+      "via": "http",
+      "evidence": "where security is equal to 200% | where security is equal to >200%=300% | where security is equal to >300%\nCredit Risk Premium over RLLR | Effective Rate of Interest under RLLR | Credit Risk Premium over RLLR | Effective Rate of Interest under RLLR | Credit Risk Premium over RLLR | Effective Rate of Interest under RLLR\n3 | Canara Mortgage^ | CRG : 1 | 8.25 | 1.25 | 9.50 | 1.15 | 9.40 | 1.05 | 9.30",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 9.3,
+        "conditions": "Canara Mortgage, best credit grade, security above 300% of the loan",
+        "effectiveFrom": "2026-10-09",
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "central-bank-of-india|loan-against-property",
+      "bank": "central-bank-of-india",
+      "loan": "loan-against-property",
+      "url": "https://centralbank.bank.in/en/retail-scheme-interest",
+      "live": 8.9,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 8.9,
+      "method": "learned",
+      "via": "http",
+      "evidence": "18. | Cent Rental (i) Loan with Repayment Up to 3 Yrs | RBLR + 2.85% | 11.35%\n(ii)Loans with Repayment Above 3 Yrs | RBLR + 3.35% | 11.85%\n19. | Cent Mortgage* | RBLR + 0.40% TO RBLR + 4.00% | 8.90% to 12.50%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 8.9,
+        "conditions": "Cent Mortgage: 8.90% to 12.50% depending on CIC score",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "idfc-first-bank|loan-against-property",
+      "bank": "idfc-first-bank",
+      "loan": "loan-against-property",
+      "url": "https://www.idfcfirst.bank.in/personal-banking/loans/loan-against-property/lap-interest-rate",
+      "live": 9.5,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 9.5,
+      "method": "learned",
+      "via": "http",
+      "evidence": "LOAN AGAINST PROPERTY\nLOAN AGAINST PROPERTY INTEREST RATE\nLoan Against Property Interest Rates Starting At Just 9.5% p.a.*",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 9.5,
+        "conditions": "Advertised starting rate",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "indian-bank|loan-against-property",
+      "bank": "indian-bank",
+      "loan": "loan-against-property",
+      "url": "https://indianbank.bank.in/en/interest-rates-on-personal-segment-loan-products",
+      "live": 9.2,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 9.2,
+      "method": "learned",
+      "via": "http",
+      "evidence": "IB Home Loan Plus | 7.90% to 10.05%\nInd Mortgage Loan\nInd Mortgage (Term Loan) | Loan Amount upto Rs.7.50 Cr: 9.20 % to 10.60% Loan Amount Above Rs. 7.50 Cr:9.25% to 11.10%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 9.2,
+        "conditions": "Ind Mortgage Loan up to ₹7.5 crore: 9.20% to 10.60%",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "kotak-mahindra-bank|loan-against-property",
+      "bank": "kotak-mahindra-bank",
+      "loan": "loan-against-property",
+      "url": "https://www.kotak.bank.in/en/rates/interest-rates.html",
+      "live": 9.15,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 9.15,
+      "method": "learned",
+      "via": "http",
+      "evidence": "Business Loan | Individual | 9.50% - 30.50% | Fixed Rate | Upto 2% + GST\nPersonal Loan | Salaried individuals | 9.99% - 30% | Fixed Rate | Upto 5.00% + applicable taxes\nLoan Against Property and Affordable LAP | Individual or Non individual | 9.15% - 16% | RR+ (2.9-8.75) | Upto 2.00%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 9.15,
+        "conditions": "Range 9.15% to 16%",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "punjab-national-bank|loan-against-property",
+      "bank": "punjab-national-bank",
+      "loan": "loan-against-property",
+      "url": "https://pnb.bank.in/Retail-Advances-interst-rate-on-advances-linked-to-mclr.html",
+      "live": 9.2,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 9.2,
+      "method": "learned",
+      "via": "http",
+      "evidence": "TL | OD\nTL | OD | For Loan upto 10 years | For Loan above 10 years | For Loan upto 10 years | For Loan above 10 years\nAbove 800 | RLLR+BSP+0.85% (Presently 9.20%) | RLLR+BSP+1.35% (Presently 9.70%) | 10.20% | 10.70% | 10.70% | 11.20%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 9.2,
+        "conditions": "PNB myPROPERTY, CIC score above 800, property value above twice the loan; festive rate valid to 31.12.2026",
+        "effectiveFrom": "2026-10-01",
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "union-bank-of-india|loan-against-property",
+      "bank": "union-bank-of-india",
+      "loan": "loan-against-property",
+      "url": "https://www.unionbankofindia.bank.in/pdf/retail_roi.pdf",
+      "live": 9.3,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 9.3,
+      "method": "learned",
+      "via": "pdf",
+      "evidence": "Rate (D) | (E)\n(D+E=F)\n800 & above | EBLR | 1.05% | 9.30%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 9.3,
+        "conditions": "Self-occupied residential property, CIBIL score 800 or more",
+        "effectiveFrom": "2026-10-08",
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "axis-bank|loan-against-securities",
+      "bank": "axis-bank",
+      "loan": "loan-against-securities",
+      "url": "https://www.axis.bank.in/loans/loan-against-securities/interest-rates-charges",
+      "live": 10.25,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 10.25,
+      "method": "learned",
+      "via": "http",
+      "evidence": "Up to INR 25 Lacs | 5.50% | 5.25% | 10.75% | Quarterly revision or as decided by Bank, whichever is earlier\nINR 25 - 50 Lacs | 5.50% | 5.00% | 10.50%\nAbove INR 50 Lacs | 5.50% | 4.75% | 10.25%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 10.25,
+        "conditions": "Sanctions above ₹50 lakh; 10.25% to 10.75% (repo rate + spread)",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "bank-of-maharashtra|loan-against-securities",
+      "bank": "bank-of-maharashtra",
+      "loan": "loan-against-securities",
+      "url": "https://bankofmaharashtra.bank.in/retail-interest-rates",
+      "live": 10.45,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 10.45,
+      "method": "learned",
+      "via": "http",
+      "evidence": "Benchmark Spread ER RLLR 3.15% 11.45%\nLoan against paper security\nBenchmark Spread ER RLLR 2.15% 10.45%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 10.45,
+        "conditions": "Loan against paper securities",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "canara-bank|loan-against-securities",
+      "bank": "canara-bank",
+      "loan": "loan-against-securities",
+      "url": "https://www.canarabank.bank.in/pages/rates-of-interest-for-retail-lending-schemes-linked-to-rllr",
+      "live": 9.25,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 9.25,
+      "method": "learned",
+      "via": "http",
+      "evidence": "18 | Canara-HEAL | 8.25 | 2.30 | 10.55\n19 | Canara Readycash | 8.25 | 1.70 | 9.95\n20 | Canara Insta MF Loan | 8.25 | 1.00 | 9.25",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 9.25,
+        "conditions": "Canara Insta MF Loan (mutual funds); other approved securities from 8.50%",
+        "effectiveFrom": "2026-10-09",
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "hdfc-bank|loan-against-securities",
+      "bank": "hdfc-bank",
+      "loan": "loan-against-securities",
+      "url": "https://www.hdfc.bank.in/loan-against-securities",
+      "live": 10.75,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 10.75,
+      "method": "learned",
+      "via": "http",
+      "evidence": "Interest Rate for Loan Against\nSecurities\nStarting from 10.75",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 10.75,
+        "conditions": "Advertised starting rate; up to 50% of the value of equity mutual funds",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "icici-bank|loan-against-securities",
+      "bank": "icici-bank",
+      "loan": "loan-against-securities",
+      "url": "https://www.icici.bank.in/personal-banking/loans/loan-against-securities/interest-rate-and-fee",
+      "live": 10.75,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 10.75,
+      "method": "learned",
+      "via": "http",
+      "evidence": "Apply now\nInterest rates\nInterest rate | 10.75% - 11.75% per annum",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 10.75,
+        "conditions": "10.75% to 11.75%, by customer segment and type of security",
+        "effectiveFrom": null,
+        "fee": "Up to 2% of the sanctioned amount",
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "kotak-mahindra-bank|loan-against-securities",
+      "bank": "kotak-mahindra-bank",
+      "loan": "loan-against-securities",
+      "url": "https://www.kotak.bank.in/en/rates.html",
+      "live": 10.5,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 10.5,
+      "method": "learned",
+      "via": "http",
+      "evidence": "inst Securities | Individual or Non individual | 10.50% - 12.00% | 5.50% + 5.00% 5.50% + 6.50% | For Digital cases - Rs. 1,499/- For Equity (Non-Digital), Debt - MF/FMP/, Bonds - Up to 2% of the Loan/Sanctioned credit limit subject to Minimum of Rs. 2,500/-) For other physical securities (LIC / Pvt Insurance policies) - Up to 2% of the Loan/Sanctioned credit limit subject to Minimum of Rs. 5,000/-",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 10.5,
+        "conditions": "10.50% to 12.00%; an overdraft where interest is charged on the amount used",
+        "effectiveFrom": null,
+        "fee": "Up to 2% of the sanctioned limit (₹1,499 for digital loans)",
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "sbi|loan-against-securities",
+      "bank": "sbi",
+      "loan": "loan-against-securities",
+      "url": "https://sbi.bank.in/web/interest-rates/interest-rates/loan-schemes-interest-rates/loan-against-securities-and-consumer-durable-loans",
+      "live": 9.95,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 9.95,
+      "method": "learned",
+      "via": "http",
+      "evidence": "Loan against NSC/ KVP | 8.70% | 2.50% | 11.20%\nLoan against Insurance Policies of LIC/ Dept. of Post Offices/India Post/SBI Life/ ICICI Prudential/ HDFC Standard\nLoan against Mutual Fund Units | 8.70% | 1.25% | 9.95%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 9.95,
+        "conditions": "Loan against mutual fund units: 1-year MCLR + 1.25%",
+        "effectiveFrom": "2025-08-15",
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "axis-bank|personal-loan",
+      "bank": "axis-bank",
+      "loan": "personal-loan",
+      "url": "https://www.axis.bank.in/loans/personal-loan/interest-rates-charges",
+      "live": 9.99,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 9.99,
+      "method": "learned",
+      "via": "http",
+      "evidence": "mine the low interest Personal Loan options available to you. Axis Bank offers Personal Loans with interest rates that begin at a competitive margin of 4.65% over the 3-year MCLR, resulting in an effective rate of interest (ROI) that ranges from a modest 9.99%p.a. to a maximum of 22% per annum. This ensures you have access to some of the lowest interest rate Personal Loans available in the market.",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 9.99,
+        "conditions": "Effective rate 9.99% to 22% a year",
+        "effectiveFrom": null,
+        "fee": "Up to 2% of the loan amount plus GST",
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "bank-of-baroda|personal-loan",
+      "bank": "bank-of-baroda",
+      "loan": "personal-loan",
+      "url": "https://bankofbaroda.bank.in/interest-rate-and-service-charges/retail-loans-interest-rates",
+      "live": 10.9,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 10.9,
+      "method": "learned",
+      "via": "http",
+      "evidence": "aroda Personal Loan\nProduct | Conditions | Repo Rate + Spread | Effective Rate of Interest\nBaroda Personal Loan | Conditions Govt Employees / defence personnel maintaining salary account with our Bank under scheme code SB 182 & 186 | Repo Rate + Spread Linked with CIBIL Score of the individual,ranges from BRLLR + S.P. + 2.00% to BRLLR + SP + 2.50% | Effective Rate of Interest From 10.40% to 10.90%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 10.9,
+        "conditions": "Salaried borrowers with a salary account at Bank of Baroda: 10.90% to 15.75%, linked to CIBIL score",
+        "effectiveFrom": "2026-10-08",
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "bank-of-maharashtra|personal-loan",
+      "bank": "bank-of-maharashtra",
+      "loan": "personal-loan",
+      "url": "https://bankofmaharashtra.bank.in/retail-interest-rates",
+      "live": 10,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 10,
+      "method": "learned",
+      "via": "http",
+      "evidence": "Borrowers . Category -A i.e. Confirmed Employees of Central Govt. / State Govt. / Public Sector Undertakings/ Govt. Educational Institutions: Having Salary Account with Bank of Maharashtra\nCIBIL Score Benchmark Spread ER 800 & above RLLR 1.70% 10.00% 776 to 799 RLLR 1.90% 10.20% 750 to 775 RLLR 2.45% 10.75% 681 to 749 RLLR 3.05% 11.35% 680 & below RLLR 5.50% 13.80% NTC or -1 or 0 RLLR 2.45% 10.75%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 10,
+        "conditions": "Government and PSU employees with a salary account and a CIBIL score of 800 or more; private-sector employees from 10.50%",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "canara-bank|personal-loan",
+      "bank": "canara-bank",
+      "loan": "personal-loan",
+      "url": "https://www.canarabank.bank.in/pages/rates-of-interest-for-retail-lending-schemes-linked-to-rllr",
+      "live": 9.95,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 9.95,
+      "method": "learned",
+      "via": "http",
+      "evidence": "CRG : 2 | 8.25 | 0.05 | -0.50 | 7.80 | 0.10 | -0.50 | 7.85\nCRG : 3 | 8.25 | 0.45 | -0.10 | 8.60 | 0.50 | -0.10 | 8.65\nCRG : 4 | 8.25 | 1.95 | -0.30 | 9.90 | 2.00 | -0.30 | 9.95",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 9.95,
+        "conditions": "Canara Budget-Prime for employees of companies with a salary tie-up with the bank",
+        "effectiveFrom": "2026-10-09",
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "central-bank-of-india|personal-loan",
+      "bank": "central-bank-of-india",
+      "loan": "personal-loan",
+      "url": "https://centralbank.bank.in/en/retail-scheme-interest",
+      "live": 11.5,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 11.5,
+      "method": "learned",
+      "via": "http",
+      "evidence": "13. | Cent Combo Vehicle (4-Wheeler)* | RBLR - 0.70% TO RBLR + 0.70% | 7.80% to 9.20%\n14. | Cent Combo Go Green Vehicle (4-W)* | RBLR - 0.75% TO RBLR + 0.70% | 7.75% to 9.20%\n15. | Cent Personal # | RBLR + 3.00% OR RBLR + 3.50% | 11.50% OR 12.00 %",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 11.5,
+        "conditions": "Cent Personal: RBLR + 3.00% or + 3.50% depending on internal risk rating",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "hdfc-bank|personal-loan",
+      "bank": "hdfc-bank",
+      "loan": "personal-loan",
+      "url": "https://www.hdfc.bank.in/personal-loan/interest-rates-and-charges",
+      "live": 9.99,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 9.99,
+      "method": "learned",
+      "via": "http",
+      "evidence": "<th>Amount to be Paid</th>\n</tr></thead><tbody><tr><td>Rack Interest Rate</td>\n<td>Salaried: 9.99% - 24.00%</td>",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 9.99,
+        "conditions": "Salaried: 9.99% to 24.00%",
+        "effectiveFrom": null,
+        "fee": "Up to ₹6,500 plus GST",
+        "prepayment": "Foreclosure charge 4% up to 24 EMIs, 3% from 25 to 36 EMIs, 2% after 36 EMIs",
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "icici-bank|personal-loan",
+      "bank": "icici-bank",
+      "loan": "personal-loan",
+      "url": "https://www.icici.bank.in/personal-banking/loans/personal-loan",
+      "live": 9.99,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 9.99,
+      "method": "learned",
+      "via": "http",
+      "evidence": "Personal Loan - Apply for Personal Loan Online Starting @ 9.99% p.a*",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 9.99,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": "Up to 2% of the loan amount, plus applicable taxes",
+        "prepayment": "Zero foreclosure charges after 24 EMIs",
+        "maxTenureYears": 7
+      },
+      "review": "pending"
+    },
+    {
+      "id": "idfc-first-bank|personal-loan",
+      "bank": "idfc-first-bank",
+      "loan": "personal-loan",
+      "url": "https://www.idfcfirst.bank.in/personal-banking/loans/personal-loan/personal-loan-interest-rates",
+      "live": 9.99,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 9.99,
+      "method": "learned",
+      "via": "http",
+      "evidence": "terest rates.\nFIRSTmoney by IDFC FIRST Bank offers low interest personal loans starting from 9.99% p.a. Eligible borrowers can access personal loans from ₹50,000 up to ₹15 lakh, with flexible repayment tenures ranging from 9 to 60 months and zero foreclosure charges. The application process is 100% digital, and on approval, eligible applicants can receive loan disbursal in as little as 10 minutes.",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 9.99,
+        "conditions": "Advertised starting rate",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "indian-bank|personal-loan",
+      "bank": "indian-bank",
+      "loan": "personal-loan",
+      "url": "https://indianbank.bank.in/en/interest-rates-on-personal-segment-loan-products",
+      "live": 9.9,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 9.9,
+      "method": "learned",
+      "via": "http",
+      "evidence": "IB Insta Cash | 9.25%\nSalary Loan & IBCLS Plus\nClean Loan to Salaried Class - Term Loan | 9.90% to 10.40%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 9.9,
+        "conditions": "Clean loan to salaried class: 9.90% to 10.40%",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "kotak-mahindra-bank|personal-loan",
+      "bank": "kotak-mahindra-bank",
+      "loan": "personal-loan",
+      "url": "https://www.kotak.bank.in/en/personal-banking/loans/personal-loan.html",
+      "live": 10.99,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 10.99,
+      "method": "learned",
+      "via": "http",
+      "evidence": "Apply Now\nPersonal Loan\nApply for Personal Loan Online Starting at 10.99% p.a.*",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 10.99,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": 6
+      },
+      "review": "pending"
+    },
+    {
+      "id": "punjab-national-bank|personal-loan",
+      "bank": "punjab-national-bank",
+      "loan": "personal-loan",
+      "url": "https://pnb.bank.in/Retail-Advances-interst-rate-on-advances-linked-to-mclr.html",
+      "live": 10.85,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 10.85,
+      "method": "learned",
+      "via": "http",
+      "evidence": "PAPL to existing customer on the basis of QAB & TRV | >= 800 | RLLR+BSP+2.50% (Presently 10.85%) | 11.85%\n>=750 less than 800 | RLLR+BSP+4.50% (Presently 12.85%) | 13.85%\nPAPL to existing Car Loan, Home Loan and Personal Loan borrower | >=800 | RLLR+BSP+2.50% (Presently 10.85%) | 11.85%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 10.85,
+        "conditions": "Digital personal loan for salaried borrowers with a CIBIL score of 800 or more",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "sbi|personal-loan",
+      "bank": "sbi",
+      "loan": "personal-loan",
+      "url": "https://sbi.bank.in/web/interest-rates/interest-rates/loan-schemes-interest-rates/personal-loans-schemes",
+      "live": 10,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 10,
+      "method": "learned",
+      "via": "http",
+      "evidence": "Mean ROI (Q1 FY 2026-27): 11.54%\nSpread over 2-year MCLR | Effective Interest Rate\n1.25% - 6.25% | 10.00% - 15.00%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 10,
+        "conditions": "SBI Personal Loan scheme: 2-year MCLR (8.75%) plus 1.25% to 6.25%, so 10.00% to 15.00%",
+        "effectiveFrom": "2025-12-15",
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "union-bank-of-india|personal-loan",
+      "bank": "union-bank-of-india",
+      "loan": "personal-loan",
+      "url": "https://www.unionbankofindia.bank.in/pdf/retail_roi.pdf",
+      "live": 9.3,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 9.3,
+      "method": "learned",
+      "via": "pdf",
+      "evidence": "Schemes | CIC score\nRate (D) | (E) | (D+E=F)\n800 & above | EBLR | 1.05% | 9.30%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 9.3,
+        "conditions": "Salaried (other than government employees) with a CIBIL score of 800 or more",
+        "effectiveFrom": "2026-10-08",
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "canara-bank|plot-loan",
+      "bank": "canara-bank",
+      "loan": "plot-loan",
+      "url": "https://www.canarabank.bank.in/pages/rates-of-interest-for-retail-lending-schemes-linked-to-rllr",
+      "live": 9.3,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 9.3,
+      "method": "learned",
+      "via": "http",
+      "evidence": "where security is equal to 200% | where security is equal to >200%=300% | where security is equal to >300%\nCredit Risk Premium over RLLR | Effective Rate of Interest under RLLR | Credit Risk Premium over RLLR | Effective Rate of Interest under RLLR | Credit Risk Premium over RLLR | Effective Rate of Interest under RLLR\n3 | Canara Mortgage^ | CRG : 1 | 8.25 | 1.25 | 9.50 | 1.15 | 9.40 | 1.05 | 9.30",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 9.3,
+        "conditions": "Canara Site, best credit grade; up to 75% of the site cost, repaid within 10 years or the construction period allowed",
+        "effectiveFrom": "2026-10-09",
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "hdfc-bank|plot-loan",
+      "bank": "hdfc-bank",
+      "loan": "plot-loan",
+      "url": "https://homeloans.hdfc.bank.in/housing-loans/plot-loans",
+      "live": 8,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 8,
+      "method": "learned",
+      "via": "http",
+      "evidence": "Special Home Loan Rates for Salaried & Self Employed (Professionals & Non-Professionals)\nLoan Slab | Interest Rates (% p.a.)\nFor All Loans* | Policy Repo Rate + 2.50% to 7.95%= 8% to 13.45%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 8,
+        "conditions": "Policy repo rate + 2.50% to 7.95% (8% to 13.45%); up to 80% of the plot cost, 70% outside city limits",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "indian-bank|plot-loan",
+      "bank": "indian-bank",
+      "loan": "plot-loan",
+      "url": "https://indianbank.bank.in/en/interest-rates-on-personal-segment-loan-products",
+      "live": 8.4,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 8.4,
+      "method": "learned",
+      "via": "http",
+      "evidence": "Home Loan to Corporate Entity | 7.85% to 9.35%\nPlot Loan\nPlot Loan & Plot Loan (NRI) | 8.40% to 9.80%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 8.4,
+        "conditions": "Plot Loan, 8.40% to 9.80%",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "bank-of-maharashtra|top-up-home-loan",
+      "bank": "bank-of-maharashtra",
+      "loan": "top-up-home-loan",
+      "url": "https://bankofmaharashtra.bank.in/retail-interest-rates",
+      "live": 7.75,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 7.75,
+      "method": "margin",
+      "via": "http",
+      "evidence": "0.25% higher than that of applicable ROI for Maha Super Housing Loan scheme.\nMaha Super Green Building - (For Green Building)\nConcession of 0.10 % in the applicable ROI of Maha Super Housing Loan scheme subject to minimum floor Rate i.e. RLLR -1.05% i.e. 7.25% at present No additional concession in any form will be applicable in the scheme.\n=> home-loan rate 7.25% + 0.5% margin stated by the bank (check the margin is unchanged)",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 7.75,
+        "conditions": "Top-up for existing home loan borrowers: 0.50% above the Maha Super Housing rate of 7.25%, CIBIL score 800 or more",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "central-bank-of-india|top-up-home-loan",
+      "bank": "central-bank-of-india",
+      "loan": "top-up-home-loan",
+      "url": "https://centralbank.bank.in/en/retail-scheme-interest",
+      "live": 8.2,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 8.2,
+      "method": "learned",
+      "via": "http",
+      "evidence": "3. | Cent Home Loan for 3rd/ 4 th / 5 th House* | RBLR - 0.55% TO RBLR + 1.00% | 7.95% to 9.50%\n4. | Cent Home Double Plus @ | RBLR + 0.10% TO RBLR + 0.90% | 8.60% to 9.40%\n5. | Cent Top Up * | RBLR - 0.30% TO RBLR + 1.05% | 8.20% to 9.55%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 8.2,
+        "conditions": "Cent Top Up, 8.20% to 9.55% by CIC score",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "hdfc-bank|top-up-home-loan",
+      "bank": "hdfc-bank",
+      "loan": "top-up-home-loan",
+      "url": "https://homeloans.hdfc.bank.in/housing-loans/top-up-loans",
+      "live": 8.25,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 8.25,
+      "method": "learned",
+      "via": "http",
+      "evidence": "Special Top up Rates for Salaried & Self Employed (Professionals & Non-Professionals)\nLoan Slab (Balance Transfer + Top Up Simultaneous Loan) | Interest Rates (% p.a.)\nFor all loan amounts | Policy Repo Rate + 2.75% to 8.45%= 8.25% to 13.95%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 8.25,
+        "conditions": "Balance transfer with top-up: policy repo rate + 2.75% (8.25% to 13.95%); existing customers can apply 12 months after the final disbursement",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "bank-of-baroda|two-wheeler-loan",
+      "bank": "bank-of-baroda",
+      "loan": "two-wheeler-loan",
+      "url": "https://bankofbaroda.bank.in/interest-rate-and-service-charges/retail-loans-interest-rates",
+      "live": 12.65,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 12.65,
+      "method": "learned",
+      "via": "http",
+      "evidence": "Conditions Pre Owned Car | Repo Rate + Spread From BRLLR + SP +2.50% to BRLLR + SP + 5.25% | Effective Rate of Interest From 10.90% to 13.65%\nDigital Car Loan | Conditions New Car | Repo Rate + Spread From BRLLR -0.30% to BRLLR + SP + 0.60% | Effective Rate of Interest From 7.85% to 9.00%\nTwo Wheeler Loan | Repo Rate + Spread BRLLR + SP + 4.25% | Effective Rate of Interest 12.65%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 12.65,
+        "conditions": "BRLLR + spread + 4.25%",
+        "effectiveFrom": "2026-10-08",
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "bank-of-maharashtra|two-wheeler-loan",
+      "bank": "bank-of-maharashtra",
+      "loan": "two-wheeler-loan",
+      "url": "https://bankofmaharashtra.bank.in/retail-interest-rates",
+      "live": 11.45,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 11.45,
+      "method": "learned",
+      "via": "http",
+      "evidence": "699 RLLR 4.00% 12.30% 600 to 649 RLLR 5.00% 13.30% Below 600 RLLR 6.00% 14.30% -1 or 0 and 01 to 05 RLLR 4.00% 12.30%\nMahabank Vehicle Loan Scheme: For purchasing two wheelers loans:\nCIBIL score Benchmark Spread ER 750 and above RLLR 3.15% 11.45% 700 to 749 RLLR 3.50% 11.80% 650 to 699 RLLR 4.00% 12.30% 600 to 649 RLLR 5.00% 13.30% Below 600 RLLR 6.00% 14.30% -1 or 0 and 01 to 05 RLLR 4.00% 12.30%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 11.45,
+        "conditions": "CIBIL score 750 or more",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "canara-bank|two-wheeler-loan",
+      "bank": "canara-bank",
+      "loan": "two-wheeler-loan",
+      "url": "https://www.canarabank.bank.in/pages/rates-of-interest-for-retail-lending-schemes-linked-to-rllr",
+      "live": 10.4,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 10.4,
+      "method": "learned",
+      "via": "http",
+      "evidence": "CRG : 4 | 8.25 | 2.70 | -0.45 | 10.50 | 2.70 | -0.45 | 10.50\n**The above concession shall remain same till the loan completes 3 years from the date of first disbursement for all the variants of HL & Canara Vehicle 4-Wheeler (including Green wheels & Agriculturists).\nCanara Vehicle (2 Wheelers) | CRG : 1 | 8.25 | 2.10 | 0.00 | 10.35 | 2.15 | 0.00 | 10.40",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 10.4,
+        "conditions": "Best credit grade; 10.35% for women borrowers",
+        "effectiveFrom": "2026-10-09",
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "central-bank-of-india|two-wheeler-loan",
+      "bank": "central-bank-of-india",
+      "loan": "two-wheeler-loan",
+      "url": "https://centralbank.bank.in/en/retail-scheme-interest",
+      "live": 10.5,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 10.5,
+      "method": "learned",
+      "via": "http",
+      "evidence": "7. | Cent Shakti Drive Green* | RBLR - 0.75% TO RBLR + 0.55% | 7.75% to 9.05%\n8. | Cent Vehicle (4-Wheeler)* | RBLR - 0.60% TO RBLR + 1.05% | 7.90% to 9.55%\n9. | Cent Vehicle (2-Wheeler)* | RBLR + 2.00% TO RBLR + 3.10% | 10.50% to 11.60%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 10.5,
+        "conditions": "Cent Vehicle (2-wheeler), 10.50% to 11.60% by CIC score; electric two-wheelers for women from 9.10%",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "indian-bank|two-wheeler-loan",
+      "bank": "indian-bank",
+      "loan": "two-wheeler-loan",
+      "url": "https://indianbank.bank.in/en/interest-rates-on-personal-segment-loan-products",
+      "live": 9.15,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 9.15,
+      "method": "learned",
+      "via": "http",
+      "evidence": "IB Vehicle Loan (Eco Vahan ) | 7.75% to 9.05%\nIB Vehicle Loan for Purchase of User Car $ | 9.80% to 11.90%\nVehicle Loan for Purchase of 2 Wheeler | 9.15% to 10.65%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 9.15,
+        "conditions": "Vehicle loan for a two-wheeler, 9.15% to 10.65%",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "punjab-national-bank|two-wheeler-loan",
+      "bank": "punjab-national-bank",
+      "loan": "two-wheeler-loan",
+      "url": "https://pnb.bank.in/Retail-Advances-interst-rate-on-advances-linked-to-mclr.html",
+      "live": 11.1,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 11.1,
+      "method": "learned",
+      "via": "http",
+      "evidence": "PNB BAGHBAN- A SCHEME FOR HOUSE OWNING SENIOR CITIZENS OF INDIA UNDER ‘REVERSE MORTGAGE CONCEPT’\nRate of Interest Based on RLLR | Fixed ROI\nRLLR+BSP+2.75% (Presently 11.10%) | 12.10%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 11.1,
+        "conditions": "PNB Saarthi / Power Ride, advertised starting rate",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "union-bank-of-india|two-wheeler-loan",
+      "bank": "union-bank-of-india",
+      "loan": "two-wheeler-loan",
+      "url": "https://www.unionbankofindia.bank.in/pdf/retail_roi.pdf",
+      "live": 11.35,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 11.35,
+      "method": "learned",
+      "via": "pdf",
+      "evidence": "Excluding Open Plots\n-1 & 1 to 5\nBelow 700 | EBLR | 3.10% | 11.35%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 11.35,
+        "conditions": "New two-wheeler, CIC score 700 or more",
+        "effectiveFrom": "2026-10-08",
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "bank-of-baroda|used-car-loan",
+      "bank": "bank-of-baroda",
+      "loan": "used-car-loan",
+      "url": "https://bankofbaroda.bank.in/interest-rate-and-service-charges/retail-loans-interest-rates",
+      "live": 10.9,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 10.9,
+      "method": "learned",
+      "via": "http",
+      "evidence": "Product | Conditions | Repo Rate + Spread | Effective Rate of Interest\nCar Loan | Conditions New Car | Repo Rate + Spread From BRLLR -0.30% to BRLLR + SP + 3.15% | Effective Rate of Interest From 7.85% to 11.55%\nConditions Pre Owned Car | Repo Rate + Spread From BRLLR + SP +2.50% to BRLLR + SP + 5.25% | Effective Rate of Interest From 10.90% to 13.65%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 10.9,
+        "conditions": "Pre-owned car, 10.90% to 13.65%",
+        "effectiveFrom": "2026-10-08",
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "bank-of-maharashtra|used-car-loan",
+      "bank": "bank-of-maharashtra",
+      "loan": "used-car-loan",
+      "url": "https://bankofmaharashtra.bank.in/retail-interest-rates",
+      "live": 11.45,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 11.45,
+      "method": "learned",
+      "via": "http",
+      "evidence": "n Green Car Loan (E-Vehicle) subject to lowest ROI under the scheme i.e. RLLR - 0.60% at present.\nMahabank Vehicle Loan Scheme: For purchasing Second Hand Car Loan (Pre -Owned Cars):\nCIBIL score Benchmark Spread ER 750 and above RLLR 3.15% 11.45% 700 to 749 RLLR 3.50% 11.80% 650 to 699 RLLR 4.00% 12.30% 600 to 649 RLLR 5.00% 13.30% Below 600 RLLR 6.00% 14.30% -1 or 0 and 01 to 05 RLLR 4.00% 12.30%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 11.45,
+        "conditions": "Second-hand car, CIBIL score 750 or more",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "icici-bank|used-car-loan",
+      "bank": "icici-bank",
+      "loan": "used-car-loan",
+      "url": "https://www.icici.bank.in/personal-banking/loans/car-loan",
+      "live": 9.75,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 9.75,
+      "method": "learned",
+      "via": "http",
+      "evidence": "10.25%* onwards, based on CIBIL score and car segment\nUsed Car Loans\n9.75%* onwards, based on CIBIL score and car segment",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 9.75,
+        "conditions": "Used car loans, advertised starting rate",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "indian-bank|used-car-loan",
+      "bank": "indian-bank",
+      "loan": "used-car-loan",
+      "url": "https://indianbank.bank.in/en/interest-rates-on-personal-segment-loan-products",
+      "live": 9.8,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 9.8,
+      "method": "learned",
+      "via": "http",
+      "evidence": "IB Vehicle Loan | 7.75% to 9.10%\nIB Vehicle Loan (Eco Vahan ) | 7.75% to 9.05%\nIB Vehicle Loan for Purchase of User Car $ | 9.80% to 11.90%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 9.8,
+        "conditions": "Vehicle loan for a used car, 9.80% to 11.90%",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "punjab-national-bank|used-car-loan",
+      "bank": "punjab-national-bank",
+      "loan": "used-car-loan",
+      "url": "https://pnb.bank.in/Retail-Advances-interst-rate-on-advances-linked-to-mclr.html",
+      "live": 9.65,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 9.65,
+      "method": "learned",
+      "via": "http",
+      "evidence": "# Corporates: Business concerns Car Loan financed to business concerns for personal use of their executives i.e. other than for use in business.\nPNB YUVA VAHAN STARTING FROM 7.80% p.a: Concession of 0.05% in ROI as above.\n2.2 CAR LOAN (Old Car) ROI STARTING FROM 9.65% p.a.",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 9.65,
+        "conditions": "Old car loan, advertised starting rate",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "union-bank-of-india|used-car-loan",
+      "bank": "union-bank-of-india",
+      "loan": "used-car-loan",
+      "url": "https://www.unionbankofindia.bank.in/pdf/retail_roi.pdf",
+      "live": 11.85,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 11.85,
+      "method": "learned",
+      "via": "pdf",
+      "evidence": "below 700 | EBLR + 3.20% = 11.45%\nOld 4 - Wheeler\n700 & above | EBLR + 3.60% = 11.85%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 11.85,
+        "conditions": "Car not older than 3 years, CIC score 700 or more",
+        "effectiveFrom": "2026-10-08",
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    }
+  ]
+}
