@@ -21,5 +21,6 @@
   { "slug": "tamilnad-mercantile-bank", "name": "Tamilnad Mercantile Bank", "short": "TMB" },
   { "slug": "csb-bank", "name": "CSB Bank", "short": "CSB Bank" },
   { "slug": "city-union-bank", "name": "City Union Bank", "short": "City Union Bank" },
-  { "slug": "rbl-bank", "name": "RBL Bank", "short": "RBL Bank" }
+  { "slug": "rbl-bank", "name": "RBL Bank", "short": "RBL Bank" },
+  { "slug": "karur-vysya-bank", "name": "Karur Vysya Bank", "short": "KVB" }
 ]

@@ -1,10 +1,10 @@
 {
-  "updatedAt": "2026-11-09T17:45:46.356Z",
+  "updatedAt": "2026-11-09T17:47:41.772Z",
   "lastEmailDigest": null,
   "summary": {
     "suspect": 1,
     "changed": 1,
-    "new": 30,
+    "new": 37,
     "failed": 10,
     "manual": 0,
     "same": 89
@@ -114,6 +114,35 @@
       "status": "new",
       "proposed": {
         "rateFrom": 7.8,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "karur-vysya-bank|car-loan",
+      "bank": "karur-vysya-bank",
+      "loan": "car-loan",
+      "url": "https://www.kvb.bank.in/interest-rates/personal-banking-loans",
+      "live": null,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 9,
+      "method": "keywords",
+      "via": "chrome",
+      "evidence": "Personal Loan Secured | 10.40% | 10.40%\nPersonal Loan Unsecured | 12.40% | 13.40%\nDigital Four Wheeler Loan | 9.00% | 9.05%",
+      "alternatives": [
+        {
+          "value": 9.05,
+          "evidence": "Personal Loan Secured | 10.40% | 10.40%\nPersonal Loan Unsecured | 12.40% | 13.40%\nDigital Four Wheeler Loan | 9.00% | 9.05%"
+        }
+      ],
+      "status": "new",
+      "proposed": {
+        "rateFrom": 9,
         "conditions": "",
         "effectiveFrom": null,
         "fee": null,
@@ -282,6 +311,39 @@
       "status": "new",
       "proposed": {
         "rateFrom": 9.02,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "karur-vysya-bank|education-loan",
+      "bank": "karur-vysya-bank",
+      "loan": "education-loan",
+      "url": "https://www.kvb.bank.in/interest-rates/personal-banking-loans",
+      "live": null,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 11,
+      "method": "keywords",
+      "via": "chrome",
+      "evidence": "Housing Loan Topup | 8.75% | 10.50%\nPersonal Loan Secured Others | 9.50% | 12.35%\nEducation Loan | 11.00% | 13.50%",
+      "alternatives": [
+        {
+          "value": 12.2,
+          "evidence": "Personal Loan Secured Others | 9.50% | 12.35%\nEducation Loan | 11.00% | 13.50%\nSOD Shares | 12.20% | 12.20%"
+        },
+        {
+          "value": 13.5,
+          "evidence": "Housing Loan Topup | 8.75% | 10.50%\nPersonal Loan Secured Others | 9.50% | 12.35%\nEducation Loan | 11.00% | 13.50%"
+        }
+      ],
+      "status": "new",
+      "proposed": {
+        "rateFrom": 11,
         "conditions": "",
         "effectiveFrom": null,
         "fee": null,
@@ -529,6 +591,35 @@
       "status": "new",
       "proposed": {
         "rateFrom": 7.45,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "karur-vysya-bank|home-loan",
+      "bank": "karur-vysya-bank",
+      "loan": "home-loan",
+      "url": "https://www.kvb.bank.in/interest-rates/personal-banking-loans",
+      "live": null,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 8.5,
+      "method": "keywords",
+      "via": "chrome",
+      "evidence": "Retail Loan Products | Minimum | Maximum\nROI (Linked to REPO) | % per annum | % per annum\nHousing Loan / NRI Gruhapravesh | 8.50% | 10.90%",
+      "alternatives": [
+        {
+          "value": 10.9,
+          "evidence": "Retail Loan Products | Minimum | Maximum\nROI (Linked to REPO) | % per annum | % per annum\nHousing Loan / NRI Gruhapravesh | 8.50% | 10.90%"
+        }
+      ],
+      "status": "new",
+      "proposed": {
+        "rateFrom": 8.5,
         "conditions": "",
         "effectiveFrom": null,
         "fee": null,
@@ -890,6 +981,51 @@
       "review": "pending"
     },
     {
+      "id": "karur-vysya-bank|personal-loan",
+      "bank": "karur-vysya-bank",
+      "loan": "personal-loan",
+      "url": "https://www.kvb.bank.in/interest-rates/personal-banking-loans",
+      "live": null,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 9.95,
+      "method": "keywords",
+      "via": "chrome",
+      "evidence": "Personal Loan Corporate | 11.90% | 11.90%\nJewel Loan Personal | 12.00% | 12.00%\nKVB 4V No Income | 9.95% | 12.45%",
+      "alternatives": [
+        {
+          "value": 11.9,
+          "evidence": "Digital Used Car Loan | 9.95% | 12.45%\nDigital Two Wheeler Loan | 10.70% | 15.20%\nPersonal Loan Corporate | 11.90% | 11.90%"
+        },
+        {
+          "value": 12,
+          "evidence": "Digital Two Wheeler Loan | 10.70% | 15.20%\nPersonal Loan Corporate | 11.90% | 11.90%\nJewel Loan Personal | 12.00% | 12.00%"
+        },
+        {
+          "value": 12.2,
+          "evidence": "Jewel Loan Personal | 12.00% | 12.00%\nKVB 4V No Income | 9.95% | 12.45%\nKVB 2V No Income | 12.20% | 16.70%"
+        },
+        {
+          "value": 12.45,
+          "evidence": "Personal Loan Corporate | 11.90% | 11.90%\nJewel Loan Personal | 12.00% | 12.00%\nKVB 4V No Income | 9.95% | 12.45%"
+        },
+        {
+          "value": 16.7,
+          "evidence": "Jewel Loan Personal | 12.00% | 12.00%\nKVB 4V No Income | 9.95% | 12.45%\nKVB 2V No Income | 12.20% | 16.70%"
+        }
+      ],
+      "status": "new",
+      "proposed": {
+        "rateFrom": 9.95,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
       "id": "rbl-bank|personal-loan",
       "bank": "rbl-bank",
       "loan": "personal-loan",
@@ -927,6 +1063,35 @@
       "status": "new",
       "proposed": {
         "rateFrom": 14.4,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "karur-vysya-bank|top-up-home-loan",
+      "bank": "karur-vysya-bank",
+      "loan": "top-up-home-loan",
+      "url": "https://www.kvb.bank.in/interest-rates/personal-banking-loans",
+      "live": null,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 8.75,
+      "method": "keywords",
+      "via": "chrome",
+      "evidence": "ROI (Linked to REPO) | % per annum | % per annum\nHousing Loan / NRI Gruhapravesh | 8.50% | 10.90%\nHousing Loan Topup | 8.75% | 10.50%",
+      "alternatives": [
+        {
+          "value": 10.5,
+          "evidence": "ROI (Linked to REPO) | % per annum | % per annum\nHousing Loan / NRI Gruhapravesh | 8.50% | 10.90%\nHousing Loan Topup | 8.75% | 10.50%"
+        }
+      ],
+      "status": "new",
+      "proposed": {
+        "rateFrom": 8.75,
         "conditions": "",
         "effectiveFrom": null,
         "fee": null,
@@ -1022,6 +1187,35 @@
       "review": "pending"
     },
     {
+      "id": "karur-vysya-bank|two-wheeler-loan",
+      "bank": "karur-vysya-bank",
+      "loan": "two-wheeler-loan",
+      "url": "https://www.kvb.bank.in/interest-rates/personal-banking-loans",
+      "live": null,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 10.7,
+      "method": "keywords",
+      "via": "chrome",
+      "evidence": "Digital Four Wheeler Loan | 9.00% | 9.05%\nDigital Used Car Loan | 9.95% | 12.45%\nDigital Two Wheeler Loan | 10.70% | 15.20%",
+      "alternatives": [
+        {
+          "value": 15.2,
+          "evidence": "Digital Four Wheeler Loan | 9.00% | 9.05%\nDigital Used Car Loan | 9.95% | 12.45%\nDigital Two Wheeler Loan | 10.70% | 15.20%"
+        }
+      ],
+      "status": "new",
+      "proposed": {
+        "rateFrom": 10.7,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
       "id": "tamilnad-mercantile-bank|two-wheeler-loan",
       "bank": "tamilnad-mercantile-bank",
       "loan": "two-wheeler-loan",
@@ -1091,6 +1285,35 @@
       "status": "new",
       "proposed": {
         "rateFrom": 9.1,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "karur-vysya-bank|used-car-loan",
+      "bank": "karur-vysya-bank",
+      "loan": "used-car-loan",
+      "url": "https://www.kvb.bank.in/interest-rates/personal-banking-loans",
+      "live": null,
+      "liveHeld": false,
+      "checkedOn": "2026-11-09",
+      "found": 9.95,
+      "method": "keywords",
+      "via": "chrome",
+      "evidence": "Personal Loan Unsecured | 12.40% | 13.40%\nDigital Four Wheeler Loan | 9.00% | 9.05%\nDigital Used Car Loan | 9.95% | 12.45%",
+      "alternatives": [
+        {
+          "value": 12.45,
+          "evidence": "Personal Loan Unsecured | 12.40% | 13.40%\nDigital Four Wheeler Loan | 9.00% | 9.05%\nDigital Used Car Loan | 9.95% | 12.45%"
+        }
+      ],
+      "status": "new",
+      "proposed": {
+        "rateFrom": 9.95,
         "conditions": "",
         "effectiveFrom": null,
         "fee": null,

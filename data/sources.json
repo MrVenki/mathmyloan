@@ -117,5 +117,6 @@
   { "bank": "csb-bank", "loan": "*", "url": "https://www.csb.bank.in/base-rateservice-charges" },
   { "bank": "csb-bank", "loan": "*", "url": "https://www.csb.bank.in/general-gold-loan" },
   { "bank": "city-union-bank", "loan": "*", "url": "https://cityunionbank.bank.in/city-union-bank-rates" },
-  { "bank": "rbl-bank", "loan": "personal-loan", "url": "https://www.rbl.bank.in/product/loans/personal-loan" }
+  { "bank": "rbl-bank", "loan": "personal-loan", "url": "https://www.rbl.bank.in/product/loans/personal-loan" },
+  { "bank": "karur-vysya-bank", "loan": "*", "url": "https://www.kvb.bank.in/interest-rates/personal-banking-loans" }
 ]
