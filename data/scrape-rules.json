@@ -332,6 +332,51 @@
     "pct": true,
     "learnedOn": "2026-11-09"
   },
+  "federal-bank|education-loan": {
+    "shape": "home loan | term loan - from #% to #% overdraft - from #% to #%",
+    "prev": "floating rate loans (interest rates on retail portfolio linked to rbi repo rate) / loan scheme/ product | interest rate (%) *",
+    "head": "",
+    "nth": 0,
+    "index": 3,
+    "pct": true,
+    "learnedOn": "2026-11-13"
+  },
+  "federal-bank|loan-against-securities": {
+    "shape": "loan against demat shares | #%",
+    "prev": "fed rise- against own recurring deposits | #% or recurring deposit rate + #, whichever is higher / fed rise- against third party recurring deposits | #% or recurring deposit rate + #, whichever is higher",
+    "head": "personal loan | from #% to #%",
+    "nth": 0,
+    "index": 0,
+    "pct": true,
+    "learnedOn": "2026-11-13"
+  },
+  "federal-bank|personal-loan": {
+    "shape": "personal loan | from #% to #%",
+    "prev": "loan against car | from #% to #% / two-wheeler loan | from #% to #%",
+    "head": "two-wheeler loan | from #% to #%",
+    "nth": 0,
+    "index": 0,
+    "pct": true,
+    "learnedOn": "2026-11-13"
+  },
+  "federal-bank|two-wheeler-loan": {
+    "shape": "two-wheeler loan | from #% to #%",
+    "prev": "car loan (used) | from #% to #% / loan against car | from #% to #%",
+    "head": "car loan (used) | from #% to #%",
+    "nth": 0,
+    "index": 0,
+    "pct": true,
+    "learnedOn": "2026-11-13"
+  },
+  "federal-bank|used-car-loan": {
+    "shape": "property power loan (lap) | term loan - from #% to #% overdraft - from #% to #%",
+    "prev": "home loan | term loan - from #% to #% overdraft - from #% to #% / home loan plot + construction | term loan - from #% to #%",
+    "head": "home loan plot + construction | term loan - from #% to #%",
+    "nth": 0,
+    "index": 1,
+    "pct": true,
+    "learnedOn": "2026-11-13"
+  },
   "hdfc-bank|car-loan": {
     "shape": "interest rates | #% onwards depending on loan amount, tenure & bureau score",
     "prev": "commercial / personal use noc (conversion subject to credit approval) | ₹# per noc / registration certificate (rc) collection fees | ₹# per case (to be refunded in case of case cancellation.)",
