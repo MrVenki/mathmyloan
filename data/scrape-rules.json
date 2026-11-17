@@ -189,13 +189,13 @@
     "learnedOn": "2026-11-09"
   },
   "canara-bank|car-loan": {
-    "shape": "crg-prime | # | # | -# | # | # | -# | #",
-    "prev": "crg : # | # | # | # | # | # | # | # / applicable roi for sanctioned limit above rs. # lakh",
-    "head": "canara vehicle (# wheeler loans including agriculturists (general) | crg-prime | # | # | -# | # | # | -# | #",
-    "nth": 3,
+    "shape": "cs:# | # | # | -# | # | # | -# | #",
+    "prev": "cs:# & cs:# | # | # | # | # | # | # | # / applicable roi for sanctioned limit above rs. # lakh",
+    "head": "canara vehicle (# wheeler loans including agriculturists (general) | cs:# | # | # | -# | # | # | -# | #",
+    "nth": 6,
     "index": 6,
     "pct": false,
-    "learnedOn": "2026-11-09"
+    "learnedOn": "2026-11-17"
   },
   "canara-bank|education-loan": {
     "shape": "pm vidyalaxmi scheme | \"aaa\" category institutitons | # | -# | #",
@@ -207,22 +207,22 @@
     "learnedOn": "2026-11-09"
   },
   "canara-bank|home-loan": {
-    "shape": "#. for housing loan (all variants) under crg-prime, crg-# & crg-#, additional # bps concession for takeover/ready to move hl proposals & # bps concession for salaried employees working in central/state govt./psus/mncs/blue chip companies & corporates maintaining/switching salary a/c wth us including canara sb premium payroll package payroll a/cs is applicable in all loan slabs. (the rate of interest including all concessions shall not to fall below #%)",
-    "prev": "crg : # | # | # | -# | # | # | -# | # / note:-",
-    "head": "housing loan | crg-prime | # | # | -# | # | # | -# | #",
+    "shape": "#. for housing loan (all variants), additional # bps concession for takeover/ready to move hl proposals & # bps concession for salaried employees working in central/state govt./psus/mncs/blue chip companies & corporates maintaining/switching salary a/c wth us including canara sb premium payroll package payroll a/cs is applicable in all loan slabs. (the rate of interest including all concessions shall not fall below #%)",
+    "prev": "cs:# & cs:# | # | # | # | # | # | # | # / note:-",
+    "head": "housing loan | cs:# | # | # | -# | # | # | -# | #",
     "nth": 0,
     "index": 0,
     "pct": true,
-    "learnedOn": "2026-11-09"
+    "learnedOn": "2026-11-17"
   },
   "canara-bank|loan-against-property": {
-    "shape": "# | canara mortgage^ | crg : # | # | # | # | # | # | # | #",
+    "shape": "# | canara mortgage | cs:# & cs:# | # | # | # | # | # | # | #",
     "prev": "sl.no | loan product | crg | rllr | where security is equal to #% | where security is equal to >#%=#% | where security is equal to >#% / credit risk premium over rllr | effective rate of interest under rllr | credit risk premium over rllr | effective rate of interest under rllr | credit risk premium over rllr | effective rate of interest under rllr",
-    "head": "canara vehicle (# wheelers) | crg : # | # | # | # | # | # | # | #",
+    "head": "canara vehicle (# wheelers) | cs:# & cs:# | # | # | # | # | # | # | #",
     "nth": 0,
     "index": 6,
     "pct": false,
-    "learnedOn": "2026-11-09"
+    "learnedOn": "2026-11-17"
   },
   "canara-bank|loan-against-securities": {
     "shape": "# | canara insta mf loan | # | # | #",
@@ -234,31 +234,31 @@
     "learnedOn": "2026-11-09"
   },
   "canara-bank|personal-loan": {
-    "shape": "crg : # | # | # | -# | # | # | -# | #",
-    "prev": "crg : # | # | # | -# | # | # | -# | # / crg : # | # | # | -# | # | # | -# | #",
-    "head": "housing loan | crg-prime | # | # | -# | # | # | -# | #",
-    "nth": 11,
-    "index": 6,
+    "shape": "canara budget-prime (with salary tie-up) | cs:# & cs:# | # | # | #",
+    "prev": "cs:# | # | # | # / cs:# & cs:# | # | # | #",
+    "head": "# | canara home loan plus - term loan | cs:# & cs:# | # | # | #",
+    "nth": 0,
+    "index": 2,
     "pct": false,
-    "learnedOn": "2026-11-09"
+    "learnedOn": "2026-11-17"
   },
   "canara-bank|plot-loan": {
-    "shape": "# | canara mortgage^ | crg : # | # | # | # | # | # | # | #",
+    "shape": "# | canara mortgage | cs:# & cs:# | # | # | # | # | # | # | #",
     "prev": "sl.no | loan product | crg | rllr | where security is equal to #% | where security is equal to >#%=#% | where security is equal to >#% / credit risk premium over rllr | effective rate of interest under rllr | credit risk premium over rllr | effective rate of interest under rllr | credit risk premium over rllr | effective rate of interest under rllr",
-    "head": "canara vehicle (# wheelers) | crg : # | # | # | # | # | # | # | #",
+    "head": "canara vehicle (# wheelers) | cs:# & cs:# | # | # | # | # | # | # | #",
     "nth": 0,
     "index": 6,
     "pct": false,
-    "learnedOn": "2026-11-09"
+    "learnedOn": "2026-11-17"
   },
   "canara-bank|two-wheeler-loan": {
-    "shape": "canara vehicle (# wheelers) | crg : # | # | # | # | # | # | # | #",
-    "prev": "crg : # | # | # | -# | # | # | -# | # / **the above concession shall remain same till the loan completes # years from the date of first disbursement for all the variants of hl & canara vehicle #-wheeler (including green wheels & agriculturists).",
+    "shape": "canara vehicle (# wheelers) | cs:# & cs:# | # | # | # | # | # | # | #",
+    "prev": "cs:# & cs:# | # | # | # | # | # | # | # / **the above concession shall remain same till the loan completes # years from the date of first disbursement for all the variants of hl & canara vehicle #-wheeler (including green wheels & agriculturists).",
     "head": "**the above concession shall remain same till the loan completes # years from the date of first disbursement for all the variants of hl & canara vehicle #-wheel",
     "nth": 0,
     "index": 6,
     "pct": false,
-    "learnedOn": "2026-11-09"
+    "learnedOn": "2026-11-17"
   },
   "central-bank-of-india|car-loan": {
     "shape": "#. | cent vehicle (#-wheeler)* | rblr - #% to rblr + #% | #% to #%",
