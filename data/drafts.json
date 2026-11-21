@@ -1,13 +1,13 @@
 {
-  "updatedAt": "2026-11-21T07:32:33.980Z",
+  "updatedAt": "2026-11-21T16:40:41.662Z",
   "lastEmailDigest": null,
   "summary": {
     "suspect": 5,
     "changed": 8,
-    "new": 32,
-    "failed": 3,
+    "new": 37,
+    "failed": 2,
     "manual": 0,
-    "same": 85
+    "same": 86
   },
   "items": [
     {
@@ -370,6 +370,29 @@
       "status": "new",
       "proposed": {
         "rateFrom": 8.9,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "indian-overseas-bank|car-loan",
+      "bank": "indian-overseas-bank",
+      "loan": "car-loan",
+      "url": "https://www.iob.bank.in/en/emi-calculator",
+      "live": null,
+      "liveHeld": false,
+      "checkedOn": "2026-11-21",
+      "found": 7.8,
+      "method": "keywords",
+      "via": "http",
+      "evidence": "Vehicle Loans\nStarting from\n7.80%",
+      "status": "new",
+      "proposed": {
+        "rateFrom": 7.8,
         "conditions": "",
         "effectiveFrom": null,
         "fee": null,
@@ -765,6 +788,51 @@
       "review": "pending"
     },
     {
+      "id": "city-union-bank|home-loan",
+      "bank": "city-union-bank",
+      "loan": "home-loan",
+      "url": "https://cityunionbank.bank.in/city-union-bank-rates",
+      "live": null,
+      "liveHeld": false,
+      "checkedOn": "2026-11-21",
+      "found": 8.25,
+      "method": "keywords",
+      "via": "http",
+      "evidence": "Bureau Score^^ | upto Rs.30.00 lakh | >Rs.30.00 lakh - Rs.75.00 lakh | >Rs.75.00 lakh -Rs. 7.50 Cr\nMin | Max | Min | Max | Min | Max\nAbove 800 | 8.25% | 8.50% | 8.50% | 9.00% | 8.75% | 9.50% | Affordable Home loan 0.35%+ GST",
+      "alternatives": [
+        {
+          "value": 8.35,
+          "evidence": "Bureau Score^ | upto Rs.30.00 lakh | >Rs.30.00 lakh - Rs.75.00 lakh | >Rs.75.00 lakh -Rs. 7.50 Cr | Affordable Home loan 0.35%+ GST\nPrime Home loan 0.25%+ GST\nAbove 800 | 8.35% | 8.85% | 9.35% | Prime Home loan 0.25%+ GST"
+        },
+        {
+          "value": 8.5,
+          "evidence": "Bureau Score^^ | upto Rs.30.00 lakh | >Rs.30.00 lakh - Rs.75.00 lakh | >Rs.75.00 lakh -Rs. 7.50 Cr\nMin | Max | Min | Max | Min | Max\nAbove 800 | 8.25% | 8.50% | 8.50% | 9.00% | 8.75% | 9.50% | Affordable Home loan 0.35%+ GST"
+        },
+        {
+          "value": 8.85,
+          "evidence": "Bureau Score^ | upto Rs.30.00 lakh | >Rs.30.00 lakh - Rs.75.00 lakh | >Rs.75.00 lakh -Rs. 7.50 Cr | Affordable Home loan 0.35%+ GST\nPrime Home loan 0.25%+ GST\nAbove 800 | 8.35% | 8.85% | 9.35% | Prime Home loan 0.25%+ GST"
+        },
+        {
+          "value": 9,
+          "evidence": "Bureau Score^^ | upto Rs.30.00 lakh | >Rs.30.00 lakh - Rs.75.00 lakh | >Rs.75.00 lakh -Rs. 7.50 Cr\nMin | Max | Min | Max | Min | Max\nAbove 800 | 8.25% | 8.50% | 8.50% | 9.00% | 8.75% | 9.50% | Affordable Home loan 0.35%+ GST"
+        },
+        {
+          "value": 9.35,
+          "evidence": "Bureau Score^ | upto Rs.30.00 lakh | >Rs.30.00 lakh - Rs.75.00 lakh | >Rs.75.00 lakh -Rs. 7.50 Cr | Affordable Home loan 0.35%+ GST\nPrime Home loan 0.25%+ GST\nAbove 800 | 8.35% | 8.85% | 9.35% | Prime Home loan 0.25%+ GST"
+        }
+      ],
+      "status": "new",
+      "proposed": {
+        "rateFrom": 8.25,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
       "id": "csb-bank|home-loan",
       "bank": "csb-bank",
       "loan": "home-loan",
@@ -779,6 +847,29 @@
       "status": "new",
       "proposed": {
         "rateFrom": 8.75,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "indian-overseas-bank|home-loan",
+      "bank": "indian-overseas-bank",
+      "loan": "home-loan",
+      "url": "https://www.iob.bank.in/en/emi-calculator",
+      "live": null,
+      "liveHeld": false,
+      "checkedOn": "2026-11-21",
+      "found": 7.45,
+      "method": "keywords",
+      "via": "http",
+      "evidence": "Home Loans\nStarting from\n7.45%",
+      "status": "new",
+      "proposed": {
+        "rateFrom": 7.45,
         "conditions": "",
         "effectiveFrom": null,
         "fee": null,
@@ -981,6 +1072,29 @@
       "review": "pending"
     },
     {
+      "id": "city-union-bank|loan-against-property",
+      "bank": "city-union-bank",
+      "loan": "loan-against-property",
+      "url": "https://cityunionbank.bank.in/city-union-bank-rates",
+      "live": null,
+      "liveHeld": false,
+      "checkedOn": "2026-11-21",
+      "found": 11,
+      "method": "keywords",
+      "via": "http",
+      "evidence": "Bureau Score^^ | ^^ Borrower+ Co borrower+ Co-applicant (if income considered for | Loan upto 1.00 Crore - 0.35 %\nloan eligibility).\nAbove 800 | 11.00% | Loan above 1.00 Crore - 0.25 %",
+      "status": "new",
+      "proposed": {
+        "rateFrom": 11,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
       "id": "tamilnad-mercantile-bank|loan-against-property",
       "bank": "tamilnad-mercantile-bank",
       "loan": "loan-against-property",
@@ -1091,6 +1205,29 @@
       "status": "new",
       "proposed": {
         "rateFrom": 10.99,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "indian-overseas-bank|personal-loan",
+      "bank": "indian-overseas-bank",
+      "loan": "personal-loan",
+      "url": "https://www.iob.bank.in/en/emi-calculator",
+      "live": null,
+      "liveHeld": false,
+      "checkedOn": "2026-11-21",
+      "found": 10.5,
+      "method": "keywords",
+      "via": "http",
+      "evidence": "Personal Loans\nStarting from\n10.50%",
+      "status": "new",
+      "proposed": {
+        "rateFrom": 10.5,
         "conditions": "",
         "effectiveFrom": null,
         "fee": null,
@@ -1558,30 +1695,6 @@
       "review": "pending"
     },
     {
-      "id": "sbi|personal-loan",
-      "bank": "sbi",
-      "loan": "personal-loan",
-      "url": "https://sbi.bank.in/web/interest-rates/interest-rates/loan-schemes-interest-rates/personal-loans-schemes",
-      "live": 10,
-      "liveHeld": false,
-      "checkedOn": "2026-11-21",
-      "found": null,
-      "method": null,
-      "via": null,
-      "evidence": null,
-      "status": "failed",
-      "error": "could not load the page (fetch failed)",
-      "proposed": {
-        "rateFrom": 10,
-        "conditions": "SBI Personal Loan scheme: 2-year MCLR (8.75%) plus 1.25% to 6.25%, so 10.00% to 15.00%",
-        "effectiveFrom": "2025-12-15",
-        "fee": null,
-        "prepayment": null,
-        "maxTenureYears": null
-      },
-      "review": "pending"
-    },
-    {
       "id": "bank-of-baroda|car-loan",
       "bank": "bank-of-baroda",
       "loan": "car-loan",
@@ -1705,9 +1818,9 @@
       "liveHeld": false,
       "checkedOn": "2026-11-21",
       "found": 8.4,
-      "method": "rule",
+      "method": "learned",
       "via": "http",
-      "evidence": "Car Loan\nCar Loan\nGet your dream car with an ICICI Bank Car Loan that offers financing of up to 100% of the on-road price at competitive interest rates starting at 8.40%* per annum (subject to eligibility criteria). Benefit from a hassle-free online application process, minimal documentation and quick approval. Apply for a Car Loan and drive home your dream car with confidence.",
+      "evidence": "ICICI Bank Car Loan Interest Rates\nNew Car Loans of Tenure More Than 36 Months\n8.40%* onwards, based on CIBIL score and car model",
       "status": "same",
       "proposed": {
         "rateFrom": 8.4,
@@ -2027,9 +2140,9 @@
       "liveHeld": false,
       "checkedOn": "2026-11-21",
       "found": 7.35,
-      "method": "rule",
+      "method": "learned",
       "via": "pdf",
-      "evidence": "(D) | (D+E=F)\n(E)\nUnion Education - PM VIDYALAXMI - I (AAA) | EBLR | -0.90% | 7.35%",
+      "evidence": "3.4. UNION EDUCATION - PM VIDYALAXMI:\nCategory of Institute | Rate of Interest\nUnion Education - PM VIDYALAXMI - I (AAA) | EBLR - 0.90% = 7.35%",
       "status": "same",
       "proposed": {
         "rateFrom": 7.35,
@@ -2472,7 +2585,7 @@
       "found": 7.65,
       "method": "rule",
       "via": "pdf",
-      "evidence": "825 & above | EBLR - 0.85% = 7.40%\n800 to 824 | EBLR - 0.80% = 7.45%\n750 to 799 | EBLR - 0.65% = 7.60% | EBLR - 0.60% = 7.65%",
+      "evidence": "825 & above | EBLR - 0.90% = 7.35%\n800 to 824 | EBLR - 0.85% = 7.40%\n750 to 799 | EBLR - 0.65% = 7.60% | EBLR - 0.60% = 7.65%",
       "status": "same",
       "proposed": {
         "rateFrom": 7.65,
@@ -2677,9 +2790,9 @@
       "liveHeld": false,
       "checkedOn": "2026-11-21",
       "found": 9.3,
-      "method": "rule",
+      "method": "learned",
       "via": "pdf",
-      "evidence": "Rate (D) | (E)\n(D+E=F)\n800 & above | EBLR | 1.05% | 9.30%",
+      "evidence": "4. UNION MORTGAGE:\nType of Property | CIC score | Rate of Interest\n800 & above | EBLR + 1.05% = 9.30%",
       "status": "same",
       "proposed": {
         "rateFrom": 9.3,
@@ -3083,6 +3196,29 @@
       "review": "pending"
     },
     {
+      "id": "sbi|personal-loan",
+      "bank": "sbi",
+      "loan": "personal-loan",
+      "url": "https://sbi.bank.in/web/interest-rates/interest-rates/loan-schemes-interest-rates/personal-loans-schemes",
+      "live": 10,
+      "liveHeld": false,
+      "checkedOn": "2026-11-21",
+      "found": 10,
+      "method": "rule",
+      "via": "http",
+      "evidence": "Mean ROI (Q1 FY 2026-27): 11.54%\nSpread over 2-year MCLR | Effective Interest Rate\n1.25% - 6.25% | 10.00% - 15.00%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 10,
+        "conditions": "SBI Personal Loan scheme: 2-year MCLR (8.75%) plus 1.25% to 6.25%, so 10.00% to 15.00%",
+        "effectiveFrom": "2025-12-15",
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
       "id": "union-bank-of-india|personal-loan",
       "bank": "union-bank-of-india",
       "loan": "personal-loan",
@@ -3091,9 +3227,9 @@
       "liveHeld": false,
       "checkedOn": "2026-11-21",
       "found": 9.3,
-      "method": "rule",
+      "method": "learned",
       "via": "pdf",
-      "evidence": "Schemes | CIC score\nRate (D) | (E) | (D+E=F)\n800 & above | EBLR | 1.05% | 9.30%",
+      "evidence": "7.1 Personal Loan for Salaried Individuals other than Government Employee:\nSchemes | CIC score | Rate of Interest\n800 & above | EBLR + 1.05% = 9.30%",
       "status": "same",
       "proposed": {
         "rateFrom": 9.3,
@@ -3367,9 +3503,9 @@
       "liveHeld": false,
       "checkedOn": "2026-11-21",
       "found": 11.35,
-      "method": "rule",
+      "method": "learned",
       "via": "pdf",
-      "evidence": "Excluding Open Plots\n-1 & 1 to 5\nBelow 700 | EBLR | 3.10% | 11.35%",
+      "evidence": "Excluding Open Plots | EBLR + 2.30% = 10.55%\n-1 & 1 to 5\nBelow 700 | EBLR + 3.10% = 11.35%",
       "status": "same",
       "proposed": {
         "rateFrom": 11.35,
@@ -3461,7 +3597,7 @@
       "found": 9.75,
       "method": "rule",
       "via": "http",
-      "evidence": "10.25%* onwards, based on CIBIL score and car segment\nUsed Car Loans\n9.75%* onwards, based on CIBIL score and car segment",
+      "evidence": "10.25%* onwards, based on CIBIL score and car segment\nPre-owned Car Loans\n9.75%* onwards, based on CIBIL score and car segment",
       "status": "same",
       "proposed": {
         "rateFrom": 9.75,

@@ -441,13 +441,13 @@
     "learnedOn": "2026-11-09"
   },
   "icici-bank|car-loan": {
-    "shape": "get your dream car with an icici bank car loan that offers financing of up to #% of the on-road price at competitive interest rates starting at #%* per annum (subject to eligibility criteria). benefit from a hassle-free online application process, minimal documentation and quick approval. apply for a car loan and drive home your dream car with confidence.",
-    "prev": "car loan / car loan",
-    "head": "car loan",
+    "shape": "#%* onwards, based on cibil score and car model",
+    "prev": "icici bank car loan interest rates / new car loans of tenure more than # months",
+    "head": "new car loans of tenure more than # months",
     "nth": 0,
-    "index": 1,
+    "index": 0,
     "pct": true,
-    "learnedOn": "2026-11-09"
+    "learnedOn": "2026-11-21"
   },
   "icici-bank|education-loan": {
     "shape": "secured loans for select institutes: starting from #% p.a.",
@@ -774,13 +774,13 @@
     "learnedOn": "2026-11-09"
   },
   "union-bank-of-india|education-loan": {
-    "shape": "union education - pm vidyalaxmi - i (aaa) | eblr | -#% | #%",
-    "prev": "(d) | (d+e=f) / (e)",
+    "shape": "union education - pm vidyalaxmi - i (aaa) | eblr - #% = #%",
+    "prev": "#. union education - pm vidyalaxmi: / category of institute | rate of interest",
     "head": "#. union education - pm vidyalaxmi:",
     "nth": 0,
     "index": 1,
     "pct": true,
-    "learnedOn": "2026-11-09"
+    "learnedOn": "2026-11-21"
   },
   "union-bank-of-india|home-loan-overdraft": {
     "shape": "# to # | eblr - #% = #% | eblr - #% = #%",
@@ -792,31 +792,31 @@
     "learnedOn": "2026-11-09"
   },
   "union-bank-of-india|loan-against-property": {
-    "shape": "# & above | eblr | #% | #%",
-    "prev": "rate (d) | (e) / (d+e=f)",
+    "shape": "# & above | eblr + #% = #%",
+    "prev": "#. union mortgage: / type of property | cic score | rate of interest",
     "head": "#. union mortgage:",
-    "nth": 0,
+    "nth": 3,
     "index": 1,
     "pct": true,
-    "learnedOn": "2026-11-09"
+    "learnedOn": "2026-11-21"
   },
   "union-bank-of-india|personal-loan": {
-    "shape": "# & above | eblr | #% | #%",
-    "prev": "schemes | cic score / rate (d) | (e) | (d+e=f)",
+    "shape": "# & above | eblr + #% = #%",
+    "prev": "# personal loan for salaried individuals other than government employee: / schemes | cic score | rate of interest",
     "head": "# personal loan for salaried individuals other than government employee:",
-    "nth": 4,
+    "nth": 7,
     "index": 1,
     "pct": true,
-    "learnedOn": "2026-11-09"
+    "learnedOn": "2026-11-21"
   },
   "union-bank-of-india|two-wheeler-loan": {
-    "shape": "below # | eblr | #% | #%",
-    "prev": "excluding open plots / -# & # to #",
+    "shape": "below # | eblr + #% = #%",
+    "prev": "excluding open plots | eblr + #% = #% / -# & # to #",
     "head": "#. union mortgage:",
-    "nth": 1,
+    "nth": 5,
     "index": 1,
     "pct": true,
-    "learnedOn": "2026-11-09"
+    "learnedOn": "2026-11-21"
   },
   "union-bank-of-india|used-car-loan": {
     "shape": "# & above | eblr + #% = #%",
