@@ -63,7 +63,7 @@ const ICON_LINKS = `<link rel="icon" href="${href('/favicon.ico')}" sizes="32x32
 <link rel="manifest" href="${href('/site.webmanifest')}">
 <meta name="theme-color" content="#112551">`;
 
-const FONT_CSS = 'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap';
+const FONT_CSS = 'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=optional';
 const fmtDate = (d) => new Date(d).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
 const slugify = (s) => s.toLowerCase().replace(/<[^>]+>/g, '').replace(/&[a-z]+;/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 60);
 
@@ -538,8 +538,8 @@ function planner(loan, list, P, y) {
 <div class="pl-donut"><svg viewBox="0 0 200 200" data-donut></svg><p class="lgd"><span><i class="ip"></i>Principal</span><span><i class="ii"></i>Interest</span></p></div>
 <div class="pl-bars"><p class="ctitle">Payments by calendar year</p><svg viewBox="0 0 520 240" data-bars></svg><p class="lgd"><span><i class="ip sq"></i>Principal</span><span><i class="ii sq"></i>Interest</span></p></div>
 </div>
-<div class="cmp"><table><thead><tr><th></th><th class="sel" data-col="me">Your choice<br>${low.rateFrom.toFixed(2)}%</th><th class="hide-sm">Lowest rate<br>${low.rateFrom.toFixed(2)}%</th><th>Highest rate<br>${high.rateFrom.toFixed(2)}%</th></tr></thead>
-<tbody data-cmp>${cmpRows.map(([k, a, b]) => `<tr><td>${k}</td><td class="sel">${a}</td><td class="hide-sm">${a}</td><td>${b}</td></tr>`).join('')}</tbody></table></div>
+<div class="cmp"><table><thead><tr><td></td><th class="sel" data-col="me">Your choice<br>${low.rateFrom.toFixed(2)}%</th><th class="hide-sm">Lowest rate<br>${low.rateFrom.toFixed(2)}%</th><th>Highest rate<br>${high.rateFrom.toFixed(2)}%</th></tr></thead>
+<tbody data-cmp>${cmpRows.map(([k, a, b]) => `<tr><th scope="row">${k}</th><td class="sel">${a}</td><td class="hide-sm">${a}</td><td>${b}</td></tr>`).join('')}</tbody></table></div>
 <p class="pl-save" data-save>This choice saves <b>${inr(hi.interest - me.interest)}</b> in interest compared with the highest-rate bank.</p>
 </div></div>`;
 }

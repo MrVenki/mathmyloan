@@ -395,7 +395,7 @@ details.trust-box[open] > summary{margin-bottom:8px}
 .dc .fld .tp input[type=number],.dc .fld .tp input[data-money]{width:132px;min-height:38px;text-align:right;font-weight:700;color:var(--accent);padding:6px 9px}
 .dc select{min-height:40px;padding:7px 9px}
 .dc input[type=range]{margin:2px 0 0}
-.rg{display:flex;justify-content:space-between;font-size:.72rem;color:#64748b}
+.rg{display:flex;justify-content:space-between;font-size:.72rem;color:var(--muted)}
 .rg .rg-val{font-size:.84rem;font-weight:700;color:var(--accent)}
 .pl-opt{display:grid;grid-template-columns:18px minmax(0,1fr);gap:8px;align-items:start;padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:#fff;cursor:pointer}
 .pl-opt input[type=radio]{margin:3px 0 0;accent-color:var(--accent)}
@@ -443,7 +443,8 @@ details.trust-box[open] > summary{margin-bottom:8px}
 .lgd .ip{background:var(--accent)} .lgd .ii{background:var(--amber)}
 .cmp{margin-top:14px;overflow-x:auto;border-top:1px solid var(--line)}
 .cmp th{background:none;text-transform:none;letter-spacing:0;font-size:.76rem;line-height:1.35}
-.cmp td:first-child{font-weight:600}
+.cmp td:first-child,.cmp tbody th{font-weight:600}
+.cmp tbody th{font-size:inherit;text-align:left;color:var(--fg)}
 .cmp .sel{color:var(--accent);font-weight:800}
 .pl-save{margin:12px 0 0;background:#e9f6eb;border:1px solid #bfe3c4;color:#1f5a26;border-radius:8px;padding:10px 12px;font-size:.9rem}
 .pl-save[hidden]{display:none}
