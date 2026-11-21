@@ -33,6 +33,7 @@ A rate is published only if it has an official `https` source URL, a `retrievedO
 ### Running it
 - **GitHub**: `.github/workflows/scrape.yml` runs daily at 06:00 IST and on demand (Admin → Scraper → Run, or the Actions tab). It commits only `data/drafts.json` and `data/scrape-rules.json`.
 - **Your computer**: `npm ci`, then `npm run scrape` (add `-- --push` to commit and push the drafts, `-- --bank sbi` for one bank). Needs Google Chrome installed for script-driven pages.
+- **Daily on this PC**: the Windows task "MathMyLoan daily scrape" runs `scripts/scrape-local.ps1` at 07:00 (or as soon as the PC is on after that). It pulls, scrapes and pushes the drafts, and logs to `scrape-local.log`. Some bank sites (SBI, IDFC First, IOB) only answer from India, so this run is fuller than GitHub's. Run it now with `Start-ScheduledTask 'MathMyLoan daily scrape'`; remove it with `Unregister-ScheduledTask 'MathMyLoan daily scrape'`.
 
 ### Setup
 - **Admin sign-in**: a GitHub fine-grained token for this repository with *Contents: read and write* and *Actions: read and write* (GitHub → Settings → Developer settings → Fine-grained tokens). The token stays in your browser.

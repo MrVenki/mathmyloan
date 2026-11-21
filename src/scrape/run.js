@@ -1,4 +1,4 @@
-// Rate scraper: reads every official source page, finds each loan's rate without AI, and writes
+﻿// Rate scraper: reads every official source page, finds each loan's rate without AI, and writes
 // the results to data/drafts.json for an admin to review. Nothing here changes the live rates.
 //   node src/scrape/run.js            scrape all sources, email a summary when there is news
 //   --bank <slug>                     only one bank
@@ -223,7 +223,7 @@ async function main() {
       console.log('[scrape] drafts unchanged');
     } catch {
       git('commit', '-m', `data: scraped rates ${new Date().toISOString().slice(0, 10)}`);
-      git('pull', '--rebase', '--quiet');
+      git('pull', '--rebase', '--autostash', '--quiet');
       git('push');
     }
   }
