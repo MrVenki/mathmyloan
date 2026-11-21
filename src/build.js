@@ -646,6 +646,12 @@ ${trustBox([p])}`,
   });
 }
 
+// A moved page: static hosting has no server redirects, so an instant refresh plus a canonical link does the job.
+const redirectPage = (to) => {
+  const u = esc(cfg.siteUrl + to);
+  return `<!doctype html><html lang="en-IN"><head><meta charset="utf-8"><title>Moved | ${esc(cfg.siteName)}</title><link rel="canonical" href="${u}"><meta http-equiv="refresh" content="0; url=${esc(href(to))}"><script>location.replace(${JSON.stringify(href(to))}+location.hash)</script></head><body><p>This page has moved to <a href="${esc(href(to))}">${u}</a>.</p></body></html>\n`;
+};
+
 // One page per loan amount and tenure, with the EMI at every bank's starting rate.
 function emiPage(loan, list, lakh, years) {
   const P = lakh * 100000;
@@ -1731,6 +1737,9 @@ for (const loan of loans) {
   for (const p of list) write(`${loan.slug}/${p.bank}/index.html`, bankPage(loan, p));
   if (list.length) for (const a of loan.pageAmountsLakh) for (const y of loan.pageTenures) write(`${emiUrl(loan, a, y).slice(1)}index.html`, emiPage(loan, list, a, y));
   for (const [a, b] of popularPairs(list, VS_PER_LOAN)) write(`${vsUrl(loan, a, b).slice(1)}index.html`, vsPage(loan, a, b));
+  // Old URLs that search engines may already know: tiny pages that send visitors (and Google) to the replacement.
+  for (const p of list) for (const a of loan.pageAmountsLakh) for (const y of loan.pageTenures) write(`${loan.slug}/${p.bank}/emi-${amt(a)}-lakh-${y}-years/index.html`, redirectPage(emiUrl(loan, a, y)));
+  for (const [a, b] of pairs(list)) if (!hasVs(loan, a, b)) write(`${vsUrl(loan, a, b).slice(1)}index.html`, redirectPage(`/${loan.slug}/`));
 }
 write('404.html', `<!doctype html><meta charset="utf-8"><meta name="robots" content="noindex"><title>Page not found | ${esc(cfg.siteName)}</title><p>Page not found. <a href="${href('/')}">Compare loan rates</a> or try the <a href="${href('/calculators/')}">calculators</a>.</p>`);
 for (const v of Object.values(logoManifest)) {
