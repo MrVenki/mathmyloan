@@ -46,3 +46,26 @@ test('build produces the keyword-target pages with no broken values', () => {
   }
   assert.ok(fs.readFileSync(dist('embed/emi/index.html'), 'utf8').includes('noindex'));
 });
+
+test('EMI pages are one per loan amount and tenure, and comparison pages are limited to popular pairs', () => {
+  const html = fs.readFileSync(dist('home-loan-emi-calculator/50-lakh-20-years/index.html'), 'utf8');
+  assert.ok(/<h1>₹50 lakh Home Loan EMI for 20 Years<\/h1>/i.test(html), 'EMI page heading');
+  assert.ok(html.includes('EMI at each bank'), 'EMI page lists every bank');
+  const moved = fs.readFileSync(dist('home-loan/sbi/emi-50-lakh-20-years/index.html'), 'utf8');
+  assert.ok(moved.includes('url=/home-loan-emi-calculator/50-lakh-20-years/'), 'old per-bank EMI URL redirects to the new page');
+  assert.ok(!fs.readFileSync(dist('sitemap.xml'), 'utf8').includes('/emi-50-lakh-'), 'redirects are not in the sitemap');
+  for (const loan of fs.readdirSync(dist(''))) {
+    const dir = dist(loan);
+    if (!fs.statSync(dir).isDirectory()) continue;
+    const vs = fs.readdirSync(dir).filter((d) => d.includes('-vs-') && !fs.readFileSync(path.join(dir, d, 'index.html'), 'utf8').includes('http-equiv="refresh"'));
+    assert.ok(vs.length <= 12, `${loan} has ${vs.length} comparison pages`);
+  }
+  // Every internal link points at a page that exists.
+  const walk = (d) => fs.readdirSync(d, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? walk(path.join(d, e.name)) : [path.join(d, e.name)]));
+  for (const file of walk(dist('')).filter((f) => f.endsWith('.html'))) {
+    for (const m of fs.readFileSync(file, 'utf8').matchAll(/href="(\/[^"#?]*)/g)) {
+      const p = dist(m[1]);
+      assert.ok(fs.existsSync(p) || fs.existsSync(path.join(p, 'index.html')), `broken link ${m[1]} in ${file}`);
+    }
+  }
+});

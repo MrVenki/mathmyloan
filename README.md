@@ -14,8 +14,8 @@ A rate is published only if it has an official `https` source URL, a `retrievedO
 ## Pages generated per verified product
 - `/{loan}/` hub with a bank-picker comparison tool and rate table
 - `/{loan}/{bank}/` bank page (rate, fee, prepayment, tenure, FAQ, EMI links)
-- `/{loan}/{bank}/emi-{amount}-lakh-{years}-years/` EMI at the starting rate and at +0.5 to +2 points
-- `/{loan}/{a}-vs-{b}/` for every pair of verified banks in a loan type
+- `/{loan}-emi-calculator/{amount}-lakh-{years}-years/` one page per amount and tenure, with the EMI at every bank's starting rate (replaces the old per-bank EMI pages, which were near-duplicates)
+- `/{loan}/{a}-vs-{b}/` for the 12 most searched pairs of big banks in each loan type (not every pair, to avoid hundreds of thin pages); every bank is still compared on the hub
 - `/{loan}-emi-calculator/`, home, about, privacy, sitemap, robots, IndexNow key
 
 ## Rate scraper and admin (how rates get updated)

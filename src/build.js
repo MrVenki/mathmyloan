@@ -63,7 +63,7 @@ const ICON_LINKS = `<link rel="icon" href="${href('/favicon.ico')}" sizes="32x32
 <link rel="manifest" href="${href('/site.webmanifest')}">
 <meta name="theme-color" content="#112551">`;
 
-const FONT_CSS = 'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap';
+const FONT_CSS = 'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=optional';
 const fmtDate = (d) => new Date(d).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
 const slugify = (s) => s.toLowerCase().replace(/<[^>]+>/g, '').replace(/&[a-z]+;/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 60);
 
@@ -289,7 +289,11 @@ const avatar = (name, slug) =>
 const forLoan = (loan) => products.filter((p) => p.loan === loan.slug).sort((a, b) => a.rateFrom - b.rateFrom);
 const bankUrl = (loan, p) => `/${loan.slug}/${p.bank}/`;
 const vsUrl = (loan, a, b) => `/${loan.slug}/${a.bank}-vs-${b.bank}/`;
-const emiUrl = (loan, p, a, y) => `/${loan.slug}/${p.bank}/emi-${amt(a)}-lakh-${y}-years/`;
+const emiUrl = (loan, a, y) => `/${loan.slug}-emi-calculator/${amt(a)}-lakh-${y}-years/`;
+// Bank-vs-bank pages are built only for the most searched pairs; the rest are covered by the hub's bank table.
+const VS_PER_LOAN = 12;
+const vsPairs = new Map();
+const hasVs = (loan, a, b) => (vsPairs.get(loan.slug) ?? new Set()).has([a.bank, b.bank].sort().join('|'));
 
 // Schedules start with this month's EMI, so years and months are real calendar dates.
 const yearCell = (y) => (y.months < 12 ? `${y.year} <span class="small">(${y.months} mo)</span>` : String(y.year));
@@ -467,13 +471,15 @@ function loanHub(loan) {
 <div class="h1row">${loanTile(loan.slug, 'big')}<h1>${esc(loan.name)} Interest Rates ${esc(month)}: Compare ${list.length} Banks</h1></div>
 <p class="meta-line"><span>Updated ${esc(fmtDate(latest))}</span><span>By MathMyLoan research team</span><span>Rates from ${list.length} official bank websites</span><a href="${href('/about/')}">How we check rates</a></p>
 </div><div class="phead-dl"><button type="button" class="dl-report" data-pdf data-pdf-target="[data-planner]"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 19h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Download report</button><span class="small pdf-note" aria-live="polite"></span></div></div>
+<div class="answer hub-answer"><p class="k">Quick answer</p><p>${answer}</p>
+<ol class="toplist">${list.slice(0, 5).map((p) => `<li><a href="${href(bankUrl(loan, p))}">${esc(p.bankInfo.short)}</a><b>${rate(p.rateFrom)}</b><span>${inr(emi(P, p.rateFrom, y))}/mo</span></li>`).join('')}</ol>
+${list.length > 5 ? `<p class="small"><a href="#banks">See all ${list.length} banks</a></p>` : ''}</div>
 ${planner(loan, list, P, y)}
 <h2 id="banks">${esc(loan.name)} rates from ${list.length} banks</h2>
 <p class="small">Each bank's advertised starting rate, checked on its own website. Choose a bank to load its numbers into the planner.</p>
 ${plannerBanks(loan, list, P, y)}
 <div class="guide"><article class="guide-main">
 <h2>Your guide to ${esc(ln)} rates</h2>
-<div class="answer"><p class="k">Quick answer</p><p>${answer}</p></div>
 <h3>How to get the lowest ${esc(ln)} rate</h3>
 <ol class="tips">${g.tips.map(([b, t]) => `<li><b>${esc(b)}</b> ${esc(t)}</li>`).join('')}</ol>
 <h3>What decides your rate</h3>
@@ -532,8 +538,8 @@ function planner(loan, list, P, y) {
 <div class="pl-donut"><svg viewBox="0 0 200 200" data-donut></svg><p class="lgd"><span><i class="ip"></i>Principal</span><span><i class="ii"></i>Interest</span></p></div>
 <div class="pl-bars"><p class="ctitle">Payments by calendar year</p><svg viewBox="0 0 520 240" data-bars></svg><p class="lgd"><span><i class="ip sq"></i>Principal</span><span><i class="ii sq"></i>Interest</span></p></div>
 </div>
-<div class="cmp"><table><thead><tr><th></th><th class="sel" data-col="me">Your choice<br>${low.rateFrom.toFixed(2)}%</th><th class="hide-sm">Lowest rate<br>${low.rateFrom.toFixed(2)}%</th><th>Highest rate<br>${high.rateFrom.toFixed(2)}%</th></tr></thead>
-<tbody data-cmp>${cmpRows.map(([k, a, b]) => `<tr><td>${k}</td><td class="sel">${a}</td><td class="hide-sm">${a}</td><td>${b}</td></tr>`).join('')}</tbody></table></div>
+<div class="cmp"><table><thead><tr><td></td><th class="sel" data-col="me">Your choice<br>${low.rateFrom.toFixed(2)}%</th><th class="hide-sm">Lowest rate<br>${low.rateFrom.toFixed(2)}%</th><th>Highest rate<br>${high.rateFrom.toFixed(2)}%</th></tr></thead>
+<tbody data-cmp>${cmpRows.map(([k, a, b]) => `<tr><th scope="row">${k}</th><td class="sel">${a}</td><td class="hide-sm">${a}</td><td>${b}</td></tr>`).join('')}</tbody></table></div>
 <p class="pl-save" data-save>This choice saves <b>${inr(hi.interest - me.interest)}</b> in interest compared with the highest-rate bank.</p>
 </div></div>`;
 }
@@ -603,9 +609,9 @@ function bankPage(loan, p) {
   const missing = [!p.fee && 'processing fee', !p.prepayment && 'prepayment terms'].filter(Boolean);
   // EMI table: every amount and tenure we have a page for, each figure linking to that page's full schedule.
   const emiGrid = `<div class="scroll"><table class="emi-grid"><thead><tr><th>Loan amount</th>${loan.pageTenures.map((y) => `<th>${yrs(y)}</th>`).join('')}</tr></thead><tbody>${loan.pageAmountsLakh
-    .map((a) => `<tr><td>${lakhLabel(a)}</td>${loan.pageTenures.map((y) => `<td><a href="${href(emiUrl(loan, p, a, y))}">${inr(emi(a * 100000, p.rateFrom, y))}<span class="sr-only"> a month for ${lakhLabel(a)} over ${yrs(y)}</span></a></td>`).join('')}</tr>`)
+    .map((a) => `<tr><td>${lakhLabel(a)}</td>${loan.pageTenures.map((y) => `<td><a href="${href(emiUrl(loan, a, y))}">${inr(emi(a * 100000, p.rateFrom, y))}<span class="sr-only"> a month for ${lakhLabel(a)} over ${yrs(y)}</span></a></td>`).join('')}</tr>`)
     .join('')}</tbody></table></div>
-<p class="small">EMI per month at ${rate(p.rateFrom)}. Tap a figure for its full repayment schedule.</p>`;
+<p class="small">EMI per month at ${rate(p.rateFrom)}. Tap a figure to compare that EMI across every bank.</p>`;
   const rivals = all.filter((q) => q.bank !== p.bank);
   return layout({
     title: titled(`${p.bankInfo.short} ${loan.name} Interest Rate ${monthOf(p.retrievedOn)}: ${rate(p.rateFrom)} Onwards`),
@@ -632,7 +638,7 @@ ${stdNote}
 ${calcWidget(P, p.rateFrom, loan.defaultTenure, { sched: 'closed' })}
 <h2>EMI for popular amounts</h2>
 ${emiGrid}
-${rivals.length ? `<h2>Compare ${esc(name)} with other banks</h2><p class="chips">${rivals.map((q) => { const [a, b] = [p, q].sort((x, y) => x.bank.localeCompare(y.bank)); return `<a href="${href(vsUrl(loan, a, b))}"><span class="chip-self">${esc(p.bankInfo.short)} </span>vs ${esc(q.bankInfo.short)} <span class="chip-rate">${rate(q.rateFrom)}</span></a>`; }).join('')}</p>` : ''}
+${rivals.length ? `<h2>Compare ${esc(name)} with other banks</h2><p class="chips">${rivals.filter((q) => hasVs(loan, p, q)).map((q) => { const [a, b] = [p, q].sort((x, y) => x.bank.localeCompare(y.bank)); return `<a href="${href(vsUrl(loan, a, b))}"><span class="chip-self">${esc(p.bankInfo.short)} </span>vs ${esc(q.bankInfo.short)} <span class="chip-rate">${rate(q.rateFrom)}</span></a>`; }).join('')}<a href="${href(`/${loan.slug}/#banks`)}">All ${all.length} banks side by side</a></p>` : ''}
 ${leadForm({ loan: loan.slug, bank: p.bank, amount: P, heading: `Get a call back about a ${name} ${loan.name.toLowerCase()}` })}
 <h2>Frequently asked questions</h2>
 ${faqHtml(qa)}
@@ -640,43 +646,61 @@ ${trustBox([p])}`,
   });
 }
 
-function emiPage(loan, p, lakh, years) {
+// A moved page: static hosting has no server redirects, so an instant refresh plus a canonical link does the job.
+const redirectPage = (to) => {
+  const u = esc(cfg.siteUrl + to);
+  return `<!doctype html><html lang="en-IN"><head><meta charset="utf-8"><title>Moved | ${esc(cfg.siteName)}</title><link rel="canonical" href="${u}"><meta http-equiv="refresh" content="0; url=${esc(href(to))}"><script>location.replace(${JSON.stringify(href(to))}+location.hash)</script></head><body><p>This page has moved to <a href="${esc(href(to))}">${u}</a>.</p></body></html>\n`;
+};
+
+// One page per loan amount and tenure, with the EMI at every bank's starting rate.
+function emiPage(loan, list, lakh, years) {
   const P = lakh * 100000;
-  const name = p.bankInfo.name;
-  const s = summary(P, p.rateFrom, years);
-  const steps = [0, 0.5, 1, 1.5, 2].map((d) => {
-    const r = p.rateFrom + d;
-    const x = summary(P, r, years);
-    return `<tr><td>${rate(r)}${d === 0 ? ' (starting)' : ''}</td><td>${inr(x.emi)}</td><td>${inr(x.interest)}</td><td>${inr(x.total)}</td></tr>`;
-  }).join('');
-  const yearRows = calendarYearly(schedule(P, p.rateFrom, years), today)
+  const ln = loan.name.toLowerCase();
+  const best = list[0];
+  const top = list.at(-1);
+  const s = summary(P, best.rateFrom, years);
+  const hi = summary(P, top.rateFrom, years);
+  const updated = list.map((p) => p.retrievedOn).sort().at(-1);
+  const bankRows = list
+    .map((p, i) => {
+      const x = summary(P, p.rateFrom, years);
+      return `<tr><td><a href="${href(bankUrl(loan, p))}">${esc(p.bankInfo.short)}</a>${i === 0 ? ' <span class="badge">Lowest</span>' : ''}</td><td>${rate(p.rateFrom)}</td><td><b>${inr(x.emi)}</b></td><td class="hide-sm">${inr(x.interest)}</td><td class="hide-sm">${inr(x.total)}</td></tr>`;
+    })
+    .join('');
+  const yearRows = calendarYearly(schedule(P, best.rateFrom, years), today)
     .map((y) => `<tr><td>${yearCell(y)}</td><td>${inr(y.principal)}</td><td>${inr(y.interest)}</td><td class="opt">${inr(y.paid)}</td><td>${inr(y.balance)}</td></tr>`)
     .join('');
+  const otherTenures = loan.pageTenures.filter((y) => y !== years);
+  const otherAmounts = loan.pageAmountsLakh.filter((a) => a !== lakh);
+  const sameRange = list.length === 1 || Math.abs(hi.emi - s.emi) < 1;
   const qa = [
-    [`What is the EMI for a ${lakhLabel(lakh)} ${name} ${loan.name.toLowerCase()} for ${yrs(years)}?`, `At ${name}'s starting rate of ${rate(p.rateFrom)} the EMI is about ${inr(s.emi)} a month. If your offered rate is ${rate(p.rateFrom + 1)} it would be about ${inr(emi(P, p.rateFrom + 1, years))}.`],
-    [`How much total interest will I pay?`, `At ${rate(p.rateFrom)} the total interest over ${yrs(years)} is about ${inr(s.interest)}, so you repay about ${inr(s.total)} in all.`],
+    [`What is the EMI on a ${lakhLabel(lakh)} ${ln} for ${yrs(years)}?`, sameRange ? `About ${inr(s.emi)} a month at ${rate(best.rateFrom)}.` : `About ${inr(s.emi)} a month at the lowest starting rate we found (${rate(best.rateFrom)}, ${best.bankInfo.name}), and about ${inr(hi.emi)} at the highest (${rate(top.rateFrom)}, ${top.bankInfo.name}).`],
+    [`How much interest will I pay on ${lakhLabel(lakh)} over ${yrs(years)}?`, `At ${rate(best.rateFrom)} the total interest is about ${inr(s.interest)}, so you repay about ${inr(s.total)} in all.${sameRange ? '' : ` At ${rate(top.rateFrom)} the interest is about ${inr(hi.interest)}.`}`],
+    ...(otherTenures.length ? [[`How does the tenure change the EMI?`, `For ${lakhLabel(lakh)} at ${rate(best.rateFrom)}: ${loan.pageTenures.map((y) => `${inr(emi(P, best.rateFrom, y))} over ${yrs(y)}`).join(', ')}. A longer tenure lowers the EMI but raises the total interest.`]] : []),
   ];
+  const url = emiUrl(loan, lakh, years);
   return layout({
-    title: `${name} ${lakhLabel(lakh)} ${loan.name} EMI for ${Yrs(years)}: ${inr(s.emi)}/month | ${cfg.siteName}`,
-    desc: `EMI on a ${lakhLabel(lakh)} ${name} ${loan.name.toLowerCase()} over ${yrs(years)} is about ${inr(s.emi)} a month at the ${rate(p.rateFrom)} starting rate, with EMI at higher rates too.`,
-    url: emiUrl(loan, p, lakh, years),
-    crumbs: [{ name: loan.name, url: `/${loan.slug}/` }, { name, url: bankUrl(loan, p) }, { name: `${lakhLabel(lakh)} for ${yrs(years)}`, url: emiUrl(loan, p, lakh, years) }],
+    title: titled(`${lakhLabel(lakh)} ${loan.name} EMI for ${Yrs(years)}: ${inr(s.emi)}/Month at ${list.length} Banks`.replace(` at 1 Banks`, '')),
+    desc: `EMI on a ${lakhLabel(lakh)} ${ln} for ${yrs(years)} is about ${inr(s.emi)} a month at ${rate(best.rateFrom)}. Compare the EMI and total interest at ${list.length} bank${list.length === 1 ? '' : 's'}, with a year-by-year schedule.`,
+    url,
+    crumbs: [{ name: loan.name, url: `/${loan.slug}/` }, { name: 'EMI calculator', url: `/${loan.slug}-emi-calculator/` }, { name: `${lakhLabel(lakh)} for ${yrs(years)}`, url }],
     jsonld: [faqLd(qa)],
-    updated: p.retrievedOn,
-    body: `<h1>${esc(name)} ${esc(lakhLabel(lakh))} ${esc(loan.name)} EMI for ${Yrs(years)}</h1>
-${metaLine(p.retrievedOn)}
-<p class="lead">At the advertised starting rate of <b>${rate(p.rateFrom)}</b>, the EMI is about <b>${inr(s.emi)}</b> a month, with total interest of about ${inr(s.interest)}.</p>
-<p class="small">${sourceLine(p)}</p>
+    updated,
+    body: `<h1>${esc(lakhLabel(lakh))} ${esc(loan.name)} EMI for ${Yrs(years)}</h1>
+${metaLine(updated)}
+<div class="answer"><p class="k">Quick answer</p><p>${sameRange ? `The EMI is about <b>${inr(s.emi)}</b> a month at ${rate(best.rateFrom)}` : `The EMI is about <b>${inr(s.emi)} to ${inr(hi.emi)}</b> a month at the starting rates of ${list.length} banks (${rate(best.rateFrom)} to ${rate(top.rateFrom)})`}. Total interest at the lowest rate is about ${inr(s.interest)}.</p></div>
+<h2>EMI at each bank</h2>
+<div class="scroll"><table><thead><tr><th>Bank</th><th>Starting rate</th><th>EMI / month</th><th class="hide-sm">Total interest</th><th class="hide-sm">Total payment</th></tr></thead><tbody>${bankRows}</tbody></table></div>
 ${stdNote}
-${calcWidget(P, p.rateFrom, years)}
-<h2>EMI at higher rates</h2>
-<div class="scroll"><table><thead><tr><th>Rate</th><th>EMI</th><th>Total interest</th><th>Total payment</th></tr></thead><tbody>${steps}</tbody></table></div>
-<h2>Year-by-year repayment schedule at ${rate(p.rateFrom)}</h2>
-<p class="small">How much of each year's payments goes to principal and to interest, and what you still owe at the end of the year. Use the calculator above for a month-by-month view and prepayment options. ${scheduleStartNote}</p>
+<h2>Try your own rate</h2>
+${calcWidget(P, best.rateFrom, years)}
+${otherTenures.length || otherAmounts.length ? `<h2>Other amounts and tenures</h2><p class="chips">${otherTenures.map((y) => `<a href="${href(emiUrl(loan, lakh, y))}">${esc(lakhLabel(lakh))} for ${yrs(y)}</a>`).join('')}${otherAmounts.map((a) => `<a href="${href(emiUrl(loan, a, years))}">${esc(lakhLabel(a))} for ${yrs(years)}</a>`).join('')}</p>` : ''}
+<h2>Year-by-year repayment at ${rate(best.rateFrom)}</h2>
+<p class="small">How much of each year's payments goes to principal and to interest, and what you still owe at the end of the year. ${scheduleStartNote}</p>
 <div class="scroll"><table><thead><tr><th>Year</th><th>Principal</th><th>Interest</th><th class="opt">Paid</th><th>Balance left</th></tr></thead><tbody>${yearRows}</tbody></table></div>
-${leadForm({ loan: loan.slug, bank: p.bank, amount: P })}
+${leadForm({ loan: loan.slug, amount: P })}
 <h2>Frequently asked questions</h2>${faqHtml(qa)}
-<p><a href="${href(bankUrl(loan, p))}">All ${esc(name)} ${esc(loan.name.toLowerCase())} details</a></p>`,
+${trustBox(list)}`,
   });
 }
 
@@ -717,6 +741,13 @@ ${rowsData.map(([k, x, z]) => `<tr><td>${esc(k)}</td><td>${esc(x)}</td><td>${esc
 </tbody></table></div>
 <p class="small">${sourceLine(a)}<br>${sourceLine(b)}</p>
 ${stdNote}
+<h2>EMI at common amounts (${yrs(y)})</h2>
+<div class="scroll"><table><thead><tr><th>Loan amount</th><th>${esc(a.bankInfo.short)}</th><th>${esc(b.bankInfo.short)}</th><th>Difference / month</th></tr></thead><tbody>${loan.amountsLakh
+    .map((L) => { const ea = emi(L * 100000, a.rateFrom, y); const eb = emi(L * 100000, b.rateFrom, y); return `<tr><td>${lakhLabel(L)}</td><td>${inr(ea)}</td><td>${inr(eb)}</td><td>${Math.abs(ea - eb) < 1 ? 'Same' : inr(Math.abs(ea - eb))}</td></tr>`; })
+    .join('')}</tbody></table></div>
+<p class="small">At each bank's starting rate.${same ? '' : ` Over ${yrs(y)} a difference of ${inr(Math.abs(sa.emi - sb.emi))} a month on ${lakhLabel(loan.defaultAmountLakh)} adds up to about ${inr(Math.abs(sa.interest - sb.interest))} of interest.`}</p>
+<h2>Compare every bank</h2>
+<p>These two are among ${forLoan(loan).length} banks we check for ${esc(loan.name.toLowerCase())}s. <a href="${href(`/${loan.slug}/#banks`)}">See all ${esc(loan.name.toLowerCase())} rates side by side</a>.</p>
 ${leadForm({ loan: loan.slug, amount: P, heading: `Get help choosing between ${a.bankInfo.short} and ${b.bankInfo.short}` })}
 <h2>Frequently asked questions</h2>${faqHtml(qa)}
 <p><a href="${href(bankUrl(loan, a))}">${esc(a.bankInfo.name)} details</a> · <a href="${href(bankUrl(loan, b))}">${esc(b.bankInfo.name)} details</a></p>
@@ -726,8 +757,10 @@ ${trustBox([a, b])}`,
 
 function calcPage(loan) {
   const P = loan.defaultAmountLakh * 100000;
+  const hasPages = forLoan(loan).length > 0;
+  const linked = (a, y) => hasPages && loan.pageAmountsLakh.includes(a) && loan.pageTenures.includes(y);
   const amountRows = loan.amountsLakh
-    .map((a) => `<tr><td>${lakhLabel(a)}</td>${loan.tenures.map((y) => `<td>${inr(emi(a * 100000, loan.defaultRate, y))}</td>`).join('')}</tr>`)
+    .map((a) => `<tr><td>${lakhLabel(a)}</td>${loan.tenures.map((y) => { const v = inr(emi(a * 100000, loan.defaultRate, y)); return `<td>${linked(a, y) ? `<a href="${href(emiUrl(loan, a, y))}">${v}</a>` : v}</td>`; }).join('')}</tr>`)
     .join('');
   const isHome = loan.slug === 'home-loan';
   return layout({
@@ -742,7 +775,7 @@ function calcPage(loan) {
 ${calcWidget(P, loan.defaultRate, loan.defaultTenure)}
 <h2>EMI at ${rate(loan.defaultRate)} for common amounts</h2>
 <div class="scroll"><table><thead><tr><th>Amount</th>${loan.tenures.map((y) => `<th>${y} yrs</th>`).join('')}</tr></thead><tbody>${amountRows}</tbody></table></div>
-<p class="small">Illustrative rate for the table only; change it in the calculator above.</p>
+<p class="small">Illustrative rate for the table only; change it in the calculator above.${hasPages ? ' Linked figures open the EMI at every bank for that amount.' : ''}</p>
 ${leadForm({ loan: loan.slug, amount: P })}
 ${isHome ? toolChips() : ''}`,
   });
@@ -1672,6 +1705,7 @@ ${leadForm({ loan: 'loan-against-fd', heading: 'Get a call back about a loan aga
 // ---------- build ----------
 
 fs.rmSync(OUT, { recursive: true, force: true });
+for (const loan of loans) vsPairs.set(loan.slug, new Set(popularPairs(forLoan(loan), VS_PER_LOAN).map(([a, b]) => [a.bank, b.bank].sort().join('|'))));
 write('index.html', homePage());
 write('about/index.html', aboutPage());
 write('privacy/index.html', privacyPage());
@@ -1700,11 +1734,12 @@ for (const loan of loans) {
   write(`${loan.slug}/index.html`, loanHub(loan));
   write(`${loan.slug}-emi-calculator/index.html`, calcPage(loan));
   const list = forLoan(loan);
-  for (const p of list) {
-    write(`${loan.slug}/${p.bank}/index.html`, bankPage(loan, p));
-    for (const a of loan.pageAmountsLakh) for (const y of loan.pageTenures) write(`${emiUrl(loan, p, a, y).slice(1)}index.html`, emiPage(loan, p, a, y));
-  }
-  for (const [a, b] of pairs(list)) write(`${vsUrl(loan, a, b).slice(1)}index.html`, vsPage(loan, a, b));
+  for (const p of list) write(`${loan.slug}/${p.bank}/index.html`, bankPage(loan, p));
+  if (list.length) for (const a of loan.pageAmountsLakh) for (const y of loan.pageTenures) write(`${emiUrl(loan, a, y).slice(1)}index.html`, emiPage(loan, list, a, y));
+  for (const [a, b] of popularPairs(list, VS_PER_LOAN)) write(`${vsUrl(loan, a, b).slice(1)}index.html`, vsPage(loan, a, b));
+  // Old URLs that search engines may already know: tiny pages that send visitors (and Google) to the replacement.
+  for (const p of list) for (const a of loan.pageAmountsLakh) for (const y of loan.pageTenures) write(`${loan.slug}/${p.bank}/emi-${amt(a)}-lakh-${y}-years/index.html`, redirectPage(emiUrl(loan, a, y)));
+  for (const [a, b] of pairs(list)) if (!hasVs(loan, a, b)) write(`${vsUrl(loan, a, b).slice(1)}index.html`, redirectPage(`/${loan.slug}/`));
 }
 write('404.html', `<!doctype html><meta charset="utf-8"><meta name="robots" content="noindex"><title>Page not found | ${esc(cfg.siteName)}</title><p>Page not found. <a href="${href('/')}">Compare loan rates</a> or try the <a href="${href('/calculators/')}">calculators</a>.</p>`);
 for (const v of Object.values(logoManifest)) {

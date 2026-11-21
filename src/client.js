@@ -471,8 +471,8 @@
       plBars($('[data-bars]', box), yearly(me));
       $('[data-col=me]', box).innerHTML = (c.i === -1 ? 'Your rate' : 'Your choice') + '<br>' + c.rate.toFixed(2) + '%';
       var rows = [['Monthly EMI', e, emi(P, B[0].rate, y), emi(P, B[B.length - 1].rate, y)], ['Total interest', I, Ilo, Ihi], ['Total payment', P + I, P + Ilo, P + Ihi]];
-      $('[data-cmp]', box).innerHTML = rows.map(function (r) { return '<tr><td>' + r[0] + '</td><td class="sel">' + inr(r[1]) + '</td><td class="hide-sm">' + inr(r[2]) + '</td><td>' + inr(r[3]) + '</td></tr>'; }).join('') +
-        '<tr><td>Last EMI</td><td class="sel">' + monthLabel(me.length) + '</td><td class="hide-sm">' + monthLabel(lo.length) + '</td><td>' + monthLabel(hi.length) + '</td></tr>';
+      $('[data-cmp]', box).innerHTML = rows.map(function (r) { return '<tr><th scope="row">' + r[0] + '</th><td class="sel">' + inr(r[1]) + '</td><td class="hide-sm">' + inr(r[2]) + '</td><td>' + inr(r[3]) + '</td></tr>'; }).join('') +
+        '<tr><th scope="row">Last EMI</th><td class="sel">' + monthLabel(me.length) + '</td><td class="hide-sm">' + monthLabel(lo.length) + '</td><td>' + monthLabel(hi.length) + '</td></tr>';
       var msg = [];
       if (Ihi - I > 1) msg.push('This choice saves <b>' + inr(Ihi - I) + '</b> in interest compared with the highest-rate bank.');
       if (ex && Ibase - I > 1) msg.push('Paying ' + inr(ex) + ' extra a month ends the loan ' + span(base.length - me.length) + ' early and saves <b>' + inr(Ibase - I) + '</b>.');
