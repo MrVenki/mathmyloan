@@ -17,7 +17,7 @@
     "prepayment": "The bank advertises freedom from prepayment charges",
     "maxTenureYears": 25,
     "sourceUrl": "https://www.kotak.bank.in/en/personal-banking/loans/home-loan.html",
-    "retrievedOn": "2026-11-01"
+    "retrievedOn": "2026-11-21"
   },
   {
     "bank": "sbi",
@@ -40,7 +40,7 @@
     "prepayment": null,
     "maxTenureYears": 30,
     "sourceUrl": "https://homeloans.hdfc.bank.in/",
-    "retrievedOn": "2026-11-01"
+    "retrievedOn": "2026-11-21"
   },
   {
     "bank": "axis-bank",
@@ -51,7 +51,7 @@
     "prepayment": "Nil on floating-rate loans; 2% of the amount prepaid on fixed-rate loans",
     "maxTenureYears": null,
     "sourceUrl": "https://www.axis.bank.in/loans/home-loan/interest-rates-charges",
-    "retrievedOn": "2026-11-01",
+    "retrievedOn": "2026-11-21",
     "note": "Taken from the bank's rate table. An FAQ on the same page says rates start 'as low as 8.75%'."
   },
   {
@@ -62,7 +62,7 @@
     "prepayment": "The bank states there are no prepayment charges on home loans",
     "maxTenureYears": 30,
     "sourceUrl": "https://www.bankofbaroda.bank.in/personal-banking/loans/home-loan",
-    "retrievedOn": "2026-11-01",
+    "retrievedOn": "2026-11-21",
     "review": true,
     "note": "The page banner says 7.40% but the page title says 7.5%. Hidden until confirmed."
   },
@@ -76,7 +76,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://pnb.bank.in/Retail-Advances-interst-rate-on-advances-linked-to-mclr.html",
-    "retrievedOn": "2026-11-01",
+    "retrievedOn": "2026-11-21",
     "note": "Fixed-rate option from 8.45% (tenure up to 10 years)."
   },
   {
@@ -89,19 +89,19 @@
     "prepayment": "No prepayment penalty",
     "maxTenureYears": 30,
     "sourceUrl": "https://www.canarabank.bank.in/pages/rates-of-interest-for-retail-lending-schemes-linked-to-rllr",
-    "retrievedOn": "2026-11-01",
+    "retrievedOn": "2026-11-21",
     "note": "Fee, prepayment and tenure from the bank's housing loan page."
   },
   {
     "bank": "federal-bank",
     "loan": "home-loan",
-    "rateFrom": 7.5,
-    "conditions": "Term loans above ₹35 lakh (7.50% to 9.25%); 1% higher for smaller loans",
+    "rateFrom": 7.6,
+    "conditions": "Term loan, 7.60% to 9.25%",
     "fee": null,
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://www.federal.bank.in/retail-loans-interest-rates",
-    "retrievedOn": "2026-11-01"
+    "retrievedOn": "2026-11-21"
   },
   {
     "bank": "indian-bank",
@@ -112,7 +112,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://indianbank.bank.in/en/interest-rates-on-personal-segment-loan-products",
-    "retrievedOn": "2026-11-01"
+    "retrievedOn": "2026-11-21"
   },
   {
     "bank": "central-bank-of-india",
@@ -123,7 +123,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://centralbank.bank.in/en/retail-scheme-interest",
-    "retrievedOn": "2026-11-01"
+    "retrievedOn": "2026-11-21"
   },
   {
     "bank": "bank-of-maharashtra",
@@ -134,7 +134,7 @@
     "prepayment": "No pre-payment, pre-closure or part-payment charges",
     "maxTenureYears": 30,
     "sourceUrl": "https://bankofmaharashtra.bank.in/personal-banking/loans/home-loan",
-    "retrievedOn": "2026-11-01",
+    "retrievedOn": "2026-11-21",
     "note": "The bank's blog mentions 7.10%; we use the rate shown on its home loan page."
   },
   {
@@ -155,19 +155,19 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://www.unionbankofindia.bank.in/en/details/home-loan-interest-rate",
-    "retrievedOn": "2026-11-01",
+    "retrievedOn": "2026-11-21",
     "review": true,
     "note": "The home loan page says 8.60% but the bank's rate sheet lists 7.15% to 9.35%. Hidden until confirmed."
   },
   {
     "bank": "icici-bank",
     "loan": "personal-loan",
-    "rateFrom": 9.99,
+    "rateFrom": 10.25,
     "fee": "Up to 2% of the loan amount, plus applicable taxes",
     "prepayment": "Zero foreclosure charges after 24 EMIs",
     "maxTenureYears": 7,
     "sourceUrl": "https://www.icici.bank.in/personal-banking/loans/personal-loan",
-    "retrievedOn": "2026-11-01"
+    "retrievedOn": "2026-11-21"
   },
   {
     "bank": "kotak-mahindra-bank",
@@ -177,7 +177,7 @@
     "prepayment": null,
     "maxTenureYears": 6,
     "sourceUrl": "https://www.kotak.bank.in/en/personal-banking/loans/personal-loan.html",
-    "retrievedOn": "2026-11-01"
+    "retrievedOn": "2026-11-21"
   },
   {
     "bank": "icici-bank",
@@ -188,7 +188,7 @@
     "prepayment": null,
     "maxTenureYears": 7,
     "sourceUrl": "https://www.icici.bank.in/personal-banking/loans/car-loan",
-    "retrievedOn": "2026-11-01"
+    "retrievedOn": "2026-11-21"
   },
   {
     "bank": "icici-bank",
@@ -199,7 +199,7 @@
     "prepayment": "No foreclosure charges",
     "maxTenureYears": 15,
     "sourceUrl": "https://www.icici.bank.in/personal-banking/loans/education-loan",
-    "retrievedOn": "2026-11-01"
+    "retrievedOn": "2026-11-21"
   },
   {
     "bank": "sbi",
@@ -209,20 +209,20 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://sbi.bank.in/web/interest-rates/interest-rates/loan-schemes-interest-rates/personal-loans-schemes",
-    "retrievedOn": "2026-11-02",
+    "retrievedOn": "2026-11-21",
     "effectiveFrom": "2025-12-15",
     "conditions": "SBI Personal Loan scheme: 2-year MCLR (8.75%) plus 1.25% to 6.25%, so 10.00% to 15.00%"
   },
   {
     "bank": "hdfc-bank",
     "loan": "personal-loan",
-    "rateFrom": 9.99,
+    "rateFrom": 10.25,
     "fee": "Up to ₹6,500 plus GST",
     "prepayment": "Foreclosure charge 4% up to 24 EMIs, 3% from 25 to 36 EMIs, 2% after 36 EMIs",
     "maxTenureYears": null,
     "sourceUrl": "https://www.hdfc.bank.in/personal-loan/interest-rates-and-charges",
-    "retrievedOn": "2026-11-02",
-    "conditions": "Salaried: 9.99% to 24.00%"
+    "retrievedOn": "2026-11-21",
+    "conditions": "Salaried: 10.25% to 24.00%"
   },
   {
     "bank": "axis-bank",
@@ -232,7 +232,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://www.axis.bank.in/loans/personal-loan/interest-rates-charges",
-    "retrievedOn": "2026-11-02",
+    "retrievedOn": "2026-11-21",
     "conditions": "Effective rate 9.99% to 22% a year"
   },
   {
@@ -243,7 +243,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://pnb.bank.in/Retail-Advances-interst-rate-on-advances-linked-to-mclr.html",
-    "retrievedOn": "2026-11-02",
+    "retrievedOn": "2026-11-21",
     "conditions": "Digital personal loan for salaried borrowers with a CIBIL score of 800 or more"
   },
   {
@@ -254,7 +254,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://www.canarabank.bank.in/pages/rates-of-interest-for-retail-lending-schemes-linked-to-rllr",
-    "retrievedOn": "2026-11-02",
+    "retrievedOn": "2026-11-21",
     "effectiveFrom": "2026-10-09",
     "conditions": "Canara Budget-Prime for employees of companies with a salary tie-up with the bank"
   },
@@ -266,7 +266,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://bankofbaroda.bank.in/interest-rate-and-service-charges/retail-loans-interest-rates",
-    "retrievedOn": "2026-11-02",
+    "retrievedOn": "2026-11-21",
     "effectiveFrom": "2026-10-08",
     "conditions": "Salaried borrowers with a salary account at Bank of Baroda: 10.90% to 15.75%, linked to CIBIL score"
   },
@@ -278,7 +278,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://www.unionbankofindia.bank.in/pdf/retail_roi.pdf",
-    "retrievedOn": "2026-11-02",
+    "retrievedOn": "2026-11-21",
     "effectiveFrom": "2026-10-08",
     "conditions": "Salaried (other than government employees) with a CIBIL score of 800 or more"
   },
@@ -290,7 +290,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://indianbank.bank.in/en/interest-rates-on-personal-segment-loan-products",
-    "retrievedOn": "2026-11-02",
+    "retrievedOn": "2026-11-21",
     "conditions": "Clean loan to salaried class: 9.90% to 10.40%"
   },
   {
@@ -301,7 +301,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://centralbank.bank.in/en/retail-scheme-interest",
-    "retrievedOn": "2026-11-02",
+    "retrievedOn": "2026-11-21",
     "conditions": "Cent Personal: RBLR + 3.00% or + 3.50% depending on internal risk rating"
   },
   {
@@ -312,7 +312,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://bankofmaharashtra.bank.in/retail-interest-rates",
-    "retrievedOn": "2026-11-02",
+    "retrievedOn": "2026-11-21",
     "conditions": "Government and PSU employees with a salary account and a CIBIL score of 800 or more; private-sector employees from 10.50%"
   },
   {
@@ -323,7 +323,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://www.federal.bank.in/retail-loans-interest-rates",
-    "retrievedOn": "2026-11-02",
+    "retrievedOn": "2026-11-21",
     "conditions": "Fixed rate 11.75% to 18.99%"
   },
   {
@@ -334,7 +334,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://www.idfcfirst.bank.in/personal-banking/loans/personal-loan/personal-loan-interest-rates",
-    "retrievedOn": "2026-11-02",
+    "retrievedOn": "2026-11-21",
     "conditions": "Advertised starting rate"
   },
   {
@@ -345,7 +345,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://sbi.bank.in/web/interest-rates/interest-rates/loan-schemes-interest-rates/auto-loans",
-    "retrievedOn": "2026-11-02",
+    "retrievedOn": "2026-11-21",
     "conditions": "CIC score 800 or more, tenure 3 to 5 years; range 8.55% to 9.50% (3-month MCLR 8.40%)"
   },
   {
@@ -356,19 +356,19 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://www.hdfc.bank.in/car-loan/interest-rates-and-charges",
-    "retrievedOn": "2026-11-02",
+    "retrievedOn": "2026-11-21",
     "conditions": "Depends on loan amount, tenure and bureau score"
   },
   {
     "bank": "axis-bank",
     "loan": "car-loan",
-    "rateFrom": 8.8,
+    "rateFrom": 8.85,
     "fee": "Up to 2% of the loan amount plus GST",
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://www.axis.bank.in/loans/car-loan/interest-rates-charges",
-    "retrievedOn": "2026-11-02",
-    "conditions": "Effective rate 8.80% to 11.70%"
+    "retrievedOn": "2026-11-21",
+    "conditions": "Effective rate 8.85% to 11.70%"
   },
   {
     "bank": "punjab-national-bank",
@@ -378,7 +378,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://pnb.bank.in/Retail-Advances-interst-rate-on-advances-linked-to-mclr.html",
-    "retrievedOn": "2026-11-02",
+    "retrievedOn": "2026-11-21",
     "conditions": "CIBIL score 750 or more, or women borrowers; electric cars from 7.85%"
   },
   {
@@ -389,7 +389,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://www.canarabank.bank.in/pages/rates-of-interest-for-retail-lending-schemes-linked-to-rllr",
-    "retrievedOn": "2026-11-02",
+    "retrievedOn": "2026-11-21",
     "effectiveFrom": "2026-10-09",
     "conditions": "Loans above ₹15 lakh in the best credit grade; 7.75% for women borrowers"
   },
@@ -401,7 +401,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://bankofbaroda.bank.in/interest-rate-and-service-charges/retail-loans-interest-rates",
-    "retrievedOn": "2026-11-02",
+    "retrievedOn": "2026-11-21",
     "effectiveFrom": "2026-10-08",
     "conditions": "New car, floating rate 7.85% to 11.55%"
   },
@@ -413,7 +413,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://www.unionbankofindia.bank.in/pdf/retail_roi.pdf",
-    "retrievedOn": "2026-11-02",
+    "retrievedOn": "2026-11-21",
     "effectiveFrom": "2026-10-08",
     "conditions": "Salaried, CIBIL score 800 or more; electric cars from 7.75%"
   },
@@ -425,7 +425,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://indianbank.bank.in/en/interest-rates-on-personal-segment-loan-products",
-    "retrievedOn": "2026-11-02",
+    "retrievedOn": "2026-11-21",
     "conditions": "IB Vehicle Loan: 7.75% to 9.10%"
   },
   {
@@ -436,7 +436,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://centralbank.bank.in/en/retail-scheme-interest",
-    "retrievedOn": "2026-11-02",
+    "retrievedOn": "2026-11-21",
     "conditions": "Cent Vehicle (4-wheeler): 7.90% to 9.55% depending on CIC score"
   },
   {
@@ -447,19 +447,19 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://bankofmaharashtra.bank.in/retail-interest-rates",
-    "retrievedOn": "2026-11-02",
+    "retrievedOn": "2026-11-21",
     "conditions": "Maha Super Car Loan, salaried with a CIBIL score of 800 or more"
   },
   {
     "bank": "federal-bank",
     "loan": "car-loan",
-    "rateFrom": 7.85,
+    "rateFrom": 8.1,
     "fee": null,
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://www.federal.bank.in/retail-loans-interest-rates",
-    "retrievedOn": "2026-11-02",
-    "conditions": "New car, fixed rate 7.85% to 9.00%"
+    "retrievedOn": "2026-11-21",
+    "conditions": "New car, fixed rate 8.10% to 10.25%"
   },
   {
     "bank": "sbi",
@@ -469,7 +469,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://sbi.bank.in/web/interest-rates/interest-rates/loan-schemes-interest-rates/education-loan-scheme",
-    "retrievedOn": "2026-11-02",
+    "retrievedOn": "2026-11-21",
     "effectiveFrom": "2026-10-15",
     "conditions": "Premier institutes such as IITs and IIMs, until 31 December 2026; up to ₹7.5 lakh without collateral 10.15%"
   },
@@ -481,7 +481,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://pnb.bank.in/Retail-Advances-interst-rate-on-advances-linked-to-mclr.html",
-    "retrievedOn": "2026-11-02",
+    "retrievedOn": "2026-11-21",
     "conditions": "Listed premier institutes (IIMs, IITs and others); loans up to ₹7.5 lakh from 8.60%"
   },
   {
@@ -492,7 +492,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://www.canarabank.bank.in/pages/rates-of-interest-for-retail-lending-schemes-linked-to-rllr",
-    "retrievedOn": "2026-11-02",
+    "retrievedOn": "2026-11-21",
     "effectiveFrom": "2026-10-09",
     "conditions": "AAA-category institutions under PM Vidyalaxmi; Vidya Turant with co-borrower 8.25%"
   },
@@ -504,7 +504,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://www.unionbankofindia.bank.in/pdf/retail_roi.pdf",
-    "retrievedOn": "2026-11-02",
+    "retrievedOn": "2026-11-21",
     "effectiveFrom": "2026-10-08",
     "conditions": "AAA-category institutions under PM Vidyalaxmi, and ISB; other loans up to ₹7.5 lakh 10.25% (9.75% for women)"
   },
@@ -516,7 +516,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://indianbank.bank.in/en/interest-rates-on-personal-segment-loan-products",
-    "retrievedOn": "2026-11-02",
+    "retrievedOn": "2026-11-21",
     "conditions": "Education loan: 7.30% to 10.40%"
   },
   {
@@ -527,7 +527,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://centralbank.bank.in/en/retail-scheme-interest",
-    "retrievedOn": "2026-11-02",
+    "retrievedOn": "2026-11-21",
     "conditions": "AAA-rated institutes; Cent Vidyarthi up to ₹7.5 lakh 9.75%"
   },
   {
@@ -538,7 +538,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://bankofmaharashtra.bank.in/retail-interest-rates",
-    "retrievedOn": "2026-11-02",
+    "retrievedOn": "2026-11-21",
     "conditions": "AAA institutions under PM Vidyalaxmi; other loans above ₹7.5 lakh 9.95%, up to ₹7.5 lakh 10.30%"
   },
   {
@@ -549,7 +549,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://www.federal.bank.in/retail-loans-interest-rates",
-    "retrievedOn": "2026-11-02",
+    "retrievedOn": "2026-11-21",
     "conditions": "Floating rate 9.75% to 13.75%, linked to the repo rate"
   },
   {
@@ -560,7 +560,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://www.kotak.bank.in/en/rates/interest-rates.html",
-    "retrievedOn": "2026-11-02",
+    "retrievedOn": "2026-11-21",
     "conditions": "Range 11% to 17%"
   },
   {
@@ -571,7 +571,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://www.axis.bank.in/loans/loan-against-property/interest-rate-on-loans",
-    "retrievedOn": "2026-11-02",
+    "retrievedOn": "2026-11-21",
     "conditions": "Term loan, floating rate, priority-sector category: repo rate (5.25%) + 3.90% to 4.75%"
   },
   {
@@ -582,7 +582,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://www.kotak.bank.in/en/rates/interest-rates.html",
-    "retrievedOn": "2026-11-02",
+    "retrievedOn": "2026-11-21",
     "conditions": "Range 9.15% to 16%"
   },
   {
@@ -593,7 +593,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://pnb.bank.in/Retail-Advances-interst-rate-on-advances-linked-to-mclr.html",
-    "retrievedOn": "2026-11-02",
+    "retrievedOn": "2026-11-21",
     "effectiveFrom": "2026-10-01",
     "conditions": "PNB myPROPERTY, CIC score above 800, property value above twice the loan; festive rate valid to 31.12.2026"
   },
@@ -605,7 +605,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://www.canarabank.bank.in/pages/rates-of-interest-for-retail-lending-schemes-linked-to-rllr",
-    "retrievedOn": "2026-11-02",
+    "retrievedOn": "2026-11-21",
     "effectiveFrom": "2026-10-09",
     "conditions": "Canara Mortgage, best credit grade, security above 300% of the loan"
   },
@@ -617,7 +617,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://www.unionbankofindia.bank.in/pdf/retail_roi.pdf",
-    "retrievedOn": "2026-11-02",
+    "retrievedOn": "2026-11-21",
     "effectiveFrom": "2026-10-08",
     "conditions": "Self-occupied residential property, CIBIL score 800 or more"
   },
@@ -629,7 +629,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://indianbank.bank.in/en/interest-rates-on-personal-segment-loan-products",
-    "retrievedOn": "2026-11-02",
+    "retrievedOn": "2026-11-21",
     "conditions": "Ind Mortgage Loan up to ₹7.5 crore: 9.20% to 10.60%"
   },
   {
@@ -640,7 +640,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://centralbank.bank.in/en/retail-scheme-interest",
-    "retrievedOn": "2026-11-02",
+    "retrievedOn": "2026-11-21",
     "conditions": "Cent Mortgage: 8.90% to 12.50% depending on CIC score"
   },
   {
@@ -651,19 +651,19 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://bankofmaharashtra.bank.in/retail-interest-rates",
-    "retrievedOn": "2026-11-02",
+    "retrievedOn": "2026-11-21",
     "conditions": "Loan against property (individual), CIBIL score 750 or more"
   },
   {
     "bank": "federal-bank",
     "loan": "loan-against-property",
-    "rateFrom": 8.45,
+    "rateFrom": 8.6,
     "fee": null,
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://www.federal.bank.in/retail-loans-interest-rates",
-    "retrievedOn": "2026-11-02",
-    "conditions": "Property Power term loan, 8.45% to 10.25%; 1% higher for loans below ₹35 lakh"
+    "retrievedOn": "2026-11-21",
+    "conditions": "Property Power term loan, 8.60% to 10.25%"
   },
   {
     "bank": "idfc-first-bank",
@@ -673,7 +673,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://www.idfcfirst.bank.in/personal-banking/loans/loan-against-property/lap-interest-rate",
-    "retrievedOn": "2026-11-02",
+    "retrievedOn": "2026-11-21",
     "conditions": "Advertised starting rate"
   },
   {
@@ -684,7 +684,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://centralbank.bank.in/en/retail-scheme-interest",
-    "retrievedOn": "2026-11-05",
+    "retrievedOn": "2026-11-21",
     "conditions": "Cent Gold Loan (retail): RBLR + 0.25%"
   },
   {
@@ -695,18 +695,18 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://indianbank.bank.in/en/interest-rates-on-personal-segment-loan-products",
-    "retrievedOn": "2026-11-05",
+    "retrievedOn": "2026-11-21",
     "conditions": "Overdraft against gold jewels, 8.75% to 9.05%; term loan with bullet repayment 9.35%"
   },
   {
     "bank": "bank-of-maharashtra",
     "loan": "gold-loan",
-    "rateFrom": 8.75,
+    "rateFrom": 8.35,
     "fee": null,
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://bankofmaharashtra.bank.in/retail-interest-rates",
-    "retrievedOn": "2026-11-05",
+    "retrievedOn": "2026-11-21",
     "conditions": "Maha Gold Loan, advertised rate"
   },
   {
@@ -717,7 +717,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://bankofbaroda.bank.in/interest-rate-and-service-charges/retail-loans-interest-rates",
-    "retrievedOn": "2026-11-05",
+    "retrievedOn": "2026-11-21",
     "conditions": "Fixed-rate option; floating demand loan at BRLLR + spread + 0.75%"
   },
   {
@@ -728,7 +728,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://www.icici.bank.in/personal-banking/loans/gold-loan/interest-rate-and-charges",
-    "retrievedOn": "2026-11-05",
+    "retrievedOn": "2026-11-21",
     "conditions": "Loans given Jul to Sep 2026 ranged from 9% to 16%"
   },
   {
@@ -739,19 +739,19 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://sbi.bank.in/web/interest-rates/interest-rates/loan-schemes-interest-rates/loan-against-securities-and-consumer-durable-loans",
-    "retrievedOn": "2026-11-05",
+    "retrievedOn": "2026-11-21",
     "conditions": "SBI Gold Loan, advertised starting rate"
   },
   {
     "bank": "hdfc-bank",
     "loan": "gold-loan",
-    "rateFrom": 9.3,
+    "rateFrom": 9.1,
     "fee": "Up to 1% of the amount disbursed, plus taxes",
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://www.hdfc.bank.in/gold-loan/interest-rates-and-charges",
-    "retrievedOn": "2026-11-05",
-    "conditions": "Loans given Apr to Jun 2026 ranged from 9.3% to 19%"
+    "retrievedOn": "2026-11-21",
+    "conditions": "Loans given Jul to Sep 2026 ranged from 9.10% to 24.00%"
   },
   {
     "bank": "axis-bank",
@@ -761,7 +761,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://www.axis.bank.in/loans/gold-loan/interest-rates-charges",
-    "retrievedOn": "2026-11-05",
+    "retrievedOn": "2026-11-21",
     "conditions": "Range 9.75% to 17%"
   },
   {
@@ -772,7 +772,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://indianbank.bank.in/en/interest-rates-on-personal-segment-loan-products",
-    "retrievedOn": "2026-11-05",
+    "retrievedOn": "2026-11-21",
     "conditions": "Vehicle loan for a two-wheeler, 9.15% to 10.65%"
   },
   {
@@ -783,7 +783,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://centralbank.bank.in/en/retail-scheme-interest",
-    "retrievedOn": "2026-11-05",
+    "retrievedOn": "2026-11-21",
     "conditions": "Cent Vehicle (2-wheeler), 10.50% to 11.60% by CIC score; electric two-wheelers for women from 9.10%"
   },
   {
@@ -794,7 +794,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://www.canarabank.bank.in/pages/rates-of-interest-for-retail-lending-schemes-linked-to-rllr",
-    "retrievedOn": "2026-11-05",
+    "retrievedOn": "2026-11-21",
     "effectiveFrom": "2026-10-09",
     "conditions": "Best credit grade; 10.35% for women borrowers"
   },
@@ -806,7 +806,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://pnb.bank.in/Retail-Advances-interst-rate-on-advances-linked-to-mclr.html",
-    "retrievedOn": "2026-11-05",
+    "retrievedOn": "2026-11-21",
     "conditions": "PNB Saarthi / Power Ride, advertised starting rate"
   },
   {
@@ -817,7 +817,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://www.unionbankofindia.bank.in/pdf/retail_roi.pdf",
-    "retrievedOn": "2026-11-05",
+    "retrievedOn": "2026-11-21",
     "effectiveFrom": "2026-10-08",
     "conditions": "New two-wheeler, CIC score 700 or more"
   },
@@ -829,7 +829,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://bankofmaharashtra.bank.in/retail-interest-rates",
-    "retrievedOn": "2026-11-05",
+    "retrievedOn": "2026-11-21",
     "conditions": "CIBIL score 750 or more"
   },
   {
@@ -840,7 +840,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://bankofbaroda.bank.in/interest-rate-and-service-charges/retail-loans-interest-rates",
-    "retrievedOn": "2026-11-05",
+    "retrievedOn": "2026-11-21",
     "effectiveFrom": "2026-10-08",
     "conditions": "BRLLR + spread + 4.25%"
   },
@@ -852,7 +852,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://www.federal.bank.in/retail-loans-interest-rates",
-    "retrievedOn": "2026-11-05",
+    "retrievedOn": "2026-11-21",
     "conditions": "Fixed rate, 13.50% to 16.00%"
   },
   {
@@ -863,7 +863,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://pnb.bank.in/Retail-Advances-interst-rate-on-advances-linked-to-mclr.html",
-    "retrievedOn": "2026-11-05",
+    "retrievedOn": "2026-11-21",
     "conditions": "Old car loan, advertised starting rate"
   },
   {
@@ -874,7 +874,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://www.icici.bank.in/personal-banking/loans/car-loan",
-    "retrievedOn": "2026-11-05",
+    "retrievedOn": "2026-11-21",
     "conditions": "Used car loans, advertised starting rate"
   },
   {
@@ -885,7 +885,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://indianbank.bank.in/en/interest-rates-on-personal-segment-loan-products",
-    "retrievedOn": "2026-11-05",
+    "retrievedOn": "2026-11-21",
     "conditions": "Vehicle loan for a used car, 9.80% to 11.90%"
   },
   {
@@ -896,7 +896,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://www.federal.bank.in/retail-loans-interest-rates",
-    "retrievedOn": "2026-11-05",
+    "retrievedOn": "2026-11-21",
     "conditions": "Fixed rate, 10.25% to 14.00%"
   },
   {
@@ -907,7 +907,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://bankofbaroda.bank.in/interest-rate-and-service-charges/retail-loans-interest-rates",
-    "retrievedOn": "2026-11-05",
+    "retrievedOn": "2026-11-21",
     "effectiveFrom": "2026-10-08",
     "conditions": "Pre-owned car, 10.90% to 13.65%"
   },
@@ -919,7 +919,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://bankofmaharashtra.bank.in/retail-interest-rates",
-    "retrievedOn": "2026-11-05",
+    "retrievedOn": "2026-11-21",
     "conditions": "Second-hand car, CIBIL score 750 or more"
   },
   {
@@ -930,7 +930,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://www.unionbankofindia.bank.in/pdf/retail_roi.pdf",
-    "retrievedOn": "2026-11-05",
+    "retrievedOn": "2026-11-21",
     "effectiveFrom": "2026-10-08",
     "conditions": "Car not older than 3 years, CIC score 700 or more"
   },
@@ -942,7 +942,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://bankofmaharashtra.bank.in/retail-interest-rates",
-    "retrievedOn": "2026-11-05",
+    "retrievedOn": "2026-11-21",
     "conditions": "Maha Super Flexi Housing Loan, linked to a savings account: 0.25% above the Maha Super Housing rate of 7.25%"
   },
   {
@@ -953,7 +953,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://pnb.bank.in/Retail-Advances-interst-rate-on-advances-linked-to-mclr.html",
-    "retrievedOn": "2026-11-05",
+    "retrievedOn": "2026-11-21",
     "conditions": "PNB Max Saver (term loan or overdraft), advertised starting rate"
   },
   {
@@ -964,20 +964,20 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://www.unionbankofindia.bank.in/pdf/retail_roi.pdf",
-    "retrievedOn": "2026-11-05",
+    "retrievedOn": "2026-11-21",
     "effectiveFrom": "2026-10-08",
     "conditions": "Union Smart Save: 0.25% above the Union Home rate, CIC score 825 or more"
   },
   {
     "bank": "federal-bank",
     "loan": "home-loan-overdraft",
-    "rateFrom": 7.7,
+    "rateFrom": 8,
     "fee": null,
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://www.federal.bank.in/retail-loans-interest-rates",
-    "retrievedOn": "2026-11-05",
-    "conditions": "Home loan overdraft, 7.70% to 9.75%; 1% higher for loans below ₹35 lakh"
+    "retrievedOn": "2026-11-21",
+    "conditions": "Home loan overdraft, 8.00% to 9.75%"
   },
   {
     "bank": "canara-bank",
@@ -987,19 +987,19 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://www.canarabank.bank.in/pages/rates-of-interest-for-retail-lending-schemes-linked-to-rllr",
-    "retrievedOn": "2026-11-05",
+    "retrievedOn": "2026-11-21",
     "effectiveFrom": "2026-10-09",
     "conditions": "Canara Insta MF Loan (mutual funds); other approved securities from 8.50%"
   },
   {
     "bank": "sbi",
     "loan": "loan-against-securities",
-    "rateFrom": 9.95,
+    "rateFrom": 10.1,
     "fee": null,
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://sbi.bank.in/web/interest-rates/interest-rates/loan-schemes-interest-rates/loan-against-securities-and-consumer-durable-loans",
-    "retrievedOn": "2026-11-05",
+    "retrievedOn": "2026-11-21",
     "effectiveFrom": "2025-08-15",
     "conditions": "Loan against mutual fund units: 1-year MCLR + 1.25%"
   },
@@ -1011,7 +1011,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://www.axis.bank.in/loans/loan-against-securities/interest-rates-charges",
-    "retrievedOn": "2026-11-05",
+    "retrievedOn": "2026-11-21",
     "conditions": "Sanctions above ₹50 lakh; 10.25% to 10.75% (repo rate + spread)"
   },
   {
@@ -1022,7 +1022,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://bankofmaharashtra.bank.in/retail-interest-rates",
-    "retrievedOn": "2026-11-05",
+    "retrievedOn": "2026-11-21",
     "conditions": "Loan against paper securities"
   },
   {
@@ -1033,7 +1033,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://www.icici.bank.in/personal-banking/loans/loan-against-securities/interest-rate-and-fee",
-    "retrievedOn": "2026-11-05",
+    "retrievedOn": "2026-11-21",
     "conditions": "10.75% to 11.75%, by customer segment and type of security"
   },
   {
@@ -1044,30 +1044,30 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://www.federal.bank.in/retail-loans-interest-rates",
-    "retrievedOn": "2026-11-05",
+    "retrievedOn": "2026-11-21",
     "conditions": "Term loan against own securities; loan against demat shares 12.50%"
   },
   {
     "bank": "federal-bank",
     "loan": "plot-loan",
-    "rateFrom": 7.5,
+    "rateFrom": 7.6,
     "fee": null,
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://www.federal.bank.in/retail-loans-interest-rates",
-    "retrievedOn": "2026-11-06",
-    "conditions": "Home loan for plot purchase plus construction, 7.50% to 9.25%; 1% higher below ₹35 lakh"
+    "retrievedOn": "2026-11-21",
+    "conditions": "Home loan for plot purchase plus construction, 7.60% to 9.25%"
   },
   {
     "bank": "hdfc-bank",
     "loan": "plot-loan",
-    "rateFrom": 8.0,
+    "rateFrom": 8.1,
     "fee": null,
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://homeloans.hdfc.bank.in/housing-loans/plot-loans",
-    "retrievedOn": "2026-11-06",
-    "conditions": "Policy repo rate + 2.50% to 7.95% (8% to 13.45%); up to 80% of the plot cost, 70% outside city limits"
+    "retrievedOn": "2026-11-21",
+    "conditions": "Policy repo rate + 2.60% to 8.05% (8.10% to 13.55%)"
   },
   {
     "bank": "indian-bank",
@@ -1077,7 +1077,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://indianbank.bank.in/en/interest-rates-on-personal-segment-loan-products",
-    "retrievedOn": "2026-11-06",
+    "retrievedOn": "2026-11-21",
     "conditions": "Plot Loan, 8.40% to 9.80%"
   },
   {
@@ -1088,7 +1088,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://www.canarabank.bank.in/pages/rates-of-interest-for-retail-lending-schemes-linked-to-rllr",
-    "retrievedOn": "2026-11-06",
+    "retrievedOn": "2026-11-21",
     "effectiveFrom": "2026-10-09",
     "conditions": "Canara Site, best credit grade; up to 75% of the site cost, repaid within 10 years or the construction period allowed"
   },
@@ -1100,7 +1100,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://bankofmaharashtra.bank.in/retail-interest-rates",
-    "retrievedOn": "2026-11-06",
+    "retrievedOn": "2026-11-21",
     "conditions": "Top-up for existing home loan borrowers: 0.50% above the Maha Super Housing rate of 7.25%, CIBIL score 800 or more"
   },
   {
@@ -1123,19 +1123,19 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://centralbank.bank.in/en/retail-scheme-interest",
-    "retrievedOn": "2026-11-06",
+    "retrievedOn": "2026-11-21",
     "conditions": "Cent Top Up, 8.20% to 9.55% by CIC score"
   },
   {
     "bank": "hdfc-bank",
     "loan": "top-up-home-loan",
-    "rateFrom": 8.25,
+    "rateFrom": 8.6,
     "fee": null,
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://homeloans.hdfc.bank.in/housing-loans/top-up-loans",
-    "retrievedOn": "2026-11-06",
-    "conditions": "Balance transfer with top-up: policy repo rate + 2.75% (8.25% to 13.95%); existing customers can apply 12 months after the final disbursement"
+    "retrievedOn": "2026-11-21",
+    "conditions": "Balance transfer with top-up: policy repo rate + 3.10% to 8.55% (8.60% to 14.05%)"
   },
   {
     "bank": "hdfc-bank",
@@ -1145,7 +1145,7 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://www.hdfc.bank.in/loan-against-securities",
-    "retrievedOn": "2026-11-06",
+    "retrievedOn": "2026-11-21",
     "conditions": "Advertised starting rate; up to 50% of the value of equity mutual funds"
   },
   {
@@ -1156,7 +1156,84 @@
     "prepayment": null,
     "maxTenureYears": null,
     "sourceUrl": "https://www.kotak.bank.in/en/rates.html",
-    "retrievedOn": "2026-11-06",
+    "retrievedOn": "2026-11-21",
     "conditions": "10.50% to 12.00%; an overdraft where interest is charged on the amount used"
+  },
+  {
+    "bank": "karur-vysya-bank",
+    "loan": "home-loan",
+    "rateFrom": 8.5,
+    "conditions": "Housing loan, 8.50% to 10.90%",
+    "fee": null,
+    "prepayment": null,
+    "maxTenureYears": null,
+    "sourceUrl": "https://www.kvb.bank.in/interest-rates/personal-banking-loans",
+    "retrievedOn": "2026-11-21"
+  },
+  {
+    "bank": "karur-vysya-bank",
+    "loan": "top-up-home-loan",
+    "rateFrom": 8.75,
+    "conditions": "Housing loan top-up, 8.75% to 10.50%",
+    "fee": null,
+    "prepayment": null,
+    "maxTenureYears": null,
+    "sourceUrl": "https://www.kvb.bank.in/interest-rates/personal-banking-loans",
+    "retrievedOn": "2026-11-21"
+  },
+  {
+    "bank": "karur-vysya-bank",
+    "loan": "car-loan",
+    "rateFrom": 9,
+    "conditions": "Digital four wheeler loan, 9.00% to 9.05%",
+    "fee": null,
+    "prepayment": null,
+    "maxTenureYears": null,
+    "sourceUrl": "https://www.kvb.bank.in/interest-rates/personal-banking-loans",
+    "retrievedOn": "2026-11-21"
+  },
+  {
+    "bank": "karur-vysya-bank",
+    "loan": "used-car-loan",
+    "rateFrom": 9.95,
+    "conditions": "Digital used car loan, 9.95% to 12.45%",
+    "fee": null,
+    "prepayment": null,
+    "maxTenureYears": null,
+    "sourceUrl": "https://www.kvb.bank.in/interest-rates/personal-banking-loans",
+    "retrievedOn": "2026-11-21"
+  },
+  {
+    "bank": "karur-vysya-bank",
+    "loan": "two-wheeler-loan",
+    "rateFrom": 10.7,
+    "conditions": "Digital two wheeler loan, 10.70% to 15.20%",
+    "fee": null,
+    "prepayment": null,
+    "maxTenureYears": null,
+    "sourceUrl": "https://www.kvb.bank.in/interest-rates/personal-banking-loans",
+    "retrievedOn": "2026-11-21"
+  },
+  {
+    "bank": "karur-vysya-bank",
+    "loan": "education-loan",
+    "rateFrom": 11,
+    "conditions": "Education loan, 11.00% to 13.50%",
+    "fee": null,
+    "prepayment": null,
+    "maxTenureYears": null,
+    "sourceUrl": "https://www.kvb.bank.in/interest-rates/personal-banking-loans",
+    "retrievedOn": "2026-11-21"
+  },
+  {
+    "bank": "karur-vysya-bank",
+    "loan": "personal-loan",
+    "rateFrom": 12.4,
+    "conditions": "Unsecured personal loan, 12.40% to 13.40%",
+    "fee": null,
+    "prepayment": null,
+    "maxTenureYears": null,
+    "sourceUrl": "https://www.kvb.bank.in/interest-rates/personal-banking-loans",
+    "retrievedOn": "2026-11-21"
   }
 ]

@@ -1,1 +1,106 @@
-[]
+[
+  {
+    "date": "2026-11-21",
+    "bank": "axis-bank",
+    "loan": "car-loan",
+    "from": 8.8,
+    "to": 8.85,
+    "sourceUrl": "https://www.axis.bank.in/loans/car-loan/interest-rates-charges"
+  },
+  {
+    "date": "2026-11-21",
+    "bank": "hdfc-bank",
+    "loan": "gold-loan",
+    "from": 9.3,
+    "to": 9.1,
+    "sourceUrl": "https://www.hdfc.bank.in/gold-loan/interest-rates-and-charges"
+  },
+  {
+    "date": "2026-11-21",
+    "bank": "sbi",
+    "loan": "loan-against-securities",
+    "from": 9.95,
+    "to": 10.1,
+    "sourceUrl": "https://sbi.bank.in/web/interest-rates/interest-rates/loan-schemes-interest-rates/loan-against-securities-and-consumer-durable-loans"
+  },
+  {
+    "date": "2026-11-21",
+    "bank": "hdfc-bank",
+    "loan": "personal-loan",
+    "from": 9.99,
+    "to": 10.25,
+    "sourceUrl": "https://www.hdfc.bank.in/personal-loan/interest-rates-and-charges"
+  },
+  {
+    "date": "2026-11-21",
+    "bank": "icici-bank",
+    "loan": "personal-loan",
+    "from": 9.99,
+    "to": 10.25,
+    "sourceUrl": "https://www.icici.bank.in/personal-banking/loans/personal-loan"
+  },
+  {
+    "date": "2026-11-21",
+    "bank": "hdfc-bank",
+    "loan": "plot-loan",
+    "from": 8,
+    "to": 8.1,
+    "sourceUrl": "https://homeloans.hdfc.bank.in/housing-loans/plot-loans"
+  },
+  {
+    "date": "2026-11-21",
+    "bank": "hdfc-bank",
+    "loan": "top-up-home-loan",
+    "from": 8.25,
+    "to": 8.6,
+    "sourceUrl": "https://homeloans.hdfc.bank.in/housing-loans/top-up-loans"
+  },
+  {
+    "date": "2026-11-21",
+    "bank": "bank-of-maharashtra",
+    "loan": "gold-loan",
+    "from": 8.75,
+    "to": 8.35,
+    "sourceUrl": "https://bankofmaharashtra.bank.in/retail-interest-rates"
+  },
+  {
+    "date": "2026-11-21",
+    "bank": "federal-bank",
+    "loan": "car-loan",
+    "from": 7.85,
+    "to": 8.1,
+    "sourceUrl": "https://www.federal.bank.in/retail-loans-interest-rates"
+  },
+  {
+    "date": "2026-11-21",
+    "bank": "federal-bank",
+    "loan": "plot-loan",
+    "from": 7.5,
+    "to": 7.6,
+    "sourceUrl": "https://www.federal.bank.in/retail-loans-interest-rates"
+  },
+  {
+    "date": "2026-11-21",
+    "bank": "federal-bank",
+    "loan": "loan-against-property",
+    "from": 8.45,
+    "to": 8.6,
+    "sourceUrl": "https://www.federal.bank.in/retail-loans-interest-rates"
+  },
+  {
+    "date": "2026-11-21",
+    "bank": "federal-bank",
+    "loan": "home-loan",
+    "from": 7.5,
+    "to": 7.6,
+    "sourceUrl": "https://www.federal.bank.in/retail-loans-interest-rates"
+  },
+  {
+    "date": "2026-11-21",
+    "bank": "federal-bank",
+    "loan": "home-loan-overdraft",
+    "from": 7.7,
+    "to": 8,
+    "sourceUrl": "https://www.federal.bank.in/retail-loans-interest-rates"
+  }
+]
