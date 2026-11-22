@@ -1,13 +1,13 @@
 {
-  "updatedAt": "2026-11-22T07:13:49.214Z",
+  "updatedAt": "2026-11-22T08:32:45.612Z",
   "lastEmailDigest": null,
   "summary": {
     "suspect": 5,
-    "changed": 7,
-    "new": 34,
-    "failed": 4,
+    "changed": 8,
+    "new": 37,
+    "failed": 2,
     "manual": 0,
-    "same": 85
+    "same": 86
   },
   "items": [
     {
@@ -208,6 +208,29 @@
       "review": "pending"
     },
     {
+      "id": "sbi|loan-against-securities",
+      "bank": "sbi",
+      "loan": "loan-against-securities",
+      "url": "https://sbi.bank.in/web/interest-rates/interest-rates/loan-schemes-interest-rates/loan-against-securities-and-consumer-durable-loans",
+      "live": 9.95,
+      "liveHeld": false,
+      "checkedOn": "2026-11-22",
+      "found": 10.1,
+      "method": "rule",
+      "via": "http",
+      "evidence": "Loan against NSC/ KVP | 8.85% | 2.00% | 10.85%\nLoan against Insurance Policies of LIC/ Dept. of Post Offices/India Post/SBI Life/ ICICI Prudential/ HDFC Standard\nLoan against Mutual Fund Units | 8.85% | 1.25% | 10.10%",
+      "status": "changed",
+      "proposed": {
+        "rateFrom": 10.1,
+        "conditions": "Loan against mutual fund units: 1-year MCLR + 1.25%",
+        "effectiveFrom": "2025-08-15",
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
       "id": "hdfc-bank|personal-loan",
       "bank": "hdfc-bank",
       "loan": "personal-loan",
@@ -347,6 +370,29 @@
       "status": "new",
       "proposed": {
         "rateFrom": 8.9,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "indian-overseas-bank|car-loan",
+      "bank": "indian-overseas-bank",
+      "loan": "car-loan",
+      "url": "https://www.iob.bank.in/en/emi-calculator",
+      "live": null,
+      "liveHeld": false,
+      "checkedOn": "2026-11-22",
+      "found": 7.8,
+      "method": "keywords",
+      "via": "http",
+      "evidence": "Vehicle Loans\nStarting from\n7.80%",
+      "status": "new",
+      "proposed": {
+        "rateFrom": 7.8,
         "conditions": "",
         "effectiveFrom": null,
         "fee": null,
@@ -810,6 +856,29 @@
       "review": "pending"
     },
     {
+      "id": "indian-overseas-bank|home-loan",
+      "bank": "indian-overseas-bank",
+      "loan": "home-loan",
+      "url": "https://www.iob.bank.in/en/emi-calculator",
+      "live": null,
+      "liveHeld": false,
+      "checkedOn": "2026-11-22",
+      "found": 7.45,
+      "method": "keywords",
+      "via": "http",
+      "evidence": "Home Loans\nStarting from\n7.45%",
+      "status": "new",
+      "proposed": {
+        "rateFrom": 7.45,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
       "id": "karur-vysya-bank|home-loan",
       "bank": "karur-vysya-bank",
       "loan": "home-loan",
@@ -1136,6 +1205,29 @@
       "status": "new",
       "proposed": {
         "rateFrom": 10.99,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "indian-overseas-bank|personal-loan",
+      "bank": "indian-overseas-bank",
+      "loan": "personal-loan",
+      "url": "https://www.iob.bank.in/en/emi-calculator",
+      "live": null,
+      "liveHeld": false,
+      "checkedOn": "2026-11-22",
+      "found": 10.5,
+      "method": "keywords",
+      "via": "http",
+      "evidence": "Personal Loans\nStarting from\n10.50%",
+      "status": "new",
+      "proposed": {
+        "rateFrom": 10.5,
         "conditions": "",
         "effectiveFrom": null,
         "fee": null,
@@ -1555,30 +1647,6 @@
       "review": "pending"
     },
     {
-      "id": "sbi|gold-loan",
-      "bank": "sbi",
-      "loan": "gold-loan",
-      "url": "https://sbi.bank.in/web/interest-rates/interest-rates/loan-schemes-interest-rates/loan-against-securities-and-consumer-durable-loans",
-      "live": 9.2,
-      "liveHeld": false,
-      "checkedOn": "2026-11-22",
-      "found": null,
-      "method": null,
-      "via": null,
-      "evidence": null,
-      "status": "failed",
-      "error": "could not load the page (fetch failed)",
-      "proposed": {
-        "rateFrom": 9.2,
-        "conditions": "SBI Gold Loan, advertised starting rate",
-        "effectiveFrom": null,
-        "fee": null,
-        "prepayment": null,
-        "maxTenureYears": null
-      },
-      "review": "pending"
-    },
-    {
       "id": "federal-bank|home-loan",
       "bank": "federal-bank",
       "loan": "home-loan",
@@ -1620,30 +1688,6 @@
         "rateFrom": 7.7,
         "conditions": "Home loan overdraft, 7.70% to 9.75%; 1% higher for loans below ₹35 lakh",
         "effectiveFrom": null,
-        "fee": null,
-        "prepayment": null,
-        "maxTenureYears": null
-      },
-      "review": "pending"
-    },
-    {
-      "id": "sbi|loan-against-securities",
-      "bank": "sbi",
-      "loan": "loan-against-securities",
-      "url": "https://sbi.bank.in/web/interest-rates/interest-rates/loan-schemes-interest-rates/loan-against-securities-and-consumer-durable-loans",
-      "live": 9.95,
-      "liveHeld": false,
-      "checkedOn": "2026-11-22",
-      "found": null,
-      "method": null,
-      "via": null,
-      "evidence": null,
-      "status": "failed",
-      "error": "could not load the page (fetch failed)",
-      "proposed": {
-        "rateFrom": 9.95,
-        "conditions": "Loan against mutual fund units: 1-year MCLR + 1.25%",
-        "effectiveFrom": "2025-08-15",
         "fee": null,
         "prepayment": null,
         "maxTenureYears": null
@@ -2218,6 +2262,29 @@
       "proposed": {
         "rateFrom": 8.75,
         "conditions": "Overdraft against gold jewels, 8.75% to 9.05%; term loan with bullet repayment 9.35%",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "sbi|gold-loan",
+      "bank": "sbi",
+      "loan": "gold-loan",
+      "url": "https://sbi.bank.in/web/interest-rates/interest-rates/loan-schemes-interest-rates/loan-against-securities-and-consumer-durable-loans",
+      "live": 9.2,
+      "liveHeld": false,
+      "checkedOn": "2026-11-22",
+      "found": 9.2,
+      "method": "rule",
+      "via": "http",
+      "evidence": "View All\nSEE PRODUCTS\nStarts From 9.20%*",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 9.2,
+        "conditions": "SBI Gold Loan, advertised starting rate",
         "effectiveFrom": null,
         "fee": null,
         "prepayment": null,
