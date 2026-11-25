@@ -1,13 +1,13 @@
 {
-  "updatedAt": "2026-11-25T08:57:54.697Z",
+  "updatedAt": "2026-11-25T16:41:33.861Z",
   "lastEmailDigest": null,
   "summary": {
     "suspect": 5,
     "changed": 7,
-    "new": 27,
-    "failed": 3,
+    "new": 26,
+    "failed": 8,
     "manual": 0,
-    "same": 86
+    "same": 81
   },
   "items": [
     {
@@ -356,6 +356,29 @@
       "review": "pending"
     },
     {
+      "id": "indian-overseas-bank|car-loan",
+      "bank": "indian-overseas-bank",
+      "loan": "car-loan",
+      "url": "https://www.iob.bank.in/en/emi-calculator",
+      "live": null,
+      "liveHeld": false,
+      "checkedOn": "2026-11-25",
+      "found": 7.8,
+      "method": "keywords",
+      "via": "http",
+      "evidence": "Vehicle Loans\nStarting from\n7.80%",
+      "status": "new",
+      "proposed": {
+        "rateFrom": 7.8,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
       "id": "tamilnad-mercantile-bank|car-loan",
       "bank": "tamilnad-mercantile-bank",
       "loan": "car-loan",
@@ -425,51 +448,6 @@
       "status": "new",
       "proposed": {
         "rateFrom": 7.6,
-        "conditions": "",
-        "effectiveFrom": null,
-        "fee": null,
-        "prepayment": null,
-        "maxTenureYears": null
-      },
-      "review": "pending"
-    },
-    {
-      "id": "bank-of-baroda|education-loan",
-      "bank": "bank-of-baroda",
-      "loan": "education-loan",
-      "url": "https://bankofbaroda.bank.in/interest-rate-and-service-charges/retail-loans-interest-rates",
-      "live": null,
-      "liveHeld": false,
-      "checkedOn": "2026-11-25",
-      "found": 7.1,
-      "method": "keywords",
-      "via": "http",
-      "evidence": "Product | Conditions | Repo Rate + Spread | Effective Rate of Interest\nPM VIDYALAXMI SCHEME\nConditions Top 100 Institutions | Repo Rate + Spread BRLLR - 1.05% | Effective Rate of Interest 7.10%",
-      "alternatives": [
-        {
-          "value": 7.35,
-          "evidence": "PM VIDYALAXMI SCHEME\nConditions Top 100 Institutions | Repo Rate + Spread BRLLR - 1.05% | Effective Rate of Interest 7.10%\nConditions AA | Repo Rate + Spread BRLLR - 0.80% | Effective Rate of Interest 7.35%"
-        },
-        {
-          "value": 7.45,
-          "evidence": "Conditions Top 100 Institutions | Repo Rate + Spread BRLLR - 1.05% | Effective Rate of Interest 7.10%\nConditions AA | Repo Rate + Spread BRLLR - 0.80% | Effective Rate of Interest 7.35%\nConditions A | Repo Rate + Spread BRLLR - 0.70% | Effective Rate of Interest 7.45%"
-        },
-        {
-          "value": 8.15,
-          "evidence": "Conditions AA | Repo Rate + Spread BRLLR - 0.80% | Effective Rate of Interest 7.35%\nConditions A | Repo Rate + Spread BRLLR - 0.70% | Effective Rate of Interest 7.45%\nConditions B | Repo Rate + Spread BRLLR + 0.00% | Effective Rate of Interest 8.15%"
-        },
-        {
-          "value": 8.65,
-          "evidence": "Conditions A | Repo Rate + Spread BRLLR - 0.70% | Effective Rate of Interest 7.45%\nConditions B | Repo Rate + Spread BRLLR + 0.00% | Effective Rate of Interest 8.15%\nConditions C | Repo Rate + Spread BRLLR+ 0.50% | Effective Rate of Interest 8.65%"
-        },
-        {
-          "value": 8.7,
-          "evidence": "of Interest for Children of defence personal Under Baroda Yoddha EDP education Loan (For Studies in India) Scheme is same as Baroda Executive Development Premier Institutions (For Studies in India).\nBaroda Scholar | Education loan to Premier Institution in Abroad (specified in the list of Premier Institutions):\nConditions Abroad | Repo Rate + Spread BRLLR + 0.55% | Effective Rate of Interest 8.70%"
-        }
-      ],
-      "status": "new",
-      "proposed": {
-        "rateFrom": 7.1,
         "conditions": "",
         "effectiveFrom": null,
         "fee": null,
@@ -748,6 +726,29 @@
       "review": "pending"
     },
     {
+      "id": "indian-overseas-bank|home-loan",
+      "bank": "indian-overseas-bank",
+      "loan": "home-loan",
+      "url": "https://www.iob.bank.in/en/emi-calculator",
+      "live": null,
+      "liveHeld": false,
+      "checkedOn": "2026-11-25",
+      "found": 7.45,
+      "method": "keywords",
+      "via": "http",
+      "evidence": "Home Loans\nStarting from\n7.45%",
+      "status": "new",
+      "proposed": {
+        "rateFrom": 7.45,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
       "id": "tamilnad-mercantile-bank|home-loan",
       "bank": "tamilnad-mercantile-bank",
       "loan": "home-loan",
@@ -838,80 +839,6 @@
       "review": "pending"
     },
     {
-      "id": "bank-of-baroda|home-loan-overdraft",
-      "bank": "bank-of-baroda",
-      "loan": "home-loan-overdraft",
-      "url": "https://bankofbaroda.bank.in/interest-rate-and-service-charges/retail-loans-interest-rates",
-      "live": null,
-      "liveHeld": false,
-      "checkedOn": "2026-11-25",
-      "found": 10.15,
-      "method": "keywords",
-      "via": "http",
-      "evidence": "Baroda Loan Against Future Rent Receivables\nPeriod of Loan | Floating ROI | Effective ROI (floating) | Fixed ROI | Effective ROI (fixed)\nUpto 10 Years | BRLLR + Strategic Premium + 2.00% | 10.15% | BRLLR + Strategic Premium + 4.00% | 12.15%",
-      "alternatives": [
-        {
-          "value": 12.15,
-          "evidence": "Baroda Loan Against Future Rent Receivables\nPeriod of Loan | Floating ROI | Effective ROI (floating) | Fixed ROI | Effective ROI (fixed)\nUpto 10 Years | BRLLR + Strategic Premium + 2.00% | 10.15% | BRLLR + Strategic Premium + 4.00% | 12.15%"
-        },
-        {
-          "value": 10.4,
-          "evidence": "Period of Loan | Floating ROI | Effective ROI (floating) | Fixed ROI | Effective ROI (fixed)\nUpto 10 Years | BRLLR + Strategic Premium + 2.00% | 10.15% | BRLLR + Strategic Premium + 4.00% | 12.15%\nAbove 10 year | BRLLR + Strategic Premium + 2.25% | 10.40% | BRLLR + Strategic Premium + 4.25% | 12.40%"
-        },
-        {
-          "value": 12.4,
-          "evidence": "Period of Loan | Floating ROI | Effective ROI (floating) | Fixed ROI | Effective ROI (fixed)\nUpto 10 Years | BRLLR + Strategic Premium + 2.00% | 10.15% | BRLLR + Strategic Premium + 4.00% | 12.15%\nAbove 10 year | BRLLR + Strategic Premium + 2.25% | 10.40% | BRLLR + Strategic Premium + 4.25% | 12.40%"
-        }
-      ],
-      "status": "new",
-      "proposed": {
-        "rateFrom": 10.15,
-        "conditions": "",
-        "effectiveFrom": null,
-        "fee": null,
-        "prepayment": null,
-        "maxTenureYears": null
-      },
-      "review": "pending"
-    },
-    {
-      "id": "bank-of-baroda|loan-against-property",
-      "bank": "bank-of-baroda",
-      "loan": "loan-against-property",
-      "url": "https://bankofbaroda.bank.in/interest-rate-and-service-charges/retail-loans-interest-rates",
-      "live": null,
-      "liveHeld": false,
-      "checkedOn": "2026-11-25",
-      "found": 8.9,
-      "method": "keywords",
-      "via": "http",
-      "evidence": "Floating Rates:\nProduct | Conditions | Repo Rate + Spread | Effective Rate of Interest*\nBaroda Mortgage Loan - Individuals | Conditions Tenor up to 120 Months | Up to Rs. 7.5 crore | Repo Rate + Spread From BRLLR + SP + 0.75% To BRLLR + SP + 3.35% (As per Risk Rating of the applicant/s.) | Effective Rate of Interest* From 8.90% to 11.50%",
-      "alternatives": [
-        {
-          "value": 11.5,
-          "evidence": "Floating Rates:\nProduct | Conditions | Repo Rate + Spread | Effective Rate of Interest*\nBaroda Mortgage Loan - Individuals | Conditions Tenor up to 120 Months | Up to Rs. 7.5 crore | Repo Rate + Spread From BRLLR + SP + 0.75% To BRLLR + SP + 3.35% (As per Risk Rating of the applicant/s.) | Effective Rate of Interest* From 8.90% to 11.50%"
-        },
-        {
-          "value": 9.2,
-          "evidence": "Parameters | Tenor up to 120 Months and facility upto Rs 7.50 crores\nMargin\nAbove 50% | BRLLR + SP + 1.05% i.e. 9.20% p.a. at present."
-        },
-        {
-          "value": 9.7,
-          "evidence": "Margin\nAbove 50% | BRLLR + SP + 1.05% i.e. 9.20% p.a. at present.\nUp to 50% | BRLLR + SP + 1.55% i.e. 9.70% p.a. at present"
-        }
-      ],
-      "status": "new",
-      "proposed": {
-        "rateFrom": 8.9,
-        "conditions": "",
-        "effectiveFrom": null,
-        "fee": null,
-        "prepayment": null,
-        "maxTenureYears": null
-      },
-      "review": "pending"
-    },
-    {
       "id": "city-union-bank|loan-against-property",
       "bank": "city-union-bank",
       "loan": "loan-against-property",
@@ -980,35 +907,6 @@
       "review": "pending"
     },
     {
-      "id": "bank-of-baroda|loan-against-securities",
-      "bank": "bank-of-baroda",
-      "loan": "loan-against-securities",
-      "url": "https://bankofbaroda.bank.in/interest-rate-and-service-charges/retail-loans-interest-rates",
-      "live": null,
-      "liveHeld": false,
-      "checkedOn": "2026-11-25",
-      "found": 9.9,
-      "method": "keywords",
-      "via": "http",
-      "evidence": "i.e., 1.25% over KVP rate or BRLLR + S.P. + 1.75%, whichever is higher. | Effective Rate of Interest -\nConditions Staff | Repo Rate + Spread 0.50% over KVP rate | Effective Rate of Interest -\nLoan against Life Insurance Policies, Loan against securities of Relief Bonds / Government Bonds | Conditions Demand Loan / Term Loan | Repo Rate + Spread BRLLR + SP + 1.50% | Effective Rate of Interest 9.90%",
-      "alternatives": [
-        {
-          "value": 10.15,
-          "evidence": "r KVP rate | Effective Rate of Interest -\nLoan against Life Insurance Policies, Loan against securities of Relief Bonds / Government Bonds | Conditions Demand Loan / Term Loan | Repo Rate + Spread BRLLR + SP + 1.50% | Effective Rate of Interest 9.90%\nConditions Overdraft | Repo Rate + Spread 0.25% higher than the ROI applicable to DL / TL i.e. BRLLR + SP + 1.75% | Effective Rate of Interest 10.15%"
-        }
-      ],
-      "status": "new",
-      "proposed": {
-        "rateFrom": 9.9,
-        "conditions": "",
-        "effectiveFrom": null,
-        "fee": null,
-        "prepayment": null,
-        "maxTenureYears": null
-      },
-      "review": "pending"
-    },
-    {
       "id": "csb-bank|personal-loan",
       "bank": "csb-bank",
       "loan": "personal-loan",
@@ -1045,6 +943,29 @@
       "status": "new",
       "proposed": {
         "rateFrom": 10.99,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "indian-overseas-bank|personal-loan",
+      "bank": "indian-overseas-bank",
+      "loan": "personal-loan",
+      "url": "https://www.iob.bank.in/en/emi-calculator",
+      "live": null,
+      "liveHeld": false,
+      "checkedOn": "2026-11-25",
+      "found": 10.5,
+      "method": "keywords",
+      "via": "http",
+      "evidence": "Personal Loans\nStarting from\n10.50%",
+      "status": "new",
+      "proposed": {
+        "rateFrom": 10.5,
         "conditions": "",
         "effectiveFrom": null,
         "fee": null,
@@ -1332,6 +1253,78 @@
       "review": "pending"
     },
     {
+      "id": "bank-of-baroda|car-loan",
+      "bank": "bank-of-baroda",
+      "loan": "car-loan",
+      "url": "https://bankofbaroda.bank.in/interest-rate-and-service-charges/retail-loans-interest-rates",
+      "live": 7.85,
+      "liveHeld": false,
+      "checkedOn": "2026-11-25",
+      "found": null,
+      "method": null,
+      "via": null,
+      "evidence": null,
+      "status": "failed",
+      "error": "the bank's site refused automated access; check this page by hand (HTTP 500)",
+      "proposed": {
+        "rateFrom": 7.85,
+        "conditions": "New car, floating rate 7.85% to 11.55%",
+        "effectiveFrom": "2026-10-08",
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "bank-of-baroda|gold-loan",
+      "bank": "bank-of-baroda",
+      "loan": "gold-loan",
+      "url": "https://bankofbaroda.bank.in/interest-rate-and-service-charges/retail-loans-interest-rates",
+      "live": 9,
+      "liveHeld": false,
+      "checkedOn": "2026-11-25",
+      "found": null,
+      "method": null,
+      "via": null,
+      "evidence": null,
+      "status": "failed",
+      "error": "the bank's site refused automated access; check this page by hand (HTTP 500)",
+      "proposed": {
+        "rateFrom": 9,
+        "conditions": "Fixed-rate option; floating demand loan at BRLLR + spread + 0.75%",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "bank-of-baroda|home-loan",
+      "bank": "bank-of-baroda",
+      "loan": "home-loan",
+      "url": "https://www.bankofbaroda.bank.in/personal-banking/loans/home-loan",
+      "live": 7.4,
+      "liveHeld": true,
+      "checkedOn": "2026-11-25",
+      "found": null,
+      "method": null,
+      "via": null,
+      "evidence": null,
+      "status": "failed",
+      "error": "the bank's site refused automated access; check this page by hand (HTTP 500)",
+      "proposed": {
+        "rateFrom": 7.4,
+        "conditions": "",
+        "effectiveFrom": null,
+        "fee": null,
+        "prepayment": "The bank states there are no prepayment charges on home loans",
+        "maxTenureYears": 30
+      },
+      "review": "pending"
+    },
+    {
       "id": "federal-bank|home-loan",
       "bank": "federal-bank",
       "loan": "home-loan",
@@ -1380,11 +1373,11 @@
       "review": "pending"
     },
     {
-      "id": "sbi|personal-loan",
-      "bank": "sbi",
+      "id": "bank-of-baroda|personal-loan",
+      "bank": "bank-of-baroda",
       "loan": "personal-loan",
-      "url": "https://sbi.bank.in/web/interest-rates/interest-rates/loan-schemes-interest-rates/personal-loans-schemes",
-      "live": 10,
+      "url": "https://bankofbaroda.bank.in/interest-rate-and-service-charges/retail-loans-interest-rates",
+      "live": 10.9,
       "liveHeld": false,
       "checkedOn": "2026-11-25",
       "found": null,
@@ -1392,11 +1385,11 @@
       "via": null,
       "evidence": null,
       "status": "failed",
-      "error": "could not load the page (fetch failed)",
+      "error": "the bank's site refused automated access; check this page by hand (HTTP 500)",
       "proposed": {
-        "rateFrom": 10,
-        "conditions": "SBI Personal Loan scheme: 2-year MCLR (8.75%) plus 1.25% to 6.25%, so 10.00% to 15.00%",
-        "effectiveFrom": "2025-12-15",
+        "rateFrom": 10.9,
+        "conditions": "Salaried borrowers with a salary account at Bank of Baroda: 10.90% to 15.75%, linked to CIBIL score",
+        "effectiveFrom": "2026-10-08",
         "fee": null,
         "prepayment": null,
         "maxTenureYears": null
@@ -1404,21 +1397,46 @@
       "review": "pending"
     },
     {
-      "id": "bank-of-baroda|car-loan",
+      "id": "bank-of-baroda|two-wheeler-loan",
       "bank": "bank-of-baroda",
-      "loan": "car-loan",
+      "loan": "two-wheeler-loan",
       "url": "https://bankofbaroda.bank.in/interest-rate-and-service-charges/retail-loans-interest-rates",
-      "live": 7.85,
+      "live": 12.65,
       "liveHeld": false,
       "checkedOn": "2026-11-25",
-      "found": 7.85,
-      "method": "rule",
-      "via": "http",
-      "evidence": "Floating Rate: (For Fixed Rate; kindly visit 'Interest Rate linked to MCLR' section.)\nProduct | Conditions | Repo Rate + Spread | Effective Rate of Interest\nCar Loan | Conditions New Car | Repo Rate + Spread From BRLLR -0.30% to BRLLR + SP + 3.15% | Effective Rate of Interest From 7.85% to 11.55%",
-      "status": "same",
+      "found": null,
+      "method": null,
+      "via": null,
+      "evidence": null,
+      "status": "failed",
+      "error": "the bank's site refused automated access; check this page by hand (HTTP 500)",
       "proposed": {
-        "rateFrom": 7.85,
-        "conditions": "New car, floating rate 7.85% to 11.55%",
+        "rateFrom": 12.65,
+        "conditions": "BRLLR + spread + 4.25%",
+        "effectiveFrom": "2026-10-08",
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "bank-of-baroda|used-car-loan",
+      "bank": "bank-of-baroda",
+      "loan": "used-car-loan",
+      "url": "https://bankofbaroda.bank.in/interest-rate-and-service-charges/retail-loans-interest-rates",
+      "live": 10.9,
+      "liveHeld": false,
+      "checkedOn": "2026-11-25",
+      "found": null,
+      "method": null,
+      "via": null,
+      "evidence": null,
+      "status": "failed",
+      "error": "the bank's site refused automated access; check this page by hand (HTTP 500)",
+      "proposed": {
+        "rateFrom": 10.9,
+        "conditions": "Pre-owned car, 10.90% to 13.65%",
         "effectiveFrom": "2026-10-08",
         "fee": null,
         "prepayment": null,
@@ -1887,29 +1905,6 @@
       "review": "pending"
     },
     {
-      "id": "bank-of-baroda|gold-loan",
-      "bank": "bank-of-baroda",
-      "loan": "gold-loan",
-      "url": "https://bankofbaroda.bank.in/interest-rate-and-service-charges/retail-loans-interest-rates",
-      "live": 9,
-      "liveHeld": false,
-      "checkedOn": "2026-11-25",
-      "found": 9,
-      "method": "rule",
-      "via": "http",
-      "evidence": "Retail Gold Loan\nProduct | Effective Rate of Interest\nInterest Rate | Effective Rate of Interest Demand loan/EMI : BRLLR + SP + 0.75% Overdraft : BRLLR + SP + 0.85% OR Fixed : 9.00% p.a",
-      "status": "same",
-      "proposed": {
-        "rateFrom": 9,
-        "conditions": "Fixed-rate option; floating demand loan at BRLLR + spread + 0.75%",
-        "effectiveFrom": null,
-        "fee": null,
-        "prepayment": null,
-        "maxTenureYears": null
-      },
-      "review": "pending"
-    },
-    {
       "id": "central-bank-of-india|gold-loan",
       "bank": "central-bank-of-india",
       "loan": "gold-loan",
@@ -2044,35 +2039,6 @@
         "fee": "Up to 1% of the loan amount or ₹10,000 (whichever is higher) + GST",
         "prepayment": "Nil on floating-rate loans; 2% of the amount prepaid on fixed-rate loans",
         "maxTenureYears": null
-      },
-      "review": "pending"
-    },
-    {
-      "id": "bank-of-baroda|home-loan",
-      "bank": "bank-of-baroda",
-      "loan": "home-loan",
-      "url": "https://www.bankofbaroda.bank.in/personal-banking/loans/home-loan",
-      "live": 7.4,
-      "liveHeld": true,
-      "checkedOn": "2026-11-25",
-      "found": 7.4,
-      "method": "keywords",
-      "via": "http",
-      "evidence": "to top\nLowest interest rates & EMI\nGive happiness a whole new meaning with home loan starting @7.40%",
-      "alternatives": [
-        {
-          "value": 7.5,
-          "evidence": "Home Loan - Apply Housing Loan up to ₹20 Cr at 7.5% Interest | Bank of Baroda"
-        }
-      ],
-      "status": "same",
-      "proposed": {
-        "rateFrom": 7.4,
-        "conditions": "",
-        "effectiveFrom": null,
-        "fee": null,
-        "prepayment": "The bank states there are no prepayment charges on home loans",
-        "maxTenureYears": 30
       },
       "review": "pending"
     },
@@ -2721,29 +2687,6 @@
       "review": "pending"
     },
     {
-      "id": "bank-of-baroda|personal-loan",
-      "bank": "bank-of-baroda",
-      "loan": "personal-loan",
-      "url": "https://bankofbaroda.bank.in/interest-rate-and-service-charges/retail-loans-interest-rates",
-      "live": 10.9,
-      "liveHeld": false,
-      "checkedOn": "2026-11-25",
-      "found": 10.9,
-      "method": "rule",
-      "via": "http",
-      "evidence": "aroda Personal Loan\nProduct | Conditions | Repo Rate + Spread | Effective Rate of Interest\nBaroda Personal Loan | Conditions Govt Employees / defence personnel maintaining salary account with our Bank under scheme code SB 182 & 186 | Repo Rate + Spread Linked with CIBIL Score of the individual,ranges from BRLLR + S.P. + 2.00% to BRLLR + SP + 2.50% | Effective Rate of Interest From 10.40% to 10.90%",
-      "status": "same",
-      "proposed": {
-        "rateFrom": 10.9,
-        "conditions": "Salaried borrowers with a salary account at Bank of Baroda: 10.90% to 15.75%, linked to CIBIL score",
-        "effectiveFrom": "2026-10-08",
-        "fee": null,
-        "prepayment": null,
-        "maxTenureYears": null
-      },
-      "review": "pending"
-    },
-    {
       "id": "bank-of-maharashtra|personal-loan",
       "bank": "bank-of-maharashtra",
       "loan": "personal-loan",
@@ -2928,6 +2871,29 @@
       "review": "pending"
     },
     {
+      "id": "sbi|personal-loan",
+      "bank": "sbi",
+      "loan": "personal-loan",
+      "url": "https://sbi.bank.in/web/interest-rates/interest-rates/loan-schemes-interest-rates/personal-loans-schemes",
+      "live": 10,
+      "liveHeld": false,
+      "checkedOn": "2026-11-25",
+      "found": 10,
+      "method": "rule",
+      "via": "http",
+      "evidence": "Mean ROI (Q1 FY 2026-27): 11.54%\nSpread over 2-year MCLR | Effective Interest Rate\n1.25% - 6.25% | 10.00% - 15.00%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 10,
+        "conditions": "SBI Personal Loan scheme: 2-year MCLR (8.75%) plus 1.25% to 6.25%, so 10.00% to 15.00%",
+        "effectiveFrom": "2025-12-15",
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
       "id": "union-bank-of-india|personal-loan",
       "bank": "union-bank-of-india",
       "loan": "personal-loan",
@@ -3036,29 +3002,6 @@
         "rateFrom": 8.2,
         "conditions": "Cent Top Up, 8.20% to 9.55% by CIC score",
         "effectiveFrom": null,
-        "fee": null,
-        "prepayment": null,
-        "maxTenureYears": null
-      },
-      "review": "pending"
-    },
-    {
-      "id": "bank-of-baroda|two-wheeler-loan",
-      "bank": "bank-of-baroda",
-      "loan": "two-wheeler-loan",
-      "url": "https://bankofbaroda.bank.in/interest-rate-and-service-charges/retail-loans-interest-rates",
-      "live": 12.65,
-      "liveHeld": false,
-      "checkedOn": "2026-11-25",
-      "found": 12.65,
-      "method": "rule",
-      "via": "http",
-      "evidence": "Conditions Pre Owned Car | Repo Rate + Spread From BRLLR + SP +2.50% to BRLLR + SP + 5.25% | Effective Rate of Interest From 10.90% to 13.65%\nDigital Car Loan | Conditions New Car | Repo Rate + Spread From BRLLR -0.30% to BRLLR + SP + 0.60% | Effective Rate of Interest From 7.85% to 9.00%\nTwo Wheeler Loan | Repo Rate + Spread BRLLR + SP + 4.25% | Effective Rate of Interest 12.65%",
-      "status": "same",
-      "proposed": {
-        "rateFrom": 12.65,
-        "conditions": "BRLLR + spread + 4.25%",
-        "effectiveFrom": "2026-10-08",
         "fee": null,
         "prepayment": null,
         "maxTenureYears": null
@@ -3219,29 +3162,6 @@
       "proposed": {
         "rateFrom": 11.35,
         "conditions": "New two-wheeler, CIC score 700 or more",
-        "effectiveFrom": "2026-10-08",
-        "fee": null,
-        "prepayment": null,
-        "maxTenureYears": null
-      },
-      "review": "pending"
-    },
-    {
-      "id": "bank-of-baroda|used-car-loan",
-      "bank": "bank-of-baroda",
-      "loan": "used-car-loan",
-      "url": "https://bankofbaroda.bank.in/interest-rate-and-service-charges/retail-loans-interest-rates",
-      "live": 10.9,
-      "liveHeld": false,
-      "checkedOn": "2026-11-25",
-      "found": 10.9,
-      "method": "rule",
-      "via": "http",
-      "evidence": "Product | Conditions | Repo Rate + Spread | Effective Rate of Interest\nCar Loan | Conditions New Car | Repo Rate + Spread From BRLLR -0.30% to BRLLR + SP + 3.15% | Effective Rate of Interest From 7.85% to 11.55%\nConditions Pre Owned Car | Repo Rate + Spread From BRLLR + SP +2.50% to BRLLR + SP + 5.25% | Effective Rate of Interest From 10.90% to 13.65%",
-      "status": "same",
-      "proposed": {
-        "rateFrom": 10.9,
-        "conditions": "Pre-owned car, 10.90% to 13.65%",
         "effectiveFrom": "2026-10-08",
         "fee": null,
         "prepayment": null,
