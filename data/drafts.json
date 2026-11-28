@@ -1,13 +1,13 @@
 {
-  "updatedAt": "2026-11-28T08:15:25.800Z",
+  "updatedAt": "2026-11-28T11:37:08.183Z",
   "lastEmailDigest": null,
   "summary": {
     "suspect": 5,
     "changed": 7,
     "new": 30,
-    "failed": 4,
+    "failed": 2,
     "manual": 0,
-    "same": 85
+    "same": 87
   },
   "items": [
     {
@@ -1401,30 +1401,6 @@
       "review": "pending"
     },
     {
-      "id": "sbi|education-loan",
-      "bank": "sbi",
-      "loan": "education-loan",
-      "url": "https://sbi.bank.in/web/interest-rates/interest-rates/loan-schemes-interest-rates/education-loan-scheme",
-      "live": 7,
-      "liveHeld": false,
-      "checkedOn": "2026-11-28",
-      "found": null,
-      "method": null,
-      "via": null,
-      "evidence": null,
-      "status": "failed",
-      "error": "could not load the page (fetch failed)",
-      "proposed": {
-        "rateFrom": 7,
-        "conditions": "Premier institutes such as IITs and IIMs, until 31 December 2026; up to ₹7.5 lakh without collateral 10.15%",
-        "effectiveFrom": "2026-10-15",
-        "fee": null,
-        "prepayment": null,
-        "maxTenureYears": null
-      },
-      "review": "pending"
-    },
-    {
       "id": "federal-bank|home-loan",
       "bank": "federal-bank",
       "loan": "home-loan",
@@ -1466,30 +1442,6 @@
         "rateFrom": 7.7,
         "conditions": "Home loan overdraft, 7.70% to 9.75%; 1% higher for loans below ₹35 lakh",
         "effectiveFrom": null,
-        "fee": null,
-        "prepayment": null,
-        "maxTenureYears": null
-      },
-      "review": "pending"
-    },
-    {
-      "id": "sbi|personal-loan",
-      "bank": "sbi",
-      "loan": "personal-loan",
-      "url": "https://sbi.bank.in/web/interest-rates/interest-rates/loan-schemes-interest-rates/personal-loans-schemes",
-      "live": 10,
-      "liveHeld": false,
-      "checkedOn": "2026-11-28",
-      "found": null,
-      "method": null,
-      "via": null,
-      "evidence": null,
-      "status": "failed",
-      "error": "could not load the page (fetch failed)",
-      "proposed": {
-        "rateFrom": 10,
-        "conditions": "SBI Personal Loan scheme: 2-year MCLR (8.75%) plus 1.25% to 6.25%, so 10.00% to 15.00%",
-        "effectiveFrom": "2025-12-15",
         "fee": null,
         "prepayment": null,
         "maxTenureYears": null
@@ -1904,6 +1856,29 @@
         "rateFrom": 7.1,
         "conditions": "Listed premier institutes (IIMs, IITs and others); loans up to ₹7.5 lakh from 8.60%",
         "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "sbi|education-loan",
+      "bank": "sbi",
+      "loan": "education-loan",
+      "url": "https://sbi.bank.in/web/interest-rates/interest-rates/loan-schemes-interest-rates/education-loan-scheme",
+      "live": 7,
+      "liveHeld": false,
+      "checkedOn": "2026-11-28",
+      "found": 7,
+      "method": "rule",
+      "via": "http",
+      "evidence": "Education Loan Portal\n\" Special Concessional Interest Rate: 7.00% p.a.\nSBI Offers a concessional interest rate of 7.00% to students securing admission to premier institutes:",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 7,
+        "conditions": "Premier institutes such as IITs and IIMs, until 31 December 2026; up to ₹7.5 lakh without collateral 10.15%",
+        "effectiveFrom": "2026-10-15",
         "fee": null,
         "prepayment": null,
         "maxTenureYears": null
@@ -2991,6 +2966,29 @@
         "rateFrom": 10.85,
         "conditions": "Digital personal loan for salaried borrowers with a CIBIL score of 800 or more",
         "effectiveFrom": null,
+        "fee": null,
+        "prepayment": null,
+        "maxTenureYears": null
+      },
+      "review": "pending"
+    },
+    {
+      "id": "sbi|personal-loan",
+      "bank": "sbi",
+      "loan": "personal-loan",
+      "url": "https://sbi.bank.in/web/interest-rates/interest-rates/loan-schemes-interest-rates/personal-loans-schemes",
+      "live": 10,
+      "liveHeld": false,
+      "checkedOn": "2026-11-28",
+      "found": 10,
+      "method": "rule",
+      "via": "http",
+      "evidence": "Mean ROI (Q1 FY 2026-27): 11.54%\nSpread over 2-year MCLR | Effective Interest Rate\n1.25% - 6.25% | 10.00% - 15.00%",
+      "status": "same",
+      "proposed": {
+        "rateFrom": 10,
+        "conditions": "SBI Personal Loan scheme: 2-year MCLR (8.75%) plus 1.25% to 6.25%, so 10.00% to 15.00%",
+        "effectiveFrom": "2025-12-15",
         "fee": null,
         "prepayment": null,
         "maxTenureYears": null
